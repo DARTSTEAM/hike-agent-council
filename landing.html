@@ -203,7 +203,7 @@
     .agent-num  { font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;margin-bottom:.875rem; }
     .agent-white  .agent-num,
     .agent-cream  .agent-num { color:var(--violet); }
-    .agent-dark   .agent-num { color:rgba(200,184,224,.4); }
+    .agent-dark   .agent-num { color:rgba(200,184,224,.75); }
 
     .agent-name { font-family:var(--display);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:.875rem; }
     .agent-white  .agent-name,
@@ -213,13 +213,13 @@
     .agent-tag { font-size:14px;font-weight:400;letter-spacing:.01em;line-height:1.65;margin-bottom:2rem; }
     .agent-white  .agent-tag,
     .agent-cream  .agent-tag { color:var(--gray); }
-    .agent-dark   .agent-tag { color:rgba(232,228,240,.45); }
+    .agent-dark   .agent-tag { color:rgba(232,228,240,.82); }
 
     .agent-benefits { list-style:none;margin-bottom:2rem; }
     .agent-benefit { display:flex;gap:.875rem;align-items:flex-start;padding:.8rem 0;border-bottom:1px solid; }
     .agent-white  .agent-benefit,
     .agent-cream  .agent-benefit { border-color:var(--line2); }
-    .agent-dark   .agent-benefit { border-color:rgba(255,255,255,.06); }
+    .agent-dark   .agent-benefit { border-color:rgba(255,255,255,.18); }
     .agent-benefit:last-child { border:none; }
     .ab-dot { font-size:10px;font-weight:700;flex-shrink:0;margin-top:.25em; }
     .agent-white  .ab-dot,
@@ -228,12 +228,12 @@
     .ab-text { font-size:13px;font-weight:400;line-height:1.65; }
     .agent-white  .ab-text,
     .agent-cream  .ab-text { color:var(--gray); }
-    .agent-dark   .ab-text { color:rgba(232,228,240,.45); }
+    .agent-dark   .ab-text { color:rgba(232,228,240,.82); }
 
     .agent-kpi { display:inline-block;border-radius:4px;padding:1.125rem 1.5rem;margin-bottom:1.75rem; }
     .agent-white .agent-kpi,
     .agent-cream .agent-kpi { border:1px solid var(--line);background:var(--white); }
-    .agent-dark  .agent-kpi { border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04); }
+    .agent-dark  .agent-kpi { border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07); }
     .kpi-n { font-family:var(--display);font-size:2.25rem;font-weight:900;letter-spacing:-.04em;display:block;line-height:1;margin-bottom:.25rem; }
     .agent-white .kpi-n,
     .agent-cream .kpi-n { color:var(--purple); }
@@ -241,7 +241,7 @@
     .kpi-d { font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase; }
     .agent-white .kpi-d,
     .agent-cream .kpi-d { color:var(--violet); }
-    .agent-dark  .kpi-d { color:rgba(200,184,224,.4); }
+    .agent-dark  .kpi-d { color:rgba(200,184,224,.7); }
 
     .agent-link { display:inline-flex;align-items:center;gap:.5rem;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding-bottom:2px;border-bottom:1px solid;transition:gap .2s,border-color .2s; }
     .agent-white .agent-link,
@@ -253,12 +253,12 @@
     .terminal { border-radius:10px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.06),0 20px 60px rgba(0,0,0,.1); }
     .agent-white .terminal,
     .agent-cream .terminal { background:#FAFAFA;border:1px solid var(--line); box-shadow:0 2px 4px rgba(0,0,0,.04),0 16px 48px rgba(45,27,78,.08); }
-    .agent-dark  .terminal { background:#050210;border:1px solid rgba(200,184,224,.1); box-shadow:0 24px 80px rgba(0,0,0,.7); }
+    .agent-dark  .terminal { background:#080415;border:1px solid rgba(200,184,224,.22); box-shadow:0 24px 80px rgba(0,0,0,.7); }
 
     .term-bar { padding:.75rem 1rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid; }
     .agent-white .term-bar,
     .agent-cream .term-bar { background:var(--off);border-color:var(--line); }
-    .agent-dark  .term-bar { background:rgba(200,184,224,.03);border-color:rgba(200,184,224,.08); }
+    .agent-dark  .term-bar { background:rgba(200,184,224,.06);border-color:rgba(200,184,224,.15); }
 
     .term-dots { display:flex;gap:5px;flex-shrink:0; }
     .td { width:10px;height:10px;border-radius:50%; }
@@ -266,7 +266,7 @@
     .term-title { flex:1;text-align:center;font-size:10px;letter-spacing:.14em;text-transform:uppercase; }
     .agent-white .term-title,
     .agent-cream .term-title { color:var(--muted); }
-    .agent-dark  .term-title { color:rgba(200,184,224,.3); }
+    .agent-dark  .term-title { color:rgba(200,184,224,.55); }
 
     .term-body { padding:1.375rem 1.5rem;min-height:200px;font-size:13px;line-height:1.9;font-family:var(--mono); }
     .term-line { display:flex;align-items:baseline;gap:.5rem;opacity:0;transform:translateY(4px);transition:opacity .2s var(--ease),transform .2s var(--ease); }
@@ -286,9 +286,9 @@
     /* Dark terminal colors */
     .agent-dark .t-cmd   { color:var(--yellow); }
     .agent-dark .t-ok    { color:var(--green); }
-    .agent-dark .t-arrow { color:var(--violet); }
-    .agent-dark .t-warn  { color:#FFA500; }
-    .agent-dark .t-text  { color:rgba(232,228,240,.5); }
+    .agent-dark .t-arrow { color:#A990CC; }
+    .agent-dark .t-warn  { color:#FFBB44; }
+    .agent-dark .t-text  { color:rgba(232,228,240,.85); }
 
     .term-cursor { display:inline-block;font-weight:700;animation:blink 1s step-end infinite; }
     .agent-white .term-cursor,
@@ -656,7 +656,7 @@
       <li><a href="#advise">hike_advise</a></li>
       <li><a href="index.html">council ↗</a></li>
     </ul>
-    <span class="footer-copy">© 2025 HIKE THE CLOUD</span>
+    <span class="footer-copy">© 2026 HIKE THE CLOUD</span>
   </div>
 </footer>
 
