@@ -716,11 +716,9 @@
         id="create-video"
         autoplay muted loop playsinline
         preload="auto"
-        crossorigin="anonymous"
       >
-        <!-- Free abstract creative video — multiple sources for reliability -->
-        <source src="https://cdn.pixabay.com/video/2020/07/28/45743-444998545_large.mp4" type="video/mp4"/>
-        <source src="https://cdn.pixabay.com/video/2016/12/30/6482-197634571_large.mp4" type="video/mp4"/>
+        <!-- Self-hosted — same origin, no CORS issues -->
+        <source src="assets/bg-create.mp4" type="video/mp4"/>
       </video>
     </div>
     <div class="section-video-overlay"></div>
