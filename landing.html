@@ -4,393 +4,280 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Hike Agent Council — Three agents. Infinite impact.</title>
-  <meta name="description" content="The AI council powering your brand across social intelligence, content creation and conversational sales. Hike Listen, Hike Create, Hike Advise."/>
+  <meta name="description" content="Three AI agents powering your brand across social intelligence, content creation and conversational sales. Built for Google. Powered by Gemini."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Syne:wght@700;800;900&display=swap" rel="stylesheet"/>
 
   <style>
-    /* ─── TOKENS ────────────────────────────────────────────── */
+    /* ── TOKENS ── */
     :root {
-      --cream:   #EAE8E3;
-      --white:   #FFFFFF;
-      --off:     #F5F3EF;
-      --black:   #0D0D0D;
-      --gray-1:  #1A1A1A;
-      --gray-3:  #555;
-      --gray-4:  #888;
-      --gray-5:  #BBB;
-      --gray-6:  #E2E0DC;
-      --purple:  #2D1B4E;
-      --violet:  #7E6E94;
+      --bg:      #06030F;
+      --bg2:     #0A0514;
+      --bg3:     #0D0720;
+      --text:    #E8E4F0;
+      --muted:   rgba(232,228,240,0.45);
+      --dim:     rgba(232,228,240,0.2);
       --yellow:  #F4EB33;
+      --violet:  #7E6E94;
+      --green:   #22C55E;
+      --border:  rgba(200,184,224,0.1);
+      --border2: rgba(200,184,224,0.06);
+      --surface: rgba(200,184,224,0.04);
       --ease:    cubic-bezier(0.16,1,0.3,1);
+      --mono:    'IBM Plex Mono', 'Courier New', monospace;
+      --display: 'Syne', system-ui, sans-serif;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
     html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--white);
-      color: var(--black);
+      font-family: var(--mono);
+      background: var(--bg);
+      color: var(--text);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
 
-    /* ─── SCROLL PROGRESS ───────────────────────────────────── */
+    /* ── PROGRESS ── */
     #progress {
-      position: fixed; top: 0; left: 0; z-index: 9999;
-      height: 2px; width: 0%;
-      background: var(--purple);
+      position: fixed; top:0; left:0; z-index:9999;
+      height: 1px; width: 0%;
+      background: var(--yellow);
       transition: width 0.08s linear;
     }
 
-    /* ─── NAV ───────────────────────────────────────────────── */
+    /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      position: fixed; top:0; left:0; right:0; z-index:500;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.25rem 3rem;
-      transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
+      padding: 1.25rem 2.5rem;
       border-bottom: 1px solid transparent;
+      transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
     }
     nav.scrolled {
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-color: var(--gray-6);
+      background: rgba(6,3,15,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-color: var(--border);
     }
-
-    /* Logo: white over hero, color after scroll */
-    .nav-logo { height: 22px; width: auto; transition: filter 0.4s; filter: brightness(0) invert(1); }
-    nav.scrolled .nav-logo { filter: none; }
-
-    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-logo { height: 20px; width: auto; opacity: 0.8; }
+    .nav-brand {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.24em; color: var(--violet);
+    }
+    .nav-left { display: flex; align-items: center; gap: 1rem; }
+    .nav-sep  { width: 1px; height: 14px; background: var(--border); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
-      font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85);
-      transition: color 0.25s;
+      font-size: 11px; font-weight: 400; letter-spacing: 0.12em;
+      color: var(--dim); transition: color 0.2s;
     }
-    nav.scrolled .nav-links a { color: var(--gray-3); }
-    .nav-links a:hover { color: white; }
-    nav.scrolled .nav-links a:hover { color: var(--black); }
-
+    .nav-links a:hover { color: var(--text); }
     .nav-cta {
-      background: white; color: var(--black);
-      font-size: 13px; font-weight: 600;
-      padding: 0.6rem 1.375rem; border-radius: 100px;
-      display: flex; align-items: center; gap: 0.4rem;
-      transition: opacity 0.2s, transform 0.2s, background 0.4s, color 0.4s;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+      padding: 0.55rem 1.25rem; border-radius: 4px;
+      background: var(--yellow); color: var(--bg);
+      transition: opacity 0.2s, transform 0.15s;
     }
-    nav.scrolled .nav-cta { background: var(--black); color: white; }
-    .nav-cta:hover { opacity: 0.84; transform: translateY(-1px); }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
-    /* ─── HERO ──────────────────────────────────────────────── */
+    /* ── TICKER BACKGROUND ── */
+    .ticker-bg {
+      position: absolute; inset: 0; z-index: 0;
+      overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-start;
+      padding-top: 0.5rem;
+      pointer-events: none;
+    }
+    .ticker-row {
+      font-family: var(--mono);
+      font-size: 11px; font-weight: 300;
+      letter-spacing: 0.06em;
+      color: rgba(126,110,148,0.15);
+      white-space: nowrap; line-height: 2.1;
+      animation: tickL 35s linear infinite;
+      will-change: transform;
+    }
+    .ticker-row:nth-child(even) { animation-name: tickR; color: rgba(126,110,148,0.1); }
+    .ticker-row:nth-child(3n)   { animation-duration: 28s; color: rgba(244,235,51,0.06); }
+    .ticker-row:nth-child(4n)   { animation-duration: 42s; }
+    @keyframes tickL { from { transform: translateX(0);    } to { transform: translateX(-50%); } }
+    @keyframes tickR { from { transform: translateX(-50%); } to { transform: translateX(0);    } }
+
+    /* Radial fade so center text is readable */
+    .ticker-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: radial-gradient(
+        ellipse 65% 65% at 50% 45%,
+        rgba(6,3,15,0.94) 0%,
+        rgba(6,3,15,0.82) 38%,
+        rgba(6,3,15,0.4)  65%,
+        rgba(6,3,15,0.08) 100%
+      );
+    }
+
+    /* ── HERO ── */
     #hero {
       position: relative; min-height: 100vh;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      padding: 7rem 3rem 5rem; text-align: center;
+      padding: 8rem 2rem 5rem; text-align: center;
       overflow: hidden;
     }
+    .hero-content { position: relative; z-index: 2; max-width: 860px; }
 
-    /* Animated CSS hero background (replaces video until it's ready) */
-    .hero-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background: #07040F;
+    .sys-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 3px;
+      padding: 0.35rem 0.875rem;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.2em;
+      color: var(--violet); margin-bottom: 2.5rem;
+      text-transform: uppercase;
     }
-    .hero-bg-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(126,110,148,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(126,110,148,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+    .sys-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: sys-pulse 2s ease-in-out infinite;
     }
-    .orb {
-      position: absolute; border-radius: 50%;
-      filter: blur(100px); pointer-events: none;
-      animation: orb-drift 24s ease-in-out infinite;
-    }
-    .o1 { width:640px; height:640px; background:#2D1B4E; top:-160px; left:-120px; opacity:0.55; }
-    .o2 { width:480px; height:480px; background:#4A2C7E; top:20%; right:-60px; opacity:0.4; animation-delay:-9s; }
-    .o3 { width:360px; height:360px; background:#1a0a2e; bottom:0; left:30%; opacity:0.7; animation-delay:-17s; }
-    @keyframes orb-drift {
-      0%,100% { transform: translate(0,0) scale(1); }
-      33%      { transform: translate(50px,-60px) scale(1.08); }
-      66%      { transform: translate(-40px,50px) scale(0.92); }
-    }
-    /* Gradient overlay — legibility */
-    .hero-overlay {
-      position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(to bottom,
-        rgba(7,4,15,0.4) 0%,
-        rgba(7,4,15,0.1) 40%,
-        rgba(7,4,15,0.55) 80%,
-        rgba(7,4,15,0.9) 100%
-      );
-    }
-
-    .hero-content { position: relative; z-index: 2; max-width: 900px; }
-
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.16);
-      backdrop-filter: blur(8px);
-      border-radius: 100px; padding: 0.35rem 1rem 0.35rem 0.5rem;
-      font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.8);
-      margin-bottom: 2.5rem;
-      opacity: 0; animation: fadeUp 0.6s 0.1s var(--ease) forwards;
-    }
-    .badge-chip {
-      background: var(--yellow); color: var(--black);
-      border-radius: 100px; padding: 2px 10px;
-      font-size: 10px; font-weight: 700;
-    }
+    @keyframes sys-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
 
     #hero h1 {
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      font-weight: 900; letter-spacing: -0.04em;
-      line-height: 0.93; color: white;
+      font-family: var(--display);
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 900; letter-spacing: -0.045em;
+      line-height: 0.93; color: var(--text);
       margin-bottom: 1.75rem;
-      opacity: 0; animation: fadeUp 0.7s 0.2s var(--ease) forwards;
     }
-    .grad-text {
-      background: linear-gradient(110deg, #C8B8E0 0%, #F4EB33 35%, #ffffff 55%, #C8B8E0 80%, #7E6E94 100%);
-      background-size: 200% auto;
+    .grad-word {
+      background: linear-gradient(110deg, #C8B8E0 0%, #F4EB33 30%, #ffffff 52%, #C8B8E0 75%, #7E6E94 100%);
+      background-size: 220% auto;
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
       animation: gradFlow 5s linear infinite;
     }
-    @keyframes gradFlow {
-      0%   { background-position: 0% center; }
-      100% { background-position: 200% center; }
-    }
+    @keyframes gradFlow { to { background-position: 220% center; } }
 
-    .hero-sub {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      font-weight: 300; color: rgba(255,255,255,0.6);
-      max-width: 560px; margin: 0 auto 3rem; line-height: 1.65;
-      opacity: 0; animation: fadeUp 0.7s 0.3s var(--ease) forwards;
+    .hero-mono {
+      font-size: 13px; font-weight: 300; letter-spacing: 0.08em;
+      color: var(--muted); margin-bottom: 2.5rem;
     }
+    .hero-mono .c { color: var(--violet); }
 
     .hero-actions {
       display: flex; justify-content: center; gap: 0.875rem; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.7s 0.4s var(--ease) forwards;
-      margin-bottom: 5rem;
+      margin-bottom: 3rem;
     }
-    .btn-hero-solid {
-      background: var(--yellow); color: var(--black);
-      font-size: 14px; font-weight: 700;
-      padding: 0.875rem 1.875rem; border-radius: 100px;
+    .btn-solid {
+      font-family: var(--mono);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+      padding: 0.875rem 1.75rem; border-radius: 4px;
+      background: var(--yellow); color: var(--bg);
+      display: flex; align-items: center; gap: 0.25rem;
+      transition: opacity 0.2s, transform 0.15s;
+      text-transform: uppercase;
+    }
+    .btn-solid:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: 12px; font-weight: 400; letter-spacing: 0.14em;
+      padding: 0.875rem 1.75rem; border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      text-transform: uppercase;
+    }
+    .btn-ghost:hover { border-color: var(--violet); color: var(--text); transform: translateY(-1px); }
+    .btn-cursor {
+      display: inline-block;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+
+    .stat-chips {
+      display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .stat-chip {
+      font-size: 10px; font-weight: 400; letter-spacing: 0.14em;
+      border: 1px solid var(--border2);
+      padding: 0.4rem 0.875rem; border-radius: 3px;
+      color: var(--dim);
       display: flex; align-items: center; gap: 0.5rem;
-      transition: opacity 0.2s, transform 0.2s;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .btn-hero-solid:hover { opacity: 0.88; transform: translateY(-2px); }
-    .btn-hero-ghost {
-      background: transparent; color: rgba(255,255,255,0.8);
-      font-size: 14px; font-weight: 500;
-      padding: 0.875rem 1.875rem; border-radius: 100px;
-      border: 1.5px solid rgba(255,255,255,0.25);
-      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    .stat-chip:hover { border-color: var(--border); color: var(--muted); }
+    .chip-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 6px var(--green);
+      animation: sys-pulse 2s ease-in-out infinite;
     }
-    .btn-hero-ghost:hover { border-color: rgba(255,255,255,0.6); color: white; transform: translateY(-2px); }
+    .chip-dot:nth-child(1) { animation-delay: 0.3s; }
+    .chip-dot:nth-child(2) { animation-delay: 0.6s; }
 
-    /* Hero mockup (browser frame) */
-    .hero-mockup {
-      position: relative; max-width: 1000px; margin: 0 auto; z-index: 2;
-      opacity: 0; animation: fadeUp 0.9s 0.5s var(--ease) forwards;
+    /* ── SECTION SHARED ── */
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .s-label {
+      display: block; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--violet); margin-bottom: 1.25rem;
     }
-    .float-pill {
-      position: absolute; z-index: 10;
-      background: white; border: 1px solid var(--gray-6);
-      border-radius: 100px; padding: 0.5rem 1rem;
-      font-size: 12px; font-weight: 500; color: var(--gray-1);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      display: flex; align-items: center; gap: 0.5rem;
-      white-space: nowrap;
-      animation: floatY 4s ease-in-out infinite;
-    }
-    .fp-l { left: -1rem; top: 25%; animation-delay: 0s; }
-    .fp-r { right: -1rem; top: 15%; animation-delay: 1.5s; }
-    .fp-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .fp-green  { background: #22C55E; }
-    .fp-yellow { background: var(--yellow); }
-    @keyframes floatY {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
-    }
-    .browser-frame {
-      background: linear-gradient(150deg, #EDF0FF 0%, #EEF3FF 50%, #EEF8FF 100%);
-      border-radius: 16px; border: 1px solid var(--gray-6);
-      padding: 1.5rem 1.5rem 0; overflow: hidden;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.4);
-    }
-    .browser-bar {
-      display: flex; align-items: center; gap: 6px; margin-bottom: 1.25rem;
-    }
-    .dot-r { width: 10px; height: 10px; border-radius: 50%; background: #FF5F57; }
-    .dot-y { width: 10px; height: 10px; border-radius: 50%; background: #FFBD2E; }
-    .dot-g { width: 10px; height: 10px; border-radius: 50%; background: #28C840; }
-    .browser-url {
-      background: white; border-radius: 6px;
-      padding: 4px 1rem; font-size: 11px; color: var(--gray-4);
-      margin-left: 0.5rem; border: 1px solid var(--gray-6);
-    }
-    .browser-content {
-      background: white; border-radius: 10px 10px 0 0;
-      border: 1px solid var(--gray-6); border-bottom: none;
-      overflow: hidden;
-      display: grid; grid-template-columns: 180px 1fr; min-height: 320px;
-    }
-    .bc-sidebar {
-      border-right: 1px solid var(--gray-6); padding: 1.5rem 1rem;
-    }
-    .bc-sidebar-label {
-      font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--gray-5); margin-bottom: 1rem;
-    }
-    .bc-nav-item {
-      display: flex; align-items: center; gap: 0.6rem;
-      padding: 0.55rem 0.75rem; border-radius: 7px;
-      font-size: 12px; color: var(--gray-3); margin-bottom: 2px;
-    }
-    .bc-nav-item.active { background: #F5F3EF; color: var(--black); font-weight: 600; }
-    .bc-dot { width: 12px; height: 12px; border-radius: 4px; background: var(--gray-6); flex-shrink: 0; }
-    .bc-dot.active { background: var(--purple); }
-    .bc-main { padding: 1.5rem; }
-    .bc-title-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; }
-    .bc-title { font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 3px; }
-    .bc-sub { font-size: 11px; color: var(--gray-4); }
-    .bc-btn { background: var(--purple); color: white; font-size: 11px; font-weight: 600; padding: 7px 14px; border-radius: 7px; }
-    .bc-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; margin-bottom: 1rem; }
-    .bc-card { background: var(--off); border-radius: 10px; padding: 1rem; }
-    .bc-card.hl { background: linear-gradient(135deg,#EDF0FF,#EEF2FF); border: 1px solid rgba(45,27,78,0.1); }
-    .bcc-label { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-4); margin-bottom: 0.4rem; }
-    .bcc-val { font-size: 1.375rem; font-weight: 800; color: var(--black); line-height: 1; }
-    .bc-card.hl .bcc-val { color: var(--purple); }
-    .bcc-desc { font-size: 10px; color: var(--gray-4); margin-top: 3px; }
-    .bc-row { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0; border-bottom: 1px solid var(--gray-6); font-size: 12px; }
-    .bc-row:last-child { border: none; }
-    .bc-tag { padding: 2px 8px; border-radius: 100px; font-size: 10px; font-weight: 600; background: var(--off); color: var(--gray-3); }
-    .bc-tag.p { background: #EEF2FF; color: var(--purple); }
-    .bc-tag.g { background: #EAFAF5; color: #0A9E7B; }
-    .bc-name { flex: 1; font-weight: 500; color: var(--gray-1); }
-    .bc-date { color: var(--gray-5); font-size: 11px; }
 
-    /* ─── SCROLL ANIMATIONS ─────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(32px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .reveal {
-      opacity: 0; transform: translateY(40px);
-      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .d1 { transition-delay: 0.1s; }
-    .d2 { transition-delay: 0.2s; }
-    .d3 { transition-delay: 0.3s; }
-    .d4 { transition-delay: 0.4s; }
-
-    /* ─── MARQUEE STRIP ─────────────────────────────────────── */
-    .marquee-wrap {
-      border-top: 1px solid var(--gray-6);
-      border-bottom: 1px solid var(--gray-6);
-      background: var(--cream);
-      overflow: hidden; padding: 1rem 0;
-    }
-    .marquee-track {
-      display: flex; gap: 4rem;
-      animation: marquee 22s linear infinite;
-      width: max-content;
-    }
-    .marquee-item {
-      display: flex; align-items: center; gap: 0.75rem;
-      font-size: 13px; font-weight: 600;
-      color: var(--gray-3); white-space: nowrap;
-    }
-    .marquee-sep { color: var(--violet); font-size: 18px; }
-    @keyframes marquee { to { transform: translateX(-50%); } }
-
-    /* ─── IMPACT NUMBERS ────────────────────────────────────── */
-    #impact { background: var(--white); padding: 6rem 3rem; }
-    .impact-inner { max-width: 1100px; margin: 0 auto; }
-    .section-label {
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gray-4); margin-bottom: 1.25rem; display: block;
+    /* ── IMPACT ── */
+    #impact {
+      background: var(--bg2); padding: 5rem 2.5rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
     .impact-grid {
       display: grid; grid-template-columns: repeat(4,1fr);
-      border: 1px solid var(--gray-6); border-radius: 1rem; overflow: hidden;
+      border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
     }
-    .impact-item {
-      padding: 3rem 2rem; border-right: 1px solid var(--gray-6);
-      background: var(--white);
-      transition: background 0.25s;
+    .impact-cell {
+      padding: 3rem 2rem; border-right: 1px solid var(--border);
+      text-align: center; position: relative; overflow: hidden;
+      transition: background 0.3s;
+      cursor: default;
     }
-    .impact-item:last-child { border-right: none; }
-    .impact-item:hover { background: var(--off); }
+    .impact-cell:last-child { border-right: none; }
+    .impact-cell:hover { background: var(--surface); }
     .impact-num {
-      display: block; font-size: clamp(2.75rem,5vw,4.5rem);
+      display: block;
+      font-family: var(--display);
+      font-size: clamp(2.5rem,4.5vw,4rem);
       font-weight: 900; letter-spacing: -0.04em;
-      color: var(--purple); line-height: 1; margin-bottom: 0.6rem;
+      color: var(--yellow); line-height: 1; margin-bottom: 0.6rem;
+      transition: color 0.1s;
     }
-    .impact-label {
-      font-size: 12px; font-weight: 500; color: var(--gray-4); line-height: 1.4;
+    .impact-cell:hover .impact-num { color: var(--text); }
+    .impact-lbl {
+      font-size: 10px; font-weight: 400; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--violet); line-height: 1.5;
     }
 
-    /* ─── PROBLEM / SOLUTION ────────────────────────────────── */
-    #problem { background: var(--cream); padding: 7rem 3rem; }
-    .ps-inner { max-width: 1100px; margin: 0 auto; }
-    .ps-header { margin-bottom: 4rem; }
-    .section-h2 {
-      font-size: clamp(2.25rem,5vw,4rem);
-      font-weight: 900; letter-spacing: -0.04em;
-      color: var(--black); line-height: 1.05; margin-bottom: 1rem;
+    /* Scanline effect on impact hover */
+    .impact-cell::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(200,184,224,0.015) 0px, rgba(200,184,224,0.015) 1px,
+        transparent 1px, transparent 3px
+      );
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
     }
-    .section-p { font-size: 1.0625rem; color: var(--gray-3); line-height: 1.65; max-width: 480px; }
-    .ps-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .ps-col {
-      border-radius: 1rem; padding: 2.5rem;
-      border: 1px solid;
-    }
-    .ps-col-bad  { background: var(--white); border-color: var(--gray-6); }
-    .ps-col-good { background: var(--purple); border-color: transparent; }
-    .ps-col-title {
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      margin-bottom: 1.75rem;
-    }
-    .ps-col-bad  .ps-col-title { color: var(--gray-4); }
-    .ps-col-good .ps-col-title { color: rgba(244,235,51,0.75); }
-    .ps-item {
-      display: flex; gap: 0.875rem; align-items: flex-start;
-      padding: 0.9rem 0; border-bottom: 1px solid;
-    }
-    .ps-col-bad  .ps-item { border-color: var(--gray-6); }
-    .ps-col-good .ps-item { border-color: rgba(200,184,224,0.12); }
-    .ps-item:last-child { border: none; padding-bottom: 0; }
-    .ps-ic {
-      width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 10px; font-weight: 700; margin-top: 0.1em;
-    }
-    .ps-col-bad  .ps-ic { background: var(--off); color: var(--gray-4); }
-    .ps-col-good .ps-ic { background: rgba(244,235,51,0.15); color: var(--yellow); }
-    .ps-text { font-size: 0.9375rem; font-weight: 300; line-height: 1.6; }
-    .ps-col-bad  .ps-text { color: var(--gray-3); }
-    .ps-col-good .ps-text { color: rgba(240,234,248,0.85); }
+    .impact-cell:hover::after { opacity: 1; }
 
-    /* ─── AGENT SECTIONS ────────────────────────────────────── */
-    .agent-sec { padding: 7rem 3rem; }
-    .agent-sec-light { background: var(--white); }
-    .agent-sec-cream { background: var(--cream); }
-    .agent-sec-dark  { background: var(--black); }
+    /* ── AGENT SECTIONS ── */
+    .agent-sec { padding: 7rem 2.5rem; }
+    .agent-bg-a { background: var(--bg); }
+    .agent-bg-b { background: var(--bg2); }
 
     .agent-grid {
-      max-width: 1100px; margin: 0 auto;
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 5rem; align-items: center;
     }
@@ -398,291 +285,225 @@
     .agent-grid.rev > * { direction: ltr; }
 
     .agent-num {
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      margin-bottom: 1rem;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--violet); margin-bottom: 0.875rem;
     }
-    .agent-sec-light .agent-num,
-    .agent-sec-cream .agent-num { color: var(--gray-4); }
-    .agent-sec-dark  .agent-num { color: rgba(200,184,224,0.5); }
-
     .agent-name {
-      font-size: clamp(2.25rem,4.5vw,3.5rem);
+      font-family: var(--display);
+      font-size: clamp(2.5rem,4.5vw,3.75rem);
       font-weight: 900; letter-spacing: -0.04em; line-height: 1.0;
-      margin-bottom: 0.75rem;
+      color: var(--text); margin-bottom: 0.875rem;
     }
-    .agent-sec-light .agent-name,
-    .agent-sec-cream .agent-name { color: var(--purple); }
-    .agent-sec-dark  .agent-name { color: white; }
-
-    .agent-tagline {
-      font-size: 1.125rem; font-weight: 300; line-height: 1.6;
-      margin-bottom: 2rem;
+    .agent-tag {
+      font-size: 13px; font-weight: 300; letter-spacing: 0.03em;
+      color: var(--muted); line-height: 1.65; margin-bottom: 2rem;
     }
-    .agent-sec-light .agent-tagline,
-    .agent-sec-cream .agent-tagline { color: var(--gray-3); }
-    .agent-sec-dark  .agent-tagline  { color: rgba(255,255,255,0.55); }
-
-    .agent-benefits { list-style: none; margin-bottom: 2.5rem; }
+    .agent-benefits { list-style: none; margin-bottom: 2rem; }
     .agent-benefit {
       display: flex; gap: 0.875rem; align-items: flex-start;
-      padding: 0.875rem 0; border-bottom: 1px solid;
+      padding: 0.8rem 0; border-bottom: 1px solid var(--border2);
     }
-    .agent-sec-light .agent-benefit,
-    .agent-sec-cream .agent-benefit { border-color: var(--gray-6); }
-    .agent-sec-dark  .agent-benefit  { border-color: rgba(255,255,255,0.07); }
     .agent-benefit:last-child { border: none; }
-    .benefit-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.5em; }
-    .agent-sec-light .benefit-dot,
-    .agent-sec-cream .benefit-dot { background: var(--purple); }
-    .agent-sec-dark  .benefit-dot  { background: var(--yellow); }
-    .benefit-text { font-size: 0.9375rem; font-weight: 300; line-height: 1.65; }
-    .agent-sec-light .benefit-text,
-    .agent-sec-cream .benefit-text { color: var(--gray-3); }
-    .agent-sec-dark  .benefit-text  { color: rgba(255,255,255,0.55); }
-
+    .ab-dot {
+      font-size: 10px; color: var(--yellow); flex-shrink: 0;
+      margin-top: 0.3em; font-weight: 600;
+    }
+    .ab-text { font-size: 12px; font-weight: 300; color: var(--muted); line-height: 1.65; }
     .agent-kpi {
-      display: inline-block; padding: 1.25rem 1.75rem;
-      border-radius: 0.875rem; margin-bottom: 2rem;
+      display: inline-block;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 4px; padding: 1.125rem 1.5rem; margin-bottom: 2rem;
     }
-    .agent-sec-light .agent-kpi,
-    .agent-sec-cream .agent-kpi { background: var(--off); border: 1px solid var(--gray-6); }
-    .agent-sec-dark  .agent-kpi  { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); }
-    .kpi-num {
-      display: block; font-size: 2.5rem; font-weight: 900;
-      letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.3rem;
+    .kpi-n {
+      font-family: var(--display); font-size: 2.25rem; font-weight: 900;
+      letter-spacing: -0.04em; color: var(--yellow); display: block; line-height: 1;
+      margin-bottom: 0.25rem;
     }
-    .agent-sec-light .kpi-num,
-    .agent-sec-cream .kpi-num { color: var(--purple); }
-    .agent-sec-dark  .kpi-num  { color: var(--yellow); }
-    .kpi-desc { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
-    .agent-sec-light .kpi-desc,
-    .agent-sec-cream .kpi-desc { color: var(--gray-4); }
-    .agent-sec-dark  .kpi-desc  { color: rgba(255,255,255,0.35); }
-
+    .kpi-d {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--violet);
+    }
     .agent-link {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 13px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.8rem 1.75rem; border-radius: 100px;
-      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--yellow);
+      border-bottom: 1px solid rgba(244,235,51,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.2s, gap 0.2s;
     }
-    .agent-link:hover { opacity: 0.84; transform: translateY(-1px); }
-    .agent-sec-light .agent-link,
-    .agent-sec-cream .agent-link {
-      background: var(--purple); color: white;
-    }
-    .agent-sec-dark  .agent-link {
-      background: var(--yellow); color: var(--black);
-    }
+    .agent-link:hover { border-color: var(--yellow); gap: 0.875rem; }
 
-    /* Product visual card */
-    .agent-visual {}
-    .vis-card {
-      border-radius: 1.25rem; overflow: hidden;
-      border: 1px solid var(--gray-6);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 32px 80px rgba(45,27,78,0.12);
-      position: relative;
+    /* ── TERMINAL ── */
+    .terminal {
+      background: #050210;
+      border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      box-shadow:
+        0 0 0 1px var(--border2),
+        0 24px 80px rgba(0,0,0,0.7),
+        inset 0 1px 0 rgba(200,184,224,0.06);
     }
-    .agent-sec-dark .vis-card {
-      border-color: rgba(255,255,255,0.08);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 32px 80px rgba(0,0,0,0.5);
-    }
-    .vis-card img { width: 100%; display: block; }
-
-    /* CSS product mockups */
-    .listen-mock, .create-mock, .advise-mock {
-      padding: 1.5rem; font-family: 'Inter', sans-serif;
-      aspect-ratio: 4/3;
-    }
-    /* Listen */
-    .listen-mock { background: #0E0618; }
-    .mock-topbar {
+    .term-bar {
+      background: rgba(200,184,224,0.03);
+      border-bottom: 1px solid var(--border2);
+      padding: 0.75rem 1rem;
       display: flex; align-items: center; gap: 0.5rem;
-      margin-bottom: 1.25rem;
     }
-    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #22C55E;
-      box-shadow: 0 0 8px #22C55E; animation: pulse-dot 2s ease-in-out infinite; }
-    @keyframes pulse-dot { 0%,100%{opacity:1}50%{opacity:0.4} }
-    .live-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: #7A6E90; }
-    .mock-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; }
-    .mock-stat {
-      background: #1A0A2E; border: 1px solid rgba(200,184,224,0.1);
-      border-radius: 8px; padding: 1rem;
+    .term-dots { display: flex; gap: 5px; flex-shrink: 0; }
+    .td { width: 10px; height: 10px; border-radius: 50%; }
+    .td.r { background: #FF5F57; }
+    .td.y { background: #FFBD2E; }
+    .td.g { background: #28C840; }
+    .term-title {
+      flex: 1; text-align: center;
+      font-size: 10px; font-weight: 400; letter-spacing: 0.14em;
+      color: rgba(200,184,224,0.3); text-transform: uppercase;
     }
-    .ms-label { font-size: 9px; color: #7A6E90; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .ms-val { font-size: 1.75rem; font-weight: 900; color: #F4EB33; line-height: 1; }
-    .ms-sub { font-size: 9px; font-weight: 600; margin-top: 2px; }
-    .ms-sub.green { color: #22C55E; }
-    .ms-sub.gray  { color: #7A6E90; }
-    .mock-feed { background: #1A0A2E; border: 1px solid rgba(200,184,224,0.08); border-radius: 8px; padding: 0.875rem; }
-    .feed-label { font-size: 9px; color: #7A6E90; letter-spacing: 0.16em; margin-bottom: 0.75rem; }
-    .feed-item { display: flex; gap: 0.5rem; align-items: center; padding: 0.35rem 0; }
-    .feed-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    .fd-purple { background: #7E6E94; }
-    .fd-green  { background: #22C55E; }
-    .fd-yellow { background: #F4EB33; }
-    .feed-text { font-size: 11px; color: #B8ADCC; }
+    .term-body {
+      padding: 1.375rem 1.5rem;
+      min-height: 200px; font-size: 12px; line-height: 1.9;
+      font-family: var(--mono);
+    }
+    .term-line { display: flex; align-items: baseline; gap: 0.5rem; }
+    .t-cmd   { color: var(--yellow); }
+    .t-ok    { color: var(--green); }
+    .t-arrow { color: var(--violet); }
+    .t-warn  { color: #FFA500; }
+    .t-text  { color: var(--muted); }
+    .t-dim   { color: var(--dim); }
+    .term-cursor {
+      display: inline-block; color: var(--yellow); font-weight: 600;
+      animation: blink 1s step-end infinite;
+    }
 
-    /* Create */
-    .create-mock { background: #F5F3EF; }
-    .cm-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
-    .cm-logo-txt { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: #7A6E90; }
-    .cm-badge { background: var(--purple); color: white; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 100px; }
-    .cm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-    .cm-original {
-      background: white; border: 1px solid var(--gray-6); border-radius: 10px; padding: 1rem;
-      grid-column: 1; grid-row: 1 / 3;
-    }
-    .cm-card {
-      background: white; border: 1px solid var(--gray-6); border-radius: 10px; padding: 0.875rem;
-    }
-    .cm-card.active { border-color: var(--purple); box-shadow: 0 0 0 2px rgba(45,27,78,0.08); }
-    .cm-label { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .cm-original .cm-label { color: var(--gray-4); }
-    .cm-card .cm-label { color: var(--purple); }
-    .cm-bar { height: 7px; background: var(--gray-6); border-radius: 4px; margin-bottom: 5px; }
-    .cm-bar.short { width: 65%; }
-    .cm-bar.mid   { width: 85%; }
-    .cm-bar.full  { width: 100%; }
-    .cm-bar.purple { background: rgba(45,27,78,0.2); }
+    /* Boot animation: lines start hidden */
+    .term-line { opacity: 0; transform: translateY(4px);
+      transition: opacity 0.2s var(--ease), transform 0.2s var(--ease); }
+    .term-line.show { opacity: 1; transform: translateY(0); }
 
-    /* Advise */
-    .advise-mock {
-      background: #120820;
-      display: flex; flex-direction: column; gap: 0.75rem;
+    /* ── CASE STUDY ── */
+    #case-study {
+      background: var(--bg2); padding: 7rem 2.5rem;
+      border-top: 1px solid var(--border);
     }
-    .adv-header {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding-bottom: 0.75rem; border-bottom: 1px solid rgba(200,184,224,0.08);
-    }
-    .adv-avatar {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: linear-gradient(135deg, #2D1B4E, #7E6E94);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; color: white; font-weight: 700;
-    }
-    .adv-name { font-size: 12px; font-weight: 600; color: #C8B8E0; }
-    .adv-status { font-size: 10px; color: #22C55E; display: flex; align-items: center; gap: 4px; }
-    .adv-msg {
-      padding: 0.75rem 1rem; border-radius: 12px;
-      font-size: 12px; line-height: 1.55;
-    }
-    .adv-bot { background: #1A0A2E; color: #C8B8E0; border-radius: 12px 12px 12px 4px; align-self: flex-start; max-width: 85%; }
-    .adv-user { background: #2D1B4E; color: #F0EAF8; border-radius: 12px 12px 4px 12px; align-self: flex-end; max-width: 75%; }
-    .adv-typing { display: flex; gap: 4px; align-self: flex-start; padding: 0.5rem 1rem; }
-    .adv-typing span {
-      width: 5px; height: 5px; border-radius: 50%; background: #7A6E90;
-      animation: typing 0.8s ease-in-out infinite;
-    }
-    .adv-typing span:nth-child(2) { animation-delay: 0.15s; }
-    .adv-typing span:nth-child(3) { animation-delay: 0.3s; }
-    @keyframes typing { 0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)} }
-
-    /* Trusted badge */
-    .trusted-badge {
-      position: absolute; bottom: -1.25rem; left: 1.5rem;
-      display: flex; align-items: center; gap: 0.75rem;
-      padding: 0.6rem 1rem;
-      background: white; border-radius: 0.625rem;
-      border: 1px solid var(--gray-6);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    }
-    .tb-label { font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-4); }
-    .tb-logo  { height: 20px; width: auto; }
-
-    /* ─── CASE STUDY ────────────────────────────────────────── */
-    #case-study { background: var(--cream); padding: 7rem 3rem; }
-    .cs-inner { max-width: 1000px; margin: 0 auto; }
+    .cs-inner { max-width: 900px; margin: 0 auto; }
     .cs-top {
-      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+      display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
       margin-bottom: 3rem;
     }
-    .cs-logo { height: 32px; width: auto; opacity: 0.75; filter: grayscale(1); transition: opacity 0.2s, filter 0.2s; }
-    .cs-logo:hover { opacity: 1; filter: grayscale(0); }
-    .cs-vline { width: 1px; height: 32px; background: var(--gray-5); }
-    .cs-headline { font-size: clamp(1.2rem,2.5vw,1.625rem); font-weight: 300; color: var(--purple); line-height: 1.3; }
-    .cs-headline strong { font-weight: 800; }
-    .cs-metrics {
+    .cs-logo { height: 28px; width: auto; opacity: 0.5; filter: brightness(0) invert(1); }
+    .cs-vl { width: 1px; height: 28px; background: var(--border); }
+    .cs-hed {
+      font-family: var(--display); font-size: clamp(1.1rem,2vw,1.5rem);
+      font-weight: 700; letter-spacing: -0.02em; color: var(--text); line-height: 1.3;
+    }
+    .cs-hed em { font-style: normal; color: var(--yellow); }
+    .cs-nums {
       display: grid; grid-template-columns: repeat(4,1fr);
-      gap: 1rem; margin-bottom: 2.5rem;
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+      margin-bottom: 2.5rem;
     }
-    .cs-metric {
-      background: white; border-radius: 0.875rem;
-      border: 1px solid var(--gray-6); padding: 1.75rem 1.5rem; text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      transition: transform 0.2s, box-shadow 0.2s;
+    .cs-num-cell {
+      background: var(--bg2); padding: 2rem 1.5rem; text-align: center;
+      transition: background 0.2s;
     }
-    .cs-metric:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,27,78,0.1); }
-    .cs-num { display: block; font-size: 2.25rem; font-weight: 900; letter-spacing: -0.04em; color: var(--purple); line-height: 1; margin-bottom: 0.4rem; }
-    .cs-desc { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-4); }
+    .cs-num-cell:hover { background: var(--surface); }
+    .cs-n {
+      font-family: var(--display); font-size: 2.25rem; font-weight: 900;
+      letter-spacing: -0.04em; color: var(--yellow); display: block; line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .cs-d { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--violet); }
     .cs-quote {
-      background: white; border-radius: 0.875rem;
-      border: 1px solid var(--gray-6); border-left: 3px solid var(--purple);
-      padding: 2rem 2.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border-left: 2px solid var(--yellow);
+      padding: 1.5rem 2rem;
+      background: var(--surface);
+      border-radius: 0 6px 6px 0;
     }
-    .cs-q-text { font-size: 1.0625rem; font-weight: 300; color: var(--gray-3); line-height: 1.75; margin-bottom: 1rem; }
-    .cs-q-text::before { content: '"'; }
-    .cs-q-text::after  { content: '"'; }
-    .cs-q-author { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gray-4); }
+    .cs-qt { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 0.75rem; font-style: italic; }
+    .cs-qt::before { content: '"'; color: var(--yellow); }
+    .cs-qt::after  { content: '"'; color: var(--yellow); }
+    .cs-au { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--violet); }
 
-    /* ─── FINAL CTA ─────────────────────────────────────────── */
+    /* ── CTA FINAL ── */
     #cta-final {
-      background: var(--purple); padding: 8rem 3rem; text-align: center;
-      position: relative; overflow: hidden;
+      position: relative; padding: 9rem 2rem; text-align: center;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
     }
-    .cta-orb {
-      position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none;
-    }
-    .co1 { width: 500px; height: 500px; background: #1A0A2E; opacity: 0.7; top:-200px; left:-100px; }
-    .co2 { width: 400px; height: 400px; background: #4A2C7E; opacity: 0.5; bottom:-150px; right:-80px; }
-    .cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
-    .cta-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(200,184,224,0.5); margin-bottom: 1.5rem; }
+    .cta-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+    .cta-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--violet); margin-bottom: 1.5rem; }
     #cta-final h2 {
-      font-size: clamp(3rem,7vw,6rem);
-      font-weight: 900; letter-spacing: -0.04em; line-height: 0.95; color: white;
-      margin-bottom: 1.5rem;
+      font-family: var(--display);
+      font-size: clamp(3rem,7vw,6.5rem);
+      font-weight: 900; letter-spacing: -0.045em; line-height: 0.95;
+      color: var(--text); margin-bottom: 1.5rem;
     }
     #cta-final h2 em { font-style: normal; color: var(--yellow); }
-    #cta-final p { font-size: 1.0625rem; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.65; margin-bottom: 2.5rem; }
-    .cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    #cta-final p { font-size: 12px; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 2.5rem; }
+    .cta-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
 
-    /* ─── FOOTER ────────────────────────────────────────────── */
+    /* ── FOOTER ── */
     footer {
-      background: var(--black);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 2.5rem 3rem;
+      border-top: 1px solid var(--yellow);
+      background: var(--bg);
+      padding: 1.75rem 2.5rem;
     }
     .footer-inner {
       max-width: 1100px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1.5rem;
+      flex-wrap: wrap; gap: 1.25rem;
     }
-    .footer-logo { height: 18px; width: auto; opacity: 0.5; }
-    .footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
-    .footer-links a { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.35); transition: color 0.2s; }
-    .footer-links a:hover { color: rgba(255,255,255,0.7); }
-    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+    .footer-logo { height: 16px; width: auto; opacity: 0.4; }
+    .footer-links { display: flex; gap: 1.75rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 10px; font-weight: 400; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--dim);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--muted); }
+    .footer-copy { font-size: 10px; letter-spacing: 0.1em; color: var(--dim); }
 
-    /* ─── RESPONSIVE ────────────────────────────────────────── */
-    @media (max-width: 900px) {
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.vis { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+
+    /* ── HERO ANIM ── */
+    .hero-content > * {
+      opacity: 0; animation: fadeUp 0.7s var(--ease) forwards;
+    }
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(24px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
-      #hero { padding: 6rem 1.5rem 4rem; }
-      .impact-grid { grid-template-columns: repeat(2,1fr); }
-      .ps-cols { grid-template-columns: 1fr; }
       .agent-grid { grid-template-columns: 1fr; gap: 3rem; }
       .agent-grid.rev { direction: ltr; }
-      .cs-metrics { grid-template-columns: 1fr 1fr; }
-      .float-pill { display: none; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .impact-grid { grid-template-columns: repeat(2,1fr); }
+      .cs-nums { grid-template-columns: repeat(2,1fr); }
     }
-    @media (max-width: 600px) {
+    @media(max-width:600px) {
       .agent-sec { padding: 5rem 1.5rem; }
-      .impact-grid { grid-template-columns: 1fr 1fr; }
-      .cs-metrics { grid-template-columns: 1fr 1fr; }
-      #problem, #case-study, #impact { padding: 5rem 1.5rem; }
+      #impact { padding: 4rem 1.5rem; }
+      .stat-chips { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
@@ -690,448 +511,446 @@
 
   <div id="progress"></div>
 
-  <!-- ── NAV ─── -->
+  <!-- NAV -->
   <nav id="nav">
-    <a href="landing.html">
-      <img class="nav-logo"
-        src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png"
-        alt="Hike the Cloud"/>
-    </a>
+    <div class="nav-left">
+      <img class="nav-logo" src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png" alt="Hike the Cloud"/>
+      <div class="nav-sep"></div>
+      <span class="nav-brand">Agent Council</span>
+    </div>
     <ul class="nav-links">
-      <li><a href="#listen">Listen</a></li>
-      <li><a href="#create">Create</a></li>
-      <li><a href="#advise">Advise</a></li>
-      <li><a href="index.html">Council ↗</a></li>
+      <li><a href="#listen">listen</a></li>
+      <li><a href="#create">create</a></li>
+      <li><a href="#advise">advise</a></li>
+      <li><a href="index.html">council ↗</a></li>
     </ul>
-    <a class="nav-cta"
-      href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council."
-      target="_blank" rel="noopener">
-      Book a demo
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.5 2C6.253 2 2 6.253 2 11.5c0 1.998.584 3.859 1.592 5.422L2.05 21.5l4.706-1.516A9.455 9.455 0 0011.5 21c5.247 0 9.5-4.253 9.5-9.5S16.747 2 11.5 2z" opacity=".4"/></svg>
-    </a>
+    <a class="nav-cta" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">book demo</a>
   </nav>
 
-  <!-- ── HERO ─── -->
+  <!-- HERO -->
   <section id="hero" aria-labelledby="hero-h1">
-    <div class="hero-bg">
-      <div class="hero-bg-grid"></div>
-      <div class="orb o1"></div>
-      <div class="orb o2"></div>
-      <div class="orb o3"></div>
-    </div>
-    <div class="hero-overlay"></div>
+    <div class="ticker-bg" id="ticker-hero"></div>
+    <div class="ticker-overlay"></div>
 
     <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-chip">NEW</span>
-        Built for Google · Powered by Gemini
+      <div class="sys-badge">
+        <span class="sys-dot"></span>
+        SYSTEM ONLINE · BUILD 2025.05
       </div>
+
       <h1 id="hero-h1">
         Three agents.<br/>
-        <span class="grad-text">Infinite impact.</span>
+        <span class="grad-word">Infinite impact.</span>
       </h1>
-      <p class="hero-sub">
-        The AI council powering your brand — across social intelligence,
-        content at scale and conversational sales.
+
+      <p class="hero-mono">
+        <span class="c">// </span>AI council for brands. Powered by Gemini.
       </p>
+
       <div class="hero-actions">
-        <a class="btn-hero-solid" href="#listen">Explore the Council</a>
-        <a class="btn-hero-ghost"
-          href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council."
-          target="_blank" rel="noopener">Book a Demo →</a>
+        <a class="btn-solid" href="#listen">
+          EXPLORE COUNCIL<span class="btn-cursor">_</span>
+        </a>
+        <a class="btn-ghost" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">
+          BOOK DEMO →
+        </a>
       </div>
-    </div>
 
-    <!-- Browser mockup -->
-    <div class="hero-mockup">
-      <div class="float-pill fp-l">
-        <span class="fp-dot fp-green"></span>
-        +15 brands monitored
-      </div>
-      <div class="float-pill fp-r">
-        <span class="fp-dot fp-yellow"></span>
-        Content adapted in &lt;3s
-      </div>
-      <div class="browser-frame">
-        <div class="browser-bar">
-          <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
-          <div class="browser-url">council.hikethecloud.com</div>
-        </div>
-        <div class="browser-content">
-          <div class="bc-sidebar">
-            <div class="bc-sidebar-label">Agents</div>
-            <div class="bc-nav-item active"><div class="bc-dot active"></div>Hike Listen</div>
-            <div class="bc-nav-item"><div class="bc-dot"></div>Hike Create</div>
-            <div class="bc-nav-item"><div class="bc-dot"></div>Hike Advise</div>
-          </div>
-          <div class="bc-main">
-            <div class="bc-title-row">
-              <div>
-                <div class="bc-title">Social Intelligence</div>
-                <div class="bc-sub">Last updated: just now</div>
-              </div>
-              <div class="bc-btn">Export report</div>
-            </div>
-            <div class="bc-cards">
-              <div class="bc-card hl">
-                <div class="bcc-label">Sentiment</div>
-                <div class="bcc-val">74%</div>
-                <div class="bcc-desc">Positive</div>
-              </div>
-              <div class="bc-card">
-                <div class="bcc-label">Mentions/hr</div>
-                <div class="bcc-val">26</div>
-                <div class="bcc-desc">Live</div>
-              </div>
-              <div class="bc-card">
-                <div class="bcc-label">Crisis score</div>
-                <div class="bcc-val">0.2</div>
-                <div class="bcc-desc">All clear</div>
-              </div>
-            </div>
-            <div class="bc-row"><div class="bc-tag p">Trending</div><div class="bc-name">Brand launch campaign</div><div class="bc-date">2m ago</div></div>
-            <div class="bc-row"><div class="bc-tag g">Positive</div><div class="bc-name">Product review spike detected</div><div class="bc-date">7m ago</div></div>
-          </div>
-        </div>
+      <div class="stat-chips">
+        <div class="stat-chip"><span class="chip-dot"></span> HIKE_LISTEN · ACTIVE </div>
+        <div class="stat-chip"><span class="chip-dot"></span> HIKE_CREATE · ACTIVE </div>
+        <div class="stat-chip"><span class="chip-dot"></span> HIKE_ADVISE · ACTIVE </div>
       </div>
     </div>
   </section>
 
-  <!-- ── MARQUEE ─── -->
-  <div class="marquee-wrap" aria-hidden="true">
-    <div class="marquee-track">
-      <span class="marquee-item"><span class="marquee-sep">·</span> Social Intelligence</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Content at Scale</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Conversational Sales</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Real-Time Monitoring</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> AI-Powered Adaptation</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Brand Intelligence</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Powered by Gemini</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Built for Google</span>
-      <!-- duplicate for seamless loop -->
-      <span class="marquee-item"><span class="marquee-sep">·</span> Social Intelligence</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Content at Scale</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Conversational Sales</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Real-Time Monitoring</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> AI-Powered Adaptation</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Brand Intelligence</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Powered by Gemini</span>
-      <span class="marquee-item"><span class="marquee-sep">·</span> Built for Google</span>
-    </div>
-  </div>
-
-  <!-- ── IMPACT NUMBERS ─── -->
-  <section id="impact">
-    <div class="impact-inner">
-      <span class="section-label reveal">Real results. Measurable impact.</span>
+  <!-- IMPACT -->
+  <section id="impact" aria-label="Key metrics">
+    <div class="section-inner">
       <div class="impact-grid">
-        <div class="impact-item reveal d1">
-          <span class="impact-num" data-target="1000" data-prefix="+">+1,000</span>
-          <span class="impact-label">brands monitored across platforms</span>
+        <div class="impact-cell reveal">
+          <span class="impact-num" data-target="1000" data-prefix="+" data-orig="+1,000">+1,000</span>
+          <span class="impact-lbl">brands monitored</span>
         </div>
-        <div class="impact-item reveal d2">
-          <span class="impact-num" data-target="4" data-prefix="×">×4</span>
-          <span class="impact-label">content output, no extra headcount</span>
+        <div class="impact-cell reveal d1">
+          <span class="impact-num" data-target="4" data-prefix="×" data-orig="×4">×4</span>
+          <span class="impact-lbl">content output</span>
         </div>
-        <div class="impact-item reveal d3">
-          <span class="impact-num" data-target="40" data-prefix="+" data-suffix="%">+40%</span>
-          <span class="impact-label">average conversion rate lift</span>
+        <div class="impact-cell reveal d2">
+          <span class="impact-num" data-target="40" data-prefix="+" data-suffix="%" data-orig="+40%">+40%</span>
+          <span class="impact-lbl">conversion lift</span>
         </div>
-        <div class="impact-item reveal d4">
-          <span class="impact-num">24/7</span>
-          <span class="impact-label">real-time brand intelligence</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── PROBLEM / SOLUTION ─── -->
-  <section id="problem">
-    <div class="ps-inner">
-      <div class="ps-header">
-        <span class="section-label reveal">Why the council exists</span>
-        <h2 class="section-h2 reveal d1">Your brand moves fast.<br/>Your tools should too.</h2>
-        <p class="section-p reveal d2">Three AI agents working in concert — so you never miss a signal, never lose your brand voice, and never let a conversation go cold.</p>
-      </div>
-      <div class="ps-cols">
-        <div class="ps-col ps-col-bad reveal">
-          <p class="ps-col-title">What brands struggle with</p>
-          <div class="ps-item"><div class="ps-ic">✕</div><p class="ps-text">Content teams can't keep up with every channel, format and audience simultaneously</p></div>
-          <div class="ps-item"><div class="ps-ic">✕</div><p class="ps-text">Social crises and viral moments go undetected until it's too late to respond</p></div>
-          <div class="ps-item"><div class="ps-ic">✕</div><p class="ps-text">Sales conversations lack the context and speed needed to convert at scale</p></div>
-        </div>
-        <div class="ps-col ps-col-good reveal d1">
-          <p class="ps-col-title">What the Council delivers</p>
-          <div class="ps-item"><div class="ps-ic">✓</div><p class="ps-text">Hike Create generates on-brand content instantly — for every platform, every time</p></div>
-          <div class="ps-item"><div class="ps-ic">✓</div><p class="ps-text">Hike Listen detects trends, sentiment shifts and crises the moment they emerge</p></div>
-          <div class="ps-item"><div class="ps-ic">✓</div><p class="ps-text">Hike Advise turns every conversation into a personalized, high-converting experience</p></div>
+        <div class="impact-cell reveal d3">
+          <span class="impact-num" data-static data-orig="24/7">24/7</span>
+          <span class="impact-lbl">real-time intel</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── AGENT 01: HIKE LISTEN ─── -->
-  <section id="listen" class="agent-sec agent-sec-light">
-    <div class="agent-grid section-inner" style="max-width:1100px;margin:0 auto;">
+  <!-- AGENT 01: HIKE LISTEN -->
+  <section id="listen" class="agent-sec agent-bg-a" aria-labelledby="listen-h">
+    <div class="agent-grid section-inner">
+
       <div class="agent-copy">
-        <p class="agent-num reveal">Agent · 01</p>
-        <h2 class="agent-name reveal d1">Hike Listen</h2>
-        <p class="agent-tagline reveal d2">Social intelligence that never sleeps. Know what the world says about your brand — before it matters.</p>
+        <p class="agent-num reveal">// agent · 01</p>
+        <h2 class="agent-name reveal d1" id="listen-h">Hike Listen</h2>
+        <p class="agent-tag reveal d2">Social intelligence that never sleeps. Know what the world says about your brand the moment it happens.</p>
         <ul class="agent-benefits reveal d2">
-          <li class="agent-benefit"><span class="benefit-dot"></span><span class="benefit-text">Real-time monitoring across 100+ sources so no mention, trend or crisis ever catches you off guard</span></li>
-          <li class="agent-benefit"><span class="benefit-dot"></span><span class="benefit-text">AI sentiment analysis that tells you not just what people say, but how they feel about your brand</span></li>
-          <li class="agent-benefit"><span class="benefit-dot"></span><span class="benefit-text">Executive dashboards and instant alerts your team can act on — no data science required</span></li>
+          <li class="agent-benefit">
+            <span class="ab-dot">→</span>
+            <span class="ab-text">Real-time monitoring across 100+ sources — no mention, trend or crisis ever catches you off guard</span>
+          </li>
+          <li class="agent-benefit">
+            <span class="ab-dot">→</span>
+            <span class="ab-text">AI sentiment analysis that tells you how people feel, not just what they say</span>
+          </li>
+          <li class="agent-benefit">
+            <span class="ab-dot">→</span>
+            <span class="ab-text">Executive dashboards and instant alerts — no data science team required</span>
+          </li>
         </ul>
         <div class="agent-kpi reveal d3">
-          <span class="kpi-num">+15</span>
-          <span class="kpi-desc">Enterprise brands, monitored 24/7</span>
-        </div>
-        <a class="agent-link reveal d4" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">Try Hike Listen →</a>
+          <span class="kpi-n">+15</span>
+          <span class="kpi-d">enterprise brands · 24/7</span>
+        </div><br/>
+        <a class="agent-link reveal d4" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">
+          try hike listen →
+        </a>
       </div>
-      <div class="agent-visual reveal d1">
-        <div class="vis-card">
-          <div class="listen-mock">
-            <div class="mock-topbar">
-              <div class="live-dot"></div>
-              <span class="live-label">LIVE · HIKE LISTEN</span>
-            </div>
-            <div class="mock-stats">
-              <div class="mock-stat">
-                <div class="ms-label">Sentiment</div>
-                <div class="ms-val">74%</div>
-                <div class="ms-sub green">Positive</div>
-              </div>
-              <div class="mock-stat">
-                <div class="ms-label">Mentions / hr</div>
-                <div class="ms-val">26</div>
-                <div class="ms-sub gray">Live tracking</div>
-              </div>
-            </div>
-            <div class="mock-feed">
-              <div class="feed-label">RECENT MENTIONS</div>
-              <div class="feed-item"><span class="feed-dot fd-green"></span><span class="feed-text">"Best product experience in years" · Twitter · 2m ago</span></div>
-              <div class="feed-item"><span class="feed-dot fd-purple"></span><span class="feed-text">"Saw the launch campaign" · Instagram · 5m ago</span></div>
-              <div class="feed-item"><span class="feed-dot fd-yellow"></span><span class="feed-text">Trending: #brand · LinkedIn · 8m ago</span></div>
-            </div>
+
+      <div class="reveal d1">
+        <div class="terminal" id="term-listen">
+          <div class="term-bar">
+            <div class="term-dots"><span class="td r"></span><span class="td y"></span><span class="td g"></span></div>
+            <span class="term-title">hike_listen — brand monitor</span>
+          </div>
+          <div class="term-body" id="tb-listen"
+            data-lines='[
+              {"p":"$","c":"cmd","t":"hike listen --brand=\"GALICIA\" --live"},
+              {"p":"[✓]","c":"ok","t":"Connecting to 100+ data sources..."},
+              {"p":"[✓]","c":"ok","t":"Sentiment analysis: 74% POSITIVE"},
+              {"p":"[→]","c":"arrow","t":"Mentions: 26/hr · Peak detected"},
+              {"p":"[→]","c":"arrow","t":"Trending: #brand · LinkedIn · 3m ago"},
+              {"p":"[!]","c":"warn","t":"Crisis score: 0.2 · ALL CLEAR"},
+              {"p":"$","c":"cmd","t":"","cursor":true}
+            ]'>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- ── AGENT 02: HIKE CREATE ─── -->
-  <section id="create" class="agent-sec agent-sec-cream">
-    <div class="agent-grid rev section-inner" style="max-width:1100px;margin:0 auto;">
+  <!-- AGENT 02: HIKE CREATE -->
+  <section id="create" class="agent-sec agent-bg-b" aria-labelledby="create-h">
+    <div class="agent-grid rev section-inner">
+
       <div class="agent-copy">
-        <p class="agent-num reveal">Agent · 02</p>
-        <h2 class="agent-name reveal d1">Hike Create</h2>
-        <p class="agent-tagline reveal d2">Content at scale. Always on-brand. Your brand voice, multiplied across every channel — automatically.</p>
+        <p class="agent-num reveal">// agent · 02</p>
+        <h2 class="agent-name reveal d1" id="create-h">Hike Create</h2>
+        <p class="agent-tag reveal d2">Content at scale. Always on-brand. One brief, four channels, zero extra headcount.</p>
         <ul class="agent-benefits reveal d2">
-          <li class="agent-benefit"><span class="benefit-dot"></span><span class="benefit-text">One brief generates Instagram, LinkedIn, Google Ads and email in a single click</span></li>
-          <li class="agent-benefit"><span class="benefit-dot"></span><span class="benefit-text">Brand memory preserves your tone, voice and visual guidelines across every generated variation</span></li>
-          <li class="agent-benefit"><span class="benefit-dot"></span><span class="benefit-text">Autonomous A/B testing continuously learns what performs best — no analyst needed</span></li>
+          <li class="agent-benefit">
+            <span class="ab-dot">→</span>
+            <span class="ab-text">Instagram, LinkedIn, Google Ads and Email — generated from a single brief in seconds</span>
+          </li>
+          <li class="agent-benefit">
+            <span class="ab-dot">→</span>
+            <span class="ab-text">Brand memory preserves your tone, voice and guidelines across every generated piece</span>
+          </li>
+          <li class="agent-benefit">
+            <span class="ab-dot">→</span>
+            <span class="ab-text">Autonomous A/B testing continuously optimizes what works — no analyst needed</span>
+          </li>
         </ul>
         <div class="agent-kpi reveal d3">
-          <span class="kpi-num">×4</span>
-          <span class="kpi-desc">Content output, zero extra headcount</span>
-        </div>
-        <a class="agent-link reveal d4" href="https://readapt.web.app/" target="_blank" rel="noopener">Try Hike Create →</a>
+          <span class="kpi-n">×4</span>
+          <span class="kpi-d">content output · zero extra headcount</span>
+        </div><br/>
+        <a class="agent-link reveal d4" href="https://readapt.web.app/" target="_blank" rel="noopener">
+          try hike create →
+        </a>
       </div>
-      <div class="agent-visual reveal d1" style="position:relative;padding-bottom:1.5rem;">
-        <div class="vis-card">
-          <div class="create-mock">
-            <div class="cm-top">
-              <span class="cm-logo-txt">HIKE CREATE</span>
-              <span class="cm-badge">4 variations</span>
-            </div>
-            <div class="cm-grid">
-              <div class="cm-original">
-                <div class="cm-label">Original brief</div>
-                <div class="cm-bar full"></div>
-                <div class="cm-bar mid"></div>
-                <div class="cm-bar full"></div>
-                <div class="cm-bar short"></div>
-                <div style="height:1.25rem"></div>
-                <div class="cm-bar mid"></div>
-                <div class="cm-bar full"></div>
-              </div>
-              <div class="cm-card active">
-                <div class="cm-label">Instagram</div>
-                <div class="cm-bar purple mid"></div>
-                <div class="cm-bar purple full"></div>
-              </div>
-              <div class="cm-card">
-                <div class="cm-label">LinkedIn</div>
-                <div class="cm-bar mid"></div>
-                <div class="cm-bar full"></div>
-              </div>
-              <div class="cm-card">
-                <div class="cm-label">Google Ads</div>
-                <div class="cm-bar short"></div>
-                <div class="cm-bar mid"></div>
-              </div>
-              <div class="cm-card">
-                <div class="cm-label">Email</div>
-                <div class="cm-bar full"></div>
-                <div class="cm-bar mid"></div>
-              </div>
-            </div>
+
+      <div class="reveal d1">
+        <div class="terminal" id="term-create">
+          <div class="term-bar">
+            <div class="term-dots"><span class="td r"></span><span class="td y"></span><span class="td g"></span></div>
+            <span class="term-title">hike_create — content engine</span>
           </div>
-        </div>
-        <div class="trusted-badge">
-          <span class="tb-label">Used by</span>
-          <img class="tb-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
-            alt="Banco Galicia"
-            onerror="this.outerHTML='<strong style=\'font-size:13px;font-weight:700;color:#2D1B4E\'>Galicia</strong>'"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── AGENT 03: HIKE ADVISE ─── -->
-  <section id="advise" class="agent-sec agent-sec-dark">
-    <div class="agent-grid section-inner" style="max-width:1100px;margin:0 auto;">
-      <div class="agent-copy">
-        <p class="agent-num reveal">Agent · 03</p>
-        <h2 class="agent-name reveal d1">Hike Advise</h2>
-        <p class="agent-tagline reveal d2">Every conversation, a conversion opportunity. Guide customers from first hello to final purchase.</p>
-        <ul class="agent-benefits reveal d2">
-          <li class="agent-benefit"><span class="benefit-dot"></span><span class="benefit-text">Natural, human-feeling conversations that build trust and move customers down the funnel at any scale</span></li>
-          <li class="agent-benefit"><span class="benefit-dot"></span><span class="benefit-text">Full CRM context in every session — the agent knows your customer's history, preferences and intent</span></li>
-          <li class="agent-benefit"><span class="benefit-dot"></span><span class="benefit-text">Smart escalation to a human agent — seamlessly, with full context transfer, when it matters most</span></li>
-        </ul>
-        <div class="agent-kpi reveal d3">
-          <span class="kpi-num">+40%</span>
-          <span class="kpi-desc">Average conversion rate lift</span>
-        </div>
-        <a class="agent-link reveal d4" href="https://chat.hikethecloud.com/" target="_blank" rel="noopener">Try Hike Advise →</a>
-      </div>
-      <div class="agent-visual reveal d1">
-        <div class="vis-card">
-          <div class="advise-mock">
-            <div class="adv-header">
-              <div class="adv-avatar">H</div>
-              <div>
-                <div class="adv-name">Hike Advise</div>
-                <div class="adv-status"><span class="live-dot"></span> Online</div>
-              </div>
-            </div>
-            <div class="adv-msg adv-bot">Hi! I can help you find the perfect plan for your team. How many people are you looking to onboard?</div>
-            <div class="adv-msg adv-user">We're a team of about 50, focused on content and social.</div>
-            <div class="adv-msg adv-bot">Perfect fit for our Growth tier — it includes Hike Listen and Hike Create together. Want me to walk you through the setup?</div>
-            <div class="adv-typing">
-              <span></span><span></span><span></span>
-            </div>
+          <div class="term-body" id="tb-create"
+            data-lines='[
+              {"p":"$","c":"cmd","t":"hike create --brief=\"launch\" --channels=4"},
+              {"p":"[✓]","c":"ok","t":"Brand voice loaded · Galicia v2.1"},
+              {"p":"[→]","c":"arrow","t":"Generating Instagram variant... DONE"},
+              {"p":"[→]","c":"arrow","t":"Generating LinkedIn variant... DONE"},
+              {"p":"[→]","c":"arrow","t":"Generating Google Ads copy... DONE"},
+              {"p":"[→]","c":"arrow","t":"Generating Email sequence... DONE"},
+              {"p":"[✓]","c":"ok","t":"4 variants ready · 87% faster than manual"},
+              {"p":"$","c":"cmd","t":"","cursor":true}
+            ]'>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- ── CASE STUDY ─── -->
+  <!-- AGENT 03: HIKE ADVISE -->
+  <section id="advise" class="agent-sec agent-bg-a" aria-labelledby="advise-h">
+    <div class="agent-grid section-inner">
+
+      <div class="agent-copy">
+        <p class="agent-num reveal">// agent · 03</p>
+        <h2 class="agent-name reveal d1" id="advise-h">Hike Advise</h2>
+        <p class="agent-tag reveal d2">Every conversation is a conversion opportunity. Guide customers from first contact to final purchase.</p>
+        <ul class="agent-benefits reveal d2">
+          <li class="agent-benefit">
+            <span class="ab-dot">→</span>
+            <span class="ab-text">Natural, human-feeling conversations that build trust and move customers down the funnel at any scale</span>
+          </li>
+          <li class="agent-benefit">
+            <span class="ab-dot">→</span>
+            <span class="ab-text">Full CRM context in every session — knows your customer's history, preferences and intent</span>
+          </li>
+          <li class="agent-benefit">
+            <span class="ab-dot">→</span>
+            <span class="ab-text">Smart escalation to human agents — seamlessly, with full context transfer, when it matters</span>
+          </li>
+        </ul>
+        <div class="agent-kpi reveal d3">
+          <span class="kpi-n">+40%</span>
+          <span class="kpi-d">avg conversion rate lift</span>
+        </div><br/>
+        <a class="agent-link reveal d4" href="https://chat.hikethecloud.com/" target="_blank" rel="noopener">
+          try hike advise →
+        </a>
+      </div>
+
+      <div class="reveal d1">
+        <div class="terminal" id="term-advise">
+          <div class="term-bar">
+            <div class="term-dots"><span class="td r"></span><span class="td y"></span><span class="td g"></span></div>
+            <span class="term-title">hike_advise — conversation engine</span>
+          </div>
+          <div class="term-body" id="tb-advise"
+            data-lines='[
+              {"p":"$","c":"cmd","t":"hike advise --session=active --crm=connected"},
+              {"p":"[✓]","c":"ok","t":"CRM context loaded · 847 sessions"},
+              {"p":"[→]","c":"arrow","t":"Avg conversion: +40% vs baseline"},
+              {"p":"[→]","c":"arrow","t":"Escalation rate: 3.2% (optimal)"},
+              {"p":"[→]","c":"arrow","t":"Revenue attributed: $2.4M last 30d"},
+              {"p":"[✓]","c":"ok","t":"All agents responding · latency 180ms"},
+              {"p":"$","c":"cmd","t":"","cursor":true}
+            ]'>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CASE STUDY -->
   <section id="case-study">
     <div class="cs-inner">
-      <div class="cs-top reveal">
+      <span class="s-label reveal">// case_study · 01</span>
+      <div class="cs-top reveal d1">
         <img class="cs-logo"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
           alt="Banco Galicia"
-          onerror="this.outerHTML='<strong style=\'font-size:1.1rem;color:#2D1B4E\'>Banco Galicia</strong>'"
+          onerror="this.outerHTML='<span style=\'font-size:1rem;font-weight:700;color:rgba(232,228,240,0.5);font-family:var(--display)\'>GALICIA</span>'"
         />
-        <div class="cs-vline"></div>
-        <h2 class="cs-headline">How Argentina's leading bank <strong>scaled content production</strong> with Hike Create</h2>
+        <div class="cs-vl"></div>
+        <h2 class="cs-hed">How Argentina's leading bank scaled content<br/><em>4× faster</em> with Hike Create</h2>
       </div>
-      <div class="cs-metrics">
-        <div class="cs-metric reveal d1"><span class="cs-num">×4</span><span class="cs-desc">Content output, no new hires</span></div>
-        <div class="cs-metric reveal d2"><span class="cs-num">87%</span><span class="cs-desc">Reduction in adaptation time</span></div>
-        <div class="cs-metric reveal d3"><span class="cs-num">100%</span><span class="cs-desc">Brand compliance, every piece</span></div>
-        <div class="cs-metric reveal d4"><span class="cs-num">12</span><span class="cs-desc">Channels from one platform</span></div>
+      <div class="cs-nums reveal d2">
+        <div class="cs-num-cell"><span class="cs-n">×4</span><span class="cs-d">Content output, no new hires</span></div>
+        <div class="cs-num-cell"><span class="cs-n">87%</span><span class="cs-d">Reduction in adaptation time</span></div>
+        <div class="cs-num-cell"><span class="cs-n">100%</span><span class="cs-d">Brand compliance, every piece</span></div>
+        <div class="cs-num-cell"><span class="cs-n">12</span><span class="cs-d">Channels from one platform</span></div>
       </div>
-      <blockquote class="cs-quote reveal">
-        <p class="cs-q-text">Hike Create transformed the way we think about content at scale. What used to take our team two weeks now happens in minutes — and the quality is consistently on-brand across every channel.</p>
-        <cite class="cs-q-author">Head of Content Strategy · Banco Galicia</cite>
+      <blockquote class="cs-quote reveal d3">
+        <p class="cs-qt">Hike Create transformed the way we think about content at scale. What used to take our team two weeks now happens in minutes — and the quality is consistently on-brand across every channel.</p>
+        <cite class="cs-au">HEAD OF CONTENT STRATEGY · BANCO GALICIA</cite>
       </blockquote>
     </div>
   </section>
 
-  <!-- ── FINAL CTA ─── -->
+  <!-- CTA FINAL -->
   <section id="cta-final">
-    <div class="cta-orb co1"></div>
-    <div class="cta-orb co2"></div>
+    <div class="ticker-bg" id="ticker-cta"></div>
+    <div class="ticker-overlay"></div>
     <div class="cta-inner">
-      <p class="cta-eyebrow reveal">Hike · Agent Council</p>
-      <h2 class="reveal d1">Ready to <em>hike?</em></h2>
-      <p class="reveal d2">Join the brands already running Hike Listen, Hike Create and Hike Advise. Let's build your council today.</p>
-      <div class="cta-btns">
-        <a class="btn-hero-solid reveal d3" href="index.html">Explore the Council</a>
-        <a class="btn-hero-ghost reveal d4"
-          href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council."
-          target="_blank" rel="noopener">
-          Book a Demo on WhatsApp →
-        </a>
+      <p class="cta-eyebrow reveal">// hike · agent council</p>
+      <h2 class="reveal d1">Ready to<br/><em>hike?</em></h2>
+      <p class="reveal d2">Join the brands already running Hike Listen, Hike Create<br/>and Hike Advise. Let's build your council today.</p>
+      <div class="cta-row">
+        <a class="btn-solid reveal d3" href="index.html">EXPLORE COUNCIL<span class="btn-cursor">_</span></a>
+        <a class="btn-ghost reveal d4" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">BOOK DEMO ON WHATSAPP →</a>
       </div>
     </div>
   </section>
 
-  <!-- ── FOOTER ─── -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <img class="footer-logo"
-        src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png"
-        alt="Hike the Cloud"/>
+      <img class="footer-logo" src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png" alt="Hike the Cloud"/>
       <ul class="footer-links">
-        <li><a href="#listen">Hike Listen</a></li>
-        <li><a href="#create">Hike Create</a></li>
-        <li><a href="#advise">Hike Advise</a></li>
-        <li><a href="index.html">The Council</a></li>
+        <li><a href="#listen">hike_listen</a></li>
+        <li><a href="#create">hike_create</a></li>
+        <li><a href="#advise">hike_advise</a></li>
+        <li><a href="index.html">council ↗</a></li>
       </ul>
-      <span class="footer-copy">© 2025 Hike the Cloud</span>
+      <span class="footer-copy">© 2025 HIKE THE CLOUD</span>
     </div>
   </footer>
 
   <script>
-    /* Progress bar */
-    const prog = document.getElementById('progress');
-    const nav  = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      const s = window.scrollY, t = document.body.scrollHeight - window.innerHeight;
-      prog.style.width = (s / t * 100) + '%';
-      nav.classList.toggle('scrolled', s > 80);
-    }, { passive: true });
+  /* ─────────────────────────────────────────────────
+     TICKER BUILDER
+  ───────────────────────────────────────────────── */
+  const TICKER_TEXT = 'SENTIMENT: 74% POSITIVE  |  MENTIONS: 26/hr  |  CRISIS_SCORE: 0.2  |  CONTENT_VARIANTS: 4x  |  CONVERSION: +40%  |  AGENT_STATUS: ACTIVE  |  HIKE_LISTEN: ONLINE  |  HIKE_CREATE: ONLINE  |  HIKE_ADVISE: ONLINE  |  BUILD: 2025.05  |  POWERED_BY: GEMINI  |  GOOGLE_CLOUD: CONNECTED  |  ';
 
-    /* Scroll reveal */
-    const ro = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-    /* Counter animation */
-    function countUp(el) {
-      const target = parseInt(el.dataset.target, 10);
-      const prefix = el.dataset.prefix || '';
-      const suffix = el.dataset.suffix || '';
-      const dur = 1600, start = performance.now();
-      function tick(now) {
-        const p = Math.min((now - start) / dur, 1);
-        const v = Math.round((1 - Math.pow(1 - p, 3)) * target);
-        el.textContent = prefix + v.toLocaleString() + suffix;
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
+  function buildTicker(container) {
+    const str = TICKER_TEXT.repeat(8);
+    const rowCount = 18;
+    for (let i = 0; i < rowCount; i++) {
+      const row = document.createElement('div');
+      row.className = 'ticker-row';
+      row.textContent = str;
+      // Vary speeds and opacities
+      const dur = 28 + (i % 5) * 6;
+      row.style.animationDuration = dur + 's';
+      row.style.animationDelay = -(i * 3.2) + 's';
+      container.appendChild(row);
     }
-    const co = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting && e.target.dataset.target) { countUp(e.target); co.unobserve(e.target); } });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('[data-target]').forEach(el => co.observe(el));
+  }
 
-    /* Smooth anchor scroll */
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
-      });
+  buildTicker(document.getElementById('ticker-hero'));
+  buildTicker(document.getElementById('ticker-cta'));
+
+  /* ─────────────────────────────────────────────────
+     SCROLL PROGRESS + NAV
+  ───────────────────────────────────────────────── */
+  const prog = document.getElementById('progress');
+  const nav  = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY, t = document.body.scrollHeight - window.innerHeight;
+    prog.style.width = (s / t * 100) + '%';
+    nav.classList.toggle('scrolled', s > 60);
+  }, { passive: true });
+
+  /* ─────────────────────────────────────────────────
+     SCROLL REVEAL
+  ───────────────────────────────────────────────── */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('vis'); revealObs.unobserve(e.target); }
     });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  /* ─────────────────────────────────────────────────
+     COUNTER ANIMATION
+  ───────────────────────────────────────────────── */
+  function countUp(el) {
+    if (el.dataset.static) return;
+    const target = parseInt(el.dataset.target, 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const dur = 1500, start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const v = Math.round((1 - Math.pow(1 - p, 3)) * target);
+      el.textContent = prefix + v.toLocaleString() + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = el.dataset.orig; // restore formatted original
+    }
+    requestAnimationFrame(tick);
+  }
+  const ctrObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { countUp(e.target); ctrObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.impact-num').forEach(el => ctrObs.observe(el));
+
+  /* ─────────────────────────────────────────────────
+     GLITCH ON HOVER (impact numbers)
+  ───────────────────────────────────────────────── */
+  const GLITCH_CHARS = '!@#$%<>[]{}0123456789ABCDEFabcdef/*-+';
+  function glitch(el) {
+    const orig = el.dataset.orig;
+    if (!orig || el._glitching) return;
+    el._glitching = true;
+    let i = 0;
+    const iv = setInterval(() => {
+      el.textContent = orig.split('').map(c =>
+        /[\w%×+\/]/.test(c) ? GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)] : c
+      ).join('');
+      if (++i >= 10) { clearInterval(iv); el.textContent = orig; el._glitching = false; }
+    }, 38);
+  }
+  document.querySelectorAll('.impact-num').forEach(el => {
+    el.parentElement.addEventListener('mouseenter', () => glitch(el));
+  });
+
+  /* ─────────────────────────────────────────────────
+     TERMINAL BOOT ANIMATION
+  ───────────────────────────────────────────────── */
+  function bootTerminal(bodyEl) {
+    if (bodyEl._booted) return;
+    bodyEl._booted = true;
+    const lines = JSON.parse(bodyEl.dataset.lines);
+    bodyEl.innerHTML = '';
+
+    lines.forEach((line, idx) => {
+      setTimeout(() => {
+        const div = document.createElement('div');
+        div.className = 'term-line';
+
+        let prefixHTML = '';
+        if (line.c === 'cmd')   prefixHTML = `<span class="t-cmd">$ </span>`;
+        if (line.c === 'ok')    prefixHTML = `<span class="t-ok">[✓] </span>`;
+        if (line.c === 'arrow') prefixHTML = `<span class="t-arrow">[→] </span>`;
+        if (line.c === 'warn')  prefixHTML = `<span class="t-warn">[!] </span>`;
+
+        const cursor = line.cursor ? '<span class="term-cursor">_</span>' : '';
+        div.innerHTML = prefixHTML + `<span class="t-text">${line.t}</span>` + cursor;
+        bodyEl.appendChild(div);
+
+        // Trigger show transition on next frame
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => div.classList.add('show'));
+        });
+      }, idx * 320);
+    });
+  }
+
+  const termIds = ['tb-listen', 'tb-create', 'tb-advise'];
+  const termObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        bootTerminal(e.target);
+        termObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  termIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) termObs.observe(el);
+  });
+
+  /* ─────────────────────────────────────────────────
+     SMOOTH ANCHOR SCROLL
+  ───────────────────────────────────────────────── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
   </script>
 </body>
 </html>
