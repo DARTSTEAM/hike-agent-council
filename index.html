@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hike · Agent Council — Three Agents. One Council.</title>
+  <meta name="description" content="The Hike the Cloud agent hub: Hike Listen, Hike Create and Hike Advise. AI applied to real brands. Built for Google." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── DESIGN TOKENS — Light (default) ──────────────────── */
+    :root {
+      --bg:           #FCF9F7;
+      --surface:      #FFFFFF;
+      --surface-2:    #F7F4F1;
+      --dark:         #1A0A2E;
+      --accent:       #7E6E94;
+      --accent-dark:  #2D1B4E;
+      --accent-deep:  #5E5070;
+      --accent-light: rgba(126,110,148,0.08);
+      --accent-border:rgba(126,110,148,0.18);
+      --yellow:       #F4EB33;
+      --text:         #1A1420;
+      --text-2:       #6B6272;
+      --text-3:       #9E97A5;
+      --border:       rgba(26,20,32,0.07);
+      --border-md:    rgba(26,20,32,0.13);
+      --topbar-bg:    rgba(252,249,247,0.92);
+      --backdrop-bg:  rgba(252,249,247,0.68);
+      --node-fill:    #FFFFFF;
+      --logo-url:     url('https://storage.googleapis.com/abn-assets/hike_logo_violeta_1080x1080.png');
+      --transition:   cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── DESIGN TOKENS — Dark ──────────────────────────────── */
+    [data-theme="dark"] {
+      --bg:           #0E0618;
+      --surface:      #1A0A2E;
+      --surface-2:    #120820;
+      --accent:       #9E8FB8;
+      --accent-dark:  #C8B8E0;
+      --accent-deep:  #B0A0CC;
+      --accent-light: rgba(200,184,224,0.08);
+      --accent-border:rgba(200,184,224,0.18);
+      --text:         #F0EAF8;
+      --text-2:       #B8ADCC;
+      --text-3:       #7A6E90;
+      --border:       rgba(200,184,224,0.07);
+      --border-md:    rgba(200,184,224,0.16);
+      --topbar-bg:    rgba(14,6,24,0.92);
+      --backdrop-bg:  rgba(14,6,24,0.72);
+      --node-fill:    #1A0A2E;
+    }
+
+    /* ─── THEME TRANSITION ─────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box; margin: 0; padding: 0;
+      transition:
+        background-color 0.45s cubic-bezier(0.16,1,0.3,1),
+        color 0.45s cubic-bezier(0.16,1,0.3,1),
+        border-color 0.45s cubic-bezier(0.16,1,0.3,1),
+        fill 0.45s cubic-bezier(0.16,1,0.3,1),
+        stroke 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── KEYFRAMES ─────────────────────────────────────────── */
+    @keyframes breathe {
+      0%,100% { transform: scale(1);    opacity: 1; }
+      50%      { transform: scale(1.12); opacity: 0.85; }
+    }
+    @keyframes halo {
+      0%,100% { transform: scale(0.95); opacity: 0.5; }
+      50%      { transform: scale(1.1);  opacity: 0.9; }
+    }
+    @keyframes spinCW  { to { transform: rotate(360deg);  } }
+    @keyframes spinCCW { to { transform: rotate(-360deg); } }
+    @keyframes dashFlow { to { stroke-dashoffset: -48; } }
+    @keyframes blink {
+      0%,100% { opacity: 1;   }
+      50%      { opacity: 0.2; }
+    }
+    @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(-14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes nodeIn {
+      from { opacity: 0; transform: scale(0.7); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes panelIn {
+      from { opacity: 0; transform: scale(0.92) translateY(22px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0); }
+    }
+    @keyframes panelOut {
+      from { opacity: 1; transform: scale(1)    translateY(0); }
+      to   { opacity: 0; transform: scale(0.92) translateY(22px); }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── TOP BAR ───────────────────────────────────────────── */
+    #topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 3.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--topbar-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      opacity: 0;
+      animation: fadeIn 0.4s 0.1s var(--transition) forwards;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 0.75rem; }
+
+    /* Logo swaps automatically with JS class */
+    .topbar-logo { height: 22px; width: auto; transition: opacity 0.3s; }
+    .topbar-logo-light { display: block; }
+    .topbar-logo-dark  { display: none; }
+    [data-theme="dark"] .topbar-logo-light { display: none; }
+    [data-theme="dark"] .topbar-logo-dark  { display: block; }
+
+    .topbar-divider { width: 1px; height: 18px; background: var(--border-md); }
+    .topbar-title {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--accent-dark);
+    }
+    .topbar-right { display: flex; align-items: center; gap: 0.875rem; }
+    .topbar-tag {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .topbar-sep { width: 24px; height: 1px; background: var(--border-md); }
+    .topbar-version { font-size: 10px; font-weight: 500; color: var(--text-3); letter-spacing: 0.1em; }
+
+    /* ─── DARK MODE TOGGLE ──────────────────────────────────── */
+    #theme-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 2rem; height: 2rem;
+      border-radius: 50%;
+      border: 1px solid var(--border-md);
+      background: transparent;
+      cursor: pointer;
+      color: var(--text-3);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s !important;
+    }
+    #theme-toggle:hover {
+      background: var(--accent-light);
+      border-color: var(--accent-border);
+      color: var(--accent-dark);
+      transform: rotate(20deg);
+    }
+    #theme-toggle svg { width: 14px; height: 14px; pointer-events: none; }
+    /* Show sun in dark, moon in light */
+    #icon-moon { display: block; }
+    #icon-sun  { display: none; }
+    [data-theme="dark"] #icon-moon { display: none; }
+    [data-theme="dark"] #icon-sun  { display: block; }
+
+    /* ─── HEADER ────────────────────────────────────────────── */
+    #header {
+      position: fixed; top: 3.5rem; left: 0; right: 0; z-index: 50;
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 1.25rem;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.25s var(--transition) forwards;
+    }
+    .eyebrow-row {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 0.9rem;
+    }
+    .eyebrow-line { width: 40px; height: 1px; background: var(--accent-border); }
+    .eyebrow-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+    #header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.125rem);
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      color: var(--accent-dark);
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 0.55rem;
+    }
+    #header h1 span.accent {
+      font-weight: 600; font-style: italic;
+    }
+    /* Yellow accent ONLY in dark mode */
+    [data-theme="dark"] #header h1 span.accent {
+      color: var(--yellow);
+    }
+    #header .subtitle {
+      font-size: 0.8125rem; font-weight: 300;
+      color: var(--text-3); letter-spacing: 0.01em;
+    }
+
+    /* ─── STAGE ─────────────────────────────────────────────── */
+    #stage-wrap {
+      position: fixed;
+      top: 9.5rem; left: 0; right: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    #stage {
+      width:  min(800px, 95vw, calc(100vh - 11rem));
+      height: min(800px, 95vw, calc(100vh - 11rem));
+      pointer-events: all;
+      overflow: visible;
+    }
+
+    /* Node interactivity */
+    .node-group { cursor: pointer; transition: opacity 0.45s var(--transition) !important; }
+    .node-ring  { transition: stroke 0.25s, stroke-width 0.25s, filter 0.25s !important; }
+    .node-icon  {
+      transition: transform 0.25s var(--transition) !important;
+      transform-origin: 0 0; transform-box: fill-box;
+    }
+    .node-halo  { transform-origin: center center; transform-box: fill-box; }
+
+    .node-group.hovered .node-ring {
+      stroke: var(--accent-dark) !important;
+      stroke-width: 2 !important;
+      filter: drop-shadow(0 0 10px rgba(45,27,78,0.35));
+    }
+    [data-theme="dark"] .node-group.hovered .node-ring {
+      filter: drop-shadow(0 0 14px rgba(200,184,224,0.45));
+    }
+    .node-group.hovered .node-icon { transform: scale(1.08); }
+
+    .has-selection .node-group:not(.selected) { opacity: 0.12; pointer-events: none; }
+    .has-selection .conn-line,
+    .has-selection .conn-dash { opacity: 0.08; }
+
+    .conn-line { transition: opacity 0.45s var(--transition) !important; }
+    .conn-dash {
+      transition: opacity 0.45s var(--transition) !important;
+      animation: dashFlow 8s linear infinite;
+    }
+
+    /* ─── BACKDROP ──────────────────────────────────────────── */
+    #backdrop {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: var(--backdrop-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    #backdrop.visible { display: flex; }
+
+    /* ─── PANEL ─────────────────────────────────────────────── */
+    #panel {
+      position: relative;
+      width: min(900px, 100%);
+      max-height: 88vh;
+      overflow-y: auto;
+      background: var(--surface);
+      border-radius: 1.5rem;
+      border: 1px solid var(--border-md);
+      box-shadow:
+        0 2px 4px rgba(45,27,78,0.06),
+        0 8px 24px rgba(45,27,78,0.12),
+        0 24px 64px rgba(45,27,78,0.16),
+        0 48px 100px rgba(45,27,78,0.08);
+      padding: 2.5rem 3rem 2rem;
+      animation: panelIn 0.6s var(--transition) forwards;
+    }
+    [data-theme="dark"] #panel {
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.3),
+        0 8px 24px rgba(0,0,0,0.4),
+        0 24px 64px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(200,184,224,0.1);
+    }
+    #panel.closing { animation: panelOut 0.35s var(--transition) forwards; }
+    #panel::-webkit-scrollbar { width: 4px; }
+    #panel::-webkit-scrollbar-track { background: transparent; }
+    #panel::-webkit-scrollbar-thumb { background: var(--accent-border); border-radius: 2px; }
+
+    /* Close button */
+    #close-btn {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      width: 2rem; height: 2rem; border-radius: 50%;
+      border: 1px solid var(--border-md);
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--text-3);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s !important;
+      z-index: 10;
+    }
+    #close-btn:hover {
+      background: var(--accent-light);
+      border-color: var(--accent-border);
+      color: var(--accent-dark);
+      transform: rotate(90deg);
+    }
+    #close-btn svg { width: 14px; height: 14px; pointer-events: none; }
+
+    /* Panel content */
+    .panel-eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .panel-title {
+      font-size: clamp(1.75rem, 4vw, 2.625rem);
+      font-weight: 300; letter-spacing: -0.025em;
+      color: var(--accent-dark);
+      line-height: 1.12; margin-bottom: 0.8rem;
+    }
+    .panel-title span.accent { font-weight: 600; font-style: italic; }
+    [data-theme="dark"] .panel-title span.accent { color: var(--yellow); }
+    .panel-tagline {
+      font-size: 1rem; font-weight: 300;
+      color: var(--text-2); line-height: 1.7;
+      margin-bottom: 1.5rem; max-width: 68ch;
+    }
+    .panel-divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+    .panel-section-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 1.25rem;
+    }
+
+    /* Stats */
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .stat-item {
+      padding: 1.375rem 1rem;
+      background: var(--surface-2);
+      border-radius: 0.875rem;
+      border: 1px solid var(--border);
+      text-align: center;
+      animation: countUp 0.5s var(--transition) both;
+    }
+    .stat-item:nth-child(1) { animation-delay: 0.05s; }
+    .stat-item:nth-child(2) { animation-delay: 0.12s; }
+    .stat-item:nth-child(3) { animation-delay: 0.19s; }
+    .stat-num {
+      display: block;
+      font-size: 2rem; font-weight: 300;
+      letter-spacing: -0.04em; color: var(--accent-dark);
+      line-height: 1; margin-bottom: 0.4rem;
+    }
+    [data-theme="dark"] .stat-num { color: var(--yellow); }
+    .stat-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    /* Trusted by */
+    .trusted-row {
+      display: flex; align-items: center; gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .trusted-logo {
+      height: 22px; width: auto;
+      opacity: 0.55;
+      filter: grayscale(1);
+      transition: opacity 0.2s, filter 0.2s !important;
+    }
+    .trusted-logo:hover { opacity: 0.85; filter: grayscale(0); }
+    [data-theme="dark"] .trusted-logo { filter: grayscale(1) brightness(2); }
+
+    /* Capabilities */
+    .cap-list { list-style: none; }
+    .cap-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem; font-weight: 300;
+      color: var(--text-2); line-height: 1.65;
+    }
+    .cap-item:last-child { border-bottom: none; }
+    .cap-bullet {
+      flex-shrink: 0; width: 5px; height: 5px;
+      border-radius: 50%; background: var(--accent);
+      margin-top: 0.52em;
+    }
+
+    /* Buttons */
+    .panel-actions { display: flex; gap: 0.75rem; margin-top: 1.75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem; border-radius: 0.625rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s !important;
+      border: 1.5px solid transparent;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--accent-dark); color: #fff; border-color: var(--accent-dark);
+    }
+    [data-theme="dark"] .btn-primary {
+      background: var(--yellow); color: #1A0A2E; border-color: var(--yellow);
+    }
+    .btn-primary:hover {
+      background: var(--accent-deep); border-color: var(--accent-deep);
+      box-shadow: 0 4px 18px rgba(45,27,78,0.28);
+    }
+    [data-theme="dark"] .btn-primary:hover {
+      background: #e8df2a; border-color: #e8df2a;
+      box-shadow: 0 4px 20px rgba(244,235,51,0.3);
+    }
+    .btn-outline {
+      background: transparent; color: var(--accent-dark); border-color: var(--accent-border);
+    }
+    .btn-outline:hover { background: var(--accent-light); border-color: var(--accent); }
+
+    /* ─── HINT ──────────────────────────────────────────────── */
+    #hint {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 0.6rem;
+      opacity: 0;
+      animation: fadeIn 0.5s 1.5s var(--transition) forwards;
+      pointer-events: none; z-index: 50;
+    }
+    .hint-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: blink 2s ease-in-out infinite;
+    }
+    .hint-text {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-3);
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      body, html { overflow: auto; }
+      #stage-wrap { position: relative; inset: auto; top: auto; padding: 9rem 0 2rem; display: block; }
+      #stage { margin: 0 auto; display: block; }
+      #hint { display: none; }
+      #panel { padding: 1.75rem 1.25rem 1.25rem; }
+      .stats-grid { gap: 0.375rem; }
+      .stat-item { padding: 1rem 0.5rem; }
+      .stat-num { font-size: 1.5rem; }
+      .panel-actions { flex-direction: column; }
+      .btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── TOP BAR ─────────────────────────────────────────── -->
+  <header id="topbar" role="banner">
+    <div class="topbar-left">
+      <!-- Light logo -->
+      <img class="topbar-logo topbar-logo-light"
+        src="https://storage.googleapis.com/abn-assets/hike_logo_violeta_1080x1080.png"
+        alt="Hike the Cloud" />
+      <!-- Dark logo -->
+      <img class="topbar-logo topbar-logo-dark"
+        src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png"
+        alt="Hike the Cloud" />
+      <div class="topbar-divider"></div>
+      <span class="topbar-title">Hike · Agent Council</span>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-tag">Built for Google</span>
+      <div class="topbar-sep"></div>
+      <span class="topbar-version">v 1.0</span>
+      <div class="topbar-sep"></div>
+      <!-- Dark mode toggle -->
+      <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <!-- Moon icon (shown in light mode) -->
+        <svg id="icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z"/>
+        </svg>
+        <!-- Sun icon (shown in dark mode) -->
+        <svg id="icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="8" cy="8" r="3"/>
+          <line x1="8" y1="1" x2="8" y2="3"/>
+          <line x1="8" y1="13" x2="8" y2="15"/>
+          <line x1="1" y1="8" x2="3" y2="8"/>
+          <line x1="13" y1="8" x2="15" y2="8"/>
+          <line x1="3.05" y1="3.05" x2="4.46" y2="4.46"/>
+          <line x1="11.54" y1="11.54" x2="12.95" y2="12.95"/>
+          <line x1="12.95" y1="3.05" x2="11.54" y2="4.46"/>
+          <line x1="4.46" y1="11.54" x2="3.05" y2="12.95"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ─── HEADER ──────────────────────────────────────────── -->
+  <section id="header" aria-labelledby="main-heading">
+    <div class="eyebrow-row">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-label">The Council</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h1 id="main-heading">
+      Three agents. One council.<br />
+      <span class="accent">Pick your trail.</span>
+    </h1>
+    <p class="subtitle">Tap an agent to learn more.</p>
+  </section>
+
+  <!-- ─── STAGE SVG ────────────────────────────────────────── -->
+  <div id="stage-wrap">
+    <svg
+      id="stage"
+      viewBox="-400 -400 800 800"
+      role="img"
+      aria-label="Interactive council of three Hike the Cloud agents"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <!-- CONNECTION LINES -->
+      <line class="conn-line" x1="0" y1="0" x2="0" y2="-240"
+        stroke="rgba(126,110,148,0.18)" stroke-width="1"/>
+      <line class="conn-dash" x1="0" y1="0" x2="0" y2="-240"
+        stroke="rgba(45,27,78,0.32)" stroke-width="1"
+        stroke-dasharray="4 8"/>
+      <line class="conn-line" x1="0" y1="0" x2="208" y2="120"
+        stroke="rgba(126,110,148,0.18)" stroke-width="1"/>
+      <line class="conn-dash" x1="0" y1="0" x2="208" y2="120"
+        stroke="rgba(45,27,78,0.32)" stroke-width="1"
+        stroke-dasharray="4 8" style="animation-delay:-2.7s"/>
+      <line class="conn-line" x1="0" y1="0" x2="-208" y2="120"
+        stroke="rgba(126,110,148,0.18)" stroke-width="1"/>
+      <line class="conn-dash" x1="0" y1="0" x2="-208" y2="120"
+        stroke="rgba(45,27,78,0.32)" stroke-width="1"
+        stroke-dasharray="4 8" style="animation-delay:-5.3s"/>
+
+      <!-- ── COUNCIL CENTER ─────────────────────────────── -->
+      <g id="council-center">
+        <circle cx="0" cy="0" r="52"
+          fill="none" stroke="rgba(126,110,148,0.2)" stroke-width="1"
+          style="transform-origin:0 0;transform-box:fill-box;animation:spinCW 60s linear infinite"/>
+        <circle cx="0" cy="0" r="38"
+          fill="none" stroke="rgba(45,27,78,0.16)" stroke-width="1"
+          stroke-dasharray="2 6"
+          style="transform-origin:0 0;transform-box:fill-box;animation:spinCCW 90s linear infinite"/>
+        <image
+          id="center-logo"
+          href="https://storage.googleapis.com/abn-assets/hike_logo_violeta_1080x1080.png"
+          x="-22" y="-22" width="44" height="44"
+          preserveAspectRatio="xMidYMid meet"
+          style="transform-origin:0 0;transform-box:fill-box;animation:breathe 4s ease-in-out infinite"/>
+        <text x="0" y="74" text-anchor="middle"
+          font-family="Inter,sans-serif" font-size="7" font-weight="700"
+          letter-spacing="3.2" fill="#9E97A5">HIKE · THE COUNCIL</text>
+      </g>
+
+      <!-- ── NODE 1: Hike Listen (top) ─────────────────── -->
+      <g transform="translate(0,-240)">
+        <g class="node-group" id="node-hike-listen" data-agent="hike-listen"
+          role="button" tabindex="0" aria-label="Hike Listen agent"
+          style="opacity:0;animation:nodeIn 0.7s 0.7s cubic-bezier(0.16,1,0.3,1) forwards">
+          <circle class="node-halo" cx="0" cy="0" r="68"
+            fill="rgba(126,110,148,0.08)"
+            style="animation:halo 5s ease-in-out infinite"/>
+          <circle class="node-ring" cx="0" cy="0" r="56"
+            fill="white" stroke="rgba(126,110,148,0.18)" stroke-width="1.5"/>
+          <g class="node-icon">
+            <path d="M-24,8 A26,26,0,0,1,24,8"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M-15,5 A17,17,0,0,1,15,5"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M-7,2 A8,8,0,0,1,7,2"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="0" cy="0" r="2.5" fill="#2D1B4E"/>
+          </g>
+          <text x="0" y="80" text-anchor="middle"
+            font-family="Inter,sans-serif" font-size="16" font-weight="600"
+            fill="#1A1420">Hike Listen</text>
+          <text x="0" y="97" text-anchor="middle"
+            font-family="Inter,sans-serif" font-size="11" font-weight="700"
+            letter-spacing="2.6" fill="#9E97A5">LISTEN · LIVE</text>
+        </g>
+      </g>
+
+      <!-- ── NODE 2: Hike Create (bottom-right) ─────────── -->
+      <g transform="translate(208,120)">
+        <g class="node-group" id="node-hike-create" data-agent="hike-create"
+          role="button" tabindex="0" aria-label="Hike Create agent"
+          style="opacity:0;animation:nodeIn 0.7s 0.85s cubic-bezier(0.16,1,0.3,1) forwards">
+          <circle class="node-halo" cx="0" cy="0" r="68"
+            fill="rgba(126,110,148,0.08)"
+            style="animation:halo 5s 1.7s ease-in-out infinite"/>
+          <circle class="node-ring" cx="0" cy="0" r="56"
+            fill="white" stroke="rgba(126,110,148,0.18)" stroke-width="1.5"/>
+          <g class="node-icon">
+            <path d="M14,-8 A18,18,0,0,0,-14,-8"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5"
+              stroke-linecap="round" opacity="0.38"/>
+            <path d="M-14,8 A18,18,0,1,1,14,8"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
+            <polyline points="10,3 14,8 19,4"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <text x="0" y="80" text-anchor="middle"
+            font-family="Inter,sans-serif" font-size="16" font-weight="600"
+            fill="#1A1420">Hike Create</text>
+          <text x="0" y="97" text-anchor="middle"
+            font-family="Inter,sans-serif" font-size="11" font-weight="700"
+            letter-spacing="2.6" fill="#9E97A5">CREATE · ADAPT</text>
+        </g>
+      </g>
+
+      <!-- ── NODE 3: Hike Advise (bottom-left) ─────────── -->
+      <g transform="translate(-208,120)">
+        <g class="node-group" id="node-hike-advise" data-agent="hike-advise"
+          role="button" tabindex="0" aria-label="Hike Advise agent"
+          style="opacity:0;animation:nodeIn 0.7s 1.0s cubic-bezier(0.16,1,0.3,1) forwards">
+          <circle class="node-halo" cx="0" cy="0" r="68"
+            fill="rgba(126,110,148,0.08)"
+            style="animation:halo 5s 3.3s ease-in-out infinite"/>
+          <circle class="node-ring" cx="0" cy="0" r="56"
+            fill="white" stroke="rgba(126,110,148,0.18)" stroke-width="1.5"/>
+          <g class="node-icon">
+            <rect x="2" y="-17" width="22" height="16" rx="4"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5"
+              stroke-linecap="round" opacity="0.42"/>
+            <polyline points="5,-1 3,5 9,1"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" opacity="0.42"/>
+            <rect x="-23" y="-11" width="24" height="17" rx="4"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
+            <polyline points="-19,6 -22,13 -14,8"
+              fill="none" stroke="#2D1B4E" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <text x="0" y="80" text-anchor="middle"
+            font-family="Inter,sans-serif" font-size="16" font-weight="600"
+            fill="#1A1420">Hike Advise</text>
+          <text x="0" y="97" text-anchor="middle"
+            font-family="Inter,sans-serif" font-size="11" font-weight="700"
+            letter-spacing="2.6" fill="#9E97A5">CONVERSE · CONVERT</text>
+        </g>
+      </g>
+
+    </svg>
+  </div>
+
+  <!-- ─── HINT ─────────────────────────────────────────────── -->
+  <div id="hint" aria-hidden="true">
+    <div class="hint-dot"></div>
+    <span class="hint-text">Tap a node to activate the council</span>
+  </div>
+
+  <!-- ─── BACKDROP + PANEL ──────────────────────────────────── -->
+  <div id="backdrop" role="dialog" aria-modal="true" aria-labelledby="panel-title">
+    <div id="panel">
+      <button id="close-btn" aria-label="Close panel">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor"
+          stroke-width="1.8" stroke-linecap="round">
+          <line x1="1" y1="1" x2="13" y2="13"/>
+          <line x1="13" y1="1" x2="1" y2="13"/>
+        </svg>
+      </button>
+      <div id="panel-content"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ══════════════════════════════════════════════════════════
+       AGENT DATA — edit this object to update content
+       ══════════════════════════════════════════════════════════ */
+    const AGENTS = {
+
+      'hike-listen': {
+        eyebrow:     'Agent · 01',
+        name:        'Hike Listen',
+        titlePrefix: 'Listens to every conversation',
+        accent:      'that matters.',
+        tagline:     'Real-time social media monitoring powered by AI. Detects mentions, trends and sentiment shifts in any language — before they become a crisis or a missed opportunity.',
+        url:         'https://hike-social-listener.web.app/',
+        urlLabel:    'OPEN HIKE LISTEN →',
+        trusted:     null,
+        stats: [
+          { num: '24/7',  label: 'Active monitoring' },
+          { num: '+15',   label: 'Active brands' },
+          { num: '8',     label: 'Languages' }
+        ],
+        capabilities: [
+          'Tracks mentions across 100+ sources: social networks, forums, news, podcasts and reviews',
+          'Real-time sentiment analysis with automatic detection of crises and opportunities',
+          'Custom executive reports by brand, campaign and competitor',
+          'Instant configurable alerts so nothing relevant slips through the cracks',
+          'Unified dashboard: your brand\'s full conversation in a single view'
+        ]
+      },
+
+      'hike-create': {
+        eyebrow:     'Agent · 02',
+        name:        'Hike Create',
+        titlePrefix: 'Content that adapts',
+        accent:      'on its own.',
+        tagline:     'Transforms every piece of content into optimized versions for each channel, format and audience. Continuous learning based on real performance data — no manual input needed.',
+        url:         'https://readapt.web.app/',
+        urlLabel:    'OPEN HIKE CREATE →',
+        /* Client logos shown in the panel — add more objects as needed */
+        trusted: [
+          {
+            name: 'Galicia',
+            src:  'https://elfaroboutiquehotel.com.ar/wp-content/uploads/2025/09/logo_galicia_blanco.png',
+            height: 28
+          }
+        ],
+        stats: [
+          { num: '×4',   label: 'Auto variations' },
+          { num: '<3s',  label: 'Per adaptation' },
+          { num: '100%', label: 'On-brand' }
+        ],
+        capabilities: [
+          'Automatically adapts copy, images and structure to every platform and format',
+          'Brand memory: preserves tone, voice and guidelines across every generated variation',
+          'Autonomous A/B testing with continuous optimization based on real metrics',
+          'Native integration with Google Ads, Meta and major programmatic platforms',
+          'Full version history with the reasoning behind every agent decision'
+        ]
+      },
+
+      'hike-advise': {
+        eyebrow:     'Agent · 03',
+        name:        'Hike Advise',
+        titlePrefix: 'Conversations that',
+        accent:      'convert.',
+        tagline:     'A next-generation conversational agent that guides customers from first contact to purchase. Deep context, natural responses, zero friction.',
+        url:         'https://chat.hikethecloud.com/',
+        urlLabel:    'OPEN HIKE ADVISE →',
+        trusted:     null,
+        stats: [
+          { num: '+40%', label: 'Conversion rate' },
+          { num: '<2s',  label: 'Response time' },
+          { num: '12',   label: 'Integrated channels' }
+        ],
+        capabilities: [
+          'Natural conversations in human language across any channel and language',
+          'Native CRM integration: full customer history available in every session',
+          'Smart handoff to a human agent when the context calls for it',
+          'Purchase intent analysis with real-time predictive scoring',
+          'No-code setup: full agent customization with zero development required'
+        ]
+      }
+
+    };
+
+    /* ─── THEME TOGGLE ──────────────────────────────────────── */
+    const html        = document.documentElement;
+    const themeBtn    = document.getElementById('theme-toggle');
+    const centerLogo  = document.getElementById('center-logo');
+
+    const LOGO_LIGHT = 'https://storage.googleapis.com/abn-assets/hike_logo_violeta_1080x1080.png';
+    const LOGO_WHITE = 'https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png';
+
+    function applyTheme(dark) {
+      html.setAttribute('data-theme', dark ? 'dark' : 'light');
+      centerLogo.setAttribute('href', dark ? LOGO_WHITE : LOGO_LIGHT);
+      localStorage.setItem('hike-council-theme', dark ? 'dark' : 'light');
+      /* Also update all node fill circles to dark bg in dark mode */
+      document.querySelectorAll('.node-ring').forEach(r => {
+        r.setAttribute('fill', dark ? '#1A0A2E' : '#FFFFFF');
+      });
+      /* Update node text colors */
+      document.querySelectorAll('text[fill="#1A1420"]').forEach(t => {
+        t.setAttribute('fill', dark ? '#F0EAF8' : '#1A1420');
+      });
+      document.querySelectorAll('text[fill="#F0EAF8"]').forEach(t => {
+        if (!dark) t.setAttribute('fill', '#1A1420');
+      });
+      /* Update icon strokes */
+      document.querySelectorAll('.node-icon path, .node-icon polyline, .node-icon rect, .node-icon circle[fill="#2D1B4E"]').forEach(el => {
+        if (el.hasAttribute('stroke') && el.getAttribute('stroke') === '#2D1B4E') {
+          el.setAttribute('stroke', dark ? '#C8B8E0' : '#2D1B4E');
+        }
+        if (el.getAttribute('fill') === '#2D1B4E') {
+          el.setAttribute('fill', dark ? '#C8B8E0' : '#2D1B4E');
+        }
+      });
+      /* Connection line colors */
+      document.querySelectorAll('.conn-dash').forEach(l => {
+        l.setAttribute('stroke', dark ? 'rgba(200,184,224,0.45)' : 'rgba(45,27,78,0.32)');
+      });
+      document.querySelectorAll('.conn-line').forEach(l => {
+        l.setAttribute('stroke', dark ? 'rgba(200,184,224,0.15)' : 'rgba(126,110,148,0.18)');
+      });
+      /* Council rings */
+      const rings = document.querySelectorAll('#council-center circle');
+      rings.forEach((r, i) => {
+        if (i === 0) r.setAttribute('stroke', dark ? 'rgba(200,184,224,0.2)' : 'rgba(126,110,148,0.2)');
+        if (i === 1) r.setAttribute('stroke', dark ? 'rgba(200,184,224,0.18)' : 'rgba(45,27,78,0.16)');
+      });
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      applyTheme(!isDark);
+    });
+
+    /* Restore saved theme */
+    const saved = localStorage.getItem('hike-council-theme');
+    if (saved === 'dark') applyTheme(true);
+
+    /* ─── DOM REFS ───────────────────────────────────────────── */
+    const stage        = document.querySelector('#stage');
+    const backdrop     = document.querySelector('#backdrop');
+    const panel        = document.querySelector('#panel');
+    const panelContent = document.querySelector('#panel-content');
+    const closeBtn     = document.querySelector('#close-btn');
+    const nodes        = document.querySelectorAll('.node-group');
+
+    let activeNode = null;
+
+    /* ─── HOVER ─────────────────────────────────────────────── */
+    nodes.forEach(node => {
+      node.addEventListener('mouseenter', () => {
+        if (activeNode) return;
+        node.classList.add('hovered');
+      });
+      node.addEventListener('mouseleave', () => {
+        node.classList.remove('hovered');
+      });
+    });
+
+    /* ─── OPEN ──────────────────────────────────────────────── */
+    function openAgent(agentId) {
+      const d = AGENTS[agentId];
+      if (!d) return;
+
+      activeNode = agentId;
+      stage.classList.add('has-selection');
+      nodes.forEach(n => {
+        n.classList.remove('hovered', 'selected');
+        if (n.dataset.agent === agentId) n.classList.add('selected');
+      });
+
+      const trustedHTML = d.trusted ? `
+        <div class="panel-divider"></div>
+        <p class="panel-section-label">Trusted by</p>
+        <div class="trusted-row">
+          ${d.trusted.map(logo => `
+            <img class="trusted-logo"
+              src="${logo.src}"
+              alt="${logo.name}"
+              style="height:${logo.height}px"
+            />
+          `).join('')}
+        </div>
+      ` : '';
+
+      panelContent.innerHTML = `
+        <p class="panel-eyebrow">${d.eyebrow}</p>
+        <h2 id="panel-title" class="panel-title">
+          ${d.titlePrefix} <span class="accent">${d.accent}</span>
+        </h2>
+        <p class="panel-tagline">${d.tagline}</p>
+
+        <div class="panel-divider"></div>
+
+        <p class="panel-section-label">Measured impact</p>
+        <div class="stats-grid">
+          ${d.stats.map(s => `
+            <div class="stat-item">
+              <span class="stat-num">${s.num}</span>
+              <span class="stat-label">${s.label}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        ${trustedHTML}
+
+        <div class="panel-divider"></div>
+
+        <p class="panel-section-label">What this agent does</p>
+        <ul class="cap-list">
+          ${d.capabilities.map(c => `
+            <li class="cap-item">
+              <div class="cap-bullet"></div>
+              <span>${c}</span>
+            </li>
+          `).join('')}
+        </ul>
+
+        <div class="panel-actions">
+          <a class="btn btn-primary" href="${d.url}" target="_blank" rel="noopener">
+            ${d.urlLabel}
+          </a>
+          <button class="btn btn-outline" onclick="closePanel()">
+            BACK TO COUNCIL
+          </button>
+        </div>
+      `;
+
+      panel.classList.remove('closing');
+      panel.style.animation = 'none';
+      panel.offsetHeight;
+      panel.style.animation = '';
+      backdrop.classList.add('visible');
+    }
+
+    /* ─── CLOSE ─────────────────────────────────────────────── */
+    function closePanel() {
+      if (!activeNode) return;
+      panel.classList.add('closing');
+      setTimeout(() => {
+        backdrop.classList.remove('visible');
+        stage.classList.remove('has-selection');
+        nodes.forEach(n => n.classList.remove('selected', 'hovered'));
+        activeNode = null;
+        panel.classList.remove('closing');
+      }, 350);
+    }
+
+    /* ─── EVENTS ────────────────────────────────────────────── */
+    nodes.forEach(node => {
+      node.addEventListener('click', () => {
+        const id = node.dataset.agent;
+        if (activeNode === id) { closePanel(); return; }
+        openAgent(id);
+      });
+      node.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openAgent(node.dataset.agent);
+        }
+      });
+    });
+
+    closeBtn.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) closePanel(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+  </script>
+</body>
+</html>
