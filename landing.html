@@ -277,6 +277,50 @@
     .agent-bg-a { background: var(--bg); }
     .agent-bg-b { background: var(--bg2); }
 
+    /* ── VIDEO BG (Hike Create) ── */
+    .agent-sec-video {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .section-video-bg {
+      position: absolute; inset: 0; z-index: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .section-video-bg video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+    }
+    .section-video-bg video.loaded { opacity: 1; }
+    /* Dark overlay: keeps text and terminal fully readable */
+    .section-video-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(6,3,15,0.91) 0%,
+        rgba(10,5,20,0.82) 50%,
+        rgba(6,3,15,0.91) 100%
+      );
+    }
+    /* Scanline over video for that terminal feel */
+    .section-video-bg::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.08) 0px,
+        rgba(0,0,0,0.08) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      pointer-events: none;
+    }
+    .agent-sec-video .agent-grid { position: relative; z-index: 1; }
+
     .agent-grid {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 5rem; align-items: center;
@@ -643,7 +687,23 @@
   </section>
 
   <!-- AGENT 02: HIKE CREATE -->
-  <section id="create" class="agent-sec agent-bg-b" aria-labelledby="create-h">
+  <section id="create" class="agent-sec agent-sec-video" aria-labelledby="create-h">
+
+    <!-- Video background -->
+    <div class="section-video-bg">
+      <video
+        id="create-video"
+        autoplay muted loop playsinline
+        preload="none"
+        poster=""
+      >
+        <!-- Pexels royalty-free: abstract particles / creative flow -->
+        <source src="https://videos.pexels.com/video-files/3141208/3141208-uhd_2560_1440_30fps.mp4" type="video/mp4"/>
+        <!-- fallback: abstract digital art -->
+        <source src="https://videos.pexels.com/video-files/2278095/2278095-uhd_2560_1440_30fps.mp4" type="video/mp4"/>
+      </video>
+    </div>
+
     <div class="agent-grid rev section-inner">
 
       <div class="agent-copy">
@@ -951,6 +1011,46 @@
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
+
+  /* ─────────────────────────────────────────────────
+     LAZY VIDEO LOADER — Hike Create section
+     Starts loading only when section enters viewport
+  ───────────────────────────────────────────────── */
+  (function() {
+    const createSection = document.getElementById('create');
+    const vid = document.getElementById('create-video');
+    if (!createSection || !vid) return;
+
+    let loaded = false;
+
+    function loadVideo() {
+      if (loaded) return;
+      loaded = true;
+      // Trigger load by setting src on sources (preload=none means browser waits)
+      vid.load();
+      vid.addEventListener('canplay', () => {
+        vid.classList.add('loaded');
+        vid.play().catch(() => {
+          // Autoplay blocked — still show loaded state, loop won't play
+          vid.classList.add('loaded');
+        });
+      }, { once: true });
+      vid.addEventListener('error', () => {
+        console.warn('Hike Create: video failed to load, using background color fallback.');
+      }, { once: true });
+    }
+
+    const vidObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          loadVideo();
+          vidObs.unobserve(createSection);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    vidObs.observe(createSection);
+  })();
   </script>
 </body>
 </html>
