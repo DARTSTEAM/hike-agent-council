@@ -694,10 +694,11 @@ buildTicker(document.getElementById('ticker-advise'));
 /* ── PROGRESS + NAV SCROLL ── */
 const prog = document.getElementById('progress');
 const nav  = document.getElementById('nav');
+const hero = document.getElementById('hero');
 window.addEventListener('scroll', () => {
   const s = window.scrollY, t = document.body.scrollHeight - window.innerHeight;
   prog.style.width = (s / t * 100) + '%';
-  nav.classList.toggle('scrolled', s > 60);
+  nav.classList.toggle('scrolled', s > hero.offsetHeight - 80);
 }, { passive: true });
 
 /* ── REVEAL ── */
