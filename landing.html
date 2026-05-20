@@ -42,23 +42,36 @@
       position: fixed; top:0; left:0; right:0; z-index:500;
       display: flex; justify-content: space-between; align-items: center;
       padding: 1.25rem 2.5rem;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--line2);
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-color: var(--line2);
     }
     .nav-left  { display:flex; align-items:center; gap:1rem; }
-    .nav-logo  { height:20px; width:auto; }
-    .nav-sep   { width:1px; height:14px; background:var(--line); }
-    .nav-brand { font-size:10px; font-weight:500; letter-spacing:.24em; color:var(--violet); }
+    /* Logo: blanco sobre hero oscuro, color oscuro al scrollear */
+    .nav-logo  { height:20px; width:auto; filter: brightness(0) invert(1); transition: filter 0.4s; }
+    nav.scrolled .nav-logo { filter: none; }
+    .nav-sep   { width:1px; height:14px; background:rgba(255,255,255,.25); transition: background 0.4s; }
+    nav.scrolled .nav-sep { background: var(--line); }
+    .nav-brand { font-size:10px; font-weight:500; letter-spacing:.24em; color:rgba(200,184,224,.6); transition: color 0.4s; }
+    nav.scrolled .nav-brand { color:var(--violet); }
     .nav-links { display:flex; gap:2rem; list-style:none; }
-    .nav-links a { font-size:11px; font-weight:500; letter-spacing:.1em; color:var(--muted); transition:color .2s; }
-    .nav-links a:hover { color:var(--ink); }
+    .nav-links a { font-size:11px; font-weight:500; letter-spacing:.1em; color:rgba(255,255,255,.6); transition:color .2s; }
+    .nav-links a:hover { color:rgba(255,255,255,.95); }
+    nav.scrolled .nav-links a { color:var(--muted); }
+    nav.scrolled .nav-links a:hover { color:var(--ink); }
     .nav-cta {
       font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.14em;
       padding:.55rem 1.25rem; border-radius:4px;
-      background:var(--purple); color:var(--white);
-      transition:opacity .2s, transform .15s;
+      background: rgba(255,255,255,.15); color:var(--white);
+      border: 1px solid rgba(255,255,255,.3);
+      transition: background 0.4s, color 0.4s, border-color 0.4s, opacity .2s, transform .15s;
     }
+    nav.scrolled .nav-cta { background:var(--purple); color:var(--white); border-color:transparent; }
     .nav-cta:hover { opacity:.85; transform:translateY(-1px); }
 
     /* ── HERO — dark panel ── */
@@ -387,7 +400,7 @@
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-left">
-    <img class="nav-logo" src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png" alt="Hike" style="filter:invert(1) brightness(0)"/>
+    <img class="nav-logo" src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png" alt="Hike"/>
     <div class="nav-sep"></div>
     <span class="nav-brand">Agent Council</span>
   </div>
@@ -680,9 +693,11 @@ buildTicker(document.getElementById('ticker-advise'));
 
 /* ── PROGRESS + NAV SCROLL ── */
 const prog = document.getElementById('progress');
+const nav  = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   const s = window.scrollY, t = document.body.scrollHeight - window.innerHeight;
   prog.style.width = (s / t * 100) + '%';
+  nav.classList.toggle('scrolled', s > 60);
 }, { passive: true });
 
 /* ── REVEAL ── */
