@@ -277,14 +277,38 @@
     .agent-bg-a { background: var(--bg); }
     .agent-bg-b { background: var(--bg2); }
 
-    /* ── VIDEO BG (Hike Create) ── */
+    /* ── VIDEO / ANIMATED BG (Hike Create) ── */
     .agent-sec-video {
       position: relative;
       overflow: hidden;
       background: var(--bg);
     }
-    .section-video-bg {
+    /* CSS animated background — always visible, video appears on top */
+    .agent-sec-video::before {
+      content: '';
       position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(126,110,148,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 30%, rgba(244,235,51,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 50% at 60% 80%, rgba(45,27,78,0.35) 0%, transparent 60%),
+        var(--bg);
+      animation: create-bg-pulse 8s ease-in-out infinite alternate;
+    }
+    @keyframes create-bg-pulse {
+      0%   { opacity: 0.7; transform: scale(1)    rotate(0deg); }
+      50%  { opacity: 1;   transform: scale(1.05) rotate(1deg); }
+      100% { opacity: 0.8; transform: scale(0.98) rotate(-1deg); }
+    }
+    /* Dot grid overlay */
+    .agent-sec-video::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background-image: radial-gradient(circle, rgba(200,184,224,0.12) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .section-video-bg {
+      position: absolute; inset: 0; z-index: 2;
       width: 100%; height: 100%;
       pointer-events: none;
     }
@@ -292,34 +316,31 @@
       width: 100%; height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 1.4s ease;
+      transition: opacity 1.8s ease;
     }
-    .section-video-bg video.loaded { opacity: 1; }
-    /* Dark overlay: keeps text and terminal fully readable */
-    .section-video-bg::after {
-      content: '';
-      position: absolute; inset: 0;
+    .section-video-bg video.loaded { opacity: 0.45; }
+    /* Dark overlay on top of video — lighter so video/animation shows through */
+    .section-video-overlay {
+      position: absolute; inset: 0; z-index: 3;
       background: linear-gradient(
         135deg,
-        rgba(6,3,15,0.91) 0%,
-        rgba(10,5,20,0.82) 50%,
-        rgba(6,3,15,0.91) 100%
-      );
-    }
-    /* Scanline over video for that terminal feel */
-    .section-video-bg::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 1;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0,0,0,0.08) 0px,
-        rgba(0,0,0,0.08) 1px,
-        transparent 1px,
-        transparent 4px
+        rgba(6,3,15,0.78) 0%,
+        rgba(10,5,20,0.65) 50%,
+        rgba(6,3,15,0.78) 100%
       );
       pointer-events: none;
     }
-    .agent-sec-video .agent-grid { position: relative; z-index: 1; }
+    /* Scanlines */
+    .section-video-scan {
+      position: absolute; inset: 0; z-index: 4;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 1px,
+        transparent 1px, transparent 4px
+      );
+      pointer-events: none;
+    }
+    .agent-sec-video .agent-grid { position: relative; z-index: 5; }
 
     .agent-grid {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -689,20 +710,21 @@
   <!-- AGENT 02: HIKE CREATE -->
   <section id="create" class="agent-sec agent-sec-video" aria-labelledby="create-h">
 
-    <!-- Video background -->
+    <!-- Animated CSS fallback (always visible) + video on top -->
     <div class="section-video-bg">
       <video
         id="create-video"
         autoplay muted loop playsinline
-        preload="none"
-        poster=""
+        preload="auto"
+        crossorigin="anonymous"
       >
-        <!-- Pexels royalty-free: abstract particles / creative flow -->
-        <source src="https://videos.pexels.com/video-files/3141208/3141208-uhd_2560_1440_30fps.mp4" type="video/mp4"/>
-        <!-- fallback: abstract digital art -->
-        <source src="https://videos.pexels.com/video-files/2278095/2278095-uhd_2560_1440_30fps.mp4" type="video/mp4"/>
+        <!-- Free abstract creative video — multiple sources for reliability -->
+        <source src="https://cdn.pixabay.com/video/2020/07/28/45743-444998545_large.mp4" type="video/mp4"/>
+        <source src="https://cdn.pixabay.com/video/2016/12/30/6482-197634571_large.mp4" type="video/mp4"/>
       </video>
     </div>
+    <div class="section-video-overlay"></div>
+    <div class="section-video-scan"></div>
 
     <div class="agent-grid rev section-inner">
 
