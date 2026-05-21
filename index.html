@@ -834,113 +834,20 @@
       });
     });
 
-    /* ─── OPEN ──────────────────────────────────────────────── */
-    function openAgent(agentId) {
-      const d = AGENTS[agentId];
-      if (!d) return;
-
-      activeNode = agentId;
-      stage.classList.add('has-selection');
-      nodes.forEach(n => {
-        n.classList.remove('hovered', 'selected');
-        if (n.dataset.agent === agentId) n.classList.add('selected');
-      });
-
-      const trustedHTML = d.trusted ? `
-        <div class="panel-divider"></div>
-        <p class="panel-section-label">Trusted by</p>
-        <div class="trusted-row">
-          ${d.trusted.map(logo => `
-            <img class="trusted-logo"
-              src="${logo.src}"
-              alt="${logo.name}"
-              style="height:${logo.height}px"
-            />
-          `).join('')}
-        </div>
-      ` : '';
-
-      panelContent.innerHTML = `
-        <p class="panel-eyebrow">${d.eyebrow}</p>
-        <h2 id="panel-title" class="panel-title">
-          ${d.titlePrefix} <span class="accent">${d.accent}</span>
-        </h2>
-        <p class="panel-tagline">${d.tagline}</p>
-
-        <div class="panel-divider"></div>
-
-        <p class="panel-section-label">Measured impact</p>
-        <div class="stats-grid">
-          ${d.stats.map(s => `
-            <div class="stat-item">
-              <span class="stat-num">${s.num}</span>
-              <span class="stat-label">${s.label}</span>
-            </div>
-          `).join('')}
-        </div>
-
-        ${trustedHTML}
-
-        <div class="panel-divider"></div>
-
-        <p class="panel-section-label">What this agent does</p>
-        <ul class="cap-list">
-          ${d.capabilities.map(c => `
-            <li class="cap-item">
-              <div class="cap-bullet"></div>
-              <span>${c}</span>
-            </li>
-          `).join('')}
-        </ul>
-
-        <div class="panel-actions">
-          <a class="btn btn-primary" href="${d.url}" target="_blank" rel="noopener">
-            ${d.urlLabel}
-          </a>
-          <button class="btn btn-outline" onclick="closePanel()">
-            BACK TO COUNCIL
-          </button>
-        </div>
-      `;
-
-      panel.classList.remove('closing');
-      panel.style.animation = 'none';
-      panel.offsetHeight;
-      panel.style.animation = '';
-      backdrop.classList.add('visible');
-    }
-
-    /* ─── CLOSE ─────────────────────────────────────────────── */
-    function closePanel() {
-      if (!activeNode) return;
-      panel.classList.add('closing');
-      setTimeout(() => {
-        backdrop.classList.remove('visible');
-        stage.classList.remove('has-selection');
-        nodes.forEach(n => n.classList.remove('selected', 'hovered'));
-        activeNode = null;
-        panel.classList.remove('closing');
-      }, 350);
-    }
-
-    /* ─── EVENTS ────────────────────────────────────────────── */
+    /* ─── CLICK → open URL directly ────────────────────────── */
     nodes.forEach(node => {
       node.addEventListener('click', () => {
-        const id = node.dataset.agent;
-        if (activeNode === id) { closePanel(); return; }
-        openAgent(id);
+        const d = AGENTS[node.dataset.agent];
+        if (d && d.url) window.open(d.url, '_blank', 'noopener');
       });
       node.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openAgent(node.dataset.agent);
+          const d = AGENTS[node.dataset.agent];
+          if (d && d.url) window.open(d.url, '_blank', 'noopener');
         }
       });
     });
 
-    closeBtn.addEventListener('click', closePanel);
-    backdrop.addEventListener('click', e => { if (e.target === backdrop) closePanel(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
   </script>
 </body>
 </html>

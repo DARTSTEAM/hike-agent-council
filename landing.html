@@ -172,6 +172,7 @@
     .impact-cell {
       padding:3rem 2rem;border-right:1px solid var(--line);text-align:center;
       position:relative;overflow:hidden;transition:background .25s;cursor:default;background:var(--white);
+      min-height:180px;
     }
     .impact-cell:last-child { border-right:none; }
     .impact-cell:hover { background:var(--off); }
@@ -180,7 +181,7 @@
       font-weight:900;letter-spacing:-.04em;color:var(--purple);line-height:1;margin-bottom:.5rem;
     }
     .impact-lbl { font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.5; }
-    .impact-icon { width:22px;height:22px;margin:0 auto 1rem;display:block;color:var(--violet);opacity:.7; }
+    /* fixed height prevents any layout shift during countUp or glitch */
 
     /* ── PROBLEM / SOLUTION — cream section ── */
     #problem { background:var(--cream);padding:7rem 2.5rem;border-bottom:1px solid var(--line); }
@@ -527,27 +528,19 @@
     <span class="s-label reveal">// real results · measurable impact</span>
     <div class="impact-grid">
       <div class="impact-cell reveal">
-        <!-- Lucide: eye -->
-        <svg class="impact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        <span class="impact-num" data-orig="+1,000">+1,000</span>
+        <span class="impact-num" data-target="1000" data-prefix="+" data-orig="+1,000">+1,000</span>
         <span class="impact-lbl">brands monitored</span>
       </div>
       <div class="impact-cell reveal d1">
-        <!-- Lucide: zap -->
-        <svg class="impact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        <span class="impact-num" data-orig="×4">×4</span>
+        <span class="impact-num" data-target="4" data-prefix="×" data-orig="×4">×4</span>
         <span class="impact-lbl">content output</span>
       </div>
       <div class="impact-cell reveal d2">
-        <!-- Lucide: trending-up -->
-        <svg class="impact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-        <span class="impact-num" data-orig="+40%">+40%</span>
+        <span class="impact-num" data-target="40" data-prefix="+" data-suffix="%" data-orig="+40%">+40%</span>
         <span class="impact-lbl">conversion lift</span>
       </div>
       <div class="impact-cell reveal d3">
-        <!-- Lucide: activity -->
-        <svg class="impact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        <span class="impact-num" data-orig="24/7">24/7</span>
+        <span class="impact-num" data-static data-orig="24/7">24/7</span>
         <span class="impact-lbl">real-time intel</span>
       </div>
     </div>
@@ -853,7 +846,19 @@ window.addEventListener('scroll', () => {
 const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } }), { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-/* countUp removed — numbers are static, glitch on hover is kept */
+/* ── COUNTERS ── */
+function countUp(el) {
+  if (el.dataset.static) return;
+  const target = +el.dataset.target, prefix = el.dataset.prefix||'', suffix = el.dataset.suffix||'';
+  const dur = 1500, t0 = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - t0) / dur, 1);
+    el.textContent = prefix + Math.round((1 - Math.pow(1-p, 3)) * target).toLocaleString() + suffix;
+    if (p < 1) requestAnimationFrame(tick); else el.textContent = el.dataset.orig;
+  })(t0);
+}
+const co = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { countUp(e.target); co.unobserve(e.target); } }), { threshold: 0.5 });
+document.querySelectorAll('.impact-num').forEach(el => co.observe(el));
 
 /* ── GLITCH on impact hover ── */
 const GC = '!@#$%<>[]{}0123456789ABCDEabcde/*-+';
