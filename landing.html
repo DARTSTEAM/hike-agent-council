@@ -252,7 +252,39 @@
     .agent-cream .agent-num { background:var(--purple); color:#fff; }
     .agent-dark  .agent-num { background:var(--yellow); color:var(--black); }
 
-    .agent-name { font-family:var(--display);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:.875rem; }
+    /* mini KPI strip inside each agent section */
+    .agent-kpis {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      border:1px solid; border-radius:8px; overflow:hidden;
+      margin:1.75rem 0 2rem;
+    }
+    .agent-white .agent-kpis,
+    .agent-cream .agent-kpis { border-color:var(--line); }
+    .agent-dark  .agent-kpis { border-color:rgba(255,255,255,.14); }
+    .akpi-item {
+      padding:1rem .875rem; text-align:center;
+      display:flex; flex-direction:column; gap:.3rem;
+      border-right:1px solid;
+    }
+    .agent-white .akpi-item,
+    .agent-cream .akpi-item { border-color:var(--line); background:var(--off); }
+    .agent-dark  .akpi-item { border-color:rgba(255,255,255,.08); background:rgba(255,255,255,.03); }
+    .akpi-item:last-child { border-right:none; }
+    .akpi-num {
+      font-family:var(--display); font-size:1.6rem; font-weight:900;
+      letter-spacing:-.04em; line-height:1;
+    }
+    .agent-white .akpi-num,
+    .agent-cream .akpi-num { color:var(--purple); }
+    .agent-dark  .akpi-num { color:var(--yellow); }
+    .akpi-lbl {
+      font-size:9px; font-weight:600; letter-spacing:.14em;
+      text-transform:uppercase; line-height:1.4;
+    }
+    .agent-white .akpi-lbl,
+    .agent-cream .akpi-lbl { color:var(--muted); }
+    .agent-dark  .akpi-lbl { color:rgba(200,184,224,.55); }
+
     .agent-white  .agent-name,
     .agent-cream  .agent-name { color:var(--purple); }
     .agent-dark   .agent-name { color:#FFFFFF; }
@@ -534,7 +566,7 @@
   <div class="ticker-overlay"></div>
   <div class="hero-content">
       <h1 id="hero-h1">Three agents.<br/><span class="grad-word">Infinite impact.</span></h1>
-    <p class="hero-mono"><span class="c">// </span>AI council for brands. Powered by Gemini.</p>
+    <p class="hero-mono"><span class="c">// </span>Menos tiempo en operación. Más impacto en resultados. Powered by Gemini.</p>
     <div class="hero-actions">
       <a class="btn-solid" href="#listen">EXPLORE COUNCIL<span class="btn-cursor">_</span></a>
       <a class="btn-ghost" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">BOOK DEMO →</a>
@@ -547,48 +579,47 @@
   </div>
 </section>
 
-<!-- MARQUEE -->
 <div class="marquee-strip" aria-hidden="true">
   <div class="marquee-track">
-    <span class="marquee-item"><span class="marquee-sep">·</span> Social Intelligence</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Content at Scale</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Conversational Sales</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Real-Time Monitoring</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> AI-Powered Adaptation</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Brand Intelligence</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> -85% Tiempo de producción</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> Crisis detectada en 15 min</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> Reportes en 30 min</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> ×4 Content Velocity</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> ROAS Optimizado en tiempo real</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> -75% Horas de equipo</span>
     <span class="marquee-item"><span class="marquee-sep">·</span> Powered by Gemini</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Built for Google</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Social Intelligence</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Content at Scale</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Conversational Sales</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Real-Time Monitoring</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> AI-Powered Adaptation</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Brand Intelligence</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> USD 4.000 ahorrados por campaña</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> -85% Tiempo de producción</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> Crisis detectada en 15 min</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> Reportes en 30 min</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> ×4 Content Velocity</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> ROAS Optimizado en tiempo real</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> -75% Horas de equipo</span>
     <span class="marquee-item"><span class="marquee-sep">·</span> Powered by Gemini</span>
-    <span class="marquee-item"><span class="marquee-sep">·</span> Built for Google</span>
+    <span class="marquee-item"><span class="marquee-sep">·</span> USD 4.000 ahorrados por campaña</span>
   </div>
 </div>
 
 <!-- IMPACT -->
 <section id="impact">
   <div class="section-inner">
-    <span class="s-label reveal">// real results · measurable impact</span>
+    <span class="s-label reveal">// impacto medible en el negocio</span>
     <div class="impact-grid">
       <div class="impact-cell reveal">
-        <span class="impact-num" data-target="1000" data-prefix="+" data-orig="+1,000">+1,000</span>
-        <span class="impact-lbl">brands monitored</span>
+        <span class="impact-num" data-target="85" data-prefix="-" data-suffix="%" data-orig="-85%">-85%</span>
+        <span class="impact-lbl">tiempo de producción</span>
       </div>
       <div class="impact-cell reveal d1">
-        <span class="impact-num" data-target="4" data-prefix="×" data-orig="×4">×4</span>
-        <span class="impact-lbl">content output</span>
+        <span class="impact-num" data-target="15" data-suffix=" min" data-orig="15 min">15 min</span>
+        <span class="impact-lbl">detección de crisis</span>
       </div>
       <div class="impact-cell reveal d2">
-        <span class="impact-num" data-target="40" data-prefix="+" data-suffix="%" data-orig="+40%">+40%</span>
-        <span class="impact-lbl">conversion lift</span>
+        <span class="impact-num" data-target="30" data-suffix=" min" data-orig="30 min">30 min</span>
+        <span class="impact-lbl">reporte de performance</span>
       </div>
       <div class="impact-cell reveal d3">
-        <span class="impact-num" data-static data-orig="24/7">24/7</span>
-        <span class="impact-lbl">real-time intel</span>
+        <span class="impact-num" data-target="4" data-prefix="×" data-orig="×4">×4</span>
+        <span class="impact-lbl">más contenido, mismo equipo</span>
       </div>
     </div>
   </div>
@@ -597,21 +628,21 @@
 <!-- PROBLEM / SOLUTION -->
 <section id="problem">
   <div class="section-inner">
-    <span class="s-label reveal">// why the council exists</span>
-    <h2 class="section-h2 reveal d1">Your brand moves fast.<br/>Your tools should too.</h2>
-    <p class="section-p reveal d2">Three AI agents in concert — so you never miss a signal, never lose your brand voice, and never let a conversation go cold.</p>
+    <span class="s-label reveal">// el costo real de no tener IA</span>
+    <h2 class="section-h2 reveal d1">Cada hora sin datos<br/>es presupuesto perdido.</h2>
+    <p class="section-p reveal d2">El mercado no espera reportes manuales, ni equipos lentos, ni decisiones sin contexto. Tres agentes de IA que eliminan esos cuellos de botella hoy.</p>
     <div class="ps-grid">
       <div class="ps-col ps-bad reveal">
-        <span class="ps-label">What brands struggle with</span>
-        <div class="ps-item"><span class="ps-ic">✕</span><span class="ps-text">Content teams can't keep up with every channel, format and audience simultaneously</span></div>
-        <div class="ps-item"><span class="ps-ic">✕</span><span class="ps-text">Social crises go undetected until it's too late to respond effectively</span></div>
-        <div class="ps-item"><span class="ps-ic">✕</span><span class="ps-text">Sales conversations lack context and speed needed to convert at scale</span></div>
+        <span class="ps-label">Lo que le cuesta a tu negocio hoy</span>
+        <div class="ps-item"><span class="ps-ic">✕</span><span class="ps-text">Cada día sin detectar una crisis cuesta reputación, pauta desperdiciada y clientes perdidos</span></div>
+        <div class="ps-item"><span class="ps-ic">✕</span><span class="ps-text">El 80% del presupuesto creativo se va en adaptaciones manuales, no en ideas que convierten</span></div>
+        <div class="ps-item"><span class="ps-ic">✕</span><span class="ps-text">Los reportes llegan 48hs tarde — cuando ya no sirven para mover el presupuesto a tiempo</span></div>
       </div>
       <div class="ps-col ps-good reveal d1">
-        <span class="ps-label">What the Council delivers</span>
-        <div class="ps-item"><span class="ps-ic">✓</span><span class="ps-text">Hike Create generates on-brand content instantly — every platform, every time</span></div>
-        <div class="ps-item"><span class="ps-ic">✓</span><span class="ps-text">Hike Listen detects trends, sentiment shifts and crises the moment they emerge</span></div>
-        <div class="ps-item"><span class="ps-ic">✓</span><span class="ps-text">Hike Advise turns every conversation into a personalized, high-converting experience</span></div>
+        <span class="ps-label">Lo que el Council entrega</span>
+        <div class="ps-item"><span class="ps-ic">✓</span><span class="ps-text">Crisis detectada en &lt; 15 min — antes de que llegue a la primera página o impacte tu ROAS</span></div>
+        <div class="ps-item"><span class="ps-ic">✓</span><span class="ps-text">-85% tiempo de producción. Mismo budget, 4× el output. El ahorro se va directo a medios</span></div>
+        <div class="ps-item"><span class="ps-ic">✓</span><span class="ps-text">Reporte completo en 30 min. Decisiones cuando todavía tienen impacto real en resultados</span></div>
       </div>
     </div>
   </div>
@@ -623,25 +654,44 @@
     <div class="agent-copy">
       <p class="agent-num reveal">// agent · 01</p>
       <h2 class="agent-name reveal d1" id="listen-h">Hike Listen</h2>
-      <p class="agent-tag reveal d2">Social intelligence that never sleeps. Know what the world says about your brand the moment it happens.</p>
-      <ul class="agent-benefits reveal d2">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Real-time monitoring across 100+ sources — no mention, trend or crisis catches you off guard</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">AI sentiment analysis that tells you how people feel, not just what they say</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Executive dashboards and instant alerts — no data science team required</span></li>
+      <p class="agent-tag reveal d2">De 72hs de reacción a 15 minutos. Dejá de hacer scroll manual y empezá a actuar sobre lo que importa.</p>
+      <!-- MINI KPI STRIP -->
+      <div class="agent-kpis reveal d2">
+        <div class="akpi-item">
+          <span class="akpi-num">&lt;15 min</span>
+          <span class="akpi-lbl">Crisis Detection Lead Time</span>
+        </div>
+        <div class="akpi-item">
+          <span class="akpi-num">-75%</span>
+          <span class="akpi-lbl">Manual Audit Reduction</span>
+        </div>
+        <div class="akpi-item">
+          <span class="akpi-num">100+</span>
+          <span class="akpi-lbl">fuentes monitoreadas</span>
+        </div>
+      </div>
+      <ul class="agent-benefits reveal d3">
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Monitoreo + alertas en tiempo real:</strong> cualquier anomalía o indicio de crisis dispara una notificación inmediata. El equipo actúa, no scrollea</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Análisis de sentimiento por cuenta, posteo y hashtag</strong> — incluíndo sugerencias de respuesta personalizadas para el inbox</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Benchmark competitivo automático:</strong> Net Sentiment Gap vs. competidores. Sabé dónde les duele y convetilo en oportunidad de Market Share</span></li>
       </ul>
       <!-- INSIGHT CARDS -->
       <div class="insights reveal d3">
         <div class="ins-card">
-          <span class="ins-signal">El 60% de los comentarios negativos mencionan fallas en el login</span>
-          <span class="ins-action">Priorizar fix técnico antes de la próxima campaña</span>
+          <span class="ins-signal">60% de comentarios negativos mencionan fallas en el login</span>
+          <span class="ins-action">Fix técnico antes de la próxima campaña — evitá miles en pauta quemada</span>
         </div>
         <div class="ins-card">
-          <span class="ins-signal">La audiencia del competidor X se queja de sus tiempos de envío</span>
-          <span class="ins-action">Lanzar pauta destacando "Envíos en 24hs" — ventana de conquista</span>
+          <span class="ins-signal">Competidor X acumula quejas de tiempos de envío en redes</span>
+          <span class="ins-action">Lanzar pauta "Envíos en 24hs" ahora — ventana de conquista de Market Share</span>
+        </div>
+        <div class="ins-card">
+          <span class="ins-signal">5 usuarios con +1K seguidores comentaron positivamente esta semana</span>
+          <span class="ins-action">Contactarlos para programa de micro-influencers — reach orgánico amplificado</span>
         </div>
       </div>
       <br/>
-      <a class="agent-link reveal d4" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">try hike listen →</a>
+      <a class="agent-link reveal d4" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">ver demo →</a>
     </div>
     <div class="reveal d1">
       <div class="terminal">
@@ -651,11 +701,11 @@
         </div>
         <div class="term-body" id="tb-listen" data-lines='[
           {"c":"cmd","t":"hike listen --brand=\"GALICIA\" --live"},
-          {"c":"ok","t":"Connecting to 100+ data sources..."},
-          {"c":"ok","t":"Sentiment analysis: 74% POSITIVE"},
-          {"c":"arrow","t":"Mentions: 26/hr · Peak detected"},
-          {"c":"arrow","t":"Trending: #brand · LinkedIn · 3m ago"},
-          {"c":"warn","t":"Crisis score: 0.2 · ALL CLEAR"},
+          {"c":"ok","t":"Scanning 100+ sources · Sentiment: 74% POS"},
+          {"c":"warn","t":"Spike: Competitor X · delivery complaints +210%"},
+          {"c":"arrow","t":"Net Sentiment Gap: +18pts vs competitor X"},
+          {"c":"arrow","t":"Opportunity: conquest window · act now"},
+          {"c":"ok","t":"Suggested reply ready · 5 evangelizers detected"},
           {"c":"cmd","t":"","cursor":true}
         ]'></div>
       </div>
@@ -676,25 +726,44 @@
     <div class="agent-copy">
       <p class="agent-num reveal">// agent · 02</p>
       <h2 class="agent-name reveal d1" id="create-h">Hike Create</h2>
-      <p class="agent-tag reveal d2">Content at scale. Always on-brand. One brief, four channels, zero extra headcount.</p>
-      <ul class="agent-benefits reveal d2">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Instagram, LinkedIn, Google Ads and Email — generated from a single brief in seconds</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Brand memory preserves your tone, voice and guidelines across every generated piece</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Autonomous A/B testing continuously optimizes what works — no analyst needed</span></li>
+      <p class="agent-tag reveal d2">El mismo equipo, 4 veces más contenido. El ahorro en fees de producción se redistribuye directo a inversión en medios.</p>
+      <!-- MINI KPI STRIP -->
+      <div class="agent-kpis reveal d2">
+        <div class="akpi-item">
+          <span class="akpi-num">~95%</span>
+          <span class="akpi-lbl">ahorro de tiempo</span>
+        </div>
+        <div class="akpi-item">
+          <span class="akpi-num">15–30 min</span>
+          <span class="akpi-lbl">vs. 3–5 días</span>
+        </div>
+        <div class="akpi-item">
+          <span class="akpi-num">USD 4K</span>
+          <span class="akpi-lbl">ahorro por campaña</span>
+        </div>
+      </div>
+      <ul class="agent-benefits reveal d3">
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Creative Director AI (Gemini):</strong> definís el concepto en lenguaje natural; la IA interpreta estilo, iluminación y dirección de arte y genera el contenido desde cero</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Smart Canvas (automatización n8n):</strong> procesa la pieza y entrega automáticamente todas las variantes — Stories 9:16, Feed 1:1, YouTube 16:9 — sin intervención manual</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Escalabilidad infinita:</strong> pasás de producción limitada por staff a volumen ilimitado on-demand. 1 operador de IA reemplaza un equipo de diseñadores y editores</span></li>
       </ul>
       <!-- INSIGHT CARDS -->
       <div class="insights reveal d3">
         <div class="ins-card">
-          <span class="ins-signal">Campaña de retail: 50 piezas de video personalizadas en urgencia</span>
-          <span class="ins-action">50 assets entregados en menos de 2hs — USD 4.000 ahorrados</span>
+          <span class="ins-signal">Retail: 50 piezas de video personalizadas urgentes — Hot Sale en 24hs</span>
+          <span class="ins-action">50 assets entregados en &lt;2hs — USD 4.000 ahorrados — +20% engagement vs. producción tradicional</span>
         </div>
         <div class="ins-card">
-          <span class="ins-signal">Sentimiento de audiencia cambió — hay que pivotar la comunicación</span>
-          <span class="ins-action">Nueva línea creativa lista en minutos, no en semanas</span>
+          <span class="ins-signal">Sentimiento de audiencia cambió — el mensaje actual no resuena</span>
+          <span class="ins-action">Nueva línea creativa completa en minutos. Pivotá la comunicación antes de quemar más presupuesto</span>
+        </div>
+        <div class="ins-card">
+          <span class="ins-signal">Posteo A tuvo likes, Posteo B generó mayor intención de compra</span>
+          <span class="ins-action">Escalar inversión en el estilo del Posteo B — mismo presupuesto, mayor conversión</span>
         </div>
       </div>
       <br/>
-      <a class="agent-link reveal d4" href="https://readapt.web.app/" target="_blank" rel="noopener">try hike create →</a>
+      <a class="agent-link reveal d4" href="https://readapt.web.app/" target="_blank" rel="noopener">ver demo →</a>
     </div>
     <div class="reveal d1">
       <div class="terminal">
@@ -703,13 +772,12 @@
           <span class="term-title">hike_create — content engine</span>
         </div>
         <div class="term-body" id="tb-create" data-lines='[
-          {"c":"cmd","t":"hike create --brief=\"launch\" --channels=4"},
-          {"c":"ok","t":"Brand voice loaded · Galicia v2.1"},
-          {"c":"arrow","t":"Generating Instagram variant... DONE"},
-          {"c":"arrow","t":"Generating LinkedIn variant... DONE"},
-          {"c":"arrow","t":"Generating Google Ads copy... DONE"},
-          {"c":"arrow","t":"Generating Email sequence... DONE"},
-          {"c":"ok","t":"4 variants ready · 87% faster than manual"},
+          {"c":"cmd","t":"hike create --brief=\"hot_sale\" --formats=all"},
+          {"c":"ok","t":"Creative Director AI · Gemini · brief loaded"},
+          {"c":"arrow","t":"Stories 9:16 → 50 variants · 1h 12min"},
+          {"c":"arrow","t":"Feed 1:1 → 30 variants · Feed 16:9 → 20v"},
+          {"c":"ok","t":"100 assets · time: 1h 47min · saved: USD 4.200"},
+          {"c":"ok","t":"Engagement +20% vs. traditional production"},
           {"c":"cmd","t":"","cursor":true}
         ]'></div>
       </div>
@@ -725,25 +793,44 @@
     <div class="agent-copy">
       <p class="agent-num reveal">// agent · 03</p>
       <h2 class="agent-name reveal d1" id="advise-h">Hike Advise</h2>
-      <p class="agent-tag reveal d2">Tu analista de datos disponible 24/7. Reportes en 30 minutos, alertas en tiempo real, decisiones en minutos.</p>
-      <ul class="agent-benefits reveal d2">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Dashboards en tiempo real generados con lenguaje natural — sin esperar al equipo técnico</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Alertas automáticas ante desviaciones de métricas — detectá anomalías antes de que impacten</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Acceso directo a GTM y plataformas de datos — cualquier miembro del equipo, sin dependencia externa</span></li>
+      <p class="agent-tag reveal d2">De días de espera a 30 minutos. Tu experto en BI disponible 24/7 — sin necesidad de un equipo técnico.</p>
+      <!-- MINI KPI STRIP -->
+      <div class="agent-kpis reveal d2">
+        <div class="akpi-item">
+          <span class="akpi-num">30 min</span>
+          <span class="akpi-lbl">Time-to-Insight</span>
+        </div>
+        <div class="akpi-item">
+          <span class="akpi-num">-75%</span>
+          <span class="akpi-lbl">Reporting Man-Hours</span>
+        </div>
+        <div class="akpi-item">
+          <span class="akpi-num">Tiempo real</span>
+          <span class="akpi-lbl">Decision Velocity</span>
+        </div>
+      </div>
+      <ul class="agent-benefits reveal d3">
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Dashboards en lenguaje natural:</strong> conectás tus fuentes (GA4, GTM, Google Ads), prompteás lo que querés ver y el reporte está listo en &lt;30 min. Sin área técnica</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Agente de Tracking con acceso directo a GTM:</strong> detecta fallas en tiempo real y actúa. 10 minutos de error en Hot Sale cuestan miles — este agente los elimina</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Decision Velocity:</strong> el equipo deja de &ldquo;picar datos&rdquo; y se enfoca en estrategia. El dato llega cuando la decisión todavía tiene impacto real en el resultado</span></li>
       </ul>
       <!-- INSIGHT CARDS -->
       <div class="insights reveal d3">
         <div class="ins-card">
-          <span class="ins-signal">Tu CPA en Google Ads subió un 40% en las últimas 2 horas</span>
-          <span class="ins-action">Falla detectada en checkout vía GTM — acción inmediata</span>
+          <span class="ins-signal">CPA en Google Ads +40% en las últimas 2hs — falla detectada en checkout via GTM</span>
+          <span class="ins-action">Pausa de grupo de anuncios + fix GTM — ahorro estimado: USD 800 en pauta quemada</span>
         </div>
         <div class="ins-card">
-          <span class="ins-signal">El clúster A convierte 20% mejor con menos inversión que el B</span>
-          <span class="ins-action">Redistribuir presupuesto ahora — ROAS proyectado +35%</span>
+          <span class="ins-signal">Clúster A convierte 20% mejor con 30% menos inversión que el clúster B</span>
+          <span class="ins-action">Redistribuir budget ahora — ROAS proyectado +35% al cierre de mes</span>
+        </div>
+        <div class="ins-card">
+          <span class="ins-signal">Al ritmo actual, el presupuesto se agota el día 22</span>
+          <span class="ins-action">Ajustar puja un 5% — campasña sostenida hasta fin de mes sin perder posiciones</span>
         </div>
       </div>
       <br/>
-      <a class="agent-link reveal d4" href="https://chat.hikethecloud.com/" target="_blank" rel="noopener">try hike advise →</a>
+      <a class="agent-link reveal d4" href="https://dashboards.hikethecloud.com/calm_dashboard_054a6823-6a14-4c65-8764-4c69b9ccc24f.html?v=1779225096" target="_blank" rel="noopener">ver dashboard real →</a>
     </div>
     <div class="reveal d1">
       <div class="terminal">
@@ -753,11 +840,11 @@
         </div>
         <div class="term-body" id="tb-advise" data-lines='[
           {"c":"cmd","t":"hike advise --connect=\"GA4,GTM,Google Ads\""},
-          {"c":"ok","t":"3 data sources connected · syncing..."},
-          {"c":"warn","t":"CPA anomaly: +40% in last 2h — investigate"},
-          {"c":"arrow","t":"GTM: checkout event missing since 14:32hs"},
-          {"c":"arrow","t":"Cluster A ROAS: 4.2x vs Cluster B: 2.8x"},
-          {"c":"ok","t":"Budget pacing: Day 18 · reallocate → Cluster A"},
+          {"c":"ok","t":"3 sources connected · dashboard ready in 28min"},
+          {"c":"warn","t":"CPA anomaly: +40% · checkout event missing GTM"},
+          {"c":"arrow","t":"Cluster A ROAS: 4.2x · Cluster B: 2.8x"},
+          {"c":"warn","t":"Budget depleted by Day 22 at current pace"},
+          {"c":"ok","t":"Bid adj. −5% · ROAS proj. +35% · month secured"},
           {"c":"cmd","t":"","cursor":true}
         ]'></div>
       </div>
@@ -772,33 +859,36 @@
     <div class="en-col">
       <span class="en-label">// hike listen</span>
       <span class="en-stat reveal">&lt; 15 min</span>
-      <p class="en-desc reveal d1">De 24–72hs a menos de 15 minutos para detectar una crisis o mención crítica.</p>
+      <p class="en-desc reveal d1">Crisis Detection Lead Time: de 24–72hs a menos de 15 minutos. Reemplazá el scrolleo manual de 10 personas por un sistema centralizado que escala de 100 a 100.000 comentarios.</p>
       <ul class="en-items">
-        <li class="en-item reveal d2">100+ fuentes monitoreadas simultáneamente</li>
-        <li class="en-item reveal d2">-75% de tiempo operativo del equipo</li>
-        <li class="en-item reveal d3">Sentimiento actualizado hora a hora</li>
+        <li class="en-item reveal d2">-75% Manual Audit Reduction por equipo</li>
+        <li class="en-item reveal d2">Net Sentiment Gap vs. competidores en tiempo real</li>
+        <li class="en-item reveal d3">Inbox Response Velocity + respuestas sugeridas por IA</li>
+        <li class="en-item reveal d3">Creative Resonance Score: sentimiento vs. tasa de conversión</li>
       </ul>
     </div>
 
     <div class="en-col">
       <span class="en-label">// hike create</span>
-      <span class="en-stat reveal">×4</span>
-      <p class="en-desc reveal d1">Cuatro veces más contenido sin aumentar el equipo. De semanas a minutos.</p>
+      <span class="en-stat reveal">~95%</span>
+      <p class="en-desc reveal d1">Ahorro de tiempo de producción: de 3–5 días hábiles a 15–30 minutos. 1 operador de IA reemplaza un equipo de diseñadores y editores.</p>
       <ul class="en-items">
-        <li class="en-item reveal d2">-85% tiempo de adaptación por campaña</li>
-        <li class="en-item reveal d2">30–60 variantes por brief automáticamente</li>
-        <li class="en-item reveal d3">100% compliance de marca por diseño</li>
+        <li class="en-item reveal d2">Escalabilidad infinita — volumen ilimitado on-demand</li>
+        <li class="en-item reveal d2">USD 4.000 ahorrados por campaña en producción externa</li>
+        <li class="en-item reveal d3">+20% engagement vs. producción tradicional (caso real)</li>
+        <li class="en-item reveal d3">El ahorro en fees se redistribuye a inversión en medios</li>
       </ul>
     </div>
 
     <div class="en-col">
       <span class="en-label">// hike advise</span>
       <span class="en-stat reveal">30 min</span>
-      <p class="en-desc reveal d1">Un reporte completo de performance en 30 minutos. Decisiones en tiempo real.</p>
+      <p class="en-desc reveal d1">Time-to-Insight: de días a 30 minutos. El equipo deja de picar datos y se enfoca en estrategia de crecimiento.</p>
       <ul class="en-items">
-        <li class="en-item reveal d2">Alertas automáticas ante desviaciones</li>
-        <li class="en-item reveal d2">-75% horas de reporte manual del equipo</li>
-        <li class="en-item reveal d3">Acceso directo a GA4, GTM y Google Ads</li>
+        <li class="en-item reveal d2">-75% Reporting Man-Hours ahorradas por mes</li>
+        <li class="en-item reveal d2">Decision Velocity: anomalía detectada → acción en minutos</li>
+        <li class="en-item reveal d3">Correlación YouTube → +10% búsquedas de marca en 48hs</li>
+        <li class="en-item reveal d3">Acceso directo a GA4, GTM, Google Ads sin área técnica</li>
       </ul>
     </div>
 
@@ -808,7 +898,7 @@
 <!-- CASE STUDY -->
 <section id="case-study">
   <div class="cs-inner">
-    <span class="s-label reveal">// case_study · 01</span>
+    <span class="s-label reveal">// caso de éxito comprobado</span>
     <div class="cs-top reveal d1">
       <img class="cs-logo"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
@@ -816,16 +906,16 @@
         onerror="this.outerHTML='<span style=\'font-family:var(--display);font-size:1rem;font-weight:700;color:var(--purple)\'>GALICIA</span>'"
       />
       <div class="cs-vl"></div>
-      <h2 class="cs-hed">How Argentina's leading bank scaled content<br/><em>4× faster</em> with Hike Create</h2>
+      <h2 class="cs-hed">Campaña relámpago: 50 piezas de video personalizadas <em>en menos de 2 horas</em></h2>
     </div>
     <div class="cs-nums reveal d2">
-      <div class="cs-cell"><span class="cs-n">×4</span><span class="cs-d">Content output, no new hires</span></div>
-      <div class="cs-cell"><span class="cs-n">87%</span><span class="cs-d">Reduction in adaptation time</span></div>
-      <div class="cs-cell"><span class="cs-n">100%</span><span class="cs-d">Brand compliance, every piece</span></div>
-      <div class="cs-cell"><span class="cs-n">12</span><span class="cs-d">Channels from one platform</span></div>
+      <div class="cs-cell"><span class="cs-n">&lt;2hs</span><span class="cs-d">Entrega total de 50 assets</span></div>
+      <div class="cs-cell"><span class="cs-n">USD 4K</span><span class="cs-d">Ahorro en edición externa</span></div>
+      <div class="cs-cell"><span class="cs-n">+20%</span><span class="cs-d">Engagement vs. producción tradicional</span></div>
+      <div class="cs-cell"><span class="cs-n">USD 0</span><span class="cs-d">Costo extra de staff o producción</span></div>
     </div>
     <blockquote class="cs-quote reveal d3">
-      <p class="cs-qt">Hike Create transformed the way we think about content at scale. What used to take our team two weeks now happens in minutes — consistently on-brand across every channel.</p>
+      <p class="cs-qt">Lo que antes le llevaba dos semanas a nuestro equipo ahora pasa en minutos — consistente, en todos los canales, sin una sola revisión manual de identidad.</p>
       <cite class="cs-au">HEAD OF CONTENT STRATEGY · BANCO GALICIA</cite>
     </blockquote>
   </div>
