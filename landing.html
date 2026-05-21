@@ -167,7 +167,14 @@
     /* ── IMPACT — white section ── */
     #impact { background:var(--white);padding:5rem 2.5rem;border-bottom:1px solid var(--line); }
     .section-inner { max-width:1100px;margin:0 auto; }
-    .s-label { display:block;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--purple);margin-bottom:1.5rem; }
+    .s-label {
+      display:inline-flex; align-items:center; gap:.625rem;
+      font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--purple);margin-bottom:1.75rem;
+    }
+    .s-label::before {
+      content:''; width:7px; height:7px; border-radius:50%;
+      background:var(--purple); flex-shrink:0;
+    }
     .impact-grid { display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:6px;overflow:hidden; }
     .impact-cell {
       padding:3rem 2rem;border-right:1px solid var(--line);text-align:center;
@@ -176,12 +183,19 @@
     }
     .impact-cell:last-child { border-right:none; }
     .impact-cell:hover { background:var(--off); }
+    /* animated top accent bar */
+    .impact-cell::after {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:var(--purple);
+      transform:scaleX(0); transform-origin:left;
+      transition:transform .35s var(--ease);
+    }
+    .impact-cell:hover::after { transform:scaleX(1); }
     .impact-num {
       display:block;font-family:var(--display);font-size:clamp(2.5rem,4.5vw,4rem);
       font-weight:900;letter-spacing:-.04em;color:var(--purple);line-height:1;margin-bottom:.5rem;
     }
-    .impact-lbl { font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.5; }
-    /* fixed height prevents any layout shift during countUp or glitch */
+    .impact-lbl { font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.5; }
 
     /* ── PROBLEM / SOLUTION — cream section ── */
     #problem { background:var(--cream);padding:7rem 2.5rem;border-bottom:1px solid var(--line); }
@@ -206,19 +220,37 @@
     .ps-good .ps-text { color:rgba(240,234,248,.8); }
 
     /* ── AGENT SECTIONS ── */
-    .agent-sec { padding:7rem 2.5rem; }
+    .agent-sec { padding:7rem 2.5rem; position:relative; overflow:hidden; }
     .agent-white  { background:var(--white); border-bottom:1px solid var(--line); }
     .agent-cream  { background:var(--cream); border-bottom:1px solid var(--line); }
     .agent-dark   { background:#07040F; }
 
-    .agent-grid { display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1100px;margin:0 auto; }
+    /* ghost watermark number */
+    .agent-sec[data-gnum]::before {
+      content: attr(data-gnum);
+      position:absolute; right:-1rem; bottom:-3rem;
+      font-family:var(--display); font-size:clamp(14rem,22vw,22rem);
+      font-weight:900; letter-spacing:-.06em; line-height:1;
+      pointer-events:none; z-index:0; user-select:none;
+    }
+    .agent-white[data-gnum]::before,
+    .agent-cream[data-gnum]::before { color:var(--purple); opacity:.03; }
+    .agent-dark[data-gnum]::before  { color:rgba(200,184,224,1); opacity:.06; }
+
+    .agent-grid { display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1100px;margin:0 auto;position:relative;z-index:1; }
     .agent-grid.rev { direction:rtl; }
     .agent-grid.rev > * { direction:ltr; }
 
-    .agent-num  { font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;margin-bottom:.875rem; }
-    .agent-white  .agent-num,
-    .agent-cream  .agent-num { color:var(--violet); }
-    .agent-dark   .agent-num { color:rgba(200,184,224,.75); }
+    /* agent number → circular pill badge */
+    .agent-num {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.35rem 1rem; border-radius:999px;
+      font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+      margin-bottom:1.25rem;
+    }
+    .agent-white .agent-num,
+    .agent-cream .agent-num { background:var(--purple); color:#fff; }
+    .agent-dark  .agent-num { background:var(--yellow); color:var(--black); }
 
     .agent-name { font-family:var(--display);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:.875rem; }
     .agent-white  .agent-name,
@@ -231,15 +263,21 @@
     .agent-dark   .agent-tag { color:rgba(232,228,240,.82); }
 
     .agent-benefits { list-style:none;margin-bottom:2rem; }
-    .agent-benefit { display:flex;gap:.875rem;align-items:flex-start;padding:.8rem 0;border-bottom:1px solid; }
+    .agent-benefit { display:flex;gap:1rem;align-items:flex-start;padding:.875rem 0;border-bottom:1px solid; }
     .agent-white  .agent-benefit,
     .agent-cream  .agent-benefit { border-color:var(--line2); }
     .agent-dark   .agent-benefit { border-color:rgba(255,255,255,.18); }
     .agent-benefit:last-child { border:none; }
-    .ab-dot { font-size:10px;font-weight:700;flex-shrink:0;margin-top:.25em; }
-    .agent-white  .ab-dot,
-    .agent-cream  .ab-dot { color:var(--purple); }
-    .agent-dark   .ab-dot { color:var(--yellow); }
+    /* circular dot chip */
+    .ab-dot {
+      width:22px; height:22px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; font-size:11px; font-weight:800;
+      margin-top:.1em;
+    }
+    .agent-white .ab-dot,
+    .agent-cream .ab-dot { background:rgba(45,27,78,.1); color:var(--purple); }
+    .agent-dark  .ab-dot { background:rgba(244,235,51,.15); color:var(--yellow); }
     .ab-text { font-size:13px;font-weight:400;line-height:1.65; }
     .agent-white  .ab-text,
     .agent-cream  .ab-text { color:var(--gray); }
@@ -258,11 +296,19 @@
     .agent-cream .kpi-d { color:var(--violet); }
     .agent-dark  .kpi-d { color:rgba(200,184,224,.7); }
 
-    .agent-link { display:inline-flex;align-items:center;gap:.5rem;font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding-bottom:2px;border-bottom:1px solid;transition:gap .2s,border-color .2s; }
+    .agent-link {
+      display:inline-flex;align-items:center;gap:.625rem;
+      font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      padding:.65rem 1.5rem; border-radius:999px; border:1.5px solid;
+      transition:gap .2s, background .2s, color .2s;
+    }
     .agent-white .agent-link,
-    .agent-cream .agent-link { color:var(--purple);border-color:rgba(45,27,78,.25); }
-    .agent-dark  .agent-link { color:var(--yellow);border-color:rgba(244,235,51,.3); }
-    .agent-link:hover { gap:.875rem;border-color:currentColor; }
+    .agent-cream .agent-link { color:var(--purple);border-color:var(--purple); }
+    .agent-dark  .agent-link { color:var(--yellow);border-color:rgba(244,235,51,.5); }
+    .agent-link:hover { gap:1rem; }
+    .agent-white .agent-link:hover,
+    .agent-cream .agent-link:hover { background:var(--purple); color:#fff; }
+    .agent-dark  .agent-link:hover { background:rgba(244,235,51,.12); border-color:var(--yellow); }
 
     /* ── TERMINAL ── */
     .terminal { border-radius:10px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.06),0 20px 60px rgba(0,0,0,.1); }
@@ -331,9 +377,10 @@
       border-radius:6px; padding:1.125rem 1.25rem;
       display:flex; flex-direction:column; gap:.5rem;
     }
+    /* insight card stronger left accent */
     .agent-white .ins-card,
-    .agent-cream .ins-card { background:var(--off); border:1px solid var(--line2); }
-    .agent-dark  .ins-card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); }
+    .agent-cream .ins-card { background:var(--off); border:1px solid var(--line2); border-left:3px solid var(--purple); }
+    .agent-dark  .ins-card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-left:3px solid var(--yellow); }
     .ins-signal {
       font-size:11px; font-weight:400; line-height:1.5;
       display:flex; align-items:flex-start; gap:.5rem;
@@ -343,7 +390,7 @@
     .agent-dark  .ins-signal { color:rgba(232,228,240,.55); }
     .ins-signal::before { content:'⚡'; font-size:10px; flex-shrink:0; margin-top:.1em; }
     .ins-action {
-      font-size:12px; font-weight:600; line-height:1.4;
+      font-size:12px; font-weight:700; line-height:1.4;
       display:flex; align-items:flex-start; gap:.5rem;
     }
     .agent-white .ins-action,
@@ -571,7 +618,7 @@
 </section>
 
 <!-- AGENT 01: HIKE LISTEN — white -->
-<section id="listen" class="agent-sec agent-white" aria-labelledby="listen-h">
+<section id="listen" class="agent-sec agent-white" data-gnum="01" aria-labelledby="listen-h">
   <div class="agent-grid">
     <div class="agent-copy">
       <p class="agent-num reveal">// agent · 01</p>
@@ -617,7 +664,7 @@
 </section>
 
 <!-- AGENT 02: HIKE CREATE — cream + video -->
-<section id="create" class="agent-sec agent-cream agent-video" aria-labelledby="create-h">
+<section id="create" class="agent-sec agent-cream agent-video" data-gnum="02" aria-labelledby="create-h">
   <div class="vid-bg">
     <video id="create-video" autoplay muted loop playsinline preload="auto">
       <source src="assets/bg-create.mp4" type="video/mp4"/>
@@ -671,7 +718,7 @@
 </section>
 
 <!-- AGENT 03: HIKE ADVISE — dark -->
-<section id="advise" class="agent-sec agent-dark" aria-labelledby="advise-h">
+<section id="advise" class="agent-sec agent-dark" data-gnum="03" aria-labelledby="advise-h">
   <div class="ticker-bg" id="ticker-advise"></div>
   <div class="ticker-overlay" style="background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(7,4,15,.88) 0%,rgba(7,4,15,.6) 55%,rgba(7,4,15,.1) 100%)"></div>
   <div class="agent-grid" style="position:relative;z-index:1">
