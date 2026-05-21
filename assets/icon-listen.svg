@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-68 -68 136 136" width="200" height="200">
+  <!-- Halo -->
+  <circle cx="0" cy="0" r="68" fill="rgba(126,110,148,0.08)"/>
+  <!-- Ring -->
+  <circle cx="0" cy="0" r="56" fill="white" stroke="rgba(126,110,148,0.18)" stroke-width="1.5"/>
+  <!-- Icon: radio waves -->
+  <path d="M-24,8 A26,26,0,0,1,24,8"
+    fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M-15,5 A17,17,0,0,1,15,5"
+    fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M-7,2 A8,8,0,0,1,7,2"
+    fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="0" cy="0" r="2.5" fill="#2D1B4E"/>
+</svg>

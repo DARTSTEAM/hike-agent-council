@@ -323,6 +323,68 @@
     }
     .agent-video .agent-grid { position:relative;z-index:3; }
 
+    /* ── INSIGHT CARDS ── */
+    .insights { display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:2rem; }
+    .ins-card {
+      border-radius:6px; padding:1.125rem 1.25rem;
+      display:flex; flex-direction:column; gap:.5rem;
+    }
+    .agent-white .ins-card,
+    .agent-cream .ins-card { background:var(--off); border:1px solid var(--line2); }
+    .agent-dark  .ins-card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); }
+    .ins-signal {
+      font-size:11px; font-weight:400; line-height:1.5;
+      display:flex; align-items:flex-start; gap:.5rem;
+    }
+    .agent-white .ins-signal,
+    .agent-cream .ins-signal { color:var(--muted); }
+    .agent-dark  .ins-signal { color:rgba(232,228,240,.55); }
+    .ins-signal::before { content:'⚡'; font-size:10px; flex-shrink:0; margin-top:.1em; }
+    .ins-action {
+      font-size:12px; font-weight:600; line-height:1.4;
+      display:flex; align-items:flex-start; gap:.5rem;
+    }
+    .agent-white .ins-action,
+    .agent-cream .ins-action { color:var(--purple); }
+    .agent-dark  .ins-action { color:var(--yellow); }
+    .ins-action::before { content:'→'; flex-shrink:0; }
+
+    /* ── EN NUMEROS STRIP ── */
+    #en-numeros {
+      background:var(--purple); padding:5rem 2.5rem;
+    }
+    .en-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      max-width:1100px; margin:0 auto;
+      gap:0;
+    }
+    .en-col {
+      padding:2.5rem 3rem;
+      border-right:1px solid rgba(255,255,255,.12);
+      display:flex; flex-direction:column; gap:1.5rem;
+    }
+    .en-col:last-child { border-right:none; }
+    .en-label {
+      font-size:10px; font-weight:600; letter-spacing:.24em;
+      text-transform:uppercase; color:rgba(200,184,224,.5);
+    }
+    .en-stat {
+      font-family:var(--display); font-size:clamp(2.5rem,4vw,4rem);
+      font-weight:900; letter-spacing:-.04em; line-height:1;
+      color:var(--yellow);
+    }
+    .en-desc {
+      font-size:13px; font-weight:400; line-height:1.65;
+      color:rgba(232,228,240,.7);
+    }
+    .en-items { list-style:none; display:flex; flex-direction:column; gap:.625rem; }
+    .en-item {
+      font-size:12px; font-weight:400; line-height:1.5;
+      color:rgba(232,228,240,.65);
+      display:flex; align-items:flex-start; gap:.625rem;
+    }
+    .en-item::before { content:'·'; color:var(--yellow); flex-shrink:0; }
+
     /* ── CASE STUDY ── */
     #case-study { background:var(--white);padding:7rem 2.5rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line); }
     .cs-inner { max-width:900px;margin:0 auto; }
@@ -386,6 +448,10 @@
       .impact-grid { grid-template-columns:repeat(2,1fr); }
       .ps-grid { grid-template-columns:1fr; }
       .cs-nums { grid-template-columns:repeat(2,1fr); }
+      .en-grid { grid-template-columns:1fr; }
+      .en-col { border-right:none; border-bottom:1px solid rgba(255,255,255,.12); padding:2rem 1.5rem; }
+      .en-col:last-child { border-bottom:none; }
+      .insights { grid-template-columns:1fr; }
     }
     @media(max-width:600px) {
       .agent-sec { padding:5rem 1.5rem; }
@@ -514,7 +580,18 @@
         <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">AI sentiment analysis that tells you how people feel, not just what they say</span></li>
         <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Executive dashboards and instant alerts — no data science team required</span></li>
       </ul>
-      <div class="agent-kpi reveal d3"><span class="kpi-n">+15</span><span class="kpi-d">enterprise brands · 24/7</span></div><br/>
+      <!-- INSIGHT CARDS -->
+      <div class="insights reveal d3">
+        <div class="ins-card">
+          <span class="ins-signal">El 60% de los comentarios negativos mencionan fallas en el login</span>
+          <span class="ins-action">Priorizar fix técnico antes de la próxima campaña</span>
+        </div>
+        <div class="ins-card">
+          <span class="ins-signal">La audiencia del competidor X se queja de sus tiempos de envío</span>
+          <span class="ins-action">Lanzar pauta destacando "Envíos en 24hs" — ventana de conquista</span>
+        </div>
+      </div>
+      <br/>
       <a class="agent-link reveal d4" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">try hike listen →</a>
     </div>
     <div class="reveal d1">
@@ -556,7 +633,18 @@
         <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Brand memory preserves your tone, voice and guidelines across every generated piece</span></li>
         <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Autonomous A/B testing continuously optimizes what works — no analyst needed</span></li>
       </ul>
-      <div class="agent-kpi reveal d3"><span class="kpi-n">×4</span><span class="kpi-d">content output · zero extra headcount</span></div><br/>
+      <!-- INSIGHT CARDS -->
+      <div class="insights reveal d3">
+        <div class="ins-card">
+          <span class="ins-signal">Campaña de retail: 50 piezas de video personalizadas en urgencia</span>
+          <span class="ins-action">50 assets entregados en menos de 2hs — USD 4.000 ahorrados</span>
+        </div>
+        <div class="ins-card">
+          <span class="ins-signal">Sentimiento de audiencia cambió — hay que pivotar la comunicación</span>
+          <span class="ins-action">Nueva línea creativa lista en minutos, no en semanas</span>
+        </div>
+      </div>
+      <br/>
       <a class="agent-link reveal d4" href="https://readapt.web.app/" target="_blank" rel="noopener">try hike create →</a>
     </div>
     <div class="reveal d1">
@@ -588,32 +676,83 @@
     <div class="agent-copy">
       <p class="agent-num reveal">// agent · 03</p>
       <h2 class="agent-name reveal d1" id="advise-h">Hike Advise</h2>
-      <p class="agent-tag reveal d2">Every conversation is a conversion opportunity. Guide customers from first contact to final purchase.</p>
+      <p class="agent-tag reveal d2">Tu analista de datos disponible 24/7. Reportes en 30 minutos, alertas en tiempo real, decisiones en minutos.</p>
       <ul class="agent-benefits reveal d2">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Natural, human-feeling conversations that build trust and move customers at any scale</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Full CRM context in every session — knows your customer's history, preferences and intent</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Smart escalation to human agents — seamlessly, with full context transfer, when it matters</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Dashboards en tiempo real generados con lenguaje natural — sin esperar al equipo técnico</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Alertas automáticas ante desviaciones de métricas — detectá anomalías antes de que impacten</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text">Acceso directo a GTM y plataformas de datos — cualquier miembro del equipo, sin dependencia externa</span></li>
       </ul>
-      <div class="agent-kpi reveal d3"><span class="kpi-n">+40%</span><span class="kpi-d">avg conversion rate lift</span></div><br/>
+      <!-- INSIGHT CARDS -->
+      <div class="insights reveal d3">
+        <div class="ins-card">
+          <span class="ins-signal">Tu CPA en Google Ads subió un 40% en las últimas 2 horas</span>
+          <span class="ins-action">Falla detectada en checkout vía GTM — acción inmediata</span>
+        </div>
+        <div class="ins-card">
+          <span class="ins-signal">El clúster A convierte 20% mejor con menos inversión que el B</span>
+          <span class="ins-action">Redistribuir presupuesto ahora — ROAS proyectado +35%</span>
+        </div>
+      </div>
+      <br/>
       <a class="agent-link reveal d4" href="https://chat.hikethecloud.com/" target="_blank" rel="noopener">try hike advise →</a>
     </div>
     <div class="reveal d1">
       <div class="terminal">
         <div class="term-bar">
           <div class="term-dots"><span class="td r"></span><span class="td y"></span><span class="td g"></span></div>
-          <span class="term-title">hike_advise — conversation engine</span>
+          <span class="term-title">hike_advise — analytics engine</span>
         </div>
         <div class="term-body" id="tb-advise" data-lines='[
-          {"c":"cmd","t":"hike advise --session=active --crm=connected"},
-          {"c":"ok","t":"CRM context loaded · 847 sessions"},
-          {"c":"arrow","t":"Avg conversion: +40% vs baseline"},
-          {"c":"arrow","t":"Escalation rate: 3.2% (optimal)"},
-          {"c":"arrow","t":"Revenue attributed: $2.4M last 30d"},
-          {"c":"ok","t":"All agents responding · latency 180ms"},
+          {"c":"cmd","t":"hike advise --connect=\"GA4,GTM,Google Ads\""},
+          {"c":"ok","t":"3 data sources connected · syncing..."},
+          {"c":"warn","t":"CPA anomaly: +40% in last 2h — investigate"},
+          {"c":"arrow","t":"GTM: checkout event missing since 14:32hs"},
+          {"c":"arrow","t":"Cluster A ROAS: 4.2x vs Cluster B: 2.8x"},
+          {"c":"ok","t":"Budget pacing: Day 18 · reallocate → Cluster A"},
           {"c":"cmd","t":"","cursor":true}
         ]'></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- EN NUMEROS -->
+<section id="en-numeros">
+  <div class="en-grid">
+
+    <div class="en-col">
+      <span class="en-label">// hike listen</span>
+      <span class="en-stat reveal">&lt; 15 min</span>
+      <p class="en-desc reveal d1">De 24–72hs a menos de 15 minutos para detectar una crisis o mención crítica.</p>
+      <ul class="en-items">
+        <li class="en-item reveal d2">100+ fuentes monitoreadas simultáneamente</li>
+        <li class="en-item reveal d2">-75% de tiempo operativo del equipo</li>
+        <li class="en-item reveal d3">Sentimiento actualizado hora a hora</li>
+      </ul>
+    </div>
+
+    <div class="en-col">
+      <span class="en-label">// hike create</span>
+      <span class="en-stat reveal">×4</span>
+      <p class="en-desc reveal d1">Cuatro veces más contenido sin aumentar el equipo. De semanas a minutos.</p>
+      <ul class="en-items">
+        <li class="en-item reveal d2">-85% tiempo de adaptación por campaña</li>
+        <li class="en-item reveal d2">30–60 variantes por brief automáticamente</li>
+        <li class="en-item reveal d3">100% compliance de marca por diseño</li>
+      </ul>
+    </div>
+
+    <div class="en-col">
+      <span class="en-label">// hike advise</span>
+      <span class="en-stat reveal">30 min</span>
+      <p class="en-desc reveal d1">Un reporte completo de performance en 30 minutos. Decisiones en tiempo real.</p>
+      <ul class="en-items">
+        <li class="en-item reveal d2">Alertas automáticas ante desviaciones</li>
+        <li class="en-item reveal d2">-75% horas de reporte manual del equipo</li>
+        <li class="en-item reveal d3">Acceso directo a GA4, GTM y Google Ads</li>
+      </ul>
+    </div>
+
   </div>
 </section>
 
