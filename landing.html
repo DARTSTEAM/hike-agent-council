@@ -257,8 +257,9 @@
     #hero {
       position: relative;
       min-height: 92vh;
-      display: grid;
-      grid-template-rows: 1fr auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       background: var(--bg);
       overflow: hidden;
     }
@@ -266,7 +267,10 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: calc(70px + 4.5rem) var(--pad-x) 2.5rem;
+      flex: 1;
+      padding: calc(70px + 4rem) var(--pad-x) 2.5rem;
+      position: relative;
+      z-index: 2;
     }
     .hero-eyebrow {
       font-family: var(--mono);
@@ -274,28 +278,45 @@
       font-weight: 400;
       letter-spacing: 0.1em;
       color: var(--text-dim);
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       opacity: 0;
       animation: fadeUp .6s var(--ease) 0ms forwards;
     }
+    /* DUAL-PLANE H1 */
     .hero-h1 {
-      font-family: var(--font-main);
-      font-size: clamp(80px, 14vw, 220px);
-      font-weight: 500;
-      letter-spacing: -0.05em;
-      line-height: 0.9;
-      color: var(--text);
       margin: 0;
+      line-height: 1;
     }
     .hero-line1 {
       display: block;
+      font-family: var(--font-main);
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--text-dim);
       opacity: 0;
-      animation: fadeUp .6s var(--ease) 100ms forwards;
+      margin-bottom: -32px;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .8s var(--ease) 150ms forwards;
     }
     .hero-line2 {
       display: block;
+      font-family: var(--font-main);
+      font-size: clamp(120px, 18vw, 280px);
+      font-weight: 550;
+      letter-spacing: -0.06em;
+      line-height: 0.85;
+      color: var(--text);
+      position: relative;
+      z-index: 2;
       opacity: 0;
-      animation: fadeUp .6s var(--ease) 200ms forwards;
+      animation: heroIn 1.0s var(--ease) 300ms forwards;
+    }
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(24px) scale(1.02); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
     }
     .grad-word {
       display: inline-block;
@@ -304,26 +325,38 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       clip-path: inset(0 102% 0 0);
-      animation: gradReveal 1.0s var(--ease) 360ms forwards;
+      animation: gradReveal 1.2s var(--ease) 500ms forwards;
     }
     @keyframes gradReveal {
       to { clip-path: inset(0 -5% 0 0); }
     }
+    /* SUBTITLE */
     .hero-bottom-row {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       gap: 3rem;
-      margin-top: 1.75rem;
+      margin-top: clamp(40px, 5vh, 64px);
     }
     .hero-sub {
       font-size: 22px;
       font-weight: 400;
       color: var(--text-dim);
       max-width: 56ch;
-      line-height: 1.5;
+      line-height: 1.4;
       opacity: 0;
-      animation: fadeUp .6s var(--ease) 400ms forwards;
+      animation: fadeUp .6s var(--ease) 600ms forwards;
+    }
+    .hero-sub-name {
+      font-weight: 500;
+      color: var(--text);
+    }
+    .hero-sub-action {
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: italic;
     }
     .hero-powered {
       font-family: var(--mono);
@@ -337,7 +370,7 @@
       flex-shrink: 0;
       white-space: nowrap;
       opacity: 0;
-      animation: fadeUp .6s var(--ease) 400ms forwards;
+      animation: fadeUp .6s var(--ease) 900ms forwards;
     }
     .hero-powered-dot {
       width: 7px;
@@ -351,10 +384,11 @@
     .hero-ctas {
       display: flex;
       align-items: center;
-      margin-top: 3rem;
+      margin-top: 2.5rem;
       opacity: 0;
-      animation: fadeUp .6s var(--ease) 500ms forwards;
+      animation: fadeUp .6s var(--ease) 750ms forwards;
     }
+    /* TICKER BG */
     .ticker-bg {
       position: absolute;
       inset: 0;
@@ -379,12 +413,8 @@
       animation-name: tickR;
       color: rgba(168,168,162,0.08);
     }
-    .ticker-row:nth-child(3n) {
-      animation-duration: 27s;
-    }
-    .ticker-row:nth-child(4n) {
-      animation-duration: 43s;
-    }
+    .ticker-row:nth-child(3n) { animation-duration: 27s; }
+    .ticker-row:nth-child(4n) { animation-duration: 43s; }
     @keyframes tickL {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
@@ -494,33 +524,35 @@
       grid-template-columns: repeat(3, 1fr);
       border-top: 1px solid var(--border-strong);
       background: var(--bg);
+      position: relative;
+      z-index: 3;
     }
     .hb-col {
-      padding: 2.5rem 2.5rem;
+      padding: 28px var(--pad-x);
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: .5rem;
+      gap: .4rem;
       opacity: 0;
     }
     .hb-col:last-child { border-right: none; }
-    .hb-col:nth-child(1) { animation: fadeUp .5s var(--ease) 700ms forwards; }
-    .hb-col:nth-child(2) { animation: fadeUp .5s var(--ease) 780ms forwards; }
-    .hb-col:nth-child(3) { animation: fadeUp .5s var(--ease) 860ms forwards; }
+    .hb-col:nth-child(1) { animation: fadeUp .5s var(--ease) 1100ms forwards; }
+    .hb-col:nth-child(2) { animation: fadeUp .5s var(--ease) 1180ms forwards; }
+    .hb-col:nth-child(3) { animation: fadeUp .5s var(--ease) 1260ms forwards; }
     .hb-tag {
       font-family: var(--mono);
       font-size: 10px;
       font-weight: 400;
-      letter-spacing: 0.15em;
-      color: var(--text-mute);
+      letter-spacing: 0.2em;
+      color: var(--text-dim);
       display: flex;
       align-items: center;
-      gap: .5rem;
+      gap: 8px;
       text-transform: uppercase;
     }
     .hb-dot {
-      width: 5px;
-      height: 5px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: #00D26A;
       box-shadow: 0 0 6px #00D26A;
@@ -529,20 +561,47 @@
     }
     .hb-product-name {
       font-family: var(--font-main);
-      font-size: 28px;
+      font-size: clamp(20px, 2vw, 28px);
       font-weight: 550;
       letter-spacing: -0.02em;
       line-height: 1.1;
       color: var(--text);
-      margin-top: 8px;
+      margin-top: 12px;
     }
     .hb-oneliner {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 400;
       color: var(--text-dim);
       line-height: 1.4;
-      max-width: 28ch;
-      margin-top: 8px;
+      max-width: 32ch;
+      margin-top: 4px;
+    }
+    .hb-oneliner .hb-metric {
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 500;
+    }
+    .hb-mini-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 2px;
+      margin-top: 12px;
+      transition: gap .2s, border-color .2s;
+      text-decoration: none;
+      align-self: flex-start;
+    }
+    .hb-mini-cta:hover {
+      gap: .6rem;
+      border-image: var(--gemini-gradient) 1;
     }
 
     /* ── IMPACT METRICS ── */
@@ -1930,11 +1989,14 @@
       .nav-links { display: none; }
 
       /* Hero */
-      .hero-main { padding: calc(70px + 2.5rem) clamp(16px, 4vw, 32px) 2rem; }
-      .hero-h1 { font-size: clamp(56px, 14vw, 96px); }
-      .hero-sub { font-size: 18px; max-width: 100%; margin-top: 24px; }
-      .hero-ctas { flex-wrap: wrap; gap: 12px; }
+      .hero-main { padding: calc(70px + 2rem) clamp(16px, 4vw, 32px) 1.5rem; }
+      .hero-line1 { font-size: clamp(28px, 7vw, 40px); margin-bottom: -16px; }
+      .hero-line2 { font-size: clamp(64px, 16vw, 96px); }
+      .hero-sub { font-size: 18px; max-width: 100%; }
+      .hero-bottom-row { flex-wrap: wrap; gap: 1.5rem; margin-top: 24px; }
+      .hero-ctas { flex-wrap: wrap; gap: 12px; margin-top: 1.5rem; }
       .btn-ghost { margin-left: 0; }
+      #hero { min-height: auto; }
 
       /* Hero band */
       .hero-band { grid-template-columns: 1fr; }
@@ -1944,15 +2006,13 @@
         padding: 1.25rem clamp(16px, 4vw, 32px);
       }
       .hb-col:first-child { border-top: 1px solid var(--border-strong); }
-      .hb-metric { font-size: 40px; }
 
       /* Impact metrics */
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
       .impact-col:nth-child(2) { border-right: none; }
       .impact-col:nth-child(3) { border-right: 1px solid var(--border); }
       .impact-col:nth-child(4) { border-right: none; }
-      .impact-big { font-size: clamp(56px, 14vw, 88px); }
-      .impact-eyebrow { margin-bottom: 48px; }
+      .impact-big { font-size: clamp(24px, 8vw, 36px); }
 
       /* Problem section */
       .ps-grid { grid-template-columns: 1fr; }
@@ -2291,7 +2351,7 @@
       <span class="hero-line2"><span class="grad-word">Infinite</span> impact.</span>
     </h1>
     <div class="hero-bottom-row">
-      <p class="hero-sub">AI agents para inteligencia de marca, generación de contenido y analytics en tiempo real.</p>
+      <p class="hero-sub"><span class="hero-sub-name">Hike Listen</span>, <span class="hero-sub-name">Hike Create</span> y <span class="hero-sub-name">Hike Advise</span>. Tres agentes especializados que <span class="hero-sub-action">escuchan, crean y analizan</span> —— mientras tu equipo decide.</p>
       <p class="hero-powered"><span class="hero-powered-dot"></span>Powered by Gemini</p>
     </div>
     <div class="hero-ctas">
@@ -2299,22 +2359,25 @@
       <a class="btn-ghost" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">Book demo</a>
     </div>
   </div>
-  <!-- 3-col agent metrics band -->
+  <!-- 3-col product band -->
   <div class="hero-band">
     <div class="hb-col">
       <span class="hb-tag"><span class="hb-dot"></span>HIKE_LISTEN · ACTIVE</span>
       <span class="hb-product-name">Brand Intelligence</span>
-      <p class="hb-oneliner">Escucha 100+ fuentes y detecta crisis en menos de 15 minutos.</p>
+      <p class="hb-oneliner">Escucha 100+ fuentes. Detecta crisis en <span class="hb-metric">&lt; 15 min</span>.</p>
+      <a class="hb-mini-cta" href="#listen">explore →</a>
     </div>
     <div class="hb-col">
       <span class="hb-tag"><span class="hb-dot"></span>HIKE_CREATE · ACTIVE</span>
       <span class="hb-product-name">Content Engine</span>
-      <p class="hb-oneliner">Genera 50 variantes de contenido en menos de 2 horas.</p>
+      <p class="hb-oneliner">Genera 50 variantes en <span class="hb-metric">&lt; 2hs</span>. <span class="hb-metric">4×</span> output.</p>
+      <a class="hb-mini-cta" href="#create">explore →</a>
     </div>
     <div class="hb-col">
       <span class="hb-tag"><span class="hb-dot"></span>HIKE_ADVISE · ACTIVE</span>
       <span class="hb-product-name">Analytics Engine</span>
-      <p class="hb-oneliner">Reportes ejecutivos en lenguaje natural. 30 minutos.</p>
+      <p class="hb-oneliner">Reportes ejecutivos en lenguaje natural en <span class="hb-metric">30 min</span>.</p>
+      <a class="hb-mini-cta" href="#advise">explore →</a>
     </div>
   </div>
 </section>
