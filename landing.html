@@ -1820,45 +1820,155 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
+    /* ── SKIP TO CONTENT ── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: var(--text);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 12px 24px;
+      z-index: 99999;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── PREFERS-REDUCED-MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ── TABLET (768–1024px) ── */
+    @media (max-width: 1024px) {
+      #section-indicator { display: none !important; }
+      .chapter-sec {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .chapter-left { position: static; }
+      .chapter-right { grid-column: 1; }
+      .cs-hero-grid { grid-template-columns: 1fr; }
+      .cs-left { grid-column: 1; }
+      .cs-right {
+        grid-column: 1;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0;
+        padding-top: 40px;
+        margin-top: 40px;
+      }
+      .cs-big-num { font-size: clamp(44px, 6vw, 76px); }
+      .impact-big { font-size: clamp(64px, 10vw, 112px); }
+      .cta-headline { font-size: clamp(80px, 14vw, 160px); }
+    }
+
+    /* ── MOBILE (< 768px) ── */
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { padding: 16px clamp(16px, 4vw, 32px); }
       .nav-links { display: none; }
+
+      /* Hero */
+      .hero-main { padding: calc(70px + 2.5rem) clamp(16px, 4vw, 32px) 2rem; }
+      .hero-h1 { font-size: clamp(56px, 14vw, 96px); }
+      .hero-sub { font-size: 18px; max-width: 100%; margin-top: 24px; }
+      .hero-ctas { flex-wrap: wrap; gap: 12px; }
+      .btn-ghost { margin-left: 0; }
+
+      /* Hero band */
       .hero-band { grid-template-columns: 1fr; }
       .hb-col {
         border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding: 1.5rem 1.5rem;
+        border-top: 1px solid var(--border);
+        padding: 1.25rem clamp(16px, 4vw, 32px);
       }
-      .hb-col:last-child { border-bottom: none; }
+      .hb-col:first-child { border-top: 1px solid var(--border-strong); }
       .hb-metric { font-size: 40px; }
-      .hero-bottom-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
-      .hero-sub { font-size: 18px; }
-      .agent-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .agent-grid.rev { direction: ltr; }
-      .chapter-sec { grid-template-columns: 1fr; }
-      .chapter-left { position: static; }
+
+      /* Impact metrics */
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .impact-col:nth-child(2) { border-right: none; }
+      .impact-col:nth-child(3) { border-right: 1px solid var(--border); }
+      .impact-col:nth-child(4) { border-right: none; }
+      .impact-big { font-size: clamp(56px, 14vw, 88px); }
+      .impact-eyebrow { margin-bottom: 48px; }
+
+      /* Problem section */
       .ps-grid { grid-template-columns: 1fr; }
-      .cs-nums { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .en-grid { grid-template-columns: 1fr; }
-      .en-col {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding: 2rem 1.5rem;
+      #problem { padding: 80px clamp(16px, 4vw, 32px); }
+
+      /* Agent chapters */
+      .chapter-sec {
+        grid-template-columns: 1fr;
+        padding: 80px clamp(16px, 4vw, 32px);
+        gap: 48px;
       }
-      .en-col:last-child {
-        border-bottom: none;
-      }
-    }
-    @media (max-width: 600px) {
-      .hero-main { padding: calc(70px + 3rem) 1.5rem 2rem; }
-      .hero-ctas { flex-wrap: wrap; }
-      .btn-ghost { margin-left: 0; margin-top: 1rem; }
-      .agent-sec { padding: 5rem 1.5rem; }
-      #impact, #problem { padding: 5rem 1.5rem; }
-      .ch-title { font-size: clamp(56px,14vw,72px); }
+      .chapter-left { position: static; align-self: auto; }
+      .chapter-right { grid-column: 1; }
+      .ch-title { font-size: clamp(56px, 14vw, 80px); }
       .ch-sub { font-size: 18px; }
+      .ch-metrics { flex-wrap: wrap; }
+
+      /* Signal sections */
+      .signal-grid { grid-template-columns: 1fr; }
+      .signal-card { min-height: auto; padding: 32px 24px; }
+
+      /* Chapter separators */
+      .chapter-sep { display: none; }
+
+      /* Case study */
+      .cs-preheader { padding: 80px clamp(16px, 4vw, 32px) 0; }
+      .cs-hero-grid {
+        grid-template-columns: 1fr;
+        padding: 60px clamp(16px, 4vw, 32px);
+      }
+      .cs-left { grid-column: 1; }
+      .cs-right {
+        grid-column: 1;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0;
+        padding-top: 32px;
+        margin-top: 32px;
+      }
+      .cs-headline { font-size: clamp(36px, 10vw, 60px); }
+      .cs-big-num { font-size: clamp(40px, 10vw, 64px); }
+      .cs-metric-row { padding: 20px 0; }
+      .cs-pullquote { font-size: clamp(24px, 6vw, 40px); margin-left: 0; }
+      .cs-attribution { margin-left: 0; }
+      .cs-pullquote-wrap { padding: 80px clamp(16px, 4vw, 32px); }
+
+      /* CTA final */
+      .cta-headline { font-size: clamp(80px, 18vw, 140px); }
+      .cta-sub { font-size: 18px; }
+      .cta-row { flex-direction: column; align-items: center; }
+      .cta-logos { flex-wrap: wrap; }
+      .cta-logo-col { flex: 0 0 50%; border-bottom: 1px solid var(--border); }
+      #cta-final { padding: 80px clamp(16px, 4vw, 32px); }
+
+      /* Footer */
+      .footer-inner { grid-template-columns: 1fr; text-align: center; gap: 24px; }
+      .footer-logo { justify-self: center; }
+      .footer-copy { justify-self: center; text-align: center; }
+      .footer-links { justify-content: center; flex-wrap: wrap; }
+
+      /* Cursor off on touch */
+      #cursor, #cursor-label { display: none !important; }
+
+      /* En numeros */
+      .en-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── SMALL MOBILE (< 480px) ── */
+    @media (max-width: 480px) {
+      .hero-h1 { font-size: clamp(56px, 16vw, 80px); }
+      .asset-grid { grid-template-columns: repeat(2, 1fr); }
+      .kpi-grid { grid-template-columns: 1fr; }
     }
 
     /* \u2500\u2500 CASE STUDY \u2014 EDITORIAL CASE FILM \u2500\u2500 */
@@ -2055,6 +2165,7 @@
 </head>
 <body>
 
+<a class="skip-link" href="#hero">Skip to content</a>
 <div id="progress"></div>
 <div id="cursor"></div>
 <div id="cursor-label">view live →</div>
@@ -2072,7 +2183,7 @@
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-left">
-    <img class="nav-logo" src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png" alt="Hike"/>
+    <img class="nav-logo" src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png" alt="Hike the Cloud — home" fetchpriority="high"/>
   </div>
   <ul class="nav-links">
     <li><a href="#listen">listen</a></li>
@@ -2210,7 +2321,7 @@
       <div class="demo-body">
         <div class="feed-list" id="feed-list"></div>
         <div class="alert-box">
-          <span style="font-size:16px;flex-shrink:0">⚠</span>
+          <span aria-hidden="true" style="font-size:16px;flex-shrink:0;line-height:1">!</span>
           <p class="alert-box-text"><strong>Crisis detected</strong> — 60% de menciones reportan fallas en login. Sugerencia: pausar campaña X y activar respuesta de crisis.</p>
         </div>
       </div>
@@ -2457,7 +2568,7 @@
           </svg>
         </div>
         <div class="alert-box">
-          <span style="font-size:16px;flex-shrink:0">⚠</span>
+          <span style="font-size:16px;flex-shrink:0;line-height:1" aria-hidden="true">!</span>
           <p class="alert-box-text"><strong>Anomalía detectada:</strong> CPA +40% en últimas 2hs. Acción sugerida: pausar grupo X. Ahorro estimado: <strong>USD 800</strong>.</p>
         </div>
       </div>
@@ -2557,6 +2668,7 @@
           class="cs-logo"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
           alt="Banco Galicia"
+          loading="lazy"
           onerror="this.style.display='none'"
         />
         <h2 class="cs-headline" id="cs-headline">
@@ -2726,11 +2838,11 @@ if (impGrid) impObs.observe(impGrid);
 
 /* ── FEED ANIMATION (LISTEN) ── */
 const FEED_ITEMS = [
-  { sentiment: 'POSITIVE', cls: 'st-pos', text: 'Me encanta la app, funciona perfectísimo 🙌', time: '2 min ago' },
-  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'No puedo hacer login desde ayer, ya intenté todo 😡', time: '4 min ago' },
+  { sentiment: 'POSITIVE', cls: 'st-pos', text: 'Me encanta la app, funciona perfectísimo', time: '2 min ago' },
+  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'No puedo hacer login desde ayer, ya intenté todo', time: '4 min ago' },
   { sentiment: 'NEUTRAL',  cls: 'st-neu', text: 'Alguien sabe cuándo actualizan la app?', time: '7 min ago' },
   { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'Tercer día con el mismo problema de login', time: '9 min ago' },
-  { sentiment: 'POSITIVE', cls: 'st-pos', text: 'El servicio al cliente respondió en minutos, excelente!', time: '12 min ago' },
+  { sentiment: 'POSITIVE', cls: 'st-pos', text: 'El servicio al cliente respondió en minutos, excelente', time: '12 min ago' },
 ];
 function runFeedAnimation(sec) {
   if (sec._fed) return; sec._fed = true;
