@@ -342,6 +342,25 @@
     .agent-cream .agent-link:hover { background:var(--purple); color:#fff; }
     .agent-dark  .agent-link:hover { background:rgba(244,235,51,.12); border-color:var(--yellow); }
 
+    /* ── AGENT SUB-LABELS ── */
+    .agent-sub {
+      font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+      margin:1.625rem 0 .625rem; display:inline-flex; align-items:center; gap:.5rem;
+      opacity:.55;
+    }
+    .agent-sub::before { content:'//'; opacity:.75; }
+    .agent-white .agent-sub,
+    .agent-cream .agent-sub { color:var(--purple); }
+    .agent-dark  .agent-sub { color:rgba(200,184,224,.8); }
+
+    /* ── PENCIL CIRCLE mark ── */
+    .pencil { position:relative; display:inline; white-space:nowrap; }
+    .pencil-ring {
+      position:absolute; overflow:visible; pointer-events:none;
+      top:-8px; left:-10px;
+      width:calc(100% + 20px); height:calc(100% + 16px);
+    }
+
     /* ── TERMINAL ── */
     .terminal { border-radius:10px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,.06),0 20px 60px rgba(0,0,0,.1); }
     .agent-white .terminal,
@@ -654,7 +673,7 @@
     <div class="agent-copy">
       <p class="agent-num reveal">// agent · 01</p>
       <h2 class="agent-name reveal d1" id="listen-h">Hike Listen</h2>
-      <p class="agent-tag reveal d2">De 72hs de reacción a 15 minutos. Dejá de hacer scroll manual y empezá a actuar sobre lo que importa.</p>
+      <p class="agent-tag reveal d2">De 72hs de reacción a <mark class="pencil">15 minutos</mark>. Dejá de hacer scroll manual y empezá a actuar sobre lo que importa.</p>
       <!-- MINI KPI STRIP -->
       <div class="agent-kpis reveal d2">
         <div class="akpi-item">
@@ -670,24 +689,26 @@
           <span class="akpi-lbl">fuentes monitoreadas</span>
         </div>
       </div>
+      <p class="agent-sub">qué resuelve</p>
       <ul class="agent-benefits reveal d3">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Monitoreo + alertas en tiempo real:</strong> cualquier anomalía o indicio de crisis dispara una notificación inmediata. El equipo actúa, no scrollea</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Análisis de sentimiento por cuenta, posteo y hashtag</strong> — incluíndo sugerencias de respuesta personalizadas para el inbox</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Benchmark competitivo automático:</strong> Net Sentiment Gap vs. competidores. Sabé dónde les duele y convetilo en oportunidad de Market Share</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Monitoreo + alertas en tiempo real:</strong> cualquier anomalía o indicio de crisis dispara una notificación inmediata — el equipo actúa, no scrollea</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Sentimiento por cuenta, posteo y hashtag</strong> — incluyendo <strong>respuestas sugeridas personalizadas</strong> para el inbox. Sin leer comentario a comentario</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Benchmark competitivo automático:</strong> Net Sentiment Gap vs. competidores. Sabé dónde les duele y convertilo en oportunidad de <strong>Market Share</strong></span></li>
       </ul>
       <!-- INSIGHT CARDS -->
+      <p class="agent-sub">señal → acción</p>
       <div class="insights reveal d3">
         <div class="ins-card">
           <span class="ins-signal">60% de comentarios negativos mencionan fallas en el login</span>
-          <span class="ins-action">Fix técnico antes de la próxima campaña — evitá miles en pauta quemada</span>
+          <span class="ins-action">Fix técnico antes de la próxima campaña — evitá miles en <strong>pauta quemada</strong></span>
         </div>
         <div class="ins-card">
           <span class="ins-signal">Competidor X acumula quejas de tiempos de envío en redes</span>
-          <span class="ins-action">Lanzar pauta "Envíos en 24hs" ahora — ventana de conquista de Market Share</span>
+          <span class="ins-action">Lanzar pauta "Envíos en 24hs" ahora — ventana de conquista de <strong>Market Share</strong></span>
         </div>
         <div class="ins-card">
           <span class="ins-signal">5 usuarios con +1K seguidores comentaron positivamente esta semana</span>
-          <span class="ins-action">Contactarlos para programa de micro-influencers — reach orgánico amplificado</span>
+          <span class="ins-action">Contactarlos para programa de <strong>micro-influencers</strong> — reach orgánico amplificado</span>
         </div>
       </div>
       <br/>
@@ -726,7 +747,7 @@
     <div class="agent-copy">
       <p class="agent-num reveal">// agent · 02</p>
       <h2 class="agent-name reveal d1" id="create-h">Hike Create</h2>
-      <p class="agent-tag reveal d2">El mismo equipo, 4 veces más contenido. El ahorro en fees de producción se redistribuye directo a inversión en medios.</p>
+      <p class="agent-tag reveal d2">El mismo equipo, <mark class="pencil">4 veces más contenido</mark>. El ahorro en fees de producción se redistribuye directo a inversión en medios.</p>
       <!-- MINI KPI STRIP -->
       <div class="agent-kpis reveal d2">
         <div class="akpi-item">
@@ -742,24 +763,26 @@
           <span class="akpi-lbl">ahorro por campaña</span>
         </div>
       </div>
+      <p class="agent-sub">cómo funciona</p>
       <ul class="agent-benefits reveal d3">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Creative Director AI (Gemini):</strong> definís el concepto en lenguaje natural; la IA interpreta estilo, iluminación y dirección de arte y genera el contenido desde cero</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Smart Canvas (automatización n8n):</strong> procesa la pieza y entrega automáticamente todas las variantes — Stories 9:16, Feed 1:1, YouTube 16:9 — sin intervención manual</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Escalabilidad infinita:</strong> pasás de producción limitada por staff a volumen ilimitado on-demand. 1 operador de IA reemplaza un equipo de diseñadores y editores</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Creative Director AI (Gemini):</strong> definís el concepto en lenguaje natural; la IA interpreta estilo, iluminación y dirección de arte y genera contenido desde cero</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Smart Canvas (automatización n8n):</strong> entrega automáticamente <strong>todas las variantes</strong> — Stories 9:16, Feed 1:1, YouTube 16:9 — sin intervención manual</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Escalabilidad infinita:</strong> 1 operador de IA reemplaza un equipo de diseñadores. El <strong>ahorro en fees</strong> se redistribuye directo a medios — más ROAS, mismo budget</span></li>
       </ul>
       <!-- INSIGHT CARDS -->
+      <p class="agent-sub">resultados reales</p>
       <div class="insights reveal d3">
         <div class="ins-card">
           <span class="ins-signal">Retail: 50 piezas de video personalizadas urgentes — Hot Sale en 24hs</span>
-          <span class="ins-action">50 assets entregados en &lt;2hs — USD 4.000 ahorrados — +20% engagement vs. producción tradicional</span>
+          <span class="ins-action"><strong>50 assets en &lt;2hs</strong> — <mark class="pencil">USD 4.000 ahorrados</mark> — +20% engagement vs. producción tradicional</span>
         </div>
         <div class="ins-card">
           <span class="ins-signal">Sentimiento de audiencia cambió — el mensaje actual no resuena</span>
-          <span class="ins-action">Nueva línea creativa completa en minutos. Pivotá la comunicación antes de quemar más presupuesto</span>
+          <span class="ins-action">Nueva línea creativa completa en <strong>minutos</strong>. Pivotá antes de quemar más presupuesto</span>
         </div>
         <div class="ins-card">
           <span class="ins-signal">Posteo A tuvo likes, Posteo B generó mayor intención de compra</span>
-          <span class="ins-action">Escalar inversión en el estilo del Posteo B — mismo presupuesto, mayor conversión</span>
+          <span class="ins-action">Escalar inversión en el estilo del Posteo B — <strong>mismo presupuesto, mayor conversión</strong></span>
         </div>
       </div>
       <br/>
@@ -793,7 +816,7 @@
     <div class="agent-copy">
       <p class="agent-num reveal">// agent · 03</p>
       <h2 class="agent-name reveal d1" id="advise-h">Hike Advise</h2>
-      <p class="agent-tag reveal d2">De días de espera a 30 minutos. Tu experto en BI disponible 24/7 — sin necesidad de un equipo técnico.</p>
+      <p class="agent-tag reveal d2">De días de espera a <mark class="pencil">30 minutos</mark>. Tu experto en BI disponible 24/7 — sin necesidad de un equipo técnico. </p>
       <!-- MINI KPI STRIP -->
       <div class="agent-kpis reveal d2">
         <div class="akpi-item">
@@ -809,24 +832,26 @@
           <span class="akpi-lbl">Decision Velocity</span>
         </div>
       </div>
+      <p class="agent-sub">cómo funciona</p>
       <ul class="agent-benefits reveal d3">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Dashboards en lenguaje natural:</strong> conectás tus fuentes (GA4, GTM, Google Ads), prompteás lo que querés ver y el reporte está listo en &lt;30 min. Sin área técnica</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Dashboards en lenguaje natural:</strong> conectás tus fuentes, promptéas lo que querés ver y el reporte está listo en <strong>&lt;30 min</strong> — sin área técnica, sin esperas</span></li>
         <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Agente de Tracking con acceso directo a GTM:</strong> detecta fallas en tiempo real y actúa. 10 minutos de error en Hot Sale cuestan miles — este agente los elimina</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Decision Velocity:</strong> el equipo deja de &ldquo;picar datos&rdquo; y se enfoca en estrategia. El dato llega cuando la decisión todavía tiene impacto real en el resultado</span></li>
+        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Decision Velocity:</strong> el equipo deja de &ldquo;picar datos&rdquo; y se enfoca en estrategia. El dato llega cuando la decisión <strong>todavía tiene impacto</strong> real en el resultado</span></li>
       </ul>
       <!-- INSIGHT CARDS -->
+      <p class="agent-sub">insights que disparan acción</p>
       <div class="insights reveal d3">
         <div class="ins-card">
           <span class="ins-signal">CPA en Google Ads +40% en las últimas 2hs — falla detectada en checkout via GTM</span>
-          <span class="ins-action">Pausa de grupo de anuncios + fix GTM — ahorro estimado: USD 800 en pauta quemada</span>
+          <span class="ins-action">Pausa de grupo de anuncios + fix GTM — <strong>ahorro estimado: USD 800</strong> en pauta quemada</span>
         </div>
         <div class="ins-card">
           <span class="ins-signal">Clúster A convierte 20% mejor con 30% menos inversión que el clúster B</span>
-          <span class="ins-action">Redistribuir budget ahora — ROAS proyectado +35% al cierre de mes</span>
+          <span class="ins-action">Redistribuir budget ahora — <mark class="pencil">ROAS +35%</mark> proyectado al cierre de mes</span>
         </div>
         <div class="ins-card">
           <span class="ins-signal">Al ritmo actual, el presupuesto se agota el día 22</span>
-          <span class="ins-action">Ajustar puja un 5% — campasña sostenida hasta fin de mes sin perder posiciones</span>
+          <span class="ins-action">Ajustar puja <strong>-5%</strong> — campaña sostenida hasta fin de mes sin perder posiciones</span>
         </div>
       </div>
       <br/>
@@ -1055,6 +1080,48 @@ const to = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting
     });
   }, { threshold: 0.05 });
   vo.observe(sec);
+})();
+
+/* ── PENCIL RINGS ── */
+(function makePencilRings() {
+  document.querySelectorAll('.pencil').forEach(el => {
+    const isDark = !!el.closest('.agent-dark');
+    const color  = isDark ? '%23F4EB33' : '%236B46C1';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.classList.add('pencil-ring');
+    svg.setAttribute('viewBox', '0 0 100 36');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    // slightly irregular hand-drawn ellipse
+    path.setAttribute('d', 'M9,18 C14,5 86,3 93,18 C97,28 83,33 50,34 C16,35 3,27 9,18 Z');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', isDark ? '#F4EB33' : '#6B46C1');
+    path.setAttribute('stroke-width', '2.2');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    path.style.cssText = 'stroke-dasharray:290;stroke-dashoffset:290;transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1) .4s';
+    svg.appendChild(path);
+    el.style.position = 'relative';
+    el.appendChild(svg);
+  });
+  /* trigger on IntersectionObserver (re-use the existing reveal system) */
+  const po = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('.pencil-ring path').forEach(p => {
+        p.style.strokeDashoffset = '0';
+      });
+      po.unobserve(e.target);
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.querySelector('.pencil')) po.observe(el);
+  });
+  // Also trigger for elements already visible
+  document.querySelectorAll('.reveal.vis .pencil-ring path').forEach(p => {
+    p.style.strokeDashoffset = '0';
+  });
 })();
 
 /* ── SMOOTH ANCHORS ── */
