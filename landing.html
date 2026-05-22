@@ -150,7 +150,7 @@
     }
 
     /* ── LINK GRADIENT UNDERLINE ── */
-    .nav-links a, .footer-links a, .ch-cta, .chapter-sep-link {
+    .nav-links a, .footer-links a, .agent-cta, .chapter-sep-link {
       position: relative;
     }
     .footer-links a::after {
@@ -657,74 +657,7 @@
       .impact-big { font-size: clamp(24px, 8vw, 36px); }
     }
 
-    /* ── USE CASE GRID ── */
-    .use-cases {
-      background: var(--bg);
-      padding: 80px var(--pad-x);
-      border-bottom: 1px solid var(--border);
-    }
-    .use-cases.alt { background: var(--bg-elev); }
-    .uc-eyebrow {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-mute);
-      opacity: 0.6;
-      text-align: center;
-      display: block;
-      margin-bottom: 48px;
-    }
-    .uc-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-    }
-    .uc-card {
-      padding: 40px 32px;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-    }
-    .use-cases.alt .uc-card { background: var(--bg-elev); }
-    .uc-num {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-mute);
-    }
-    .uc-title {
-      font-size: 18px;
-      font-weight: 550;
-      color: var(--text);
-      line-height: 1.3;
-      margin-top: 24px;
-    }
-    .uc-desc {
-      font-size: 15px;
-      font-weight: 400;
-      color: var(--text-dim);
-      line-height: 1.5;
-      margin-top: 16px;
-      flex: 1;
-    }
-    .uc-impact {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      background: var(--gemini-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-top: auto;
-      padding-top: 24px;
-    }
-    @media (max-width: 768px) { .uc-grid { grid-template-columns: 1fr; } }
+    /* ── OLD USE CASES REMOVED (NOW INLINE IN AGENT-SEC) ── */
 
     /* ── PROBLEM / SOLUTION ── */
     #problem {
@@ -818,113 +751,164 @@
     }
 
     /* ── CHAPTER SECTIONS ── */
-    .chapter-sec {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
-      padding: var(--space-section) var(--pad-x);
-      align-items: start;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      position: relative;
-    }
-    .chapter-sec.alt { background: var(--bg-elev); }
-    .chapter-left {
-      grid-column: 1 / 6;
-      position: sticky;
-      top: 120px;
-      align-self: start;
-    }
-    .chapter-right {
-      grid-column: 7 / 13;
+    .agent-sec {
+      min-height: 100vh;
+      max-height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      padding: 80px var(--pad-x) 60px;
+      border-top: 1px solid var(--border-strong);
+      overflow: hidden;
+      position: relative;
+      background: var(--bg);
     }
-    .ch-eyebrow {
+    .agent-sec.alt {
+      background: var(--bg-elev);
+    }
+    .agent-eyebrow {
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 400;
       letter-spacing: 0.15em;
       color: var(--text-dim);
       text-transform: uppercase;
-      margin-bottom: 1.25rem;
+      margin-bottom: 48px;
     }
-    .ch-title {
+    .agent-grid {
+      display: grid;
+      grid-template-columns: 4fr 5fr 3fr;
+      gap: 48px;
+      align-items: start;
+      flex: 1;
+    }
+    .agent-id {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .agent-name {
       font-family: var(--font-main);
-      font-size: clamp(72px, 10vw, 160px);
-      font-weight: 500;
+      font-size: clamp(48px, 5.5vw, 88px);
+      font-weight: 550;
       letter-spacing: -0.04em;
-      line-height: 0.9;
+      line-height: 0.95;
       color: var(--text);
-      margin-bottom: 1.5rem;
     }
-    .ch-sub {
-      font-size: 24px;
+    .agent-promise {
+      font-size: 18px;
       font-weight: 400;
       color: var(--text-dim);
-      line-height: 1.4;
-      max-width: 48ch;
-      margin-bottom: 2rem;
+      line-height: 1.5;
+      max-width: 38ch;
     }
-    .ch-sub .grad-kw {
+    .agent-promise .grad-kw {
       background: var(--gemini-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       font-weight: 500;
     }
-    .ch-metrics {
-      display: flex;
-      border: 1px solid var(--border);
-      margin-bottom: 2rem;
+    .agent-hero-metric {
+      display: block;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .ch-metric-item {
-      flex: 1;
-      padding: .875rem 1rem;
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: .3rem;
-    }
-    .ch-metric-item:last-child { border-right: none; }
-    .ch-metric-val {
+    .agent-metric-num {
       font-family: var(--font-main);
-      font-size: 1.4rem;
-      font-weight: 500;
+      font-size: clamp(40px, 4vw, 56px);
+      font-weight: 550;
       letter-spacing: -0.03em;
-      color: var(--text);
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      white-space: nowrap;
       line-height: 1;
     }
-    .ch-metric-lbl {
+    .agent-metric-lbl {
+      display: block;
+      margin-top: 8px;
       font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.15em;
       color: var(--text-mute);
+      text-transform: uppercase;
     }
-    .ch-cta {
+    .agent-cta {
       display: inline-flex;
       align-items: center;
-      gap: .5rem;
+      gap: 0.5rem;
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
-      letter-spacing: .1em;
-      text-transform: uppercase;
       color: var(--text);
-      border: none;
       border-bottom: 1px solid var(--text);
-      padding: .5rem 0;
-      background: transparent;
-      transition: gap .2s, border-color .2s;
+      padding-bottom: 6px;
+      text-transform: lowercase;
+      text-decoration: none;
+      transition: gap 0.2s, border-bottom-color 0.2s;
+      align-self: flex-start;
     }
-    .ch-cta:hover {
-      gap: 1rem;
+    .agent-cta:hover {
+      gap: 0.75rem;
       border-bottom-color: transparent;
       border-image: var(--gemini-gradient) 1;
     }
-    .ch-cta-arrow { transition: transform .2s; }
-    .ch-cta:hover .ch-cta-arrow { transform: translateX(4px); }
+    .agent-cta-arrow {
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+    .agent-cta:hover .agent-cta-arrow {
+      transform: translateX(4px);
+    }
+    .agent-cases {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .agent-cases-eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-mute);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .agent-case-item {
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    .agent-case-item:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+    .agent-case-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-mute);
+    }
+    .agent-case-title {
+      font-size: 15px;
+      font-weight: 550;
+      color: var(--text);
+      line-height: 1.3;
+      margin-top: 8px;
+    }
+    .agent-case-metric {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: 8px;
+      display: inline-block;
+    }
 
     /* ── DEMO WINDOW ── */
     .demo-window {
@@ -1005,7 +989,7 @@
     .asset-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
+      gap: 8px;
       margin-bottom: 1rem;
     }
     .asset-thumb {
@@ -1055,8 +1039,8 @@
     }
     .kpi-card-val {
       font-family: var(--font-main);
-      font-size: 1.75rem;
-      font-weight: 500;
+      font-size: clamp(28px, 3vw, 36px);
+      font-weight: 550;
       letter-spacing: -.03em;
       color: var(--text);
       line-height: 1;
@@ -1074,8 +1058,12 @@
       background: var(--bg);
       padding: .875rem;
       margin-bottom: .875rem;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .chart-svg { width: 100%; height: 72px; overflow: visible; }
+    .chart-svg { width: 100%; height: 100%; overflow: visible; }
     .chart-line {
       fill: none;
       stroke: url(#chartGrad);
@@ -1305,56 +1293,47 @@
 
     /* ── CHAPTER SEPARATOR ── */
     .chapter-sep {
-      padding: 80px var(--pad-x);
-      display: flex;
-      align-items: center;
-      background: var(--bg);
-    }
-    .chapter-sep-inner {
-      position: relative;
-      width: 100%;
+      padding: 32px var(--pad-x);
       display: flex;
       align-items: center;
       justify-content: center;
+      background: var(--bg);
+      position: relative;
+    }
+    .chapter-sep.alt {
+      background: var(--bg-elev);
     }
     .chapter-sep-line {
       position: absolute;
+      left: var(--pad-x);
+      right: var(--pad-x);
       top: 50%;
-      left: 0;
-      right: 0;
       height: 1px;
       background: var(--border-strong);
       transform: translateY(-50%);
-      z-index: 0;
-    }
-    .chapter-sep-link {
-      position: relative;
       z-index: 1;
+    }
+    .chapter-sep-label {
+      position: relative;
+      z-index: 2;
       background: var(--bg);
-      padding: 0 32px;
+      padding: 0 24px;
       font-family: var(--mono);
       font-size: 11px;
-      font-weight: 400;
       letter-spacing: 0.2em;
-      text-transform: uppercase;
       color: var(--text-dim);
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
+      text-decoration: none;
+      text-transform: uppercase;
       transition: color .3s;
     }
-    .chapter-sep-link .sep-arrow {
-      display: inline-block;
-      transition: transform .3s;
+    .chapter-sep.alt .chapter-sep-label {
+      background: var(--bg-elev);
     }
-    .chapter-sep-link:hover {
+    .chapter-sep-label:hover {
       background: var(--gemini-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-    }
-    .chapter-sep-link:hover .sep-arrow {
-      transform: translateX(6px);
     }
 
     /* Bold keywords styling */
@@ -1961,12 +1940,25 @@
     /* ── TABLET (768–1024px) ── */
     @media (max-width: 1024px) {
       #section-indicator { display: none !important; }
-      .chapter-sec {
-        grid-template-columns: 1fr;
-        gap: 48px;
+      .agent-sec {
+        min-height: auto;
+        max-height: none;
+        padding: 60px var(--pad-x) 40px;
       }
-      .chapter-left { position: static; }
-      .chapter-right { grid-column: 1; }
+      .agent-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .agent-cases {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 32px;
+      }
+      .agent-case-item {
+        border-bottom: 1px solid var(--border);
+      }
       .cs-hero-grid { grid-template-columns: 1fr; }
       .cs-left { grid-column: 1; }
       .cs-right {
@@ -2019,16 +2011,28 @@
       #problem { padding: 80px clamp(16px, 4vw, 32px); }
 
       /* Agent chapters */
-      .chapter-sec {
-        grid-template-columns: 1fr;
-        padding: 80px clamp(16px, 4vw, 32px);
-        gap: 48px;
+      .agent-sec {
+        padding: 80px clamp(16px, 4vw, 32px) 60px;
       }
-      .chapter-left { position: static; align-self: auto; }
-      .chapter-right { grid-column: 1; }
-      .ch-title { font-size: clamp(56px, 14vw, 80px); }
-      .ch-sub { font-size: 18px; }
-      .ch-metrics { flex-wrap: wrap; }
+      .agent-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .agent-cases {
+        grid-column: 1;
+        grid-template-columns: 1fr;
+        gap: 0;
+        margin-top: 24px;
+      }
+      .agent-case-item {
+        border-bottom: none;
+      }
+      .agent-case-item:last-child {
+        border-bottom: 1px solid var(--border);
+      }
+      .demo-window {
+        max-height: none !important;
+      }
 
       /* Signal sections */
       .signal-grid { grid-template-columns: 1fr; }
@@ -2412,14 +2416,21 @@
 
 
 <!-- AGENT 01: HIKE LISTEN -->
-<section id="listen" class="chapter-sec" aria-labelledby="listen-h">
-  <div class="chapter-left reveal">
-    <p class="ch-eyebrow">// 01 · BRAND INTELLIGENCE</p>
-    <h2 class="ch-title" id="listen-h">Hike Listen</h2>
-    <p class="ch-sub">Escucha cada mención de tu marca en <span class="grad-kw">100+ fuentes</span>. Detectá <span class="grad-kw">crisis antes</span> que tu equipo abra Twitter.</p>
-    <a class="ch-cta" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">ver demo <span class="ch-cta-arrow">→</span></a>
-  </div>
-  <div class="chapter-right">
+<section id="listen" class="agent-sec" aria-labelledby="listen-h">
+  <p class="agent-eyebrow">// 01 · BRAND INTELLIGENCE</p>
+  <div class="agent-grid">
+    <!-- Col 1: Identity -->
+    <div class="agent-id reveal">
+      <h2 class="agent-name" id="listen-h">Hike Listen</h2>
+      <p class="agent-promise">Escucha 100+ fuentes y detecta <span class="grad-kw">crisis antes</span> que tu equipo abra Twitter.</p>
+      <div class="agent-hero-metric">
+        <span class="agent-metric-num">&lt; 15 min</span>
+        <span class="agent-metric-lbl">CRISIS DETECTION LEAD TIME</span>
+      </div>
+      <a class="agent-cta" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">ver demo <span class="agent-cta-arrow">→</span></a>
+    </div>
+    
+    <!-- Col 2: Live Demo -->
     <div class="demo-window reveal d2">
       <div class="win-bar">
         <div class="win-dots">
@@ -2432,57 +2443,56 @@
       <div class="demo-body">
         <div class="feed-list" id="feed-list"></div>
         <div class="alert-box">
-          <span aria-hidden="true" style="font-size:16px;flex-shrink:0;line-height:1">!</span>
-          <p class="alert-box-text"><strong>Crisis detected</strong> — 60% de menciones reportan fallas en login. Sugerencia: pausar campaña X y activar respuesta de crisis.</p>
+          <span aria-hidden="true" style="font-size:16px;flex-shrink:0;line-height:1">⚠</span>
+          <p class="alert-box-text"><strong>Crisis detected</strong> — 60% de menciones reportan fallas en login.</p>
         </div>
       </div>
     </div>
+
+    <!-- Col 3: Use Cases -->
+    <div class="agent-cases reveal">
+      <span class="agent-cases-eyebrow">USE CASES</span>
+      <div class="agent-case-item">
+        <span class="agent-case-num">01</span>
+        <h3 class="agent-case-title">Detectá bugs antes que escalen</h3>
+        <span class="agent-case-metric">USD 1.200/día ahorrados</span>
+      </div>
+      <div class="agent-case-item">
+        <span class="agent-case-num">02</span>
+        <h3 class="agent-case-title">Conquistá market share del competidor</h3>
+        <span class="agent-case-metric">+18pts Net Sentiment Gap</span>
+      </div>
+      <div class="agent-case-item">
+        <span class="agent-case-num">03</span>
+        <h3 class="agent-case-title">Activá micro-influencers gratis</h3>
+        <span class="agent-case-metric">alcance orgánico amplificado</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- LISTEN USE CASES -->
-<div class="use-cases">
-  <span class="uc-eyebrow">// USE CASES</span>
-  <div class="uc-grid">
-    <div class="uc-card">
-      <span class="uc-num">CASO 01</span>
-      <h3 class="uc-title">Detectá un bug antes de que escale</h3>
-      <p class="uc-desc">60% de comentarios negativos mencionan fallas en login. Hike Listen te avisa al instante.</p>
-      <span class="uc-impact">→ USD 1.200/día en pauta no quemada</span>
-    </div>
-    <div class="uc-card">
-      <span class="uc-num">CASO 02</span>
-      <h3 class="uc-title">Conquistá el market share del competidor</h3>
-      <p class="uc-desc">El competidor X acumula quejas de envíos. Lanzá pauta ‘Envíos en 24hs’ ahora.</p>
-      <span class="uc-impact">→ +18pts Net Sentiment Gap</span>
-    </div>
-    <div class="uc-card">
-      <span class="uc-num">CASO 03</span>
-      <h3 class="uc-title">Activá micro-influencers gratis</h3>
-      <p class="uc-desc">5 usuarios con +1K seguidores hablaron bien esta semana. Contáctalos antes que nadie.</p>
-      <span class="uc-impact">→ alcance orgánico amplificado</span>
-    </div>
-  </div>
-</div>
-
 <!-- SEPARATOR 01→02 -->
 <div class="chapter-sep">
-  <div class="chapter-sep-inner">
-    <div class="chapter-sep-line"></div>
-    <a class="chapter-sep-link" href="#create">NEXT CHAPTER <span class="sep-arrow">→</span> 02 HIKE CREATE</a>
-  </div>
+  <div class="chapter-sep-line"></div>
+  <a class="chapter-sep-label" href="#create">NEXT → 02 Hike Create</a>
 </div>
 
 <!-- AGENT 02: HIKE CREATE -->
-<section id="create" class="chapter-sec alt" aria-labelledby="create-h">
-  <div class="chapter-left reveal">
-    <p class="ch-eyebrow">// 02 · CONTENT ENGINE</p>
-    <h2 class="ch-title" id="create-h">Hike Create</h2>
-    <p class="ch-sub">Generá 50 variantes de contenido en formato Stories, Feed y YouTube en <span class="grad-kw">menos de 2 horas</span>. Mismo equipo, <span class="grad-kw">4× output</span>.</p>
-    <a class="ch-cta" href="https://readapt.web.app/" target="_blank" rel="noopener">ver demo <span class="ch-cta-arrow">→</span></a>
-  </div>
-  <div class="chapter-right">
+<section id="create" class="agent-sec alt" aria-labelledby="create-h">
+  <p class="agent-eyebrow">// 02 · CONTENT ENGINE</p>
+  <div class="agent-grid">
+    <!-- Col 1: Identity -->
+    <div class="agent-id reveal">
+      <h2 class="agent-name" id="create-h">Hike Create</h2>
+      <p class="agent-promise">Generá 50 variantes en formato Stories, Feed y YouTube en <span class="grad-kw">menos de 2 horas</span>.</p>
+      <div class="agent-hero-metric">
+        <span class="agent-metric-num">4× output</span>
+        <span class="agent-metric-lbl">CONTENT VELOCITY</span>
+      </div>
+      <a class="agent-cta" href="https://readapt.web.app/" target="_blank" rel="noopener">ver demo <span class="agent-cta-arrow">→</span></a>
+    </div>
+
+    <!-- Col 2: Live Demo -->
     <div class="demo-window reveal d2">
       <div class="win-bar">
         <div class="win-dots">
@@ -2575,58 +2585,57 @@
         </div>
         <div class="create-progress">
           <div class="progress-bar"><div class="progress-fill"></div></div>
-          <div class="progress-meta">
-            <span>20/50 generados · 1h 23min restante</span>
-            <span><span class="stat-highlight">USD 4.000 ahorrados</span></span>
+          <div class="progress-meta" style="font-family: var(--mono); font-size: 12px;">
+            <span>20/50 generados · 1h 23min restante · USD 4.000 ahorrados</span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Col 3: Use Cases -->
+    <div class="agent-cases reveal">
+      <span class="agent-cases-eyebrow">USE CASES</span>
+      <div class="agent-case-item">
+        <span class="agent-case-num">01</span>
+        <h3 class="agent-case-title">Hot Sale con 24hs de anticipación</h3>
+        <span class="agent-case-metric">USD 4.000 + 20% engagement</span>
+      </div>
+      <div class="agent-case-item">
+        <span class="agent-case-num">02</span>
+        <h3 class="agent-case-title">Pivotá el mensaje sin perder budget</h3>
+        <span class="agent-case-metric">pivot en minutos, no semanas</span>
+      </div>
+      <div class="agent-case-item">
+        <span class="agent-case-num">03</span>
+        <h3 class="agent-case-title">Escalá lo que ya funciona</h3>
+        <span class="agent-case-metric">ROAS x1.4 con mismo budget</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CREATE USE CASES -->
-<div class="use-cases alt">
-  <span class="uc-eyebrow">// USE CASES</span>
-  <div class="uc-grid">
-    <div class="uc-card">
-      <span class="uc-num">CASO 01</span>
-      <h3 class="uc-title">Hot Sale con 24hs de anticipación</h3>
-      <p class="uc-desc">50 piezas de video personalizadas, Stories + Feed + YouTube, antes del lanzamiento.</p>
-      <span class="uc-impact">→ USD 4.000 ahorrados · +20% engagement</span>
-    </div>
-    <div class="uc-card">
-      <span class="uc-num">CASO 02</span>
-      <h3 class="uc-title">Pivotá el mensaje antes de quemar budget</h3>
-      <p class="uc-desc">El sentimiento cambió. Hike Create genera una línea creativa nueva en 15 minutos.</p>
-      <span class="uc-impact">→ pivot en minutos, no semanas</span>
-    </div>
-    <div class="uc-card">
-      <span class="uc-num">CASO 03</span>
-      <h3 class="uc-title">Escalá lo que ya funciona</h3>
-      <p class="uc-desc">Posteo B convierte mejor que A. Generá 30 variantes del estilo B en 1 hora.</p>
-      <span class="uc-impact">→ ROAS x1.4 con mismo budget</span>
-    </div>
-  </div>
-</div>
-
 <!-- SEPARATOR 02→03 -->
-<div class="chapter-sep">
-  <div class="chapter-sep-inner">
-    <div class="chapter-sep-line"></div>
-    <a class="chapter-sep-link" href="#advise">NEXT CHAPTER <span class="sep-arrow">→</span> 03 HIKE ADVISE</a>
-  </div>
+<div class="chapter-sep alt">
+  <div class="chapter-sep-line"></div>
+  <a class="chapter-sep-label" href="#advise">NEXT → 03 Hike Advise</a>
 </div>
 
 <!-- AGENT 03: HIKE ADVISE -->
-<section id="advise" class="chapter-sec" aria-labelledby="advise-h">
-  <div class="chapter-left reveal">
-    <p class="ch-eyebrow">// 03 · ANALYTICS ENGINE</p>
-    <h2 class="ch-title" id="advise-h">Hike Advise</h2>
-    <p class="ch-sub">Conectá GA4, GTM y Google Ads. Hacé preguntas en <span class="grad-kw">lenguaje natural</span>. Reportes ejecutivos en <span class="grad-kw">30 minutos</span>.</p>
-    <a class="ch-cta" href="https://dashboards.hikethecloud.com/calm_dashboard_054a6823-6a14-4c65-8764-4c69b9ccc24f.html?v=1779225096" target="_blank" rel="noopener">ver dashboard real <span class="ch-cta-arrow">→</span></a>
-  </div>
-  <div class="chapter-right">
+<section id="advise" class="agent-sec" aria-labelledby="advise-h">
+  <p class="agent-eyebrow">// 03 · ANALYTICS ENGINE</p>
+  <div class="agent-grid">
+    <!-- Col 1: Identity -->
+    <div class="agent-id reveal">
+      <h2 class="agent-name" id="advise-h">Hike Advise</h2>
+      <p class="agent-promise">Conectá GA4, GTM y Google Ads. Hacé preguntas en <span class="grad-kw">lenguaje natural</span>.</p>
+      <div class="agent-hero-metric">
+        <span class="agent-metric-num">30 min</span>
+        <span class="agent-metric-lbl">TIME-TO-INSIGHT</span>
+      </div>
+      <a class="agent-cta" href="https://dashboards.hikethecloud.com/calm_dashboard_054a6823-6a14-4c65-8764-4c69b9ccc24f.html" target="_blank" rel="noopener">ver demo <span class="agent-cta-arrow">→</span></a>
+    </div>
+
+    <!-- Col 2: Live Demo -->
     <div class="demo-window reveal d2">
       <div class="win-bar">
         <div class="win-dots">
@@ -2671,38 +2680,33 @@
           </svg>
         </div>
         <div class="alert-box">
-          <span style="font-size:16px;flex-shrink:0;line-height:1" aria-hidden="true">!</span>
-          <p class="alert-box-text"><strong>Anomalía detectada:</strong> CPA +40% en últimas 2hs. Acción sugerida: pausar grupo X. Ahorro estimado: <strong>USD 800</strong>.</p>
+          <span style="font-size:16px;flex-shrink:0;line-height:1" aria-hidden="true">⚠</span>
+          <p class="alert-box-text"><strong>Anomalía detectada</strong> — CPA +40% en últimas 2hs. Ahorro: USD 800.</p>
         </div>
+      </div>
+    </div>
+
+    <!-- Col 3: Use Cases -->
+    <div class="agent-cases reveal">
+      <span class="agent-cases-eyebrow">USE CASES</span>
+      <div class="agent-case-item">
+        <span class="agent-case-num">01</span>
+        <h3 class="agent-case-title">Evitá pauta quemada</h3>
+        <span class="agent-case-metric">USD 800 ahorrados al instante</span>
+      </div>
+      <div class="agent-case-item">
+        <span class="agent-case-num">02</span>
+        <h3 class="agent-case-title">Redistribuí budget al cluster que convierte</h3>
+        <span class="agent-case-metric">ROAS +35% proyectado</span>
+      </div>
+      <div class="agent-case-item">
+        <span class="agent-case-num">03</span>
+        <h3 class="agent-case-title">Hacé durar tu budget hasta fin de mes</h3>
+        <span class="agent-case-metric">8 días extra de exposición</span>
       </div>
     </div>
   </div>
 </section>
-
-<!-- ADVISE USE CASES -->
-<div class="use-cases">
-  <span class="uc-eyebrow">// USE CASES</span>
-  <div class="uc-grid">
-    <div class="uc-card">
-      <span class="uc-num">CASO 01</span>
-      <h3 class="uc-title">Evitá USD 800 en pauta quemada</h3>
-      <p class="uc-desc">CPA en Google Ads +40% en 2hs. Hike Advise detecta el bug de GTM y pausa el grupo.</p>
-      <span class="uc-impact">→ ahorro inmediato + fix automático</span>
-    </div>
-    <div class="uc-card">
-      <span class="uc-num">CASO 02</span>
-      <h3 class="uc-title">Redistribuí budget al cluster que convierte</h3>
-      <p class="uc-desc">Cluster A convierte 20% mejor con 30% menos inversión. Hike Advise te dice cuándo y cuánto.</p>
-      <span class="uc-impact">→ ROAS +35% proyectado al cierre de mes</span>
-    </div>
-    <div class="uc-card">
-      <span class="uc-num">CASO 03</span>
-      <h3 class="uc-title">Hacé durar tu budget hasta fin de mes</h3>
-      <p class="uc-desc">Al ritmo actual se agota el día 22. Hike Advise ajusta puja -5% para sostener cobertura.</p>
-      <span class="uc-impact">→ 8 días extra de exposición</span>
-    </div>
-  </div>
-</div>
 
 <!-- CASE STUDY — DARK CINEMATIC -->
 <section id="case-study" aria-labelledby="cs-headline">
@@ -2886,11 +2890,9 @@ if (impGrid) impObs.observe(impGrid);
 
 /* ── FEED ANIMATION (LISTEN) ── */
 const FEED_ITEMS = [
-  { sentiment: 'POSITIVE', cls: 'st-pos', text: 'Me encanta la app, funciona perfectísimo', time: '2 min ago' },
-  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'No puedo hacer login desde ayer, ya intenté todo', time: '4 min ago' },
-  { sentiment: 'NEUTRAL',  cls: 'st-neu', text: 'Alguien sabe cuándo actualizan la app?', time: '7 min ago' },
-  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'Tercer día con el mismo problema de login', time: '9 min ago' },
-  { sentiment: 'POSITIVE', cls: 'st-pos', text: 'El servicio al cliente respondió en minutos, excelente', time: '12 min ago' },
+  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'No puedo hacer login desde ayer, ya intenté todo.', time: '2m' },
+  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'Tercer día con el mismo problema de login.', time: '5m' },
+  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'Error de servidor 500 al presionar botón de inicio de sesión.', time: '8m' }
 ];
 function runFeedAnimation(sec) {
   if (sec._fed) return; sec._fed = true;
@@ -2968,7 +2970,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     lbl.style.top  = cy + 'px';
   }, { passive: true });
   document.querySelectorAll('a, button, .nav-cta, .btn-solid, .cta-ghost-link').forEach(el => {
-    const isDemo = el.classList.contains('ch-cta') || el.textContent.includes('demo') || el.textContent.includes('live');
+    const isDemo = el.classList.contains('agent-cta') || el.textContent.includes('demo') || el.textContent.includes('live');
     el.addEventListener('mouseenter', () => {
       cur.classList.add('active');
       if (isDemo) lbl.classList.add('vis');
