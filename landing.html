@@ -488,7 +488,7 @@
       50% { opacity: .4; transform: scale(.8); }
     }
 
-    /* ── HERO BAND (3-col agent metrics) ── */
+    /* ── HERO BAND (3-col product descriptions) ── */
     .hero-band {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -496,11 +496,11 @@
       background: var(--bg);
     }
     .hb-col {
-      padding: 2rem 2.5rem;
+      padding: 2.5rem 2.5rem;
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: .625rem;
+      gap: .5rem;
       opacity: 0;
     }
     .hb-col:last-child { border-right: none; }
@@ -509,9 +509,9 @@
     .hb-col:nth-child(3) { animation: fadeUp .5s var(--ease) 860ms forwards; }
     .hb-tag {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 400;
-      letter-spacing: .1em;
+      letter-spacing: 0.15em;
       color: var(--text-mute);
       display: flex;
       align-items: center;
@@ -527,46 +527,36 @@
       animation: sys-pulse 2s ease-in-out infinite;
       flex-shrink: 0;
     }
-    .hb-metric {
+    .hb-product-name {
       font-family: var(--font-main);
-      font-size: 56px;
-      font-weight: 500;
-      letter-spacing: -0.03em;
-      line-height: 1;
+      font-size: 28px;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
       color: var(--text);
+      margin-top: 8px;
     }
-    .hb-label {
-      font-family: var(--mono);
-      font-size: 11px;
+    .hb-oneliner {
+      font-size: 14px;
       font-weight: 400;
-      letter-spacing: .08em;
       color: var(--text-dim);
-      text-transform: uppercase;
+      line-height: 1.4;
+      max-width: 28ch;
+      margin-top: 8px;
     }
 
     /* ── IMPACT METRICS ── */
     #impact {
       background: var(--bg);
-      padding: var(--space-section) var(--pad-x);
+      padding: 80px var(--pad-x);
       border-bottom: 1px solid var(--border);
-    }
-    .impact-eyebrow {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-align: center;
-      display: block;
-      margin-bottom: 80px;
     }
     .impact-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
     }
     .impact-col {
-      padding: 48px 32px;
+      padding: 40px 32px;
       border-top: 1px solid var(--border);
       opacity: 0;
       transform: translateY(16px);
@@ -580,12 +570,13 @@
       transform: translateY(0);
     }
     .impact-big {
-      display: block;
+      display: inline-block;
       font-family: var(--font-main);
-      font-size: clamp(80px, 9vw, 140px);
+      font-size: clamp(48px, 6vw, 88px);
       font-weight: 500;
       letter-spacing: -0.05em;
       line-height: 1;
+      white-space: nowrap;
       background: var(--gemini-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -596,27 +587,88 @@
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 400;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--text-dim);
+      color: var(--text-mute);
       display: block;
-      margin-top: 24px;
-    }
-    .impact-desc {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--text-dim);
-      line-height: 1.5;
-      max-width: 32ch;
-      margin-top: 12px;
+      margin-top: 16px;
     }
     @media (max-width: 900px) {
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
       .impact-col:nth-child(2) { border-right: none; }
       .impact-col:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
       .impact-col:nth-child(4) { border-right: none; }
-      .impact-big { font-size: clamp(64px, 14vw, 96px); }
+      .impact-big { font-size: clamp(40px, 10vw, 64px); }
     }
+
+    /* ── USE CASE GRID ── */
+    .use-cases {
+      background: var(--bg);
+      padding: 80px var(--pad-x);
+      border-bottom: 1px solid var(--border);
+    }
+    .use-cases.alt { background: var(--bg-elev); }
+    .uc-eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      opacity: 0.6;
+      text-align: center;
+      display: block;
+      margin-bottom: 48px;
+    }
+    .uc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+    .uc-card {
+      padding: 40px 32px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+    }
+    .use-cases.alt .uc-card { background: var(--bg-elev); }
+    .uc-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+    .uc-title {
+      font-size: 18px;
+      font-weight: 550;
+      color: var(--text);
+      line-height: 1.3;
+      margin-top: 24px;
+    }
+    .uc-desc {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-dim);
+      line-height: 1.5;
+      margin-top: 16px;
+      flex: 1;
+    }
+    .uc-impact {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: auto;
+      padding-top: 24px;
+    }
+    @media (max-width: 768px) { .uc-grid { grid-template-columns: 1fr; } }
 
     /* ── PROBLEM / SOLUTION ── */
     #problem {
@@ -1725,30 +1777,37 @@
     /* Client logos row */
     .cta-logos {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
       width: 100%;
       margin-top: 120px;
+      padding: 40px var(--pad-x);
       border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .cta-logo-col {
-      flex: 1;
-      padding: 40px 24px;
-      border-right: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .cta-logo-trusted {
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 400;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--text-mute);
     }
-    .cta-logo-col:last-child { border-right: none; }
-    .cta-logo-col img {
-      filter: grayscale(1);
-      opacity: 0.4;
-      max-height: 28px;
-      width: auto;
+    .cta-logo-name {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .cta-logo-more {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-mute);
     }
 
     /* ── FOOTER ── */
@@ -1971,35 +2030,48 @@
       .kpi-grid { grid-template-columns: 1fr; }
     }
 
-    /* \u2500\u2500 CASE STUDY \u2014 EDITORIAL CASE FILM \u2500\u2500 */
+    /* ── CASE STUDY — DARK CINEMATIC ── */
     #case-study {
-      background: var(--bg);
-    }
-
-    /* Pre-header */
-    .cs-preheader {
-      padding: 120px var(--pad-x) 0;
-      text-align: center;
+      background: #0A0A0A;
+      color: #FAFAF7;
+      padding: clamp(120px, 18vh, 200px) var(--pad-x);
     }
     .cs-pre-eyebrow {
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 400;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--text-dim);
+      color: #999;
       display: block;
+      text-align: center;
       margin-bottom: 80px;
     }
-
-    /* Hero block */
     .cs-hero {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg-elev);
-      min-height: 80vh;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 64px;
+      align-items: start;
+    }
+    .cs-left {
+      grid-column: 1 / 7;
       display: flex;
-      align-items: stretch;
+      flex-direction: column;
+    }
+    .cs-logo {
+      height: 64px;
+      width: auto;
+      object-fit: contain;
+      object-position: left center;
+      filter: invert(1) brightness(2);
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+      margin-bottom: 64px;
+    }
+    .cs-logo.vis {
+      opacity: 0.9;
+      transform: scale(1);
     }
     .cs-hero-grid {
       display: grid;
@@ -2032,31 +2104,27 @@
     }
     .cs-headline {
       font-family: var(--font-main);
-      font-size: clamp(48px, 6vw, 88px);
-      font-weight: 500;
+      font-size: clamp(40px, 5.5vw, 80px);
+      font-weight: 550;
       letter-spacing: -0.04em;
-      line-height: 1.0;
-      color: var(--text);
-      margin-bottom: 48px;
+      line-height: 1.05;
+      color: #FAFAF7;
+      max-width: 14ch;
+      margin-bottom: 32px;
     }
-    .cs-hl-block {
-      display: block;
-    }
+    .cs-hl-block { display: block; }
     .cs-grad {
       background: var(--gemini-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .cs-punct {
-      -webkit-text-fill-color: var(--text);
-    }
     .cs-context {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 400;
-      color: var(--text-dim);
-      line-height: 1.6;
-      max-width: 52ch;
+      color: #888;
+      line-height: 1.5;
+      max-width: 48ch;
     }
 
     /* Right metrics */
@@ -2064,9 +2132,17 @@
       grid-column: 8 / 13;
       display: flex;
       flex-direction: column;
-      border-left: 1px solid var(--border);
+      border-left: 1px solid rgba(255,255,255,0.12);
       padding-left: 40px;
     }
+    .cs-metric-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 32px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .cs-metric-last { border-bottom: none; }
     .cs-metric-row {
       display: flex;
       flex-direction: column;
@@ -2079,11 +2155,16 @@
     }
     .cs-big-num {
       font-family: var(--font-main);
-      font-size: clamp(56px, 7vw, 96px);
-      font-weight: 500;
+      font-size: clamp(48px, 6vw, 88px);
+      font-weight: 550;
       letter-spacing: -0.04em;
       line-height: 1;
+      white-space: nowrap;
       display: block;
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       opacity: 0;
       transform: translateY(12px);
       transition: opacity .6s var(--ease), transform .6s var(--ease);
@@ -2109,13 +2190,24 @@
     }
     .cs-pullquote {
       font-family: var(--font-main);
-      font-size: clamp(32px, 5vw, 64px);
+      font-size: clamp(36px, 5vw, 64px);
       font-weight: 500;
       line-height: 1.15;
       letter-spacing: -0.03em;
-      color: var(--text);
-      max-width: 22ch;
+      color: #FAFAF7;
+      max-width: 24ch;
       margin: 0;
+      margin-left: 8%;
+    }
+    .cs-attribution {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: #888;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 48px;
       margin-left: 8%;
     }
     .cs-open-quote,
@@ -2172,12 +2264,11 @@
 <div id="section-indicator" aria-hidden="true">
   <span class="si-item" data-sec="hero">01 — hero</span>
   <span class="si-item" data-sec="impact">02 — impact</span>
-  <span class="si-item" data-sec="problem">03 — cost</span>
-  <span class="si-item" data-sec="listen">04 — listen</span>
-  <span class="si-item" data-sec="create">05 — create</span>
-  <span class="si-item" data-sec="advise">06 — advise</span>
-  <span class="si-item" data-sec="case-study">07 — galicia</span>
-  <span class="si-item" data-sec="cta-final">08 — cta</span>
+  <span class="si-item" data-sec="listen">03 — listen</span>
+  <span class="si-item" data-sec="create">04 — create</span>
+  <span class="si-item" data-sec="advise">05 — advise</span>
+  <span class="si-item" data-sec="case-study">06 — galicia</span>
+  <span class="si-item" data-sec="cta-final">07 — cta</span>
 </div>
 
 <!-- NAV -->
@@ -2203,7 +2294,7 @@
       <span class="hero-line2"><span class="grad-word">Infinite</span> impact.</span>
     </h1>
     <div class="hero-bottom-row">
-      <p class="hero-sub">Menos tiempo en operación. Más impacto en resultados.</p>
+      <p class="hero-sub">AI agents para inteligencia de marca, generación de contenido y analytics en tiempo real.</p>
       <p class="hero-powered"><span class="hero-powered-dot"></span>Powered by Gemini</p>
     </div>
     <div class="hero-ctas">
@@ -2215,97 +2306,57 @@
   <div class="hero-band">
     <div class="hb-col">
       <span class="hb-tag"><span class="hb-dot"></span>HIKE_LISTEN · ACTIVE</span>
-      <span class="hb-metric">&lt; 15 min</span>
-      <span class="hb-label">crisis detection</span>
+      <span class="hb-product-name">Brand Intelligence</span>
+      <p class="hb-oneliner">Escucha 100+ fuentes y detecta crisis en menos de 15 minutos.</p>
     </div>
     <div class="hb-col">
       <span class="hb-tag"><span class="hb-dot"></span>HIKE_CREATE · ACTIVE</span>
-      <span class="hb-metric">4× output</span>
-      <span class="hb-label">content velocity</span>
+      <span class="hb-product-name">Content Engine</span>
+      <p class="hb-oneliner">Genera 50 variantes de contenido en menos de 2 horas.</p>
     </div>
     <div class="hb-col">
       <span class="hb-tag"><span class="hb-dot"></span>HIKE_ADVISE · ACTIVE</span>
-      <span class="hb-metric">30 min</span>
-      <span class="hb-label">time-to-insight</span>
+      <span class="hb-product-name">Analytics Engine</span>
+      <p class="hb-oneliner">Reportes ejecutivos en lenguaje natural. 30 minutos.</p>
     </div>
   </div>
 </section>
 
 <!-- IMPACT METRICS -->
 <section id="impact" aria-label="Impacto medible">
-  <span class="impact-eyebrow">// impacto medible · datos reales en producción</span>
   <div class="impact-grid">
 
     <div class="impact-col">
       <span class="impact-big" data-imp-target="85" data-imp-prefix="-" data-imp-suffix="%" data-imp-orig="-85%">-85%</span>
       <span class="impact-sublabel">TIEMPO DE PRODUCCIÓN</span>
-      <p class="impact-desc">De 3-5 días hábiles a 15-30 minutos por campaña.</p>
     </div>
 
     <div class="impact-col">
       <span class="impact-big" data-imp-target="15" data-imp-prefix="&lt; " data-imp-suffix=" min" data-imp-orig="&lt; 15 min">&lt; 15 min</span>
       <span class="impact-sublabel">DETECCIÓN DE CRISIS</span>
-      <p class="impact-desc">Desde mención hasta alerta al equipo, escaneando 100+ fuentes.</p>
     </div>
 
     <div class="impact-col">
       <span class="impact-big" data-imp-target="30" data-imp-suffix=" min" data-imp-orig="30 min">30 min</span>
       <span class="impact-sublabel">REPORTE COMPLETO</span>
-      <p class="impact-desc">De conectar fuentes a dashboard accionable, sin área técnica.</p>
     </div>
 
     <div class="impact-col">
       <span class="impact-big" data-imp-static data-imp-orig="4×">4×</span>
       <span class="impact-sublabel">CONTENT VELOCITY</span>
-      <p class="impact-desc">Mismo equipo, mismo budget, 4 veces más output publicado.</p>
     </div>
 
   </div>
 </section>
 
-<!-- PROBLEM / SOLUTION -->
-<section id="problem">
-  <div class="section-inner">
-    <span class="s-label reveal">// el costo real de no tener IA</span>
-    <h2 class="section-h2 reveal d1">Cada hora sin datos<br/>es presupuesto perdido.</h2>
-    <p class="section-p reveal d2">El mercado no espera reportes manuales, ni equipos lentos, ni decisiones sin contexto. Tres agentes de IA que eliminan esos cuellos de botella hoy.</p>
-    <div class="ps-grid">
-      <div class="ps-col ps-bad reveal">
-        <span class="ps-label">Lo que le cuesta a tu negocio hoy</span>
-        <div class="ps-item"><span class="ps-ic">✕</span><span class="ps-text">Cada día sin detectar una crisis cuesta reputación, pauta desperdiciada y clientes perdidos</span></div>
-        <div class="ps-item"><span class="ps-ic">✕</span><span class="ps-text">El 80% del presupuesto creativo se va en adaptaciones manuales, no en ideas que convierten</span></div>
-        <div class="ps-item"><span class="ps-ic">✕</span><span class="ps-text">Los reportes llegan 48hs tarde — cuando ya no sirven para mover el presupuesto a tiempo</span></div>
-      </div>
-      <div class="ps-col ps-good reveal d1">
-        <span class="ps-label">Lo que el Council entrega</span>
-        <div class="ps-item"><span class="ps-ic">✓</span><span class="ps-text">Crisis detectada en &lt; 15 min — antes de que llegue a la primera página o impacte tu ROAS</span></div>
-        <div class="ps-item"><span class="ps-ic">✓</span><span class="ps-text">-85% tiempo de producción. Mismo budget, 4× el output. El ahorro se va directo a medios</span></div>
-        <div class="ps-item"><span class="ps-ic">✓</span><span class="ps-text">Reporte completo en 30 min. Decisiones cuando todavía tienen impacto real en resultados</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- AGENT 01: HIKE LISTEN -->
 <section id="listen" class="chapter-sec" aria-labelledby="listen-h">
   <div class="chapter-left reveal">
-    <p class="ch-eyebrow">// agent · 01</p>
+    <p class="ch-eyebrow">// 01 · BRAND INTELLIGENCE</p>
     <h2 class="ch-title" id="listen-h">Hike Listen</h2>
-    <p class="ch-sub">De 72hs de reacción a <span class="grad-kw">15 minutos</span>. Dejá de hacer scroll manual y empezá a actuar sobre lo que importa.</p>
-    <div class="ch-metrics">
-      <div class="ch-metric-item">
-        <span class="ch-metric-val">&lt; 15 min</span>
-        <span class="ch-metric-lbl">crisis detection</span>
-      </div>
-      <div class="ch-metric-item">
-        <span class="ch-metric-val">-75%</span>
-        <span class="ch-metric-lbl">manual audit</span>
-      </div>
-      <div class="ch-metric-item">
-        <span class="ch-metric-val">100+</span>
-        <span class="ch-metric-lbl">fuentes</span>
-      </div>
-    </div>
+    <p class="ch-sub">Escucha cada mención de tu marca en <span class="grad-kw">100+ fuentes</span>. Detectá <span class="grad-kw">crisis antes</span> que tu equipo abra Twitter.</p>
     <a class="ch-cta" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">ver demo <span class="ch-cta-arrow">→</span></a>
   </div>
   <div class="chapter-right">
@@ -2330,6 +2381,31 @@
   </div>
 </section>
 
+<!-- LISTEN USE CASES -->
+<div class="use-cases">
+  <span class="uc-eyebrow">// USE CASES</span>
+  <div class="uc-grid">
+    <div class="uc-card">
+      <span class="uc-num">CASO 01</span>
+      <h3 class="uc-title">Detectá un bug antes de que escale</h3>
+      <p class="uc-desc">60% de comentarios negativos mencionan fallas en login. Hike Listen te avisa al instante.</p>
+      <span class="uc-impact">→ USD 1.200/día en pauta no quemada</span>
+    </div>
+    <div class="uc-card">
+      <span class="uc-num">CASO 02</span>
+      <h3 class="uc-title">Conquistá el market share del competidor</h3>
+      <p class="uc-desc">El competidor X acumula quejas de envíos. Lanzá pauta ‘Envíos en 24hs’ ahora.</p>
+      <span class="uc-impact">→ +18pts Net Sentiment Gap</span>
+    </div>
+    <div class="uc-card">
+      <span class="uc-num">CASO 03</span>
+      <h3 class="uc-title">Activá micro-influencers gratis</h3>
+      <p class="uc-desc">5 usuarios con +1K seguidores hablaron bien esta semana. Contáctalos antes que nadie.</p>
+      <span class="uc-impact">→ alcance orgánico amplificado</span>
+    </div>
+  </div>
+</div>
+
 <!-- SEPARATOR 01→02 -->
 <div class="chapter-sep">
   <div class="chapter-sep-inner">
@@ -2341,23 +2417,9 @@
 <!-- AGENT 02: HIKE CREATE -->
 <section id="create" class="chapter-sec alt" aria-labelledby="create-h">
   <div class="chapter-left reveal">
-    <p class="ch-eyebrow">// agent · 02</p>
+    <p class="ch-eyebrow">// 02 · CONTENT ENGINE</p>
     <h2 class="ch-title" id="create-h">Hike Create</h2>
-    <p class="ch-sub">El mismo equipo, <span class="grad-kw">4 veces más contenido</span>. El ahorro se redistribuye directo a medios.</p>
-    <div class="ch-metrics">
-      <div class="ch-metric-item">
-        <span class="ch-metric-val">~95%</span>
-        <span class="ch-metric-lbl">time saved</span>
-      </div>
-      <div class="ch-metric-item">
-        <span class="ch-metric-val">15-30 min</span>
-        <span class="ch-metric-lbl">vs 3-5 días</span>
-      </div>
-      <div class="ch-metric-item">
-        <span class="ch-metric-val">USD 4K</span>
-        <span class="ch-metric-lbl">por campaña</span>
-      </div>
-    </div>
+    <p class="ch-sub">Generá 50 variantes de contenido en formato Stories, Feed y YouTube en <span class="grad-kw">menos de 2 horas</span>. Mismo equipo, <span class="grad-kw">4× output</span>.</p>
     <a class="ch-cta" href="https://readapt.web.app/" target="_blank" rel="noopener">ver demo <span class="ch-cta-arrow">→</span></a>
   </div>
   <div class="chapter-right">
@@ -2463,36 +2525,31 @@
   </div>
 </section>
 
-<!-- CREATE SIGNAL→ACCIÓN -->
-<div class="signal-section alt">
-  <span class="signal-eyebrow">// señal → acción · ejemplos reales</span>
-  <div class="signal-grid">
-    <div class="signal-card">
-      <span class="sc-label">señal</span>
-      <p class="sc-signal">Hot Sale en 3 días — 50 assets en todos los formatos urgente.</p>
-      <span class="sc-arrow">→</span>
-      <span class="sc-label sc-action-label">acción</span>
-      <p class="sc-action">Creative Director AI genera Stories, Feed y YouTube en menos de 2hs.</p>
-      <span class="sc-impact">50 assets · USD 4.000 ahorrados · +20% engagement</span>
+<!-- CREATE USE CASES -->
+<div class="use-cases alt">
+  <span class="uc-eyebrow">// USE CASES</span>
+  <div class="uc-grid">
+    <div class="uc-card">
+      <span class="uc-num">CASO 01</span>
+      <h3 class="uc-title">Hot Sale con 24hs de anticipación</h3>
+      <p class="uc-desc">50 piezas de video personalizadas, Stories + Feed + YouTube, antes del lanzamiento.</p>
+      <span class="uc-impact">→ USD 4.000 ahorrados · +20% engagement</span>
     </div>
-    <div class="signal-card">
-      <span class="sc-label">señal</span>
-      <p class="sc-signal">El sentimiento de la campaña vigente cayó 15pts en 48hs.</p>
-      <span class="sc-arrow">→</span>
-      <span class="sc-label sc-action-label">acción</span>
-      <p class="sc-action">Nueva línea creativa generada en 15 minutos basada en insights de Hike Listen.</p>
-      <span class="sc-impact">Respuesta en minutos · no en semanas</span>
+    <div class="uc-card">
+      <span class="uc-num">CASO 02</span>
+      <h3 class="uc-title">Pivotá el mensaje antes de quemar budget</h3>
+      <p class="uc-desc">El sentimiento cambió. Hike Create genera una línea creativa nueva en 15 minutos.</p>
+      <span class="uc-impact">→ pivot en minutos, no semanas</span>
     </div>
-    <div class="signal-card">
-      <span class="sc-label">señal</span>
-      <p class="sc-signal">Budget de producción consume el 80% antes de llegar a medios.</p>
-      <span class="sc-arrow">→</span>
-      <span class="sc-label sc-action-label">acción</span>
-      <p class="sc-action">1 operador de IA reemplaza al equipo de diseñadores y editores externos.</p>
-      <span class="sc-impact">~95% ahorro · fees van directo a inversión en medios</span>
+    <div class="uc-card">
+      <span class="uc-num">CASO 03</span>
+      <h3 class="uc-title">Escalá lo que ya funciona</h3>
+      <p class="uc-desc">Posteo B convierte mejor que A. Generá 30 variantes del estilo B en 1 hora.</p>
+      <span class="uc-impact">→ ROAS x1.4 con mismo budget</span>
     </div>
   </div>
 </div>
+
 <!-- SEPARATOR 02→03 -->
 <div class="chapter-sep">
   <div class="chapter-sep-inner">
@@ -2504,23 +2561,9 @@
 <!-- AGENT 03: HIKE ADVISE -->
 <section id="advise" class="chapter-sec" aria-labelledby="advise-h">
   <div class="chapter-left reveal">
-    <p class="ch-eyebrow">// agent · 03</p>
+    <p class="ch-eyebrow">// 03 · ANALYTICS ENGINE</p>
     <h2 class="ch-title" id="advise-h">Hike Advise</h2>
-    <p class="ch-sub">De días de espera a <span class="grad-kw">30 minutos</span>. Tu experto en BI disponible 24/7.</p>
-    <div class="ch-metrics">
-      <div class="ch-metric-item">
-        <span class="ch-metric-val">30 min</span>
-        <span class="ch-metric-lbl">time-to-insight</span>
-      </div>
-      <div class="ch-metric-item">
-        <span class="ch-metric-val">-75%</span>
-        <span class="ch-metric-lbl">reporting hours</span>
-      </div>
-      <div class="ch-metric-item">
-        <span class="ch-metric-val">Real-time</span>
-        <span class="ch-metric-lbl">decisions</span>
-      </div>
-    </div>
+    <p class="ch-sub">Conectá GA4, GTM y Google Ads. Hacé preguntas en <span class="grad-kw">lenguaje natural</span>. Reportes ejecutivos en <span class="grad-kw">30 minutos</span>.</p>
     <a class="ch-cta" href="https://dashboards.hikethecloud.com/calm_dashboard_054a6823-6a14-4c65-8764-4c69b9ccc24f.html?v=1779225096" target="_blank" rel="noopener">ver dashboard real <span class="ch-cta-arrow">→</span></a>
   </div>
   <div class="chapter-right">
@@ -2576,139 +2619,83 @@
   </div>
 </section>
 
-<!-- ADVISE SIGNAL→ACCIÓN -->
-<div class="signal-section">
-  <span class="signal-eyebrow">// señal → acción · ejemplos reales</span>
-  <div class="signal-grid">
-    <div class="signal-card">
-      <span class="sc-label">señal</span>
-      <p class="sc-signal">CPA sube 40% · tag de checkout missing en GTM.</p>
-      <span class="sc-arrow">→</span>
-      <span class="sc-label sc-action-label">acción</span>
-      <p class="sc-action">Pausa automática + fix GTM en tiempo real. Sin pérdida de conversiones.</p>
-      <span class="sc-impact">USD 800 ahorrados · 10 min de error = miles en Hot Sale</span>
+<!-- ADVISE USE CASES -->
+<div class="use-cases">
+  <span class="uc-eyebrow">// USE CASES</span>
+  <div class="uc-grid">
+    <div class="uc-card">
+      <span class="uc-num">CASO 01</span>
+      <h3 class="uc-title">Evitá USD 800 en pauta quemada</h3>
+      <p class="uc-desc">CPA en Google Ads +40% en 2hs. Hike Advise detecta el bug de GTM y pausa el grupo.</p>
+      <span class="uc-impact">→ ahorro inmediato + fix automático</span>
     </div>
-    <div class="signal-card">
-      <span class="sc-label">señal</span>
-      <p class="sc-signal">Cluster A convierte 20% mejor con el mismo presupuesto que Cluster B.</p>
-      <span class="sc-arrow">→</span>
-      <span class="sc-label sc-action-label">acción</span>
-      <p class="sc-action">Redistribuir budget hacia Cluster A. Proyección ROAS +35% a fin de mes.</p>
-      <span class="sc-impact">ROAS +35% proyectado · misma inversión</span>
+    <div class="uc-card">
+      <span class="uc-num">CASO 02</span>
+      <h3 class="uc-title">Redistribuí budget al cluster que convierte</h3>
+      <p class="uc-desc">Cluster A convierte 20% mejor con 30% menos inversión. Hike Advise te dice cuándo y cuánto.</p>
+      <span class="uc-impact">→ ROAS +35% proyectado al cierre de mes</span>
     </div>
-    <div class="signal-card">
-      <span class="sc-label">señal</span>
-      <p class="sc-signal">Budget se agota el día 22 al ritmo actual de inversión.</p>
-      <span class="sc-arrow">→</span>
-      <span class="sc-label sc-action-label">acción</span>
-      <p class="sc-action">Ajustar puja -5% y sostener hasta fin de mes con performance estable.</p>
-      <span class="sc-impact">Cobertura garantizada · sin cortes de pauta</span>
+    <div class="uc-card">
+      <span class="uc-num">CASO 03</span>
+      <h3 class="uc-title">Hacé durar tu budget hasta fin de mes</h3>
+      <p class="uc-desc">Al ritmo actual se agota el día 22. Hike Advise ajusta puja -5% para sostener cobertura.</p>
+      <span class="uc-impact">→ 8 días extra de exposición</span>
     </div>
   </div>
 </div>
 
-<!-- EN NUMEROS -->
-<section id="en-numeros">
-  <div class="en-grid">
-
-    <div class="en-col">
-      <span class="en-label">// hike listen</span>
-      <span class="en-stat reveal">&lt; 15 min</span>
-      <p class="en-desc reveal d1">Crisis Detection Lead Time: de 24–72hs a menos de 15 minutos. Reemplazá el scrolleo manual de 10 personas por un sistema centralizado que escala de 100 a 100.000 comentarios.</p>
-      <ul class="en-items">
-        <li class="en-item reveal d2">-75% Manual Audit Reduction por equipo</li>
-        <li class="en-item reveal d2">Net Sentiment Gap vs. competidores en tiempo real</li>
-        <li class="en-item reveal d3">Inbox Response Velocity + respuestas sugeridas por IA</li>
-        <li class="en-item reveal d3">Creative Resonance Score: sentimiento vs. tasa de conversión</li>
-      </ul>
-    </div>
-
-    <div class="en-col">
-      <span class="en-label">// hike create</span>
-      <span class="en-stat reveal">~95%</span>
-      <p class="en-desc reveal d1">Ahorro de tiempo de producción: de 3–5 días hábiles a 15–30 minutos. 1 operador de IA reemplaza un equipo de diseñadores y editores.</p>
-      <ul class="en-items">
-        <li class="en-item reveal d2">Escalabilidad infinita — volumen ilimitado on-demand</li>
-        <li class="en-item reveal d2">USD 4.000 ahorrados por campaña en producción externa</li>
-        <li class="en-item reveal d3">+20% engagement vs. producción tradicional (caso real)</li>
-        <li class="en-item reveal d3">El ahorro en fees se redistribuye a inversión en medios</li>
-      </ul>
-    </div>
-
-    <div class="en-col">
-      <span class="en-label">// hike advise</span>
-      <span class="en-stat reveal">30 min</span>
-      <p class="en-desc reveal d1">Time-to-Insight: de días a 30 minutos. El equipo deja de picar datos y se enfoca en estrategia de crecimiento.</p>
-      <ul class="en-items">
-        <li class="en-item reveal d2">-75% Reporting Man-Hours ahorradas por mes</li>
-        <li class="en-item reveal d2">Decision Velocity: anomalía detectada → acción en minutos</li>
-        <li class="en-item reveal d3">Correlación YouTube → +10% búsquedas de marca en 48hs</li>
-        <li class="en-item reveal d3">Acceso directo a GA4, GTM, Google Ads sin área técnica</li>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
-<!-- CASE STUDY — EDITORIAL CASE FILM -->
+<!-- CASE STUDY — DARK CINEMATIC -->
 <section id="case-study" aria-labelledby="cs-headline">
 
-  <!-- Pre-header eyebrow -->
-  <div class="cs-preheader">
-    <span class="cs-pre-eyebrow">// proof · case study</span>
-  </div>
+  <span class="cs-pre-eyebrow">// PROOF · CASE STUDY</span>
 
-  <!-- Hero full-bleed -->
   <div class="cs-hero">
-    <div class="cs-hero-grid">
 
-      <!-- Left: logo + title + context -->
-      <div class="cs-left">
-        <img
-          class="cs-logo"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
-          alt="Banco Galicia"
-          loading="lazy"
-          onerror="this.style.display='none'"
-        />
-        <h2 class="cs-headline" id="cs-headline">
-          Campaña relámpago.<br/>
-          <span class="cs-hl-block">50 piezas de video</span>
-          <span class="cs-hl-block">personalizadas en</span>
-          <span class="cs-hl-block"><span class="cs-grad">menos de 2 horas</span><span class="cs-punct">.</span></span>
-        </h2>
-        <p class="cs-context">
-          Hot Sale 2025. El equipo de Banco Galicia necesitaba personalizar 50 videos en formato Stories y Feed antes del lanzamiento. El proceso tradicional tomaba 2 semanas. Hike Create lo entregó en menos de 2 horas.
-        </p>
-      </div>
-
-      <!-- Right: 4 stacked metrics -->
-      <div class="cs-right">
-        <div class="cs-metric-row">
-          <span class="cs-big-num cs-grad" data-cs-target="2" data-cs-prefix="&lt; " data-cs-suffix="hs" data-cs-orig="&lt; 2hs">&lt; 2hs</span>
-          <span class="cs-metric-lbl">ENTREGA TOTAL · 50 ASSETS</span>
-        </div>
-        <div class="cs-metric-row">
-          <span class="cs-big-num cs-grad" data-cs-target="4000" data-cs-prefix="USD " data-cs-suffix="" data-cs-orig="USD 4K" data-cs-static>USD 4K</span>
-          <span class="cs-metric-lbl">AHORRO EN EDICIÓN EXTERNA</span>
-        </div>
-        <div class="cs-metric-row">
-          <span class="cs-big-num cs-grad" data-cs-target="20" data-cs-prefix="+" data-cs-suffix="%" data-cs-orig="+20%">+20%</span>
-          <span class="cs-metric-lbl">ENGAGEMENT VS. PRODUCCIÓN TRADICIONAL</span>
-        </div>
-        <div class="cs-metric-row cs-metric-last">
-          <span class="cs-big-num cs-grad" data-cs-static data-cs-orig="USD 0">USD 0</span>
-          <span class="cs-metric-lbl">COSTO EXTRA DE STAFF</span>
-        </div>
-      </div>
-
+    <!-- Left: logo + title + context -->
+    <div class="cs-left">
+      <img
+        class="cs-logo reveal"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
+        alt="Banco Galicia"
+        loading="lazy"
+        onerror="this.style.display='none'"
+      />
+      <h2 class="cs-headline" id="cs-headline">
+        <span class="cs-hl-block">Campaña relámpago.</span>
+        <span class="cs-hl-block">50 piezas de video personalizadas</span>
+        <span class="cs-hl-block">en <span class="cs-grad">menos de 2 horas</span>.</span>
+      </h2>
+      <p class="cs-context">
+        Hot Sale 2025. Banco Galicia necesitaba personalizar 50 videos en formato Stories y Feed antes del lanzamiento. El proceso tradicional tomaba 2 semanas. Hike Create lo entregó en menos de 2 horas.
+      </p>
     </div>
+
+    <!-- Right: 4 stacked metrics -->
+    <div class="cs-right">
+      <div class="cs-metric-row">
+        <span class="cs-big-num" data-cs-target="2" data-cs-prefix="&lt; " data-cs-suffix="hs" data-cs-orig="&lt; 2hs">&lt; 2hs</span>
+        <span class="cs-metric-lbl">ENTREGA TOTAL · 50 ASSETS</span>
+      </div>
+      <div class="cs-metric-row">
+        <span class="cs-big-num" data-cs-static data-cs-orig="USD 4K">USD 4K</span>
+        <span class="cs-metric-lbl">AHORRO EN EDICIÓN EXTERNA</span>
+      </div>
+      <div class="cs-metric-row">
+        <span class="cs-big-num" data-cs-target="20" data-cs-prefix="+" data-cs-suffix="%" data-cs-orig="+20%">+20%</span>
+        <span class="cs-metric-lbl">ENGAGEMENT VS. PRODUCCIÓN TRADICIONAL</span>
+      </div>
+      <div class="cs-metric-row cs-metric-last">
+        <span class="cs-big-num" data-cs-static data-cs-orig="USD 0">USD 0</span>
+        <span class="cs-metric-lbl">COSTO EXTRA DE STAFF</span>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Pull-quote full-bleed -->
+  <!-- Pull-quote -->
   <div class="cs-pullquote-wrap">
     <blockquote class="cs-pullquote" id="cs-pullquote">
-      <span class="cs-open-quote">“</span><span class="cs-quote-text">Lo que antes le llevaba dos semanas a nuestro equipo ahora pasa en minutos — consistente, en todos los canales, sin una sola revisión manual de identidad.</span><span class="cs-close-quote">”</span>
+      <span class="cs-open-quote" style="color:#444;font-size:0.6em">“</span><span class="cs-quote-text">Lo que antes le llevaba dos semanas a nuestro equipo ahora pasa en minutos — consistente, en todos los canales, sin una sola revisión manual de identidad.</span><span class="cs-close-quote" style="color:#444;font-size:0.6em">”</span>
     </blockquote>
     <cite class="cs-attribution">— HEAD OF CONTENT STRATEGY · BANCO GALICIA</cite>
   </div>
@@ -2736,19 +2723,11 @@
     <a class="cta-ghost-link" href="index.html">Explore council ↗</a>
   </div>
 
-  <!-- Client logos placeholder -->
+  <!-- Trusted by strip -->
   <div class="cta-logos">
-    <div class="cta-logo-col">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
-        alt="Banco Galicia"
-        onerror="this.outerHTML='Banco Galicia'"
-      />
-    </div>
-    <div class="cta-logo-col">+ 4 brands</div>
-    <div class="cta-logo-col">+ 4 brands</div>
-    <div class="cta-logo-col">+ 4 brands</div>
-    <div class="cta-logo-col">+ 4 brands</div>
+    <span class="cta-logo-trusted">TRUSTED BY</span>
+    <span class="cta-logo-name">BANCO GALICIA</span>
+    <span class="cta-logo-more">+ MORE BRANDS COMING SOON</span>
   </div>
 </section>
 
@@ -2780,7 +2759,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ── SECTION INDICATOR ── */
-const SI_SECTIONS = ['hero','impact','problem','listen','create','advise','case-study','cta-final'];
+const SI_SECTIONS = ['hero','impact','listen','create','advise','case-study','cta-final'];
 const siItems = document.querySelectorAll('.si-item');
 function updateSectionIndicator(scrollY) {
   let active = SI_SECTIONS[0];
