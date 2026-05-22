@@ -571,16 +571,13 @@
     }
     .impact-big {
       display: inline-block;
-      font-family: var(--font-main);
-      font-size: clamp(48px, 6vw, 88px);
+      font-family: var(--mono);
+      font-size: clamp(28px, 3.5vw, 48px);
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 1;
       white-space: nowrap;
-      background: var(--gemini-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
       font-variant-numeric: tabular-nums;
     }
     .impact-sublabel {
@@ -598,7 +595,7 @@
       .impact-col:nth-child(2) { border-right: none; }
       .impact-col:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
       .impact-col:nth-child(4) { border-right: none; }
-      .impact-big { font-size: clamp(40px, 10vw, 64px); }
+      .impact-big { font-size: clamp(24px, 8vw, 36px); }
     }
 
     /* ── USE CASE GRID ── */
@@ -2793,13 +2790,22 @@ function impCountUp(el) {
   const prefix = el.dataset.impPrefix || '';
   const suffix = el.dataset.impSuffix || '';
   const orig   = el.dataset.impOrig   || '';
-  const dur = 1500, t0 = performance.now();
+  // Scramble phase: flash random numbers for 600ms, then snap to real value
+  const dur = 600, t0 = performance.now();
+  let frame = 0;
   (function tick(now) {
-    const p = Math.min((now - t0) / dur, 1);
-    const ease = 1 - Math.pow(1 - p, 3);
-    el.textContent = prefix + Math.round(ease * target) + suffix;
-    if (p < 1) requestAnimationFrame(tick);
-    else el.textContent = orig;
+    const elapsed = now - t0;
+    if (elapsed >= dur) {
+      el.textContent = orig;
+      return;
+    }
+    // Every 2 frames show a random number in the same magnitude
+    if (frame % 2 === 0) {
+      const noise = Math.floor(Math.random() * target * 1.8);
+      el.textContent = prefix + noise + suffix;
+    }
+    frame++;
+    requestAnimationFrame(tick);
   })(t0);
 }
 const impObs = new IntersectionObserver(es => {
@@ -2809,7 +2815,7 @@ const impObs = new IntersectionObserver(es => {
     col.classList.add('vis');
     const big = col.querySelector('.impact-big');
     if (big) impCountUp(big);
-  }, i * 100));
+  }, i * 80));
   impObs.disconnect();
 }, { threshold: 0.15 });
 const impGrid = document.querySelector('.impact-grid');
