@@ -604,58 +604,7 @@
       border-image: var(--gemini-gradient) 1;
     }
 
-    /* ── IMPACT METRICS ── */
-    #impact {
-      background: var(--bg);
-      padding: 80px var(--pad-x);
-      border-bottom: 1px solid var(--border);
-    }
-    .impact-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-    .impact-col {
-      padding: 40px 32px;
-      border-top: 1px solid var(--border);
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity .6s var(--ease), transform .6s var(--ease);
-    }
-    .impact-col:not(:last-child) {
-      border-right: 1px solid var(--border);
-    }
-    .impact-col.vis {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .impact-big {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: clamp(28px, 3.5vw, 48px);
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      white-space: nowrap;
-      color: var(--text);
-      font-variant-numeric: tabular-nums;
-    }
-    .impact-sublabel {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-mute);
-      display: block;
-      margin-top: 16px;
-    }
-    @media (max-width: 900px) {
-      .impact-grid { grid-template-columns: repeat(2, 1fr); }
-      .impact-col:nth-child(2) { border-right: none; }
-      .impact-col:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
-      .impact-col:nth-child(4) { border-right: none; }
-      .impact-big { font-size: clamp(24px, 8vw, 36px); }
-    }
+
 
     /* ── OLD USE CASES REMOVED (NOW INLINE IN AGENT-SEC) ── */
 
@@ -1999,12 +1948,7 @@
       }
       .hb-col:first-child { border-top: 1px solid var(--border-strong); }
 
-      /* Impact metrics */
-      .impact-grid { grid-template-columns: repeat(2, 1fr); }
-      .impact-col:nth-child(2) { border-right: none; }
-      .impact-col:nth-child(3) { border-right: 1px solid var(--border); }
-      .impact-col:nth-child(4) { border-right: none; }
-      .impact-big { font-size: clamp(24px, 8vw, 36px); }
+
 
       /* Problem section */
       .ps-grid { grid-template-columns: 1fr; }
@@ -2324,12 +2268,11 @@
 <div id="cursor-label">view live →</div>
 <div id="section-indicator" aria-hidden="true">
   <span class="si-item" data-sec="hero">01 — hero</span>
-  <span class="si-item" data-sec="impact">02 — impact</span>
-  <span class="si-item" data-sec="listen">03 — listen</span>
-  <span class="si-item" data-sec="create">04 — create</span>
-  <span class="si-item" data-sec="advise">05 — advise</span>
-  <span class="si-item" data-sec="case-study">06 — galicia</span>
-  <span class="si-item" data-sec="cta-final">07 — cta</span>
+  <span class="si-item" data-sec="listen">02 — listen</span>
+  <span class="si-item" data-sec="create">03 — create</span>
+  <span class="si-item" data-sec="advise">04 — advise</span>
+  <span class="si-item" data-sec="case-study">05 — galicia</span>
+  <span class="si-item" data-sec="cta-final">06 — cta</span>
 </div>
 
 <!-- NAV -->
@@ -2383,33 +2326,6 @@
       <p class="hb-oneliner">Reportes ejecutivos en lenguaje natural en <span class="hb-metric">30 min</span>.</p>
       <a class="hb-mini-cta" href="#advise">explore →</a>
     </div>
-  </div>
-</section>
-
-<!-- IMPACT METRICS -->
-<section id="impact" aria-label="Impacto medible">
-  <div class="impact-grid">
-
-    <div class="impact-col">
-      <span class="impact-big" data-imp-target="85" data-imp-prefix="-" data-imp-suffix="%" data-imp-orig="-85%">-85%</span>
-      <span class="impact-sublabel">TIEMPO DE PRODUCCIÓN</span>
-    </div>
-
-    <div class="impact-col">
-      <span class="impact-big" data-imp-target="15" data-imp-prefix="&lt; " data-imp-suffix=" min" data-imp-orig="&lt; 15 min">&lt; 15 min</span>
-      <span class="impact-sublabel">DETECCIÓN DE CRISIS</span>
-    </div>
-
-    <div class="impact-col">
-      <span class="impact-big" data-imp-target="30" data-imp-suffix=" min" data-imp-orig="30 min">30 min</span>
-      <span class="impact-sublabel">REPORTE COMPLETO</span>
-    </div>
-
-    <div class="impact-col">
-      <span class="impact-big" data-imp-static data-imp-orig="4×">4×</span>
-      <span class="impact-sublabel">CONTENT VELOCITY</span>
-    </div>
-
   </div>
 </section>
 
@@ -2823,7 +2739,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ── SECTION INDICATOR ── */
-const SI_SECTIONS = ['hero','impact','listen','create','advise','case-study','cta-final'];
+const SI_SECTIONS = ['hero','listen','create','advise','case-study','cta-final'];
 const siItems = document.querySelectorAll('.si-item');
 function updateSectionIndicator(scrollY) {
   let active = SI_SECTIONS[0];
@@ -2850,43 +2766,7 @@ function countUp(el) {
   })(t0);
 }
 
-/* ── IMPACT METRICS — staggered count-up ── */
-function impCountUp(el) {
-  if (el.hasAttribute('data-imp-static')) return;
-  const target = +el.dataset.impTarget;
-  const prefix = el.dataset.impPrefix || '';
-  const suffix = el.dataset.impSuffix || '';
-  const orig   = el.dataset.impOrig   || '';
-  // Scramble phase: flash random numbers for 600ms, then snap to real value
-  const dur = 600, t0 = performance.now();
-  let frame = 0;
-  (function tick(now) {
-    const elapsed = now - t0;
-    if (elapsed >= dur) {
-      el.textContent = orig;
-      return;
-    }
-    // Every 2 frames show a random number in the same magnitude
-    if (frame % 2 === 0) {
-      const noise = Math.floor(Math.random() * target * 1.8);
-      el.textContent = prefix + noise + suffix;
-    }
-    frame++;
-    requestAnimationFrame(tick);
-  })(t0);
-}
-const impObs = new IntersectionObserver(es => {
-  if (!es[0].isIntersecting) return;
-  const cols = es[0].target.querySelectorAll('.impact-col');
-  cols.forEach((col, i) => setTimeout(() => {
-    col.classList.add('vis');
-    const big = col.querySelector('.impact-big');
-    if (big) impCountUp(big);
-  }, i * 80));
-  impObs.disconnect();
-}, { threshold: 0.15 });
-const impGrid = document.querySelector('.impact-grid');
-if (impGrid) impObs.observe(impGrid);
+
 
 /* ── FEED ANIMATION (LISTEN) ── */
 const FEED_ITEMS = [
