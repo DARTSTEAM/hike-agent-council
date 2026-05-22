@@ -787,7 +787,7 @@
       position: relative;
       overflow: hidden;
       border-radius: 2px;
-      background: var(--bg);
+      background: linear-gradient(135deg, #F2F2EC 0%, #E8E8E2 100%);
       border: 1px solid var(--border);
     }
     .asset-thumb.ratio-916 { aspect-ratio: 9/16; }
@@ -805,32 +805,7 @@
       color: #fff;
       padding: 2px 5px;
       border-radius: 2px;
-      z-index: 1;
-    }
-    .skeleton-fill {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, var(--bg-elev) 25%, rgba(220,220,215,.8) 50%, var(--bg-elev) 75%);
-      background-size: 200% 100%;
-      animation: skeletonSlide 1.8s ease-in-out infinite;
-    }
-    @keyframes skeletonSlide {
-      0%   { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-    .create-stats {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--text-dim);
-      letter-spacing: .04em;
-      line-height: 1.7;
-    }
-    .create-stats .stat-highlight {
-      background: var(--gemini-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 600;
+      z-index: 4;
     }
 
     /* ── ADVISE DEMO ── */
@@ -884,57 +859,181 @@
       stroke-linejoin: round;
     }
 
-    /* ── SIGNAL CARDS ── */
-    .signal-cards {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
+    /* ── SIGNAL FULL-WIDTH SECTION ── */
+    .signal-section {
+      padding: 80px var(--pad-x);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .signal-section.alt { background: var(--bg-elev); }
+    .signal-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      text-align: center;
+      display: block;
+      margin-bottom: 48px;
+    }
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
     }
     .signal-card {
-      padding: 1.25rem 0;
-      border-top: 1px solid var(--border);
+      background: var(--bg);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      min-height: 480px;
       opacity: 0;
-      transform: translateY(16px);
-      transition: opacity .5s var(--ease), transform .5s var(--ease);
+      transform: translateY(20px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
     }
+    .signal-section.alt .signal-card { background: var(--bg-elev); }
     .signal-card.vis { opacity: 1; transform: translateY(0); }
-    .signal-card:last-child { border-bottom: 1px solid var(--border); }
     .sc-label {
       font-family: var(--mono);
       font-size: 10px;
-      letter-spacing: .16em;
+      font-weight: 400;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--text-mute);
-      margin-bottom: .4rem;
       display: block;
     }
     .sc-signal {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 400;
       color: var(--text);
       line-height: 1.5;
-      margin-bottom: .5rem;
+      margin-top: 12px;
     }
     .sc-arrow {
       display: block;
       font-family: var(--mono);
-      font-size: 18px;
+      font-size: 28px;
+      font-weight: 400;
       background: var(--gemini-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin: .625rem 0;
+      margin-top: 32px;
     }
+    .sc-action-label { margin-top: 32px; }
     .sc-action {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 500;
       color: var(--text);
       line-height: 1.5;
-      margin-bottom: .4rem;
+      margin-top: 12px;
     }
     .sc-impact {
       font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-top: auto;
+      padding-top: 24px;
+    }
+
+    /* ── CREATE TILE STATES ── */
+    .asset-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(124,77,255,.25) 30%, rgba(229,72,77,.25) 50%, rgba(242,161,0,.25) 70%, transparent 100%);
+      transform: translateX(-100%);
+      animation: skeleton-sweep 2.5s cubic-bezier(.4,0,.2,1) infinite;
+      z-index: 2;
+    }
+    @keyframes skeleton-sweep {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .asset-thumb:nth-child(1)::before { animation-delay: 0s; }
+    .asset-thumb:nth-child(2)::before { animation-delay: .3s; }
+    .asset-thumb:nth-child(3)::before { animation-delay: .6s; }
+    .asset-thumb:nth-child(4)::before { animation-delay: .9s; }
+    .asset-thumb:nth-child(5)::before { animation-delay: 1.2s; }
+    .asset-thumb:nth-child(6)::before { animation-delay: 1.5s; }
+    /* tile 1: done — no sweep, check badge */
+    .asset-thumb.tile-done::before { animation-play-state: paused; }
+    .tile-check {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--success);
+      background: var(--bg);
+      padding: 2px 5px;
+      border-radius: 2px;
+      z-index: 3;
+      line-height: 1;
+    }
+    /* tiles 2-3: generating — spinner in corner */
+    .tile-spinner {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid transparent;
+      border-top-color: #7C4DFF;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      z-index: 3;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* tiles 4-6: queued */
+    .asset-thumb.tile-queued {
+      opacity: .5;
+    }
+    .asset-thumb.tile-queued::before { display: none; }
+    .tile-queued-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .15em;
+      color: var(--text-mute);
+      text-transform: uppercase;
+      z-index: 3;
+    }
+    /* progress bar */
+    .create-progress {
+      margin-top: 16px;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 3px;
+      background: var(--border);
+      border-radius: 0;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .progress-fill {
+      width: 40%;
+      height: 100%;
+      background: var(--gemini-gradient);
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
       font-size: 11px;
+      color: var(--text-dim);
+    }
+    .progress-meta .stat-highlight {
       background: var(--gemini-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -944,29 +1043,56 @@
 
     /* ── CHAPTER SEPARATOR ── */
     .chapter-sep {
+      padding: 80px var(--pad-x);
       display: flex;
       align-items: center;
-      gap: 1.5rem;
-      padding: 0 var(--pad-x);
-      height: 40px;
-      background: var(--bg-elev);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      background: var(--bg);
     }
-    .chapter-sep::before,
-    .chapter-sep::after {
-      content: '';
-      flex: 1;
+    .chapter-sep-inner {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chapter-sep-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
       height: 1px;
-      background: var(--border);
+      background: var(--border-strong);
+      transform: translateY(-50%);
+      z-index: 0;
     }
-    .chapter-sep-label {
+    .chapter-sep-link {
+      position: relative;
+      z-index: 1;
+      background: var(--bg);
+      padding: 0 32px;
       font-family: var(--mono);
       font-size: 11px;
-      letter-spacing: .1em;
-      color: var(--text-mute);
-      white-space: nowrap;
-      flex-shrink: 0;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      transition: color .3s;
+    }
+    .chapter-sep-link .sep-arrow {
+      display: inline-block;
+      transition: transform .3s;
+    }
+    .chapter-sep-link:hover {
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .chapter-sep-link:hover .sep-arrow {
+      transform: translateX(6px);
     }
 
     /* Bold keywords styling */
@@ -1689,37 +1815,16 @@
         </div>
       </div>
     </div>
-    <div class="signal-cards">
-      <div class="signal-card">
-        <span class="sc-label">señal</span>
-        <p class="sc-signal">60% de comentarios negativos mencionan fallas en el login.</p>
-        <span class="sc-arrow">→</span>
-        <span class="sc-label">acción</span>
-        <p class="sc-action">Fix técnico antes de la próxima campaña + activar respuesta de crisis en inbox.</p>
-        <span class="sc-impact">Reputación protegida · ROAS no impactado</span>
-      </div>
-      <div class="signal-card">
-        <span class="sc-label">señal</span>
-        <p class="sc-signal">Competidor X con pico de quejas en envíos: +210% en 2hs.</p>
-        <span class="sc-arrow">→</span>
-        <span class="sc-label">acción</span>
-        <p class="sc-action">Lanzar pauta "Envíos en 24hs" para capturar demanda insatisfecha.</p>
-        <span class="sc-impact">Ventana de conquista · +18pts Net Sentiment Gap</span>
-      </div>
-      <div class="signal-card">
-        <span class="sc-label">señal</span>
-        <p class="sc-signal">5 usuarios con +1K seguidores comentaron positivo en las últimas 4hs.</p>
-        <span class="sc-arrow">→</span>
-        <span class="sc-label">acción</span>
-        <p class="sc-action">Activar programa de micro-influencers con esos perfiles.</p>
-        <span class="sc-impact">Amplificación orgánica · costo $0</span>
-      </div>
     </div>
   </div>
 </section>
 
-<div class="chapter-sep" aria-hidden="true">
-  <span class="chapter-sep-label">next → 02 hike create</span>
+<!-- SEPARATOR 01→02 -->
+<div class="chapter-sep">
+  <div class="chapter-sep-inner">
+    <div class="chapter-sep-line"></div>
+    <a class="chapter-sep-link" href="#create">NEXT CHAPTER <span class="sep-arrow">→</span> 02 HIKE CREATE</a>
+  </div>
 </div>
 
 <!-- AGENT 02: HIKE CREATE -->
@@ -1756,47 +1861,83 @@
       </div>
       <div class="demo-body">
         <div class="asset-grid">
-          <div class="asset-thumb ratio-916"><span class="asset-label">Stories</span><div class="skeleton-fill"></div></div>
-          <div class="asset-thumb ratio-11"><span class="asset-label">Feed</span><div class="skeleton-fill"></div></div>
-          <div class="asset-thumb ratio-169"><span class="asset-label">YouTube</span><div class="skeleton-fill"></div></div>
-          <div class="asset-thumb ratio-916"><span class="asset-label">Stories</span><div class="skeleton-fill"></div></div>
-          <div class="asset-thumb ratio-11"><span class="asset-label">Feed</span><div class="skeleton-fill"></div></div>
-          <div class="asset-thumb ratio-169"><span class="asset-label">YouTube</span><div class="skeleton-fill"></div></div>
+          <!-- Tile 1: Done -->
+          <div class="asset-thumb ratio-916 tile-done">
+            <span class="asset-label">Stories</span>
+            <span class="tile-check">✓</span>
+          </div>
+          <!-- Tile 2: Generating -->
+          <div class="asset-thumb ratio-11">
+            <span class="asset-label">Feed</span>
+            <div class="tile-spinner"></div>
+          </div>
+          <!-- Tile 3: Generating -->
+          <div class="asset-thumb ratio-169">
+            <span class="asset-label">YouTube</span>
+            <div class="tile-spinner"></div>
+          </div>
+          <!-- Tiles 4-6: Queued -->
+          <div class="asset-thumb ratio-916 tile-queued">
+            <span class="asset-label">Stories</span>
+            <span class="tile-queued-label">Queued</span>
+          </div>
+          <div class="asset-thumb ratio-11 tile-queued">
+            <span class="asset-label">Feed</span>
+            <span class="tile-queued-label">Queued</span>
+          </div>
+          <div class="asset-thumb ratio-169 tile-queued">
+            <span class="asset-label">YouTube</span>
+            <span class="tile-queued-label">Queued</span>
+          </div>
         </div>
-        <p class="create-stats">50 assets generados · 1h 47min · <span class="stat-highlight">USD 4.000 ahorrados</span></p>
-      </div>
-    </div>
-    <div class="signal-cards">
-      <div class="signal-card">
-        <span class="sc-label">señal</span>
-        <p class="sc-signal">Hot Sale en 3 días — 50 assets en todos los formatos urgente.</p>
-        <span class="sc-arrow">→</span>
-        <span class="sc-label">acción</span>
-        <p class="sc-action">Creative Director AI genera Stories, Feed y YouTube en menos de 2hs.</p>
-        <span class="sc-impact">50 assets · USD 4.000 ahorrados · +20% engagement</span>
-      </div>
-      <div class="signal-card">
-        <span class="sc-label">señal</span>
-        <p class="sc-signal">El sentimiento de la campaña vigente cayó 15pts en 48hs.</p>
-        <span class="sc-arrow">→</span>
-        <span class="sc-label">acción</span>
-        <p class="sc-action">Nueva línea creativa generada en 15 minutos basada en insights de Hike Listen.</p>
-        <span class="sc-impact">Respuesta en minutos · no en semanas</span>
-      </div>
-      <div class="signal-card">
-        <span class="sc-label">señal</span>
-        <p class="sc-signal">Budget de producción consume el 80% antes de llegar a medios.</p>
-        <span class="sc-arrow">→</span>
-        <span class="sc-label">acción</span>
-        <p class="sc-action">1 operador de IA reemplaza al equipo de diseñadores y editores externos.</p>
-        <span class="sc-impact">~95% ahorro · fees van directo a inversión en medios</span>
+        <div class="create-progress">
+          <div class="progress-bar"><div class="progress-fill"></div></div>
+          <div class="progress-meta">
+            <span>20/50 generados · 1h 23min restante</span>
+            <span><span class="stat-highlight">USD 4.000 ahorrados</span></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="chapter-sep" aria-hidden="true">
-  <span class="chapter-sep-label">next → 03 hike advise</span>
+<!-- CREATE SIGNAL→ACCIÓN -->
+<div class="signal-section alt">
+  <span class="signal-eyebrow">// señal → acción · ejemplos reales</span>
+  <div class="signal-grid">
+    <div class="signal-card">
+      <span class="sc-label">señal</span>
+      <p class="sc-signal">Hot Sale en 3 días — 50 assets en todos los formatos urgente.</p>
+      <span class="sc-arrow">→</span>
+      <span class="sc-label sc-action-label">acción</span>
+      <p class="sc-action">Creative Director AI genera Stories, Feed y YouTube en menos de 2hs.</p>
+      <span class="sc-impact">50 assets · USD 4.000 ahorrados · +20% engagement</span>
+    </div>
+    <div class="signal-card">
+      <span class="sc-label">señal</span>
+      <p class="sc-signal">El sentimiento de la campaña vigente cayó 15pts en 48hs.</p>
+      <span class="sc-arrow">→</span>
+      <span class="sc-label sc-action-label">acción</span>
+      <p class="sc-action">Nueva línea creativa generada en 15 minutos basada en insights de Hike Listen.</p>
+      <span class="sc-impact">Respuesta en minutos · no en semanas</span>
+    </div>
+    <div class="signal-card">
+      <span class="sc-label">señal</span>
+      <p class="sc-signal">Budget de producción consume el 80% antes de llegar a medios.</p>
+      <span class="sc-arrow">→</span>
+      <span class="sc-label sc-action-label">acción</span>
+      <p class="sc-action">1 operador de IA reemplaza al equipo de diseñadores y editores externos.</p>
+      <span class="sc-impact">~95% ahorro · fees van directo a inversión en medios</span>
+    </div>
+  </div>
+</div>
+<!-- SEPARATOR 02→03 -->
+<div class="chapter-sep">
+  <div class="chapter-sep-inner">
+    <div class="chapter-sep-line"></div>
+    <a class="chapter-sep-link" href="#advise">NEXT CHAPTER <span class="sep-arrow">→</span> 03 HIKE ADVISE</a>
+  </div>
 </div>
 
 <!-- AGENT 03: HIKE ADVISE -->
@@ -1871,34 +2012,39 @@
         </div>
       </div>
     </div>
-    <div class="signal-cards">
-      <div class="signal-card">
-        <span class="sc-label">señal</span>
-        <p class="sc-signal">CPA sube 40% · tag de checkout missing en GTM.</p>
-        <span class="sc-arrow">→</span>
-        <span class="sc-label">acción</span>
-        <p class="sc-action">Pausa automática + fix GTM en tiempo real. Sin pérdida de conversiones.</p>
-        <span class="sc-impact">USD 800 ahorrados · 10 min de error = miles en Hot Sale</span>
-      </div>
-      <div class="signal-card">
-        <span class="sc-label">señal</span>
-        <p class="sc-signal">Cluster A convierte 20% mejor con el mismo presupuesto que Cluster B.</p>
-        <span class="sc-arrow">→</span>
-        <span class="sc-label">acción</span>
-        <p class="sc-action">Redistribuir budget hacia Cluster A. Proyección ROAS +35% a fin de mes.</p>
-        <span class="sc-impact">ROAS +35% proyectado · misma inversión</span>
-      </div>
-      <div class="signal-card">
-        <span class="sc-label">señal</span>
-        <p class="sc-signal">Budget se agota el día 22 al ritmo actual de inversión.</p>
-        <span class="sc-arrow">→</span>
-        <span class="sc-label">acción</span>
-        <p class="sc-action">Ajustar puja -5% y sostener hasta fin de mes con performance estable.</p>
-        <span class="sc-impact">Cobertura garantizada · sin cortes de pauta</span>
-      </div>
-    </div>
   </div>
 </section>
+
+<!-- ADVISE SIGNAL→ACCIÓN -->
+<div class="signal-section">
+  <span class="signal-eyebrow">// señal → acción · ejemplos reales</span>
+  <div class="signal-grid">
+    <div class="signal-card">
+      <span class="sc-label">señal</span>
+      <p class="sc-signal">CPA sube 40% · tag de checkout missing en GTM.</p>
+      <span class="sc-arrow">→</span>
+      <span class="sc-label sc-action-label">acción</span>
+      <p class="sc-action">Pausa automática + fix GTM en tiempo real. Sin pérdida de conversiones.</p>
+      <span class="sc-impact">USD 800 ahorrados · 10 min de error = miles en Hot Sale</span>
+    </div>
+    <div class="signal-card">
+      <span class="sc-label">señal</span>
+      <p class="sc-signal">Cluster A convierte 20% mejor con el mismo presupuesto que Cluster B.</p>
+      <span class="sc-arrow">→</span>
+      <span class="sc-label sc-action-label">acción</span>
+      <p class="sc-action">Redistribuir budget hacia Cluster A. Proyección ROAS +35% a fin de mes.</p>
+      <span class="sc-impact">ROAS +35% proyectado · misma inversión</span>
+    </div>
+    <div class="signal-card">
+      <span class="sc-label">señal</span>
+      <p class="sc-signal">Budget se agota el día 22 al ritmo actual de inversión.</p>
+      <span class="sc-arrow">→</span>
+      <span class="sc-label sc-action-label">acción</span>
+      <p class="sc-action">Ajustar puja -5% y sostener hasta fin de mes con performance estable.</p>
+      <span class="sc-impact">Cobertura garantizada · sin cortes de pauta</span>
+    </div>
+  </div>
+</div>
 
 <!-- EN NUMEROS -->
 <section id="en-numeros">
@@ -2112,7 +2258,7 @@ const sigObs = new IntersectionObserver(es => es.forEach(e => {
   e.target.querySelectorAll('.signal-card').forEach((c,i) => setTimeout(() => c.classList.add('vis'), i * 120));
   sigObs.unobserve(e.target);
 }), { threshold: 0.1 });
-document.querySelectorAll('.chapter-right').forEach(el => sigObs.observe(el));
+document.querySelectorAll('.signal-section').forEach(el => sigObs.observe(el));
 
 /* ── SMOOTH ANCHORS ── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
