@@ -4,25 +4,41 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Hike Agent Council — Three agents. Infinite impact.</title>
-  <meta name="description" content="Three AI agents powering your brand across social intelligence, content creation and conversational sales. Built for Google. Powered by Gemini."/>
+  <meta name="description" content="Three AI agents powering your brand across social intelligence, content creation and analytics. Built for modern marketing teams. Powered by Hike."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
   <style>
-    /* ── TOKENS — LIGHT MODE EDITORIAL ── */
+    /* ── TOKENS — HIKE BRAND LIGHT MODE ── */
     :root {
-      --bg:             #FAFAF7;     /* off-white cálido, NO blanco puro */
-      --bg-elev:        #F2F2EC;     /* paneles/cards, levemente más cálido */
-      --bg-contrast:    #0A0A0A;     /* fondo oscuro para case study invertido */
-      --border:         #E5E5DF;     /* línea fina visible pero discreta */
-      --border-strong:  #1A1A1A;     /* línea fuerte para divisiones editoriales clave */
-      --text:           #0A0A0A;     /* negro casi puro */
-      --text-dim:       #6B6B66;     /* gris medio cálido */
-      --text-mute:      #A8A8A2;     /* gris claro para meta-info */
-      --gemini-gradient: linear-gradient(90deg, #1A73E8 0%, #7C4DFF 35%, #E5484D 70%, #F2A100 100%);
-      --success:        #0F8A4F;     /* verde más profundo para sentiment positivo */
-      --danger:         #C42626;     /* rojo más profundo para sentiment negativo */
+      /* Hike brand palette */
+      --hike-dark:          #1A0A2E;
+      --hike-accent:        #7E6E94;
+      --hike-accent-dark:   #2D1B4E;
+      --hike-accent-deep:   #5E5070;
+      --hike-accent-light:  rgba(126, 110, 148, 0.08);
+      --hike-accent-border: rgba(126, 110, 148, 0.18);
+      --hike-surface:       #FFFFFF;
+      --hike-surface-2:     #F7F4F1;
+      --hike-bg-warm:       #FCF9F7;
+      --hike-glow:          radial-gradient(circle at center, rgba(126, 110, 148, 0.35) 0%, rgba(126, 110, 148, 0.08) 40%, transparent 70%);
+      --hike-gradient:      linear-gradient(90deg, #7E6E94 0%, #5E5070 50%, #2D1B4E 100%);
+      --hike-gradient-light: linear-gradient(90deg, #B5A8C4 0%, #7E6E94 50%, #5E5070 100%);
+
+      /* Base tokens — now Hike-mapped */
+      --bg:             #FCF9F7;
+      --bg-elev:        #F7F4F1;
+      --bg-contrast:    var(--hike-dark);
+      --border:         var(--hike-accent-border);
+      --border-strong:  var(--hike-accent-dark);
+      --text:           var(--hike-accent-dark);
+      --text-dim:       var(--hike-accent);
+      --text-mute:      var(--hike-accent-deep);
+      --gemini-gradient: var(--hike-gradient);   /* maps all 29 call-sites to Hike purple */
+
+      --success:        #0F8A4F;
+      --danger:         #C42626;
       --ease:           cubic-bezier(0.16, 1, 0.3, 1);
 
       /* Spacing Tokens */
@@ -62,8 +78,8 @@
     }
 
     /* ── SELECTION ── */
-    ::selection { background: #9B72F2; color: var(--bg); }
-    ::-moz-selection { background: #9B72F2; color: var(--bg); }
+    ::selection { background: var(--hike-accent); color: var(--hike-bg-warm); }
+    ::-moz-selection { background: var(--hike-accent); color: var(--hike-bg-warm); }
 
     /* ── PROGRESS BAR ── */
     #progress {
@@ -214,7 +230,7 @@
     .nav-logo {
       height: 40px;
       width: auto;
-      filter: invert(1);
+      filter: invert(1) brightness(0.2) sepia(0.3) hue-rotate(240deg) saturate(1.5);
       transition: filter 0.4s;
     }
     .nav-links {
@@ -263,6 +279,52 @@
       background: var(--bg);
       overflow: hidden;
     }
+    /* HERO VIDEO BACKGROUND */
+    .hero-video-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(0.8) contrast(1.05) brightness(0.95) hue-rotate(10deg);
+    }
+    .hero-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(252, 249, 247, 0.82) 0%,
+        rgba(252, 249, 247, 0.65) 40%,
+        rgba(252, 249, 247, 0.90) 100%
+      );
+      z-index: 1;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 35%;
+      width: 60vw;
+      height: 60vw;
+      transform: translate(-50%, -50%);
+      background: var(--hike-glow);
+      filter: blur(40px);
+      z-index: 2;
+      opacity: 0.7;
+      pointer-events: none;
+      animation: hero-glow-pulse 8s ease-in-out infinite;
+    }
+    @keyframes hero-glow-pulse {
+      0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.45; transform: translate(-50%, -50%) scale(1.1); }
+    }
     .hero-main {
       display: flex;
       flex-direction: column;
@@ -270,7 +332,15 @@
       flex: 1;
       padding: calc(70px + 4rem) var(--pad-x) 2.5rem;
       position: relative;
-      z-index: 2;
+      z-index: 3;
+    }
+    @media (max-width: 768px) {
+      .hero-video { display: none; }
+      .hero-glow { width: 90vw; height: 90vw; left: 50%; opacity: 0.4; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video { display: none; }
+      .hero-glow { animation: none; }
     }
     .hero-eyebrow {
       font-family: var(--mono);
@@ -291,10 +361,12 @@
       display: block;
       font-family: var(--font-main);
       font-size: clamp(40px, 5.5vw, 72px);
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: -0.02em;
       line-height: 1;
-      color: var(--text-dim);
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--hike-accent-dark);
+      text-stroke: 1.5px var(--hike-accent-dark);
       opacity: 0;
       margin-bottom: -32px;
       position: relative;
@@ -376,8 +448,8 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #4285F4;
-      box-shadow: 0 0 8px #4285F4;
+      background: var(--hike-accent);
+      box-shadow: 0 0 8px var(--hike-accent);
       animation: sys-pulse 2s ease-in-out infinite;
       flex-shrink: 0;
     }
@@ -2035,11 +2107,219 @@
       .kpi-grid { grid-template-columns: 1fr; }
     }
 
-    /* ── CASE STUDY — DARK CINEMATIC ── */
-    #case-study {
-      background: #0A0A0A;
-      color: #FAFAF7;
+    /* ── GALICIA CINEMATIC ── */
+    .galicia-cinematic {
+      position: relative;
+      background: var(--hike-dark);
+      color: var(--hike-bg-warm);
       padding: clamp(120px, 18vh, 200px) var(--pad-x);
+      overflow: hidden;
+      min-height: 200vh;
+    }
+    .galicia-bg-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .galicia-bg-image {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(126, 110, 148, 0.35) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(126, 110, 148, 0.2) 0%, transparent 50%);
+    }
+    .galicia-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        var(--hike-dark) 0%,
+        rgba(26, 10, 46, 0.7) 30%,
+        rgba(26, 10, 46, 0.7) 70%,
+        var(--hike-dark) 100%
+      );
+    }
+    .galicia-floating-cards {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .floating-card {
+      position: absolute;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--hike-accent-deep);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      will-change: transform;
+      opacity: 0.85;
+    }
+    .card-1 {
+      top: 8%;
+      right: 6%;
+      width: 280px;
+      height: 380px;
+      transform: rotate(4deg);
+      background-image: url('https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=90');
+    }
+    .card-2 {
+      top: 38%;
+      left: 4%;
+      width: 320px;
+      height: 200px;
+      transform: rotate(-3deg);
+      background-image: url('https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=600&q=90');
+    }
+    .card-3 {
+      bottom: 10%;
+      right: 8%;
+      width: 260px;
+      height: 340px;
+      transform: rotate(2deg);
+      background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&q=90');
+    }
+    .galicia-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .galicia-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 80px;
+    }
+    .galicia-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      margin-bottom: 100px;
+    }
+    .galicia-logo {
+      height: 36px;
+      filter: invert(1) brightness(2);
+    }
+    .galicia-label {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .galicia-headline {
+      font-size: clamp(48px, 7vw, 112px);
+      font-weight: 550;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.22);
+      margin: 0 0 24px 0;
+      max-width: 18ch;
+      position: relative;
+      transition: color 1s ease, opacity 1s ease;
+      will-change: color, opacity;
+    }
+    .galicia-headline.is-active {
+      color: var(--hike-bg-warm);
+    }
+    .galicia-headline.gradient-fill.is-active {
+      background: var(--hike-gradient-light);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    .arrow-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(126, 110, 148, 0.15);
+      border: 1px solid rgba(126, 110, 148, 0.3);
+      font-size: 36px;
+      margin-left: 16px;
+      transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      vertical-align: middle;
+      color: var(--hike-bg-warm);
+    }
+    .arrow-btn:hover {
+      background: var(--hike-accent-deep);
+      transform: translateX(8px) rotate(-5deg);
+    }
+    .galicia-context {
+      font-size: 17px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.6;
+      max-width: 48ch;
+      margin: 80px 0;
+    }
+    .galicia-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 120px 0;
+    }
+    .galicia-metric {
+      background: var(--hike-dark);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .galicia-metric-value {
+      font-size: clamp(56px, 7vw, 96px);
+      font-weight: 550;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      white-space: nowrap;
+      background: var(--hike-gradient-light);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    .galicia-metric-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+    }
+    .galicia-quote {
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      max-width: 24ch;
+      margin: 160px 0 0 8%;
+      color: var(--hike-bg-warm);
+      position: relative;
+    }
+    .galicia-quote-mark {
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 0.7em;
+    }
+    .galicia-attribution {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 48px;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .galicia-cinematic { min-height: auto; padding: 80px 24px; }
+      .floating-card { display: none; }
+      .galicia-metrics { grid-template-columns: 1fr; }
+      .galicia-quote { margin-left: 0; }
+      .galicia-headline { font-size: clamp(36px, 10vw, 64px); }
     }
     .cs-pre-eyebrow {
       font-family: var(--mono);
@@ -2271,7 +2551,7 @@
   <span class="si-item" data-sec="listen">02 — listen</span>
   <span class="si-item" data-sec="create">03 — create</span>
   <span class="si-item" data-sec="advise">04 — advise</span>
-  <span class="si-item" data-sec="case-study">05 — galicia</span>
+  <span class="si-item" data-sec="galicia">05 — galicia</span>
   <span class="si-item" data-sec="cta-final">06 — cta</span>
 </div>
 
@@ -2291,6 +2571,20 @@
 
 <!-- HERO -->
 <section id="hero" aria-labelledby="hero-h1">
+  <!-- Atmospheric video background -->
+  <div class="hero-video-bg" aria-hidden="true">
+    <video
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto">
+      <source src="https://cdn.coverr.co/videos/coverr-abstract-purple-fluid-1644/1080p.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+    <div class="hero-glow"></div>
+  </div>
   <div class="hero-main">
     <p class="hero-eyebrow">// hike · agent council — 03 agents</p>
     <h1 class="hero-h1" id="hero-h1">
@@ -2299,7 +2593,7 @@
     </h1>
     <div class="hero-bottom-row">
       <p class="hero-sub"><span class="hero-sub-name">Hike Listen</span>, <span class="hero-sub-name">Hike Create</span> y <span class="hero-sub-name">Hike Advise</span>. Tres agentes especializados que <span class="hero-sub-action">escuchan, crean y analizan</span> —— mientras tu equipo decide.</p>
-      <p class="hero-powered"><span class="hero-powered-dot"></span>Powered by Gemini</p>
+      <p class="hero-powered"><span class="hero-powered-dot"></span>Powered by Hike</p>
     </div>
     <div class="hero-ctas">
       <a class="btn-solid" href="#listen">Explore council →</a>
@@ -2625,59 +2919,69 @@
 </section>
 
 <!-- CASE STUDY — DARK CINEMATIC -->
-<section id="case-study" aria-labelledby="cs-headline">
+<section class="galicia-cinematic" id="galicia" aria-labelledby="galicia-headline">
 
-  <span class="cs-pre-eyebrow">// PROOF · CASE STUDY</span>
-
-  <div class="cs-hero">
-
-    <!-- Left: logo + title + context -->
-    <div class="cs-left">
-      <img
-        class="cs-logo reveal"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
-        alt="Banco Galicia"
-        loading="lazy"
-        onerror="this.style.display='none'"
-      />
-      <h2 class="cs-headline" id="cs-headline">
-        <span class="cs-hl-block">Campaña relámpago.</span>
-        <span class="cs-hl-block">50 piezas de video personalizadas</span>
-        <span class="cs-hl-block">en <span class="cs-grad">menos de 2 horas</span>.</span>
-      </h2>
-      <p class="cs-context">
-        Hot Sale 2025. Banco Galicia necesitaba personalizar 50 videos en formato Stories y Feed antes del lanzamiento. El proceso tradicional tomaba 2 semanas. Hike Create lo entregó en menos de 2 horas.
-      </p>
-    </div>
-
-    <!-- Right: 4 stacked metrics -->
-    <div class="cs-right">
-      <div class="cs-metric-row">
-        <span class="cs-big-num" data-cs-target="2" data-cs-prefix="&lt; " data-cs-suffix="hs" data-cs-orig="&lt; 2hs">&lt; 2hs</span>
-        <span class="cs-metric-lbl">ENTREGA TOTAL · 50 ASSETS</span>
-      </div>
-      <div class="cs-metric-row">
-        <span class="cs-big-num" data-cs-static data-cs-orig="USD 4K">USD 4K</span>
-        <span class="cs-metric-lbl">AHORRO EN EDICIÓN EXTERNA</span>
-      </div>
-      <div class="cs-metric-row">
-        <span class="cs-big-num" data-cs-target="20" data-cs-prefix="+" data-cs-suffix="%" data-cs-orig="+20%">+20%</span>
-        <span class="cs-metric-lbl">ENGAGEMENT VS. PRODUCCIÓN TRADICIONAL</span>
-      </div>
-      <div class="cs-metric-row cs-metric-last">
-        <span class="cs-big-num" data-cs-static data-cs-orig="USD 0">USD 0</span>
-        <span class="cs-metric-lbl">COSTO EXTRA DE STAFF</span>
-      </div>
-    </div>
-
+  <div class="galicia-bg-layer" aria-hidden="true">
+    <div class="galicia-bg-image"></div>
+    <div class="galicia-bg-overlay"></div>
   </div>
 
-  <!-- Pull-quote -->
-  <div class="cs-pullquote-wrap">
-    <blockquote class="cs-pullquote" id="cs-pullquote">
-      <span class="cs-open-quote" style="color:#444;font-size:0.6em">“</span><span class="cs-quote-text">Lo que antes le llevaba dos semanas a nuestro equipo ahora pasa en minutos — consistente, en todos los canales, sin una sola revisión manual de identidad.</span><span class="cs-close-quote" style="color:#444;font-size:0.6em">”</span>
+  <div class="galicia-floating-cards" aria-hidden="true">
+    <div class="floating-card card-1"></div>
+    <div class="floating-card card-2"></div>
+    <div class="floating-card card-3"></div>
+  </div>
+
+  <div class="galicia-content">
+
+    <div class="galicia-eyebrow">// PROOF · CASE STUDY</div>
+
+    <div class="galicia-header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png" alt="Banco Galicia" class="galicia-logo" loading="lazy">
+      <span class="galicia-label">Historias de clientes</span>
+    </div>
+
+    <h2 class="galicia-headline reveal-headline" id="galicia-headline" data-index="0">
+      Campaña relámpago.
+    </h2>
+
+    <h2 class="galicia-headline reveal-headline" data-index="1">
+      50 piezas de video personalizadas
+      <span class="arrow-btn">→</span>
+    </h2>
+
+    <h2 class="galicia-headline reveal-headline gradient-fill" data-index="2">
+      en menos de 2 horas.
+    </h2>
+
+    <p class="galicia-context">
+      Hot Sale 2025. Banco Galicia necesitaba personalizar 50 videos en formato Stories y Feed antes del lanzamiento. El proceso tradicional tomaba 2 semanas. Hike Create lo entregó en menos de 2 horas.
+    </p>
+
+    <div class="galicia-metrics">
+      <div class="galicia-metric">
+        <span class="galicia-metric-value">&lt; 2hs</span>
+        <span class="galicia-metric-label">ENTREGA TOTAL · 50 ASSETS</span>
+      </div>
+      <div class="galicia-metric">
+        <span class="galicia-metric-value">USD 4K</span>
+        <span class="galicia-metric-label">AHORRO EN EDICIÓN EXTERNA</span>
+      </div>
+      <div class="galicia-metric">
+        <span class="galicia-metric-value">+20%</span>
+        <span class="galicia-metric-label">ENGAGEMENT VS. PRODUCCIÓN TRADICIONAL</span>
+      </div>
+      <div class="galicia-metric">
+        <span class="galicia-metric-value">USD 0</span>
+        <span class="galicia-metric-label">COSTO EXTRA DE STAFF</span>
+      </div>
+    </div>
+
+    <blockquote class="galicia-quote">
+      <span class="galicia-quote-mark">“</span><span class="galicia-quote-text">Lo que antes le llevaba dos semanas a nuestro equipo ahora pasa en minutos — consistente, en todos los canales, sin una sola revisión manual de identidad.</span><span class="galicia-quote-mark">”</span>
+      <footer class="galicia-attribution">— HEAD OF CONTENT STRATEGY · BANCO GALICIA</footer>
     </blockquote>
-    <cite class="cs-attribution">— HEAD OF CONTENT STRATEGY · BANCO GALICIA</cite>
+
   </div>
 
 </section>
@@ -2739,7 +3043,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ── SECTION INDICATOR ── */
-const SI_SECTIONS = ['hero','listen','create','advise','case-study','cta-final'];
+const SI_SECTIONS = ['hero','listen','create','advise','galicia','cta-final'];
 const siItems = document.querySelectorAll('.si-item');
 function updateSectionIndicator(scrollY) {
   let active = SI_SECTIONS[0];
@@ -2942,6 +3246,47 @@ if (csQuoteText) {
   }, { threshold: 0.3 });
   wordObs.observe(csQuoteText.closest('blockquote'));
 }
+</script>
+
+<script>
+/* ── GALICIA: HEADLINE REVEAL + FLOATING CARD PARALLAX ── */
+(function() {
+  // Reveal headlines on scroll
+  const headlines = document.querySelectorAll('.reveal-headline');
+  if (headlines.length) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = parseInt(entry.target.dataset.index || 0);
+          setTimeout(() => entry.target.classList.add('is-active'), index * 200);
+        }
+      });
+    }, { threshold: 0.4 });
+    headlines.forEach(h => obs.observe(h));
+  }
+
+  // Parallax on floating cards
+  const cards = document.querySelectorAll('.floating-card');
+  const galicia = document.querySelector('.galicia-cinematic');
+  if (galicia && cards.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+    function updateParallax() {
+      const rect = galicia.getBoundingClientRect();
+      const scrollProgress = -rect.top / (rect.height - window.innerHeight);
+      const clamped = Math.max(0, Math.min(1, scrollProgress));
+      cards.forEach((card, i) => {
+        const speed = [0.3, 0.5, 0.4][i] || 0.4;
+        const dir = i % 2 === 0 ? 1 : -1;
+        const baseRotate = [4, -3, 2][i] || 0;
+        card.style.transform = `translateY(${clamped * 200 * speed * dir}px) rotate(${baseRotate}deg)`;
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+    }, { passive: true });
+  }
+})();
 </script>
 </body>
 </html>
