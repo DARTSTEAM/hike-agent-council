@@ -592,208 +592,387 @@
       font-weight: 600;
     }
 
-    /* ── AGENT SECTIONS ── */
-    .agent-sec {
+    /* ── CHAPTER SECTIONS ── */
+    .chapter-sec {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      min-height: 100vh;
       padding: var(--space-section) var(--pad-x);
-      position: relative;
-      overflow: hidden;
-    }
-    .agent-white, .agent-cream, .agent-dark {
+      align-items: start;
       background: var(--bg);
       border-bottom: 1px solid var(--border);
-    }
-    /* Override: #advise (agent-dark) stays light but uses bg-elev for subtle differentiation */
-    #advise.agent-dark {
-      background: var(--bg-elev);
-    }
-
-    /* ghost watermark number */
-    .agent-sec[data-gnum]::before {
-      content: attr(data-gnum);
-      position: absolute;
-      right: -1rem;
-      bottom: -3rem;
-      font-family: var(--font-main);
-      font-size: clamp(14rem, 22vw, 22rem);
-      font-weight: 800;
-      letter-spacing: -.06em;
-      line-height: 1;
-      pointer-events: none;
-      z-index: 0;
-      user-select: none;
-      color: var(--text-mute);
-      opacity: .05;
-    }
-
-    .agent-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
       position: relative;
-      z-index: 1;
     }
-    .agent-grid.rev {
-      direction: rtl;
+    .chapter-sec.alt { background: var(--bg-elev); }
+    .chapter-left {
+      grid-column: 1 / 6;
+      position: sticky;
+      top: 120px;
     }
-    .agent-grid.rev > * {
-      direction: ltr;
+    .chapter-right {
+      grid-column: 7 / 13;
+      display: flex;
+      flex-direction: column;
     }
-
-    /* agent number → circular pill badge */
-    .agent-num {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .25rem .75rem;
-      border-radius: 999px;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .22em;
+    .ch-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
       text-transform: uppercase;
       margin-bottom: 1.25rem;
-      background: var(--bg-elev);
+    }
+    .ch-title {
+      font-family: var(--font-main);
+      font-size: clamp(72px, 10vw, 160px);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .ch-sub {
+      font-size: 24px;
+      font-weight: 400;
       color: var(--text-dim);
-      border: 1px solid var(--border);
+      line-height: 1.4;
+      max-width: 48ch;
+      margin-bottom: 2rem;
     }
-
-    /* mini KPI strip inside each agent section */
-    .agent-kpis {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 1.75rem 0 2rem;
+    .ch-sub .grad-kw {
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 500;
     }
-    .akpi-item {
-      padding: 1rem .875rem;
-      text-align: center;
+    .ch-metrics {
+      display: flex;
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    .ch-metric-item {
+      flex: 1;
+      padding: .875rem 1rem;
+      border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       gap: .3rem;
-      border-right: 1px solid var(--border);
-      background: var(--bg-elev);
     }
-    .akpi-item:last-child {
-      border-right: none;
-    }
-    .akpi-num {
+    .ch-metric-item:last-child { border-right: none; }
+    .ch-metric-val {
       font-family: var(--font-main);
-      font-size: 1.6rem;
-      font-weight: 550;
-      letter-spacing: -.04em;
-      line-height: 1;
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: -0.03em;
       color: var(--text);
+      line-height: 1;
     }
-    .akpi-lbl {
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: .14em;
+    .ch-metric-lbl {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      line-height: 1.4;
       color: var(--text-mute);
     }
-
-    .agent-name {
-      font-family: var(--font-main);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 550;
-      letter-spacing: -0.05em;
-      margin-bottom: 1.25rem;
+    .ch-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
       color: var(--text);
+      border: none;
+      border-bottom: 1px solid var(--text);
+      padding: .5rem 0;
+      background: transparent;
+      transition: gap .2s, border-color .2s;
     }
-    .agent-tag {
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: .01em;
-      line-height: 1.7;
-      margin-bottom: 2rem;
+    .ch-cta:hover {
+      gap: 1rem;
+      border-bottom-color: transparent;
+      border-image: var(--gemini-gradient) 1;
+    }
+    .ch-cta-arrow { transition: transform .2s; }
+    .ch-cta:hover .ch-cta-arrow { transform: translateX(4px); }
+
+    /* ── DEMO WINDOW ── */
+    .demo-window {
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--bg-elev);
+    }
+    .win-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elev);
+    }
+    .win-dots { display: flex; gap: 8px; align-items: center; }
+    .win-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .wd-r { background: #FF5F57; }
+    .wd-y { background: #FEBC2E; }
+    .wd-g { background: #28C840; }
+    .win-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      color: var(--text-mute);
+    }
+    .demo-body { padding: 1.25rem; }
+
+    /* ── LISTEN DEMO ── */
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: .625rem;
+      margin-bottom: 1rem;
+    }
+    .feed-item {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+      padding: .75rem .875rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .4s, transform .4s;
+    }
+    .feed-item.show { opacity: 1; transform: translateY(0); }
+    .feed-meta { display: flex; align-items: center; gap: .625rem; }
+    .sentiment-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      padding: .1rem .4rem;
+      border-radius: 2px;
+    }
+    .st-pos { background: rgba(0,210,106,.1); color: #00A350; }
+    .st-neg { background: rgba(196,38,38,.1); color: var(--danger); }
+    .st-neu { background: rgba(168,168,162,.15); color: var(--text-dim); }
+    .feed-time { font-family: var(--mono); font-size: 10px; color: var(--text-mute); }
+    .feed-text { font-size: 13px; line-height: 1.5; color: var(--text-dim); }
+    .alert-box {
+      border-left: 3px solid;
+      border-image: var(--gemini-gradient) 1;
+      padding: .875rem 1rem;
+      background: rgba(241,163,0,.05);
+      display: flex;
+      gap: .625rem;
+      align-items: flex-start;
+    }
+    .alert-box-text { font-size: 13px; line-height: 1.6; color: var(--text); }
+
+    /* ── CREATE DEMO ── */
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 1rem;
+    }
+    .asset-thumb {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .asset-thumb.ratio-916 { aspect-ratio: 9/16; }
+    .asset-thumb.ratio-11  { aspect-ratio: 1/1; }
+    .asset-thumb.ratio-169 { aspect-ratio: 16/9; }
+    .asset-label {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: rgba(10,10,10,.7);
+      color: #fff;
+      padding: 2px 5px;
+      border-radius: 2px;
+      z-index: 1;
+    }
+    .skeleton-fill {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--bg-elev) 25%, rgba(220,220,215,.8) 50%, var(--bg-elev) 75%);
+      background-size: 200% 100%;
+      animation: skeletonSlide 1.8s ease-in-out infinite;
+    }
+    @keyframes skeletonSlide {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .create-stats {
+      font-family: var(--mono);
+      font-size: 12px;
       color: var(--text-dim);
+      letter-spacing: .04em;
+      line-height: 1.7;
+    }
+    .create-stats .stat-highlight {
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    /* ── ADVISE DEMO ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: .875rem;
+    }
+    .kpi-card {
+      padding: .875rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .kpi-card-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      margin-bottom: .4rem;
+    }
+    .kpi-card-val {
+      font-family: var(--font-main);
+      font-size: 1.75rem;
+      font-weight: 500;
+      letter-spacing: -.03em;
+      color: var(--text);
+      line-height: 1;
+    }
+    .kpi-card-delta {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: .375rem;
+    }
+    .delta-pos { color: #00A350; }
+    .delta-neg { color: var(--danger); }
+    .chart-wrap {
+      border: 1px solid var(--border);
+      background: var(--bg);
+      padding: .875rem;
+      margin-bottom: .875rem;
+    }
+    .chart-svg { width: 100%; height: 72px; overflow: visible; }
+    .chart-line {
+      fill: none;
+      stroke: url(#chartGrad);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── SIGNAL CARDS ── */
+    .signal-cards {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .signal-card {
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .5s var(--ease), transform .5s var(--ease);
+    }
+    .signal-card.vis { opacity: 1; transform: translateY(0); }
+    .signal-card:last-child { border-bottom: 1px solid var(--border); }
+    .sc-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      margin-bottom: .4rem;
+      display: block;
+    }
+    .sc-signal {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: .5rem;
+    }
+    .sc-arrow {
+      display: block;
+      font-family: var(--mono);
+      font-size: 18px;
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: .625rem 0;
+    }
+    .sc-action {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: .4rem;
+    }
+    .sc-impact {
+      font-family: var(--mono);
+      font-size: 11px;
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    /* ── CHAPTER SEPARATOR ── */
+    .chapter-sep {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 var(--pad-x);
+      height: 40px;
+      background: var(--bg-elev);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .chapter-sep::before,
+    .chapter-sep::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .chapter-sep-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      color: var(--text-mute);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* Bold keywords styling */
     strong {
       font-weight: 600;
       color: var(--text);
-    }
-
-    .agent-benefits {
-      list-style: none;
-      margin-bottom: 2rem;
-    }
-    .agent-benefit {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      padding: .875rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .agent-benefit:last-child {
-      border: none;
-    }
-    .ab-dot {
-      flex-shrink: 0;
-      font-size: 11px;
-      font-weight: 600;
-      margin-top: .15em;
-      color: var(--text);
-    }
-    .ab-text {
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 1.65;
-      color: var(--text-dim);
-    }
-
-    .agent-kpi {
-      display: inline-block;
-      border-radius: 4px;
-      padding: 1.125rem 1.5rem;
-      margin-bottom: 1.75rem;
-      border: 1px solid var(--border);
-      background: var(--bg-elev);
-    }
-    .kpi-n {
-      font-family: var(--font-main);
-      font-size: 2.25rem;
-      font-weight: 700;
-      letter-spacing: -.04em;
-      display: block;
-      line-height: 1;
-      margin-bottom: .25rem;
-      color: var(--text);
-    }
-    .kpi-d {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--text-mute);
-    }
-
-    .agent-link {
-      display: inline-flex;
-      align-items: center;
-      gap: .625rem;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      padding: .4rem 0;
-      color: var(--text);
-      border: none;
-      border-bottom: 1px solid var(--text);
-      background: transparent;
-      transition: gap .2s, transform .15s;
-    }
-    .agent-link:hover {
-      gap: 1rem;
-      border-bottom: 1px solid transparent;
-      border-image: var(--gemini-gradient) 1;
-      transform: translateY(-1px);
     }
 
     /* ── ACCORDION ── */
@@ -1341,6 +1520,8 @@
       .hero-sub { font-size: 18px; }
       .agent-grid { grid-template-columns: 1fr; gap: 3rem; }
       .agent-grid.rev { direction: ltr; }
+      .chapter-sec { grid-template-columns: 1fr; }
+      .chapter-left { position: static; }
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
       .ps-grid { grid-template-columns: 1fr; }
       .cs-nums { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1360,6 +1541,8 @@
       .btn-ghost { margin-left: 0; margin-top: 1rem; }
       .agent-sec { padding: 5rem 1.5rem; }
       #impact, #problem { padding: 5rem 1.5rem; }
+      .ch-title { font-size: clamp(56px,14vw,72px); }
+      .ch-sub { font-size: 18px; }
     }
   </style>
 </head>
@@ -1466,266 +1649,252 @@
   </div>
 </section>
 
-<!-- AGENT 01: HIKE LISTEN — white -->
-<section id="listen" class="agent-sec agent-white" data-gnum="01" aria-labelledby="listen-h">
-  <div class="agent-grid">
-    <div class="agent-copy">
-      <p class="agent-num reveal">// agent · 01</p>
-      <h2 class="agent-name reveal d1" id="listen-h">Hike Listen</h2>
-      <p class="agent-tag reveal d2">De 72hs de reacción a <mark class="pencil">15 minutos</mark>. Dejá de hacer scroll manual y empezá a actuar sobre lo que importa.</p>
-      <!-- MINI KPI STRIP -->
-      <div class="agent-kpis reveal d2">
-        <div class="akpi-item">
-          <span class="akpi-num">&lt;15 min</span>
-          <span class="akpi-lbl">Crisis Detection Lead Time</span>
-        </div>
-        <div class="akpi-item">
-          <span class="akpi-num">-75%</span>
-          <span class="akpi-lbl">Manual Audit Reduction</span>
-        </div>
-        <div class="akpi-item">
-          <span class="akpi-num">100+</span>
-          <span class="akpi-lbl">fuentes monitoreadas</span>
-        </div>
+<!-- AGENT 01: HIKE LISTEN -->
+<section id="listen" class="chapter-sec" aria-labelledby="listen-h">
+  <div class="chapter-left reveal">
+    <p class="ch-eyebrow">// agent · 01</p>
+    <h2 class="ch-title" id="listen-h">Hike Listen</h2>
+    <p class="ch-sub">De 72hs de reacción a <span class="grad-kw">15 minutos</span>. Dejá de hacer scroll manual y empezá a actuar sobre lo que importa.</p>
+    <div class="ch-metrics">
+      <div class="ch-metric-item">
+        <span class="ch-metric-val">&lt; 15 min</span>
+        <span class="ch-metric-lbl">crisis detection</span>
       </div>
-      <div class="acc-group reveal d3">
-        <div class="acc-item open">
-          <button class="acc-head" aria-expanded="true">
-            <span class="acc-num">01</span>
-            <span class="acc-title">Monitoreo + alertas en tiempo real</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>Cualquier anomalía o indicio de crisis dispara una notificación inmediata. El equipo actúa en <strong>&lt;15 minutos</strong>, no en 72hs. Sin scrollear comentario a comentario.</p>
-          </div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" aria-expanded="false">
-            <span class="acc-num">02</span>
-            <span class="acc-title">Sentimiento por cuenta, posteo y hashtag</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>Análisis granular con <strong>respuestas sugeridas personalizadas</strong> para el inbox. Sabés qué pasa y cómo responder — sin leer comentario a comentario.</p>
-          </div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" aria-expanded="false">
-            <span class="acc-num">03</span>
-            <span class="acc-title">Benchmark competitivo automático</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>Net Sentiment Gap vs. competidores en tiempo real. Detectá dónde les duele y convertilo en oportunidad de <strong>Market Share</strong> antes de que ellos actúen.</p>
-          </div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" aria-expanded="false">
-            <span class="acc-num">04</span>
-            <span class="acc-title">Señal → acción: insights que disparan decisiones</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>El 60% de negativos mencionan fallas en login → fix técnico antes de la próxima campaña. Competidor X con quejas de envío → lanzar pauta "Envíos en 24hs" ahora. 5 usuarios con +1K seguidores comentaron positivo → activar programa de <strong>micro-influencers</strong>.</p>
-          </div>
-        </div>
+      <div class="ch-metric-item">
+        <span class="ch-metric-val">-75%</span>
+        <span class="ch-metric-lbl">manual audit</span>
       </div>
-      <a class="agent-link reveal d4" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">ver demo →</a>
+      <div class="ch-metric-item">
+        <span class="ch-metric-val">100+</span>
+        <span class="ch-metric-lbl">fuentes</span>
+      </div>
     </div>
-    <div class="reveal d1">
-      <div class="terminal">
-        <div class="term-bar">
-          <div class="term-dots"><span class="td r"></span><span class="td y"></span><span class="td g"></span></div>
-          <span class="term-title">hike_listen — brand monitor</span>
+    <a class="ch-cta" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">ver demo <span class="ch-cta-arrow">→</span></a>
+  </div>
+  <div class="chapter-right">
+    <div class="demo-window reveal d2">
+      <div class="win-bar">
+        <div class="win-dots">
+          <span class="win-dot wd-r"></span>
+          <span class="win-dot wd-y"></span>
+          <span class="win-dot wd-g"></span>
         </div>
-        <div class="term-body" id="tb-listen" data-lines='[
-          {"c":"cmd","t":"hike listen --brand=\"GALICIA\" --live"},
-          {"c":"ok","t":"Scanning 100+ sources · Sentiment: 74% POS"},
-          {"c":"warn","t":"Spike: Competitor X · delivery complaints +210%"},
-          {"c":"arrow","t":"Net Sentiment Gap: +18pts vs competitor X"},
-          {"c":"arrow","t":"Opportunity: conquest window · act now"},
-          {"c":"ok","t":"Suggested reply ready · 5 evangelizers detected"},
-          {"c":"cmd","t":"","cursor":true}
-        ]'></div>
+        <span class="win-label">hike_listen — brand monitor</span>
+      </div>
+      <div class="demo-body">
+        <div class="feed-list" id="feed-list"></div>
+        <div class="alert-box">
+          <span style="font-size:16px;flex-shrink:0">⚠</span>
+          <p class="alert-box-text"><strong>Crisis detected</strong> — 60% de menciones reportan fallas en login. Sugerencia: pausar campaña X y activar respuesta de crisis.</p>
+        </div>
+      </div>
+    </div>
+    <div class="signal-cards">
+      <div class="signal-card">
+        <span class="sc-label">señal</span>
+        <p class="sc-signal">60% de comentarios negativos mencionan fallas en el login.</p>
+        <span class="sc-arrow">→</span>
+        <span class="sc-label">acción</span>
+        <p class="sc-action">Fix técnico antes de la próxima campaña + activar respuesta de crisis en inbox.</p>
+        <span class="sc-impact">Reputación protegida · ROAS no impactado</span>
+      </div>
+      <div class="signal-card">
+        <span class="sc-label">señal</span>
+        <p class="sc-signal">Competidor X con pico de quejas en envíos: +210% en 2hs.</p>
+        <span class="sc-arrow">→</span>
+        <span class="sc-label">acción</span>
+        <p class="sc-action">Lanzar pauta "Envíos en 24hs" para capturar demanda insatisfecha.</p>
+        <span class="sc-impact">Ventana de conquista · +18pts Net Sentiment Gap</span>
+      </div>
+      <div class="signal-card">
+        <span class="sc-label">señal</span>
+        <p class="sc-signal">5 usuarios con +1K seguidores comentaron positivo en las últimas 4hs.</p>
+        <span class="sc-arrow">→</span>
+        <span class="sc-label">acción</span>
+        <p class="sc-action">Activar programa de micro-influencers con esos perfiles.</p>
+        <span class="sc-impact">Amplificación orgánica · costo $0</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AGENT 02: HIKE CREATE — cream + video -->
-<section id="create" class="agent-sec agent-cream agent-video" data-gnum="02" aria-labelledby="create-h">
-  <div class="vid-bg">
-    <video id="create-video" autoplay muted loop playsinline preload="auto">
-      <source src="assets/bg-create.mp4" type="video/mp4"/>
-    </video>
-  </div>
-  <div class="vid-overlay"></div>
-  <div class="vid-scan"></div>
-  <div class="agent-grid rev">
-    <div class="agent-copy">
-      <p class="agent-num reveal">// agent · 02</p>
-      <h2 class="agent-name reveal d1" id="create-h">Hike Create</h2>
-      <p class="agent-tag reveal d2">El mismo equipo, <mark class="pencil">4 veces más contenido</mark>. El ahorro en fees de producción se redistribuye directo a inversión en medios.</p>
-      <!-- MINI KPI STRIP -->
-      <div class="agent-kpis reveal d2">
-        <div class="akpi-item">
-          <span class="akpi-num">~95%</span>
-          <span class="akpi-lbl">ahorro de tiempo</span>
-        </div>
-        <div class="akpi-item">
-          <span class="akpi-num">15–30 min</span>
-          <span class="akpi-lbl">vs. 3–5 días</span>
-        </div>
-        <div class="akpi-item">
-          <span class="akpi-num">USD 4K</span>
-          <span class="akpi-lbl">ahorro por campaña</span>
-        </div>
+<div class="chapter-sep" aria-hidden="true">
+  <span class="chapter-sep-label">next → 02 hike create</span>
+</div>
+
+<!-- AGENT 02: HIKE CREATE -->
+<section id="create" class="chapter-sec alt" aria-labelledby="create-h">
+  <div class="chapter-left reveal">
+    <p class="ch-eyebrow">// agent · 02</p>
+    <h2 class="ch-title" id="create-h">Hike Create</h2>
+    <p class="ch-sub">El mismo equipo, <span class="grad-kw">4 veces más contenido</span>. El ahorro se redistribuye directo a medios.</p>
+    <div class="ch-metrics">
+      <div class="ch-metric-item">
+        <span class="ch-metric-val">~95%</span>
+        <span class="ch-metric-lbl">time saved</span>
       </div>
-      <div class="acc-group reveal d3">
-        <div class="acc-item open">
-          <button class="acc-head" aria-expanded="true">
-            <span class="acc-num">01</span>
-            <span class="acc-title">Creative Director AI (Gemini)</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>Definís el concepto en lenguaje natural. La IA interpreta estilo, iluminación y dirección de arte y genera contenido cinematográfico desde cero — en <strong>15 a 30 minutos</strong>, no en 3 a 5 días.</p>
-          </div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" aria-expanded="false">
-            <span class="acc-num">02</span>
-            <span class="acc-title">Smart Canvas (automatización n8n)</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>Procesa la pieza y entrega automáticamente <strong>todas las variantes</strong> — Stories 9:16, Feed 1:1, YouTube 16:9 — sin intervención manual. 1 operador de IA reemplaza un equipo de diseñadores.</p>
-          </div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" aria-expanded="false">
-            <span class="acc-num">03</span>
-            <span class="acc-title">Escalabilidad infinita</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>Volumen ilimitado on-demand. El <strong>ahorro en fees</strong> de producción se redistribuye directo a inversión en medios — más ROAS, mismo budget.</p>
-          </div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" aria-expanded="false">
-            <span class="acc-num">04</span>
-            <span class="acc-title">Caso real: 50 piezas en menos de 2 horas</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>Retail Hot Sale: <strong>50 assets en &lt;2hs</strong> — USD 4.000 ahorrados — +20% engagement vs. producción tradicional. Sentimiento cambió → nueva línea creativa en minutos, no en semanas.</p>
-          </div>
-        </div>
+      <div class="ch-metric-item">
+        <span class="ch-metric-val">15-30 min</span>
+        <span class="ch-metric-lbl">vs 3-5 días</span>
       </div>
-      <a class="agent-link reveal d4" href="https://readapt.web.app/" target="_blank" rel="noopener">ver demo →</a>
+      <div class="ch-metric-item">
+        <span class="ch-metric-val">USD 4K</span>
+        <span class="ch-metric-lbl">por campaña</span>
+      </div>
     </div>
-    <div class="reveal d1">
-      <div class="terminal">
-        <div class="term-bar">
-          <div class="term-dots"><span class="td r"></span><span class="td y"></span><span class="td g"></span></div>
-          <span class="term-title">hike_create — content engine</span>
+    <a class="ch-cta" href="https://readapt.web.app/" target="_blank" rel="noopener">ver demo <span class="ch-cta-arrow">→</span></a>
+  </div>
+  <div class="chapter-right">
+    <div class="demo-window reveal d2">
+      <div class="win-bar">
+        <div class="win-dots">
+          <span class="win-dot wd-r"></span>
+          <span class="win-dot wd-y"></span>
+          <span class="win-dot wd-g"></span>
         </div>
-        <div class="term-body" id="tb-create" data-lines='[
-          {"c":"cmd","t":"hike create --brief=\"hot_sale\" --formats=all"},
-          {"c":"ok","t":"Creative Director AI · Gemini · brief loaded"},
-          {"c":"arrow","t":"Stories 9:16 → 50 variants · 1h 12min"},
-          {"c":"arrow","t":"Feed 1:1 → 30 variants · Feed 16:9 → 20v"},
-          {"c":"ok","t":"100 assets · time: 1h 47min · saved: USD 4.200"},
-          {"c":"ok","t":"Engagement +20% vs. traditional production"},
-          {"c":"cmd","t":"","cursor":true}
-        ]'></div>
+        <span class="win-label">hike_create — content engine</span>
+      </div>
+      <div class="demo-body">
+        <div class="asset-grid">
+          <div class="asset-thumb ratio-916"><span class="asset-label">Stories</span><div class="skeleton-fill"></div></div>
+          <div class="asset-thumb ratio-11"><span class="asset-label">Feed</span><div class="skeleton-fill"></div></div>
+          <div class="asset-thumb ratio-169"><span class="asset-label">YouTube</span><div class="skeleton-fill"></div></div>
+          <div class="asset-thumb ratio-916"><span class="asset-label">Stories</span><div class="skeleton-fill"></div></div>
+          <div class="asset-thumb ratio-11"><span class="asset-label">Feed</span><div class="skeleton-fill"></div></div>
+          <div class="asset-thumb ratio-169"><span class="asset-label">YouTube</span><div class="skeleton-fill"></div></div>
+        </div>
+        <p class="create-stats">50 assets generados · 1h 47min · <span class="stat-highlight">USD 4.000 ahorrados</span></p>
+      </div>
+    </div>
+    <div class="signal-cards">
+      <div class="signal-card">
+        <span class="sc-label">señal</span>
+        <p class="sc-signal">Hot Sale en 3 días — 50 assets en todos los formatos urgente.</p>
+        <span class="sc-arrow">→</span>
+        <span class="sc-label">acción</span>
+        <p class="sc-action">Creative Director AI genera Stories, Feed y YouTube en menos de 2hs.</p>
+        <span class="sc-impact">50 assets · USD 4.000 ahorrados · +20% engagement</span>
+      </div>
+      <div class="signal-card">
+        <span class="sc-label">señal</span>
+        <p class="sc-signal">El sentimiento de la campaña vigente cayó 15pts en 48hs.</p>
+        <span class="sc-arrow">→</span>
+        <span class="sc-label">acción</span>
+        <p class="sc-action">Nueva línea creativa generada en 15 minutos basada en insights de Hike Listen.</p>
+        <span class="sc-impact">Respuesta en minutos · no en semanas</span>
+      </div>
+      <div class="signal-card">
+        <span class="sc-label">señal</span>
+        <p class="sc-signal">Budget de producción consume el 80% antes de llegar a medios.</p>
+        <span class="sc-arrow">→</span>
+        <span class="sc-label">acción</span>
+        <p class="sc-action">1 operador de IA reemplaza al equipo de diseñadores y editores externos.</p>
+        <span class="sc-impact">~95% ahorro · fees van directo a inversión en medios</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AGENT 03: HIKE ADVISE — dark -->
-<section id="advise" class="agent-sec agent-dark" data-gnum="03" aria-labelledby="advise-h">
-  <div class="agent-grid" style="position:relative;z-index:1">
-    <div class="agent-copy">
-      <p class="agent-num reveal">// agent · 03</p>
-      <h2 class="agent-name reveal d1" id="advise-h">Hike Advise</h2>
-      <p class="agent-tag reveal d2">De días de espera a <mark class="pencil">30 minutos</mark>. Tu experto en BI disponible 24/7 — sin necesidad de un equipo técnico.</p>
-      <!-- MINI KPI STRIP -->
-      <div class="agent-kpis reveal d2">
-        <div class="akpi-item">
-          <span class="akpi-num">30 min</span>
-          <span class="akpi-lbl">Time-to-Insight</span>
-        </div>
-        <div class="akpi-item">
-          <span class="akpi-num">-75%</span>
-          <span class="akpi-lbl">Reporting Man-Hours</span>
-        </div>
-        <div class="akpi-item">
-          <span class="akpi-num">Tiempo real</span>
-          <span class="akpi-lbl">Decision Velocity</span>
-        </div>
+<div class="chapter-sep" aria-hidden="true">
+  <span class="chapter-sep-label">next → 03 hike advise</span>
+</div>
+
+<!-- AGENT 03: HIKE ADVISE -->
+<section id="advise" class="chapter-sec" aria-labelledby="advise-h">
+  <div class="chapter-left reveal">
+    <p class="ch-eyebrow">// agent · 03</p>
+    <h2 class="ch-title" id="advise-h">Hike Advise</h2>
+    <p class="ch-sub">De días de espera a <span class="grad-kw">30 minutos</span>. Tu experto en BI disponible 24/7.</p>
+    <div class="ch-metrics">
+      <div class="ch-metric-item">
+        <span class="ch-metric-val">30 min</span>
+        <span class="ch-metric-lbl">time-to-insight</span>
       </div>
-      <div class="acc-group reveal d3">
-        <div class="acc-item open">
-          <button class="acc-head" aria-expanded="true">
-            <span class="acc-num">01</span>
-            <span class="acc-title">Dashboards en lenguaje natural</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>Conectás tus fuentes (GA4, GTM, Google Ads), prompteás lo que querés ver y el reporte está listo en <strong>&lt;30 min</strong>. Sin área técnica, sin esperas. El equipo deja de picar datos y se enfoca en estrategia.</p>
-          </div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" aria-expanded="false">
-            <span class="acc-num">02</span>
-            <span class="acc-title">Agente de Tracking con acceso directo a GTM</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>Detecta fallas en tiempo real y actúa. 10 minutos de error en Hot Sale cuestan miles — este agente los elimina. Checkout roto, tag faltante, evento caído → <strong>acción inmediata</strong>.</p>
-          </div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" aria-expanded="false">
-            <span class="acc-num">03</span>
-            <span class="acc-title">Alarmas automatizadas ante desviaciones</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>CPA +40% → pausa automática + fix GTM. Clúster A convierte 20% mejor → redistribuir budget. Presupuesto se agota el día 22 → ajustar puja <strong>-5%</strong> y sostener hasta fin de mes.</p>
-          </div>
-        </div>
-        <div class="acc-item">
-          <button class="acc-head" aria-expanded="false">
-            <span class="acc-num">04</span>
-            <span class="acc-title">Decision Velocity: de días a minutos</span>
-            <span class="acc-icon">+</span>
-          </button>
-          <div class="acc-body">
-            <p>El dato llega cuando la decisión <strong>todavía tiene impacto</strong>. Correlación YouTube → +10% búsquedas de marca en 48hs. <strong>ROAS +35%</strong> proyectado al redistribuir budget a tiempo.</p>
-          </div>
-        </div>
+      <div class="ch-metric-item">
+        <span class="ch-metric-val">-75%</span>
+        <span class="ch-metric-lbl">reporting hours</span>
       </div>
-      <a class="agent-link reveal d4" href="https://dashboards.hikethecloud.com/calm_dashboard_054a6823-6a14-4c65-8764-4c69b9ccc24f.html?v=1779225096" target="_blank" rel="noopener">ver dashboard real →</a>
+      <div class="ch-metric-item">
+        <span class="ch-metric-val">Real-time</span>
+        <span class="ch-metric-lbl">decisions</span>
+      </div>
     </div>
-    <div class="reveal d1">
-      <div class="terminal">
-        <div class="term-bar">
-          <div class="term-dots"><span class="td r"></span><span class="td y"></span><span class="td g"></span></div>
-          <span class="term-title">hike_advise — analytics engine</span>
+    <a class="ch-cta" href="https://dashboards.hikethecloud.com/calm_dashboard_054a6823-6a14-4c65-8764-4c69b9ccc24f.html?v=1779225096" target="_blank" rel="noopener">ver dashboard real <span class="ch-cta-arrow">→</span></a>
+  </div>
+  <div class="chapter-right">
+    <div class="demo-window reveal d2">
+      <div class="win-bar">
+        <div class="win-dots">
+          <span class="win-dot wd-r"></span>
+          <span class="win-dot wd-y"></span>
+          <span class="win-dot wd-g"></span>
         </div>
-        <div class="term-body" id="tb-advise" data-lines='[
-          {"c":"cmd","t":"hike advise --connect=\"GA4,GTM,Google Ads\""},
-          {"c":"ok","t":"3 sources connected · dashboard ready in 28min"},
-          {"c":"warn","t":"CPA anomaly: +40% · checkout event missing GTM"},
-          {"c":"arrow","t":"Cluster A ROAS: 4.2x · Cluster B: 2.8x"},
-          {"c":"warn","t":"Budget depleted by Day 22 at current pace"},
-          {"c":"ok","t":"Bid adj. −5% · ROAS proj. +35% · month secured"},
-          {"c":"cmd","t":"","cursor":true}
-        ]'></div>
+        <span class="win-label">hike_advise — analytics engine</span>
+      </div>
+      <div class="demo-body">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <p class="kpi-card-label">ROAS</p>
+            <p class="kpi-card-val">3.4×<span class="kpi-card-delta delta-pos">↑12%</span></p>
+          </div>
+          <div class="kpi-card">
+            <p class="kpi-card-label">CPA</p>
+            <p class="kpi-card-val">$24<span class="kpi-card-delta delta-neg">↓8%</span></p>
+          </div>
+          <div class="kpi-card">
+            <p class="kpi-card-label">CTR</p>
+            <p class="kpi-card-val">2.8%<span class="kpi-card-delta delta-pos">↑0.3pp</span></p>
+          </div>
+          <div class="kpi-card">
+            <p class="kpi-card-label">Spend</p>
+            <p class="kpi-card-val">$14K</p>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <svg class="chart-svg" viewBox="0 0 400 72" preserveAspectRatio="none" id="advise-chart">
+            <defs>
+              <linearGradient id="chartGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#1A73E8"/>
+                <stop offset="35%" stop-color="#7C4DFF"/>
+                <stop offset="70%" stop-color="#E5484D"/>
+                <stop offset="100%" stop-color="#F2A100"/>
+              </linearGradient>
+            </defs>
+            <polyline class="chart-line" id="chart-polyline"
+              points="0,60 40,52 80,56 120,38 160,44 200,28 240,32 280,18 320,24 360,12 400,8"
+            />
+          </svg>
+        </div>
+        <div class="alert-box">
+          <span style="font-size:16px;flex-shrink:0">⚠</span>
+          <p class="alert-box-text"><strong>Anomalía detectada:</strong> CPA +40% en últimas 2hs. Acción sugerida: pausar grupo X. Ahorro estimado: <strong>USD 800</strong>.</p>
+        </div>
+      </div>
+    </div>
+    <div class="signal-cards">
+      <div class="signal-card">
+        <span class="sc-label">señal</span>
+        <p class="sc-signal">CPA sube 40% · tag de checkout missing en GTM.</p>
+        <span class="sc-arrow">→</span>
+        <span class="sc-label">acción</span>
+        <p class="sc-action">Pausa automática + fix GTM en tiempo real. Sin pérdida de conversiones.</p>
+        <span class="sc-impact">USD 800 ahorrados · 10 min de error = miles en Hot Sale</span>
+      </div>
+      <div class="signal-card">
+        <span class="sc-label">señal</span>
+        <p class="sc-signal">Cluster A convierte 20% mejor con el mismo presupuesto que Cluster B.</p>
+        <span class="sc-arrow">→</span>
+        <span class="sc-label">acción</span>
+        <p class="sc-action">Redistribuir budget hacia Cluster A. Proyección ROAS +35% a fin de mes.</p>
+        <span class="sc-impact">ROAS +35% proyectado · misma inversión</span>
+      </div>
+      <div class="signal-card">
+        <span class="sc-label">señal</span>
+        <p class="sc-signal">Budget se agota el día 22 al ritmo actual de inversión.</p>
+        <span class="sc-arrow">→</span>
+        <span class="sc-label">acción</span>
+        <p class="sc-action">Ajustar puja -5% y sostener hasta fin de mes con performance estable.</p>
+        <span class="sc-impact">Cobertura garantizada · sin cortes de pauta</span>
       </div>
     </div>
   </div>
@@ -1888,92 +2057,62 @@ document.querySelectorAll('.impact-cell').forEach(cell => {
   cell.addEventListener('mouseenter', () => glitch(num));
 });
 
-/* ── TERMINAL BOOT ── */
-function boot(bodyEl) {
-  if (bodyEl._booted) return; bodyEl._booted = true;
-  const lines = JSON.parse(bodyEl.dataset.lines);
-  bodyEl.innerHTML = '';
-  const section = bodyEl.closest('section');
-  const cls = [...section.classList].find(c => c.startsWith('agent-'));
-
-  lines.forEach((line, idx) => {
-    setTimeout(() => {
-      const div = document.createElement('div');
-      div.className = 'term-line';
-      let pre = '';
-      if (line.c === 'cmd')   pre = `<span class="t-cmd">$ </span>`;
-      if (line.c === 'ok')    pre = `<span class="t-ok">[✓] </span>`;
-      if (line.c === 'arrow') pre = `<span class="t-arrow">[→] </span>`;
-      if (line.c === 'warn')  pre = `<span class="t-warn">[!] </span>`;
-      const cur = line.cursor ? '<span class="term-cursor">_</span>' : '';
-      div.innerHTML = pre + `<span class="t-text">${line.t}</span>` + cur;
-      bodyEl.appendChild(div);
-      requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('show')));
-    }, idx * 310);
-  });
+/* ── FEED ANIMATION (LISTEN) ── */
+const FEED_ITEMS = [
+  { sentiment: 'POSITIVE', cls: 'st-pos', text: 'Me encanta la app, funciona perfectísimo 🙌', time: '2 min ago' },
+  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'No puedo hacer login desde ayer, ya intenté todo 😡', time: '4 min ago' },
+  { sentiment: 'NEUTRAL',  cls: 'st-neu', text: 'Alguien sabe cuándo actualizan la app?', time: '7 min ago' },
+  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'Tercer día con el mismo problema de login', time: '9 min ago' },
+  { sentiment: 'POSITIVE', cls: 'st-pos', text: 'El servicio al cliente respondió en minutos, excelente!', time: '12 min ago' },
+];
+function runFeedAnimation(sec) {
+  if (sec._fed) return; sec._fed = true;
+  const list = document.getElementById('feed-list');
+  if (!list) return;
+  list.innerHTML = '';
+  let i = 0;
+  const tick = () => {
+    if (i >= FEED_ITEMS.length) return;
+    const d = FEED_ITEMS[i];
+    const el = document.createElement('div');
+    el.className = 'feed-item';
+    el.innerHTML = `<div class="feed-meta"><span class="sentiment-tag ${d.cls}">${d.sentiment}</span><span class="feed-time">${d.time}</span></div><p class="feed-text">${d.text}</p>`;
+    list.appendChild(el);
+    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('show')));
+    i++;
+    if (i < FEED_ITEMS.length) setTimeout(tick, 850);
+  };
+  tick();
 }
-const to = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { boot(e.target); to.unobserve(e.target); } }), { threshold: 0.2 });
-['tb-listen','tb-create','tb-advise'].forEach(id => { const el = document.getElementById(id); if (el) to.observe(el); });
 
-/* ── VIDEO LAZY LOAD ── */
-(function() {
-  const sec = document.getElementById('create');
-  const vid = document.getElementById('create-video');
-  if (!sec || !vid) return;
-  let loaded = false;
-  const vo = new IntersectionObserver(es => {
-    es.forEach(e => {
-      if (e.isIntersecting && !loaded) {
-        loaded = true;
-        vid.load();
-        vid.addEventListener('canplay', () => { vid.classList.add('loaded'); vid.play().catch(()=>{}); }, { once: true });
-        vo.unobserve(sec);
-      }
-    });
-  }, { threshold: 0.05 });
-  vo.observe(sec);
-})();
+/* ── CHART ANIMATION (ADVISE) ── */
+function runChartAnimation(sec) {
+  if (sec._charted) return; sec._charted = true;
+  const pl = document.getElementById('chart-polyline');
+  if (!pl) return;
+  const len = 620;
+  pl.style.strokeDasharray = len;
+  pl.style.strokeDashoffset = len;
+  pl.style.transition = 'stroke-dashoffset 2s cubic-bezier(.4,0,.2,1)';
+  requestAnimationFrame(() => requestAnimationFrame(() => { pl.style.strokeDashoffset = '0'; }));
+}
 
-/* ── PENCIL RINGS ── */
-(function makePencilRings() {
-  document.querySelectorAll('.pencil').forEach(el => {
-    const isDark = !!el.closest('.agent-dark');
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.classList.add('pencil-ring');
-    svg.setAttribute('viewBox', '0 0 100 36');
-    svg.setAttribute('preserveAspectRatio', 'none');
-    svg.setAttribute('aria-hidden', 'true');
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    // slightly irregular hand-drawn ellipse
-    path.setAttribute('d', 'M9,18 C14,5 86,3 93,18 C97,28 83,33 50,34 C16,35 3,27 9,18 Z');
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', isDark ? 'var(--text)' : 'var(--text)');
-    path.setAttribute('stroke-width', '2.2');
-    path.setAttribute('stroke-linecap', 'round');
-    path.setAttribute('stroke-linejoin', 'round');
-    path.style.cssText = 'stroke-dasharray:290;stroke-dashoffset:290;transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1) .4s';
-    svg.appendChild(path);
-    el.style.position = 'relative';
-    el.appendChild(svg);
-  });
-  /* trigger on IntersectionObserver (re-use the existing reveal system) */
-  const po = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.querySelectorAll('.pencil-ring path').forEach(p => {
-        p.style.strokeDashoffset = '0';
-      });
-      po.unobserve(e.target);
-    });
-  }, { threshold: 0.25 });
-  document.querySelectorAll('.reveal').forEach(el => {
-    if (el.querySelector('.pencil')) po.observe(el);
-  });
-  // Also trigger for elements already visible
-  document.querySelectorAll('.reveal.vis .pencil-ring path').forEach(p => {
-    p.style.strokeDashoffset = '0';
-  });
-})();
+/* ── DEMO INTERSECTION TRIGGERS ── */
+const demoObs = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  if (e.target.id === 'listen') runFeedAnimation(e.target);
+  if (e.target.id === 'advise') runChartAnimation(e.target);
+  demoObs.unobserve(e.target);
+}), { threshold: 0.3 });
+['listen','advise'].forEach(id => { const el = document.getElementById(id); if (el) demoObs.observe(el); });
+
+/* ── SIGNAL CARDS STAGGER ── */
+const sigObs = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.querySelectorAll('.signal-card').forEach((c,i) => setTimeout(() => c.classList.add('vis'), i * 120));
+  sigObs.unobserve(e.target);
+}), { threshold: 0.1 });
+document.querySelectorAll('.chapter-right').forEach(el => sigObs.observe(el));
 
 /* ── SMOOTH ANCHORS ── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
