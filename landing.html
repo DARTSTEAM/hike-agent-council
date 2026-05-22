@@ -354,11 +354,15 @@
     .agent-dark  .agent-sub { color:rgba(200,184,224,.8); }
 
     /* ── PENCIL CIRCLE mark ── */
-    .pencil { position:relative; display:inline; white-space:nowrap; }
+    .pencil {
+      position:relative;
+      display:inline-block;
+      vertical-align:baseline;
+    }
     .pencil-ring {
       position:absolute; overflow:visible; pointer-events:none;
-      top:-8px; left:-10px;
-      width:calc(100% + 20px); height:calc(100% + 16px);
+      top:-16px; left:-20px;
+      width:calc(100% + 40px); height:calc(100% + 32px);
     }
 
     /* ── TERMINAL ── */
@@ -774,7 +778,7 @@
       <div class="insights reveal d3">
         <div class="ins-card">
           <span class="ins-signal">Retail: 50 piezas de video personalizadas urgentes — Hot Sale en 24hs</span>
-          <span class="ins-action"><strong>50 assets en &lt;2hs</strong> — <mark class="pencil">USD 4.000 ahorrados</mark> — +20% engagement vs. producción tradicional</span>
+          <span class="ins-action"><strong>50 assets en &lt;2hs</strong> — <strong>USD 4.000 ahorrados</strong> — +20% engagement vs. producción tradicional</span>
         </div>
         <div class="ins-card">
           <span class="ins-signal">Sentimiento de audiencia cambió — el mensaje actual no resuena</span>
@@ -816,7 +820,7 @@
     <div class="agent-copy">
       <p class="agent-num reveal">// agent · 03</p>
       <h2 class="agent-name reveal d1" id="advise-h">Hike Advise</h2>
-      <p class="agent-tag reveal d2">De días de espera a <mark class="pencil">30 minutos</mark>. Tu experto en BI disponible 24/7 — sin necesidad de un equipo técnico. </p>
+      <p class="agent-tag reveal d2">De días de espera a <mark class="pencil">30 minutos</mark>. Tu experto en BI disponible 24/7 — sin necesidad de un equipo técnico.</p>
       <!-- MINI KPI STRIP -->
       <div class="agent-kpis reveal d2">
         <div class="akpi-item">
@@ -847,7 +851,7 @@
         </div>
         <div class="ins-card">
           <span class="ins-signal">Clúster A convierte 20% mejor con 30% menos inversión que el clúster B</span>
-          <span class="ins-action">Redistribuir budget ahora — <mark class="pencil">ROAS +35%</mark> proyectado al cierre de mes</span>
+          <span class="ins-action">Redistribuir budget ahora — <strong>ROAS +35%</strong> proyectado al cierre de mes</span>
         </div>
         <div class="ins-card">
           <span class="ins-signal">Al ritmo actual, el presupuesto se agota el día 22</span>
