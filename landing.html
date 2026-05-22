@@ -411,94 +411,78 @@
       text-transform: uppercase;
     }
 
-    /* ── IMPACT ── */
+    /* ── IMPACT METRICS ── */
     #impact {
       background: var(--bg);
-      padding: var(--space-block) var(--pad-x);
+      padding: var(--space-section) var(--pad-x);
       border-bottom: 1px solid var(--border);
     }
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .s-label {
-      display: inline-flex;
-      align-items: center;
-      gap: .625rem;
+    .impact-eyebrow {
+      font-family: var(--mono);
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .25em;
+      font-weight: 400;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-dim);
-      margin-bottom: 1.75rem;
-    }
-    .s-label::before {
-      content: '';
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--text-mute);
-      flex-shrink: 0;
+      text-align: center;
+      display: block;
+      margin-bottom: 80px;
     }
     .impact-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
+      grid-template-columns: repeat(4, 1fr);
     }
-    .impact-cell {
-      padding: 3rem 2rem;
+    .impact-col {
+      padding: 48px 32px;
+      border-top: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
+    }
+    .impact-col:not(:last-child) {
       border-right: 1px solid var(--border);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: background .25s;
-      cursor: default;
-      background: var(--bg);
-      height: 180px;
     }
-    .impact-cell:last-child {
-      border-right: none;
+    .impact-col.vis {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .impact-cell:hover {
-      background: var(--bg-elev);
-    }
-    .impact-cell::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gemini-gradient);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .35s var(--ease);
-    }
-    .impact-cell:hover::after {
-      transform: scaleX(1);
-    }
-    .impact-num {
+    .impact-big {
       display: block;
       font-family: var(--font-main);
-      font-size: clamp(2.5rem, 4.5vw, 4rem);
-      font-weight: 300;
-      letter-spacing: -.04em;
-      color: var(--text);
+      font-size: clamp(80px, 9vw, 140px);
+      font-weight: 500;
+      letter-spacing: -0.05em;
       line-height: 1;
-      margin-bottom: .5rem;
-      white-space: nowrap;
-      overflow: hidden;
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       font-variant-numeric: tabular-nums;
     }
-    .impact-lbl {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .2em;
+    .impact-sublabel {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-dim);
+      display: block;
+      margin-top: 24px;
+    }
+    .impact-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-dim);
       line-height: 1.5;
+      max-width: 32ch;
+      margin-top: 12px;
+    }
+    @media (max-width: 900px) {
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .impact-col:nth-child(2) { border-right: none; }
+      .impact-col:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+      .impact-col:nth-child(4) { border-right: none; }
+      .impact-big { font-size: clamp(64px, 14vw, 96px); }
     }
 
     /* ── PROBLEM / SOLUTION ── */
@@ -1955,28 +1939,35 @@
   </div>
 </section>
 
-<!-- IMPACT -->
-<section id="impact">
-  <div class="section-inner">
-    <span class="s-label reveal">// impacto medible en el negocio</span>
-    <div class="impact-grid">
-      <div class="impact-cell reveal">
-        <span class="impact-num" data-target="85" data-prefix="-" data-suffix="%" data-orig="-85%">-0%</span>
-        <span class="impact-lbl">tiempo de producción</span>
-      </div>
-      <div class="impact-cell reveal d1">
-        <span class="impact-num" data-target="15" data-suffix=" min" data-orig="15 min">0 min</span>
-        <span class="impact-lbl">detección de crisis</span>
-      </div>
-      <div class="impact-cell reveal d2">
-        <span class="impact-num" data-target="30" data-suffix=" min" data-orig="30 min">0 min</span>
-        <span class="impact-lbl">reporte de performance</span>
-      </div>
-      <div class="impact-cell reveal d3">
-        <span class="impact-num" data-target="4" data-prefix="×" data-orig="×4">×0</span>
-        <span class="impact-lbl">más contenido, mismo equipo</span>
-      </div>
+<!-- IMPACT METRICS -->
+<section id="impact" aria-label="Impacto medible">
+  <span class="impact-eyebrow">// impacto medible · datos reales en producción</span>
+  <div class="impact-grid">
+
+    <div class="impact-col">
+      <span class="impact-big" data-imp-target="85" data-imp-prefix="-" data-imp-suffix="%" data-imp-orig="-85%">-85%</span>
+      <span class="impact-sublabel">TIEMPO DE PRODUCCIÓN</span>
+      <p class="impact-desc">De 3-5 días hábiles a 15-30 minutos por campaña.</p>
     </div>
+
+    <div class="impact-col">
+      <span class="impact-big" data-imp-target="15" data-imp-prefix="&lt; " data-imp-suffix=" min" data-imp-orig="&lt; 15 min">&lt; 15 min</span>
+      <span class="impact-sublabel">DETECCIÓN DE CRISIS</span>
+      <p class="impact-desc">Desde mención hasta alerta al equipo, escaneando 100+ fuentes.</p>
+    </div>
+
+    <div class="impact-col">
+      <span class="impact-big" data-imp-target="30" data-imp-suffix=" min" data-imp-orig="30 min">30 min</span>
+      <span class="impact-sublabel">REPORTE COMPLETO</span>
+      <p class="impact-desc">De conectar fuentes a dashboard accionable, sin área técnica.</p>
+    </div>
+
+    <div class="impact-col">
+      <span class="impact-big" data-imp-static data-imp-orig="4×">4×</span>
+      <span class="impact-sublabel">CONTENT VELOCITY</span>
+      <p class="impact-desc">Mismo equipo, mismo budget, 4 veces más output publicado.</p>
+    </div>
+
   </div>
 </section>
 
@@ -2502,22 +2493,35 @@ function countUp(el) {
     if (p < 1) requestAnimationFrame(tick); else el.textContent = el.dataset.orig;
   })(t0);
 }
-const co = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { countUp(e.target); co.unobserve(e.target); } }), { threshold: 0.5 });
-document.querySelectorAll('.impact-num').forEach(el => co.observe(el));
 
-/* ── GLITCH on impact hover ── */
-const GC = '0123456789';
-function glitch(el) {
-  const orig = el.dataset.orig; if (!orig || el._g) return; el._g = true;
-  let i = 0, iv = setInterval(() => {
-    el.textContent = orig.split('').map(c => /\d/.test(c) ? GC[Math.floor(Math.random()*GC.length)] : c).join('');
-    if (++i >= 10) { clearInterval(iv); el.textContent = orig; el._g = false; }
-  }, 38);
+/* ── IMPACT METRICS — staggered count-up ── */
+function impCountUp(el) {
+  if (el.hasAttribute('data-imp-static')) return;
+  const target = +el.dataset.impTarget;
+  const prefix = el.dataset.impPrefix || '';
+  const suffix = el.dataset.impSuffix || '';
+  const orig   = el.dataset.impOrig   || '';
+  const dur = 1500, t0 = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - t0) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = prefix + Math.round(ease * target) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = orig;
+  })(t0);
 }
-document.querySelectorAll('.impact-cell').forEach(cell => {
-  const num = cell.querySelector('.impact-num');
-  cell.addEventListener('mouseenter', () => glitch(num));
-});
+const impObs = new IntersectionObserver(es => {
+  if (!es[0].isIntersecting) return;
+  const cols = es[0].target.querySelectorAll('.impact-col');
+  cols.forEach((col, i) => setTimeout(() => {
+    col.classList.add('vis');
+    const big = col.querySelector('.impact-big');
+    if (big) impCountUp(big);
+  }, i * 100));
+  impObs.disconnect();
+}, { threshold: 0.15 });
+const impGrid = document.querySelector('.impact-grid');
+if (impGrid) impObs.observe(impGrid);
 
 /* ── FEED ANIMATION (LISTEN) ── */
 const FEED_ITEMS = [
