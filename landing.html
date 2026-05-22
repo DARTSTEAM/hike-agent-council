@@ -597,7 +597,6 @@
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       column-gap: 24px;
-      min-height: 100vh;
       padding: var(--space-section) var(--pad-x);
       align-items: start;
       background: var(--bg);
@@ -609,6 +608,7 @@
       grid-column: 1 / 6;
       position: sticky;
       top: 120px;
+      align-self: start;
     }
     .chapter-right {
       grid-column: 7 / 13;
@@ -942,15 +942,53 @@
       padding-top: 24px;
     }
 
-    /* ── CREATE TILE STATES ── */
+    /* ── TILE GHOST COMPOSITION ── */
+    .tile-ghost {
+      position: absolute;
+      inset: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: space-between;
+      z-index: 1;
+      opacity: 0.7;
+      transition: opacity .3s;
+    }
+    .tile-done .tile-ghost { opacity: 1; }
+    .tile-queued .tile-ghost { opacity: 0.3; }
+    .tile-ghost-image {
+      flex: 1;
+      background: linear-gradient(135deg, rgba(26,115,232,.12) 0%, rgba(124,77,255,.12) 50%, rgba(229,72,77,.12) 100%);
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--text-dim);
+      opacity: 0.3;
+    }
+    .tile-ghost-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .tile-ghost-line {
+      height: 6px;
+      background: var(--text);
+      border-radius: 0;
+    }
+
+    /* ── SWEEP OVERLAY ── */
     .asset-thumb::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, transparent 0%, rgba(124,77,255,.25) 30%, rgba(229,72,77,.25) 50%, rgba(242,161,0,.25) 70%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, rgba(124,77,255,.3) 30%, rgba(229,72,77,.3) 50%, rgba(242,161,0,.3) 70%, transparent 100%);
       transform: translateX(-100%);
       animation: skeleton-sweep 2.5s cubic-bezier(.4,0,.2,1) infinite;
       z-index: 2;
+      mix-blend-mode: overlay;
     }
     @keyframes skeleton-sweep {
       0%   { transform: translateX(-100%); }
@@ -959,55 +997,54 @@
     .asset-thumb:nth-child(1)::before { animation-delay: 0s; }
     .asset-thumb:nth-child(2)::before { animation-delay: .3s; }
     .asset-thumb:nth-child(3)::before { animation-delay: .6s; }
-    .asset-thumb:nth-child(4)::before { animation-delay: .9s; }
-    .asset-thumb:nth-child(5)::before { animation-delay: 1.2s; }
-    .asset-thumb:nth-child(6)::before { animation-delay: 1.5s; }
-    /* tile 1: done — no sweep, check badge */
+    /* queued tiles: no sweep */
+    .asset-thumb.tile-queued::before { display: none; }
+    /* done tile: sweep paused */
     .asset-thumb.tile-done::before { animation-play-state: paused; }
+    /* hover on active tiles: faster sweep */
+    .asset-thumb:not(.tile-queued):hover::before { animation-duration: 1.2s; }
+
+    /* badges */
     .tile-check {
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: 6px;
+      right: 6px;
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11px;
       color: var(--success);
       background: var(--bg);
       padding: 2px 5px;
       border-radius: 2px;
-      z-index: 3;
+      z-index: 5;
       line-height: 1;
     }
-    /* tiles 2-3: generating — spinner in corner */
     .tile-spinner {
       position: absolute;
-      bottom: 5px;
-      right: 5px;
-      width: 14px;
-      height: 14px;
+      bottom: 6px;
+      right: 6px;
+      width: 13px;
+      height: 13px;
       border: 1.5px solid transparent;
       border-top-color: #7C4DFF;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      z-index: 3;
+      z-index: 5;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    /* tiles 4-6: queued */
-    .asset-thumb.tile-queued {
-      opacity: .5;
-    }
-    .asset-thumb.tile-queued::before { display: none; }
     .tile-queued-label {
       position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .15em;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
       color: var(--text-mute);
       text-transform: uppercase;
-      z-index: 3;
+      background: var(--bg-elev);
+      padding: 4px 10px;
+      z-index: 5;
     }
     /* progress bar */
     .create-progress {
@@ -1861,32 +1898,82 @@
       </div>
       <div class="demo-body">
         <div class="asset-grid">
-          <!-- Tile 1: Done -->
+          <!-- Tile 1: Done (Stories 9:16) -->
           <div class="asset-thumb ratio-916 tile-done">
             <span class="asset-label">Stories</span>
+            <div class="tile-ghost">
+              <div class="tile-ghost-image">▶</div>
+              <div class="tile-ghost-text">
+                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
+                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
+                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+              </div>
+            </div>
             <span class="tile-check">✓</span>
           </div>
-          <!-- Tile 2: Generating -->
+          <!-- Tile 2: Generating (Feed 1:1) -->
           <div class="asset-thumb ratio-11">
             <span class="asset-label">Feed</span>
+            <div class="tile-ghost">
+              <div class="tile-ghost-image">◼</div>
+              <div class="tile-ghost-text">
+                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
+                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
+                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+              </div>
+            </div>
             <div class="tile-spinner"></div>
           </div>
-          <!-- Tile 3: Generating -->
+          <!-- Tile 3: Generating (YouTube 16:9) -->
           <div class="asset-thumb ratio-169">
             <span class="asset-label">YouTube</span>
+            <div class="tile-ghost">
+              <div class="tile-ghost-image">▶▶</div>
+              <div class="tile-ghost-text">
+                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
+                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
+                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+              </div>
+            </div>
             <div class="tile-spinner"></div>
           </div>
-          <!-- Tiles 4-6: Queued -->
+          <!-- Tile 4: Queued (Stories 9:16) -->
           <div class="asset-thumb ratio-916 tile-queued">
             <span class="asset-label">Stories</span>
+            <div class="tile-ghost">
+              <div class="tile-ghost-image">▶</div>
+              <div class="tile-ghost-text">
+                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
+                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
+                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+              </div>
+            </div>
             <span class="tile-queued-label">Queued</span>
           </div>
+          <!-- Tile 5: Queued (Feed 1:1) -->
           <div class="asset-thumb ratio-11 tile-queued">
             <span class="asset-label">Feed</span>
+            <div class="tile-ghost">
+              <div class="tile-ghost-image">◼</div>
+              <div class="tile-ghost-text">
+                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
+                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
+                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+              </div>
+            </div>
             <span class="tile-queued-label">Queued</span>
           </div>
+          <!-- Tile 6: Queued (YouTube 16:9) -->
           <div class="asset-thumb ratio-169 tile-queued">
             <span class="asset-label">YouTube</span>
+            <div class="tile-ghost">
+              <div class="tile-ghost-image">▶▶</div>
+              <div class="tile-ghost-text">
+                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
+                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
+                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+              </div>
+            </div>
             <span class="tile-queued-label">Queued</span>
           </div>
         </div>
