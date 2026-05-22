@@ -7,6 +7,7 @@
   <meta name="description" content="Three AI agents powering your brand across social intelligence, content creation and conversational sales. Built for Google. Powered by Gemini."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
   <style>
     /* ── TOKENS — LIGHT MODE EDITORIAL ── */
@@ -60,17 +61,11 @@
       display: block;
     }
 
-    /* ::selection classic editorial look */
-    ::selection {
-      background: var(--text);
-      color: var(--bg);
-    }
-    ::-moz-selection {
-      background: var(--text);
-      color: var(--bg);
-    }
+    /* ── SELECTION ── */
+    ::selection { background: #9B72F2; color: var(--bg); }
+    ::-moz-selection { background: #9B72F2; color: var(--bg); }
 
-    /* ── PROGRESS ── */
+    /* ── PROGRESS BAR ── */
     #progress {
       position: fixed;
       top: 0;
@@ -78,8 +73,116 @@
       z-index: 9999;
       height: 2px;
       width: 0%;
-      background: var(--text);
+      background: var(--gemini-gradient);
       transition: width .08s linear;
+      pointer-events: none;
+    }
+
+    /* ── CURSOR CUSTOM ── */
+    @media (pointer: fine) {
+      body, a, button { cursor: none !important; }
+    }
+    #cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      border: 1px solid var(--text);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width .25s var(--ease), height .25s var(--ease), border-color .25s, mix-blend-mode .25s;
+      mix-blend-mode: normal;
+      display: none;
+    }
+    #cursor.active {
+      width: 32px;
+      height: 32px;
+      mix-blend-mode: difference;
+      border-color: var(--text);
+    }
+    #cursor-label {
+      position: fixed;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      pointer-events: none;
+      z-index: 99999;
+      opacity: 0;
+      white-space: nowrap;
+      transform: translate(0, -50%);
+      transition: opacity .2s;
+    }
+    #cursor-label.vis { opacity: 1; }
+    @media (pointer: fine) { #cursor { display: block; } }
+
+    /* ── SECTION INDICATOR ── */
+    #section-indicator {
+      position: fixed;
+      left: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+    @media (min-width: 1024px) { #section-indicator { display: flex; } }
+    .si-item {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--text-mute);
+      transition: color .3s;
+      white-space: nowrap;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      opacity: 0.5;
+      line-height: 1;
+    }
+    .si-item.active {
+      color: var(--text);
+      opacity: 1;
+    }
+
+    /* ── LINK GRADIENT UNDERLINE ── */
+    .nav-links a, .footer-links a, .ch-cta, .chapter-sep-link {
+      position: relative;
+    }
+    .footer-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--text-dim);
+      transform-origin: left;
+      transition: background .4s var(--ease);
+    }
+    .footer-links a:hover::after {
+      background: var(--gemini-gradient);
+    }
+
+    /* ── IMAGE GRAYSCALE ── */
+    img:not(.nav-logo):not(.footer-logo):not(.cs-logo) {
+      filter: grayscale(20%);
+      transition: filter .6s var(--ease);
+    }
+    img:not(.nav-logo):not(.footer-logo):not(.cs-logo):hover {
+      filter: grayscale(0%);
+    }
+    img.in-view { filter: grayscale(0%); }
+
+    /* ── FOCUS OUTLINE (easter egg) ── */
+    :focus-visible {
+      outline: 2px solid #4285F4;
+      outline-offset: 4px;
+      border-radius: 0;
     }
 
     /* ── NAV ── */
@@ -92,13 +195,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.125rem var(--pad-x);
+      padding: 24px var(--pad-x);
       background: transparent;
       border-bottom: 1px solid transparent;
-      transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
+      transition: padding .3s var(--ease), background .3s, border-color .3s, backdrop-filter .3s;
     }
     nav.scrolled {
-      background: rgba(250,250,247,0.88);
+      padding: 12px var(--pad-x);
+      background: rgba(250,250,247,0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -1952,6 +2056,18 @@
 <body>
 
 <div id="progress"></div>
+<div id="cursor"></div>
+<div id="cursor-label">view live →</div>
+<div id="section-indicator" aria-hidden="true">
+  <span class="si-item" data-sec="hero">01 — hero</span>
+  <span class="si-item" data-sec="impact">02 — impact</span>
+  <span class="si-item" data-sec="problem">03 — cost</span>
+  <span class="si-item" data-sec="listen">04 — listen</span>
+  <span class="si-item" data-sec="create">05 — create</span>
+  <span class="si-item" data-sec="advise">06 — advise</span>
+  <span class="si-item" data-sec="case-study">07 — galicia</span>
+  <span class="si-item" data-sec="cta-final">08 — cta</span>
+</div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -2542,13 +2658,26 @@
 
 /* ── PROGRESS + NAV SCROLL ── */
 const prog = document.getElementById('progress');
-const nav  = document.getElementById('nav');
+const navEl = document.getElementById('nav');
 const hero = document.getElementById('hero');
 window.addEventListener('scroll', () => {
   const s = window.scrollY, t = document.body.scrollHeight - window.innerHeight;
   prog.style.width = (s / t * 100) + '%';
-  nav.classList.toggle('scrolled', s > hero.offsetHeight - 80);
+  navEl.classList.toggle('scrolled', s > 100);
+  updateSectionIndicator(s);
 }, { passive: true });
+
+/* ── SECTION INDICATOR ── */
+const SI_SECTIONS = ['hero','impact','problem','listen','create','advise','case-study','cta-final'];
+const siItems = document.querySelectorAll('.si-item');
+function updateSectionIndicator(scrollY) {
+  let active = SI_SECTIONS[0];
+  for (const id of SI_SECTIONS) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 120) active = id;
+  }
+  siItems.forEach(item => item.classList.toggle('active', item.dataset.sec === active));
+}
 
 /* ── REVEAL ── */
 const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } }), { threshold: 0.1 });
@@ -2656,9 +2785,52 @@ document.querySelectorAll('.signal-section').forEach(el => sigObs.observe(el));
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    if (t) {
+      e.preventDefault();
+      const top = t.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   });
 });
+
+/* ── CURSOR CUSTOM ── */
+(function() {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  const cur = document.getElementById('cursor');
+  const lbl = document.getElementById('cursor-label');
+  if (!cur) return;
+  let cx = 0, cy = 0;
+  window.addEventListener('mousemove', e => {
+    cx = e.clientX; cy = e.clientY;
+    cur.style.left = cx + 'px';
+    cur.style.top  = cy + 'px';
+    lbl.style.left = (cx + 20) + 'px';
+    lbl.style.top  = cy + 'px';
+  }, { passive: true });
+  document.querySelectorAll('a, button, .nav-cta, .btn-solid, .cta-ghost-link').forEach(el => {
+    const isDemo = el.classList.contains('ch-cta') || el.textContent.includes('demo') || el.textContent.includes('live');
+    el.addEventListener('mouseenter', () => {
+      cur.classList.add('active');
+      if (isDemo) lbl.classList.add('vis');
+    });
+    el.addEventListener('mouseleave', () => {
+      cur.classList.remove('active');
+      lbl.classList.remove('vis');
+    });
+  });
+  // Demo windows cursor label
+  document.querySelectorAll('.demo-window').forEach(el => {
+    el.style.cursor = 'none';
+    el.addEventListener('mouseenter', () => lbl.classList.add('vis'));
+    el.addEventListener('mouseleave', () => lbl.classList.remove('vis'));
+  });
+})();
+
+/* ── IMAGE VIEWPORT GRAYSCALE ── */
+const imgObs = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in-view'); imgObs.unobserve(e.target); }
+}), { threshold: 0.3 });
+document.querySelectorAll('img:not(.nav-logo):not(.footer-logo)').forEach(img => imgObs.observe(img));
 
 /* ── ACCORDION ── */
 document.querySelectorAll('.acc-head').forEach(btn => {
