@@ -244,8 +244,8 @@
     /* agent number → circular pill badge */
     .agent-num {
       display:inline-flex; align-items:center; gap:.5rem;
-      padding:.35rem 1rem; border-radius:999px;
-      font-size:10px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+      padding:.25rem .75rem; border-radius:999px;
+      font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
       margin-bottom:1.25rem;
     }
     .agent-white .agent-num,
@@ -288,11 +288,14 @@
     .agent-white  .agent-name,
     .agent-cream  .agent-name { color:var(--purple); }
     .agent-dark   .agent-name { color:#FFFFFF; }
+    .agent-name { margin-bottom:1.25rem; }
 
-    .agent-tag { font-size:14px;font-weight:400;letter-spacing:.01em;line-height:1.65;margin-bottom:2rem; }
+    .agent-tag { font-size:13px;font-weight:400;letter-spacing:.01em;line-height:1.7;margin-bottom:2rem; }
     .agent-white  .agent-tag,
     .agent-cream  .agent-tag { color:var(--gray); }
     .agent-dark   .agent-tag { color:rgba(232,228,240,.82); }
+
+    mark.pencil { background:none; color:inherit; }
 
     .agent-benefits { list-style:none;margin-bottom:2rem; }
     .agent-benefit { display:flex;gap:1rem;align-items:flex-start;padding:.875rem 0;border-bottom:1px solid; }
@@ -300,16 +303,13 @@
     .agent-cream  .agent-benefit { border-color:var(--line2); }
     .agent-dark   .agent-benefit { border-color:rgba(255,255,255,.18); }
     .agent-benefit:last-child { border:none; }
-    /* circular dot chip */
     .ab-dot {
-      width:22px; height:22px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0; font-size:11px; font-weight:800;
-      margin-top:.1em;
+      flex-shrink:0; font-size:11px; font-weight:600;
+      margin-top:.15em;
     }
     .agent-white .ab-dot,
-    .agent-cream .ab-dot { background:rgba(45,27,78,.1); color:var(--purple); }
-    .agent-dark  .ab-dot { background:rgba(244,235,51,.15); color:var(--yellow); }
+    .agent-cream .ab-dot { color:var(--purple); }
+    .agent-dark  .ab-dot { color:var(--yellow); }
     .ab-text { font-size:13px;font-weight:400;line-height:1.65; }
     .agent-white  .ab-text,
     .agent-cream  .ab-text { color:var(--gray); }
@@ -342,16 +342,68 @@
     .agent-cream .agent-link:hover { background:var(--purple); color:#fff; }
     .agent-dark  .agent-link:hover { background:rgba(244,235,51,.12); border-color:var(--yellow); }
 
-    /* ── AGENT SUB-LABELS ── */
-    .agent-sub {
-      font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
-      margin:1.625rem 0 .625rem; display:inline-flex; align-items:center; gap:.5rem;
-      opacity:.55;
+    /* ── ACCORDION ── */
+    .acc-group { margin:1.5rem 0 1.75rem; }
+    .acc-item {
+      border-bottom:1px solid;
+      overflow:hidden;
     }
-    .agent-sub::before { content:'//'; opacity:.75; }
-    .agent-white .agent-sub,
-    .agent-cream .agent-sub { color:var(--purple); }
-    .agent-dark  .agent-sub { color:rgba(200,184,224,.8); }
+    .agent-white .acc-item,
+    .agent-cream .acc-item { border-color:var(--line2); }
+    .agent-dark  .acc-item { border-color:rgba(255,255,255,.12); }
+    .acc-item:last-child { border-bottom:none; }
+
+    .acc-head {
+      display:flex; align-items:center; gap:1rem;
+      padding:1.125rem 0; cursor:pointer;
+      background:none; border:none; width:100%;
+      text-align:left; font-family:var(--mono);
+      transition:opacity .2s;
+    }
+    .acc-head:hover { opacity:.7; }
+    .acc-num {
+      font-size:9px; font-weight:700; letter-spacing:.14em;
+      text-transform:uppercase; flex-shrink:0;
+      width:20px;
+    }
+    .agent-white .acc-num,
+    .agent-cream .acc-num { color:var(--violet); }
+    .agent-dark  .acc-num { color:rgba(200,184,224,.5); }
+
+    .acc-title {
+      flex:1; font-size:14px; font-weight:700;
+      letter-spacing:.01em; line-height:1.3;
+    }
+    .agent-white .acc-title,
+    .agent-cream .acc-title { color:var(--ink); }
+    .agent-dark  .acc-title { color:#fff; }
+
+    .acc-icon {
+      width:20px; height:20px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      transition:transform .35s var(--ease);
+    }
+    .acc-item.open .acc-icon { transform:rotate(45deg); }
+    .agent-white .acc-icon,
+    .agent-cream .acc-icon { color:var(--purple); }
+    .agent-dark  .acc-icon { color:var(--yellow); }
+
+    .acc-body {
+      max-height:0; overflow:hidden;
+      transition:max-height .45s var(--ease), padding .45s var(--ease);
+      padding:0 0 0 calc(20px + 1rem);
+    }
+    .acc-item.open .acc-body {
+      max-height:500px;
+      padding-bottom:1.25rem;
+    }
+    .acc-body p {
+      font-size:13px; font-weight:400; line-height:1.7;
+      margin:0;
+    }
+    .agent-white .acc-body p,
+    .agent-cream .acc-body p { color:var(--gray); }
+    .agent-dark  .acc-body p { color:rgba(232,228,240,.8); }
 
     /* ── PENCIL CIRCLE mark ── */
     .pencil {
@@ -425,33 +477,6 @@
       background:repeating-linear-gradient(0deg,rgba(45,27,78,.025) 0px,rgba(45,27,78,.025) 1px,transparent 1px,transparent 5px);
     }
     .agent-video .agent-grid { position:relative;z-index:3; }
-
-    /* ── INSIGHT CARDS ── */
-    .insights { display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:2rem; }
-    .ins-card {
-      border-radius:6px; padding:1.125rem 1.25rem;
-      display:flex; flex-direction:column; gap:.5rem;
-    }
-    /* insight card stronger left accent */
-    .agent-white .ins-card,
-    .agent-cream .ins-card { background:var(--off); border:1px solid var(--line2); border-left:3px solid var(--purple); }
-    .agent-dark  .ins-card { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-left:3px solid var(--yellow); }
-    .ins-signal {
-      font-size:11px; font-weight:400; line-height:1.5;
-      display:flex; align-items:flex-start; gap:.5rem;
-    }
-    .agent-white .ins-signal,
-    .agent-cream .ins-signal { color:var(--muted); }
-    .agent-dark  .ins-signal { color:rgba(232,228,240,.55); }
-    .ins-signal::before { content:'⚡'; font-size:10px; flex-shrink:0; margin-top:.1em; }
-    .ins-action {
-      font-size:12px; font-weight:700; line-height:1.4;
-      display:flex; align-items:flex-start; gap:.5rem;
-    }
-    .agent-white .ins-action,
-    .agent-cream .ins-action { color:var(--purple); }
-    .agent-dark  .ins-action { color:var(--yellow); }
-    .ins-action::before { content:'→'; flex-shrink:0; }
 
     /* ── EN NUMEROS STRIP ── */
     #en-numeros {
@@ -555,7 +580,6 @@
       .en-grid { grid-template-columns:1fr; }
       .en-col { border-right:none; border-bottom:1px solid rgba(255,255,255,.12); padding:2rem 1.5rem; }
       .en-col:last-child { border-bottom:none; }
-      .insights { grid-template-columns:1fr; }
     }
     @media(max-width:600px) {
       .agent-sec { padding:5rem 1.5rem; }
@@ -693,29 +717,48 @@
           <span class="akpi-lbl">fuentes monitoreadas</span>
         </div>
       </div>
-      <p class="agent-sub">qué resuelve</p>
-      <ul class="agent-benefits reveal d3">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Monitoreo + alertas en tiempo real:</strong> cualquier anomalía o indicio de crisis dispara una notificación inmediata — el equipo actúa, no scrollea</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Sentimiento por cuenta, posteo y hashtag</strong> — incluyendo <strong>respuestas sugeridas personalizadas</strong> para el inbox. Sin leer comentario a comentario</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Benchmark competitivo automático:</strong> Net Sentiment Gap vs. competidores. Sabé dónde les duele y convertilo en oportunidad de <strong>Market Share</strong></span></li>
-      </ul>
-      <!-- INSIGHT CARDS -->
-      <p class="agent-sub">señal → acción</p>
-      <div class="insights reveal d3">
-        <div class="ins-card">
-          <span class="ins-signal">60% de comentarios negativos mencionan fallas en el login</span>
-          <span class="ins-action">Fix técnico antes de la próxima campaña — evitá miles en <strong>pauta quemada</strong></span>
+      <div class="acc-group reveal d3">
+        <div class="acc-item open">
+          <button class="acc-head" aria-expanded="true">
+            <span class="acc-num">01</span>
+            <span class="acc-title">Monitoreo + alertas en tiempo real</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>Cualquier anomalía o indicio de crisis dispara una notificación inmediata. El equipo actúa en <strong>&lt;15 minutos</strong>, no en 72hs. Sin scrollear comentario a comentario.</p>
+          </div>
         </div>
-        <div class="ins-card">
-          <span class="ins-signal">Competidor X acumula quejas de tiempos de envío en redes</span>
-          <span class="ins-action">Lanzar pauta "Envíos en 24hs" ahora — ventana de conquista de <strong>Market Share</strong></span>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Sentimiento por cuenta, posteo y hashtag</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>Análisis granular con <strong>respuestas sugeridas personalizadas</strong> para el inbox. Sabés qué pasa y cómo responder — sin leer comentario a comentario.</p>
+          </div>
         </div>
-        <div class="ins-card">
-          <span class="ins-signal">5 usuarios con +1K seguidores comentaron positivamente esta semana</span>
-          <span class="ins-action">Contactarlos para programa de <strong>micro-influencers</strong> — reach orgánico amplificado</span>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false">
+            <span class="acc-num">03</span>
+            <span class="acc-title">Benchmark competitivo automático</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>Net Sentiment Gap vs. competidores en tiempo real. Detectá dónde les duele y convertilo en oportunidad de <strong>Market Share</strong> antes de que ellos actúen.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false">
+            <span class="acc-num">04</span>
+            <span class="acc-title">Señal → acción: insights que disparan decisiones</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>El 60% de negativos mencionan fallas en login → fix técnico antes de la próxima campaña. Competidor X con quejas de envío → lanzar pauta "Envíos en 24hs" ahora. 5 usuarios con +1K seguidores comentaron positivo → activar programa de <strong>micro-influencers</strong>.</p>
+          </div>
         </div>
       </div>
-      <br/>
       <a class="agent-link reveal d4" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">ver demo →</a>
     </div>
     <div class="reveal d1">
@@ -767,29 +810,48 @@
           <span class="akpi-lbl">ahorro por campaña</span>
         </div>
       </div>
-      <p class="agent-sub">cómo funciona</p>
-      <ul class="agent-benefits reveal d3">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Creative Director AI (Gemini):</strong> definís el concepto en lenguaje natural; la IA interpreta estilo, iluminación y dirección de arte y genera contenido desde cero</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Smart Canvas (automatización n8n):</strong> entrega automáticamente <strong>todas las variantes</strong> — Stories 9:16, Feed 1:1, YouTube 16:9 — sin intervención manual</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Escalabilidad infinita:</strong> 1 operador de IA reemplaza un equipo de diseñadores. El <strong>ahorro en fees</strong> se redistribuye directo a medios — más ROAS, mismo budget</span></li>
-      </ul>
-      <!-- INSIGHT CARDS -->
-      <p class="agent-sub">resultados reales</p>
-      <div class="insights reveal d3">
-        <div class="ins-card">
-          <span class="ins-signal">Retail: 50 piezas de video personalizadas urgentes — Hot Sale en 24hs</span>
-          <span class="ins-action"><strong>50 assets en &lt;2hs</strong> — <strong>USD 4.000 ahorrados</strong> — +20% engagement vs. producción tradicional</span>
+      <div class="acc-group reveal d3">
+        <div class="acc-item open">
+          <button class="acc-head" aria-expanded="true">
+            <span class="acc-num">01</span>
+            <span class="acc-title">Creative Director AI (Gemini)</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>Definís el concepto en lenguaje natural. La IA interpreta estilo, iluminación y dirección de arte y genera contenido cinematográfico desde cero — en <strong>15 a 30 minutos</strong>, no en 3 a 5 días.</p>
+          </div>
         </div>
-        <div class="ins-card">
-          <span class="ins-signal">Sentimiento de audiencia cambió — el mensaje actual no resuena</span>
-          <span class="ins-action">Nueva línea creativa completa en <strong>minutos</strong>. Pivotá antes de quemar más presupuesto</span>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Smart Canvas (automatización n8n)</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>Procesa la pieza y entrega automáticamente <strong>todas las variantes</strong> — Stories 9:16, Feed 1:1, YouTube 16:9 — sin intervención manual. 1 operador de IA reemplaza un equipo de diseñadores.</p>
+          </div>
         </div>
-        <div class="ins-card">
-          <span class="ins-signal">Posteo A tuvo likes, Posteo B generó mayor intención de compra</span>
-          <span class="ins-action">Escalar inversión en el estilo del Posteo B — <strong>mismo presupuesto, mayor conversión</strong></span>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false">
+            <span class="acc-num">03</span>
+            <span class="acc-title">Escalabilidad infinita</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>Volumen ilimitado on-demand. El <strong>ahorro en fees</strong> de producción se redistribuye directo a inversión en medios — más ROAS, mismo budget.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false">
+            <span class="acc-num">04</span>
+            <span class="acc-title">Caso real: 50 piezas en menos de 2 horas</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>Retail Hot Sale: <strong>50 assets en &lt;2hs</strong> — USD 4.000 ahorrados — +20% engagement vs. producción tradicional. Sentimiento cambió → nueva línea creativa en minutos, no en semanas.</p>
+          </div>
         </div>
       </div>
-      <br/>
       <a class="agent-link reveal d4" href="https://readapt.web.app/" target="_blank" rel="noopener">ver demo →</a>
     </div>
     <div class="reveal d1">
@@ -836,29 +898,48 @@
           <span class="akpi-lbl">Decision Velocity</span>
         </div>
       </div>
-      <p class="agent-sub">cómo funciona</p>
-      <ul class="agent-benefits reveal d3">
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Dashboards en lenguaje natural:</strong> conectás tus fuentes, promptéas lo que querés ver y el reporte está listo en <strong>&lt;30 min</strong> — sin área técnica, sin esperas</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Agente de Tracking con acceso directo a GTM:</strong> detecta fallas en tiempo real y actúa. 10 minutos de error en Hot Sale cuestan miles — este agente los elimina</span></li>
-        <li class="agent-benefit"><span class="ab-dot">→</span><span class="ab-text"><strong>Decision Velocity:</strong> el equipo deja de &ldquo;picar datos&rdquo; y se enfoca en estrategia. El dato llega cuando la decisión <strong>todavía tiene impacto</strong> real en el resultado</span></li>
-      </ul>
-      <!-- INSIGHT CARDS -->
-      <p class="agent-sub">insights que disparan acción</p>
-      <div class="insights reveal d3">
-        <div class="ins-card">
-          <span class="ins-signal">CPA en Google Ads +40% en las últimas 2hs — falla detectada en checkout via GTM</span>
-          <span class="ins-action">Pausa de grupo de anuncios + fix GTM — <strong>ahorro estimado: USD 800</strong> en pauta quemada</span>
+      <div class="acc-group reveal d3">
+        <div class="acc-item open">
+          <button class="acc-head" aria-expanded="true">
+            <span class="acc-num">01</span>
+            <span class="acc-title">Dashboards en lenguaje natural</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>Conectás tus fuentes (GA4, GTM, Google Ads), prompteás lo que querés ver y el reporte está listo en <strong>&lt;30 min</strong>. Sin área técnica, sin esperas. El equipo deja de picar datos y se enfoca en estrategia.</p>
+          </div>
         </div>
-        <div class="ins-card">
-          <span class="ins-signal">Clúster A convierte 20% mejor con 30% menos inversión que el clúster B</span>
-          <span class="ins-action">Redistribuir budget ahora — <strong>ROAS +35%</strong> proyectado al cierre de mes</span>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false">
+            <span class="acc-num">02</span>
+            <span class="acc-title">Agente de Tracking con acceso directo a GTM</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>Detecta fallas en tiempo real y actúa. 10 minutos de error en Hot Sale cuestan miles — este agente los elimina. Checkout roto, tag faltante, evento caído → <strong>acción inmediata</strong>.</p>
+          </div>
         </div>
-        <div class="ins-card">
-          <span class="ins-signal">Al ritmo actual, el presupuesto se agota el día 22</span>
-          <span class="ins-action">Ajustar puja <strong>-5%</strong> — campaña sostenida hasta fin de mes sin perder posiciones</span>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false">
+            <span class="acc-num">03</span>
+            <span class="acc-title">Alarmas automatizadas ante desviaciones</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>CPA +40% → pausa automática + fix GTM. Clúster A convierte 20% mejor → redistribuir budget. Presupuesto se agota el día 22 → ajustar puja <strong>-5%</strong> y sostener hasta fin de mes.</p>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false">
+            <span class="acc-num">04</span>
+            <span class="acc-title">Decision Velocity: de días a minutos</span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-body">
+            <p>El dato llega cuando la decisión <strong>todavía tiene impacto</strong>. Correlación YouTube → +10% búsquedas de marca en 48hs. <strong>ROAS +35%</strong> proyectado al redistribuir budget a tiempo.</p>
+          </div>
         </div>
       </div>
-      <br/>
       <a class="agent-link reveal d4" href="https://dashboards.hikethecloud.com/calm_dashboard_054a6823-6a14-4c65-8764-4c69b9ccc24f.html?v=1779225096" target="_blank" rel="noopener">ver dashboard real →</a>
     </div>
     <div class="reveal d1">
@@ -1133,6 +1214,24 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const t = document.querySelector(a.getAttribute('href'));
     if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+/* ── ACCORDION ── */
+document.querySelectorAll('.acc-head').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.acc-item');
+    const wasOpen = item.classList.contains('open');
+    // Close all siblings
+    item.closest('.acc-group').querySelectorAll('.acc-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.acc-head').setAttribute('aria-expanded', 'false');
+    });
+    // Toggle clicked
+    if (!wasOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
   });
 });
 </script>
