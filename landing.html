@@ -1707,6 +1707,197 @@
       .ch-title { font-size: clamp(56px,14vw,72px); }
       .ch-sub { font-size: 18px; }
     }
+
+    /* \u2500\u2500 CASE STUDY \u2014 EDITORIAL CASE FILM \u2500\u2500 */
+    #case-study {
+      background: var(--bg);
+    }
+
+    /* Pre-header */
+    .cs-preheader {
+      padding: 120px var(--pad-x) 0;
+      text-align: center;
+    }
+    .cs-pre-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: block;
+      margin-bottom: 80px;
+    }
+
+    /* Hero block */
+    .cs-hero {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-elev);
+      min-height: 80vh;
+      display: flex;
+      align-items: stretch;
+    }
+    .cs-hero-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      width: 100%;
+      padding: clamp(60px,10vh,120px) var(--pad-x);
+      align-items: start;
+    }
+    .cs-left {
+      grid-column: 1 / 7;
+      display: flex;
+      flex-direction: column;
+    }
+    .cs-logo {
+      height: 64px;
+      width: auto;
+      object-fit: contain;
+      object-position: left center;
+      filter: grayscale(1) contrast(0.9);
+      opacity: 0.75;
+      margin-bottom: 64px;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .cs-logo.vis {
+      opacity: 0.75;
+      transform: scale(1);
+    }
+    .cs-headline {
+      font-family: var(--font-main);
+      font-size: clamp(48px, 6vw, 88px);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      color: var(--text);
+      margin-bottom: 48px;
+    }
+    .cs-hl-block {
+      display: block;
+    }
+    .cs-grad {
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cs-punct {
+      -webkit-text-fill-color: var(--text);
+    }
+    .cs-context {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-dim);
+      line-height: 1.6;
+      max-width: 52ch;
+    }
+
+    /* Right metrics */
+    .cs-right {
+      grid-column: 8 / 13;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+      padding-left: 40px;
+    }
+    .cs-metric-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cs-metric-last {
+      border-bottom: none;
+    }
+    .cs-big-num {
+      font-family: var(--font-main);
+      font-size: clamp(56px, 7vw, 96px);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      display: block;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
+    }
+    .cs-big-num.vis {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cs-metric-lbl {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    /* Pull-quote */
+    .cs-pullquote-wrap {
+      background: var(--bg);
+      padding: 120px var(--pad-x);
+    }
+    .cs-pullquote {
+      font-family: var(--font-main);
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      max-width: 22ch;
+      margin: 0;
+      margin-left: 8%;
+    }
+    .cs-open-quote,
+    .cs-close-quote {
+      font-size: 0.6em;
+      color: var(--text-mute);
+      position: relative;
+      top: 0.1em;
+    }
+    .cs-quote-word {
+      display: inline-block;
+      opacity: 0;
+      transition: opacity .4s var(--ease);
+    }
+    .cs-quote-word.vis { opacity: 1; }
+    .cs-attribution {
+      display: block;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 48px;
+      margin-left: 8%;
+      font-style: normal;
+    }
+
+    /* Case study responsive */
+    @media (max-width: 900px) {
+      .cs-hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .cs-left { grid-column: 1; }
+      .cs-right {
+        grid-column: 1;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0;
+        padding-top: 40px;
+        margin-top: 40px;
+      }
+      .cs-pullquote { margin-left: 0; }
+      .cs-attribution { margin-left: 0; }
+    }
   </style>
 </head>
 <body>
@@ -2176,30 +2367,68 @@
   </div>
 </section>
 
-<!-- CASE STUDY -->
-<section id="case-study">
-  <div class="cs-inner">
-    <span class="s-label reveal">// caso de éxito comprobado</span>
-    <div class="cs-top reveal d1">
-      <img class="cs-logo"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
-        alt="Banco Galicia"
-        onerror="this.outerHTML='<span style=\'font-family:var(--display);font-size:1rem;font-weight:700;color:var(--purple)\'>GALICIA</span>'"
-      />
-      <div class="cs-vl"></div>
-      <h2 class="cs-hed">Campaña relámpago: 50 piezas de video personalizadas <em>en menos de 2 horas</em></h2>
-    </div>
-    <div class="cs-nums reveal d2">
-      <div class="cs-cell"><span class="cs-n">&lt;2hs</span><span class="cs-d">Entrega total de 50 assets</span></div>
-      <div class="cs-cell"><span class="cs-n">USD 4K</span><span class="cs-d">Ahorro en edición externa</span></div>
-      <div class="cs-cell"><span class="cs-n">+20%</span><span class="cs-d">Engagement vs. producción tradicional</span></div>
-      <div class="cs-cell"><span class="cs-n">USD 0</span><span class="cs-d">Costo extra de staff o producción</span></div>
-    </div>
-    <blockquote class="cs-quote reveal d3">
-      <p class="cs-qt">Lo que antes le llevaba dos semanas a nuestro equipo ahora pasa en minutos — consistente, en todos los canales, sin una sola revisión manual de identidad.</p>
-      <cite class="cs-au">HEAD OF CONTENT STRATEGY · BANCO GALICIA</cite>
-    </blockquote>
+<!-- CASE STUDY — EDITORIAL CASE FILM -->
+<section id="case-study" aria-labelledby="cs-headline">
+
+  <!-- Pre-header eyebrow -->
+  <div class="cs-preheader">
+    <span class="cs-pre-eyebrow">// proof · case study</span>
   </div>
+
+  <!-- Hero full-bleed -->
+  <div class="cs-hero">
+    <div class="cs-hero-grid">
+
+      <!-- Left: logo + title + context -->
+      <div class="cs-left">
+        <img
+          class="cs-logo"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png"
+          alt="Banco Galicia"
+          onerror="this.style.display='none'"
+        />
+        <h2 class="cs-headline" id="cs-headline">
+          Campaña relámpago.<br/>
+          <span class="cs-hl-block">50 piezas de video</span>
+          <span class="cs-hl-block">personalizadas en</span>
+          <span class="cs-hl-block"><span class="cs-grad">menos de 2 horas</span><span class="cs-punct">.</span></span>
+        </h2>
+        <p class="cs-context">
+          Hot Sale 2025. El equipo de Banco Galicia necesitaba personalizar 50 videos en formato Stories y Feed antes del lanzamiento. El proceso tradicional tomaba 2 semanas. Hike Create lo entregó en menos de 2 horas.
+        </p>
+      </div>
+
+      <!-- Right: 4 stacked metrics -->
+      <div class="cs-right">
+        <div class="cs-metric-row">
+          <span class="cs-big-num cs-grad" data-cs-target="2" data-cs-prefix="&lt; " data-cs-suffix="hs" data-cs-orig="&lt; 2hs">&lt; 2hs</span>
+          <span class="cs-metric-lbl">ENTREGA TOTAL · 50 ASSETS</span>
+        </div>
+        <div class="cs-metric-row">
+          <span class="cs-big-num cs-grad" data-cs-target="4000" data-cs-prefix="USD " data-cs-suffix="" data-cs-orig="USD 4K" data-cs-static>USD 4K</span>
+          <span class="cs-metric-lbl">AHORRO EN EDICIÓN EXTERNA</span>
+        </div>
+        <div class="cs-metric-row">
+          <span class="cs-big-num cs-grad" data-cs-target="20" data-cs-prefix="+" data-cs-suffix="%" data-cs-orig="+20%">+20%</span>
+          <span class="cs-metric-lbl">ENGAGEMENT VS. PRODUCCIÓN TRADICIONAL</span>
+        </div>
+        <div class="cs-metric-row cs-metric-last">
+          <span class="cs-big-num cs-grad" data-cs-static data-cs-orig="USD 0">USD 0</span>
+          <span class="cs-metric-lbl">COSTO EXTRA DE STAFF</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Pull-quote full-bleed -->
+  <div class="cs-pullquote-wrap">
+    <blockquote class="cs-pullquote" id="cs-pullquote">
+      <span class="cs-open-quote">“</span><span class="cs-quote-text">Lo que antes le llevaba dos semanas a nuestro equipo ahora pasa en minutos — consistente, en todos los canales, sin una sola revisión manual de identidad.</span><span class="cs-close-quote">”</span>
+    </blockquote>
+    <cite class="cs-attribution">— HEAD OF CONTENT STRATEGY · BANCO GALICIA</cite>
+  </div>
+
 </section>
 
 <!-- CTA FINAL — dark -->
@@ -2262,7 +2491,7 @@ window.addEventListener('scroll', () => {
 const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } }), { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-/* ── COUNTERS ── */
+/* ── CASE STUDY CSS injected by JS ── */
 function countUp(el) {
   if (el.dataset.static) return;
   const target = +el.dataset.target, prefix = el.dataset.prefix||'', suffix = el.dataset.suffix||'';
@@ -2372,6 +2601,57 @@ document.querySelectorAll('.acc-head').forEach(btn => {
     }
   });
 });
+
+/* ── CASE STUDY ANIMATIONS ── */
+
+/* 1. Logo fade + scale */
+const csLogo = document.querySelector('.cs-logo');
+if (csLogo) {
+  const logoObs = new IntersectionObserver(es => {
+    if (es[0].isIntersecting) { csLogo.classList.add('vis'); logoObs.disconnect(); }
+  }, { threshold: 0.3 });
+  logoObs.observe(csLogo);
+}
+
+/* 2. Metrics count-up */
+function csCountUp(el) {
+  if (el.hasAttribute('data-cs-static')) { el.classList.add('vis'); return; }
+  el.classList.add('vis');
+  const target = +el.dataset.csTarget;
+  const prefix = el.dataset.csPrefix || '';
+  const suffix = el.dataset.csSuffix || '';
+  const orig   = el.dataset.csOrig || '';
+  const dur = 1500, t0 = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - t0) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = prefix + Math.round(ease * target) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = orig;
+  })(t0);
+}
+const csMetricObs = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const nums = e.target.querySelectorAll('.cs-big-num');
+  nums.forEach((n, i) => setTimeout(() => csCountUp(n), i * 180));
+  csMetricObs.unobserve(e.target);
+}), { threshold: 0.2 });
+const csRight = document.querySelector('.cs-right');
+if (csRight) csMetricObs.observe(csRight);
+
+/* 3. Word-by-word pull-quote reveal */
+const csQuoteText = document.querySelector('.cs-quote-text');
+if (csQuoteText) {
+  const words = csQuoteText.textContent.trim().split(/\s+/);
+  csQuoteText.innerHTML = words.map(w => `<span class="cs-quote-word">${w}</span>`).join(' ');
+  const wordEls = csQuoteText.querySelectorAll('.cs-quote-word');
+  const wordObs = new IntersectionObserver(es => {
+    if (!es[0].isIntersecting) return;
+    wordEls.forEach((w, i) => setTimeout(() => w.classList.add('vis'), i * 30));
+    wordObs.disconnect();
+  }, { threshold: 0.3 });
+  wordObs.observe(csQuoteText.closest('blockquote'));
+}
 </script>
 </body>
 </html>
