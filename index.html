@@ -32,27 +32,6 @@
       --orb-border: rgba(0, 229, 255, 0.35);
     }
 
-    /* Hover Listen (Hike Green Theme) */
-    #orb-anchor.active-label-listen {
-      --orb-glow-1: rgba(0, 210, 106, 0.45);
-      --orb-glow-2: rgba(0, 110, 80, 0.15);
-      --orb-shadow: rgba(0, 210, 106, 0.5);
-      --orb-border: rgba(0, 210, 106, 0.45);
-    }
-    /* Hover Create (Hike Cyan Theme) */
-    #orb-anchor.active-label-create {
-      --orb-glow-1: rgba(0, 229, 255, 0.48);
-      --orb-glow-2: rgba(0, 100, 120, 0.16);
-      --orb-shadow: rgba(0, 229, 255, 0.55);
-      --orb-border: rgba(0, 229, 255, 0.45);
-    }
-    /* Hover Advise (Hike Vibrant Blue Theme) */
-    #orb-anchor.active-label-advise {
-      --orb-glow-1: rgba(0, 163, 255, 0.48);
-      --orb-glow-2: rgba(0, 70, 120, 0.16);
-      --orb-shadow: rgba(0, 163, 255, 0.55);
-      --orb-border: rgba(0, 163, 255, 0.45);
-    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -716,28 +695,15 @@
       ripples.push(new Ripple(e.clientX, e.clientY, activeColor, true));
     });
 
-    // Hover listeners for node labels
+    // Hover listeners for node labels (subtle text glow only)
     labels.forEach(label => {
       label.addEventListener('mouseenter', () => {
-        anchor.classList.add(`active-${label.id}`);
         labels.forEach(l => {
           if (l !== label) l.classList.add('dimmed');
         });
-
-        // Set target ripple color based on hovered label
-        if (label.id === 'label-listen') {
-          targetColor = '0, 210, 106'; // Green
-        } else if (label.id === 'label-advise') {
-          targetColor = '0, 163, 255'; // Blue
-        } else if (label.id === 'label-create') {
-          targetColor = '0, 229, 255'; // Cyan
-        }
       });
-
       label.addEventListener('mouseleave', () => {
-        anchor.classList.remove(`active-${label.id}`);
         labels.forEach(l => l.classList.remove('dimmed'));
-        targetColor = '0, 229, 255'; // Reset to Cyan
       });
     });
   </script>
