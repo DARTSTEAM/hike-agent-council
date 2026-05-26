@@ -496,27 +496,27 @@
 
     <!-- NODE LABEL — Listen (top) -->
     <a class="node-label" id="label-listen"
-      data-agent="hike-listen"
-      role="button" tabindex="0"
-      aria-label="Open Hike Listen panel">
+      href="https://hike-social-listener.web.app/"
+      target="_blank" rel="noopener"
+      aria-label="Open Hike Listen">
       <span class="nl-eyebrow">Monitoreo de marca</span>
       <span class="nl-name">Hike Listen</span>
     </a>
 
     <!-- NODE LABEL — Advise (bottom-left) -->
     <a class="node-label" id="label-advise"
-      data-agent="hike-advise"
-      role="button" tabindex="0"
-      aria-label="Open Hike Advise panel">
+      href="https://chat.hikethecloud.com/"
+      target="_blank" rel="noopener"
+      aria-label="Open Hike Advise">
       <span class="nl-eyebrow">Asistente inteligente</span>
       <span class="nl-name">Hike Advise</span>
     </a>
 
     <!-- NODE LABEL — Create (bottom-right) -->
     <a class="node-label" id="label-create"
-      data-agent="hike-create"
-      role="button" tabindex="0"
-      aria-label="Open Hike Create panel">
+      href="https://readapt.web.app/"
+      target="_blank" rel="noopener"
+      aria-label="Open Hike Create">
       <span class="nl-eyebrow">Explota tu creatividad</span>
       <span class="nl-name">Hike Create</span>
     </a>
@@ -530,175 +530,8 @@
 
   <!-- HINT -->
   <div id="hint" aria-hidden="true">
-    <span class="hint-text">Select a node to explore</span>
+    <span class="hint-text">Select a node to launch</span>
     <div class="hint-pulse"></div>
   </div>
-
-  <!-- BACKDROP + PANEL -->
-  <div id="backdrop" role="dialog" aria-modal="true" aria-labelledby="panel-title">
-    <div id="panel">
-      <button id="close-btn" aria-label="Close panel">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor"
-          stroke-width="1.8" stroke-linecap="round">
-          <line x1="1" y1="1" x2="13" y2="13"/>
-          <line x1="13" y1="1" x2="1" y2="13"/>
-        </svg>
-      </button>
-      <div id="panel-content"></div>
-    </div>
-  </div>
-
-  <script>
-    /* ═══════════════════════════════════
-       AGENT DATA
-    ═══════════════════════════════════ */
-    const AGENTS = {
-      'hike-listen': {
-        eyebrow: 'Agent · 01',
-        name: 'Hike Listen',
-        titlePrefix: 'Listens to every conversation',
-        accent: 'that matters.',
-        tagline: 'Real-time social media monitoring powered by AI. Detects mentions, trends and sentiment shifts in any language — before they become a crisis or a missed opportunity.',
-        url: 'https://hike-social-listener.web.app/',
-        urlLabel: 'OPEN HIKE LISTEN →',
-        trusted: null,
-        stats: [
-          { num: '24/7', label: 'Active monitoring' },
-          { num: '+15', label: 'Active brands' },
-          { num: '8',   label: 'Languages' }
-        ],
-        capabilities: [
-          'Tracks mentions across 100+ sources: social networks, forums, news, podcasts and reviews',
-          'Real-time sentiment analysis with automatic detection of crises and opportunities',
-          'Custom executive reports by brand, campaign and competitor',
-          'Instant configurable alerts so nothing relevant slips through the cracks',
-          "Unified dashboard: your brand's full conversation in a single view"
-        ]
-      },
-      'hike-create': {
-        eyebrow: 'Agent · 02',
-        name: 'Hike Create',
-        titlePrefix: 'Content that adapts',
-        accent: 'on its own.',
-        tagline: 'Transforms every piece of content into optimized versions for each channel, format and audience. Continuous learning based on real performance data — no manual input needed.',
-        url: 'https://readapt.web.app/',
-        urlLabel: 'OPEN HIKE CREATE →',
-        trusted: [
-          { name: 'Galicia', src: 'https://elfaroboutiquehotel.com.ar/wp-content/uploads/2025/09/logo_galicia_blanco.png', height: 28 }
-        ],
-        stats: [
-          { num: '×4',   label: 'Auto variations' },
-          { num: '<3s',  label: 'Per adaptation' },
-          { num: '100%', label: 'On-brand' }
-        ],
-        capabilities: [
-          'Automatically adapts copy, images and structure to every platform and format',
-          'Brand memory: preserves tone, voice and guidelines across every generated variation',
-          'Autonomous A/B testing with continuous optimization based on real metrics',
-          'Native integration with Google Ads, Meta and major programmatic platforms',
-          'Full version history with the reasoning behind every agent decision'
-        ]
-      },
-      'hike-advise': {
-        eyebrow: 'Agent · 03',
-        name: 'Hike Advise',
-        titlePrefix: 'Conversations that',
-        accent: 'convert.',
-        tagline: 'A next-generation conversational agent that guides customers from first contact to purchase. Deep context, natural responses, zero friction.',
-        url: 'https://chat.hikethecloud.com/',
-        urlLabel: 'OPEN HIKE ADVISE →',
-        trusted: null,
-        stats: [
-          { num: '+40%', label: 'Conversion rate' },
-          { num: '<2s',  label: 'Response time' },
-          { num: '12',   label: 'Integrated channels' }
-        ],
-        capabilities: [
-          'Natural conversations in human language across any channel and language',
-          'Native CRM integration: full customer history available in every session',
-          'Smart handoff to a human agent when the context calls for it',
-          'Purchase intent analysis with real-time predictive scoring',
-          'No-code setup: full agent customization with zero development required'
-        ]
-      }
-    };
-
-    /* ═══════════════════════════════════
-    }
-
-    window.addEventListener('load', updateLines);
-    window.addEventListener('resize', updateLines);
-    setTimeout(updateLines, 80);
-    setTimeout(updateLines, 400);
-
-    /* ═══════════════════════════════════
-       PANEL LOGIC
-    ═══════════════════════════════════ */
-    const backdrop    = document.getElementById('backdrop');
-    const panel       = document.getElementById('panel');
-    const closeBtn    = document.getElementById('close-btn');
-    const panelContent = document.getElementById('panel-content');
-
-    function buildPanel(key) {
-      const a = AGENTS[key];
-      if (!a) return '';
-      let h = `
-        <p class="panel-eyebrow">${a.eyebrow}</p>
-        <h2 class="panel-title" id="panel-title">${a.titlePrefix} <span class="accent">${a.accent}</span></h2>
-        <p class="panel-tagline">${a.tagline}</p>
-        <div class="panel-divider"></div>
-        <p class="panel-section-label">Performance</p>
-        <div class="stats-grid">
-          ${a.stats.map(s => `<div class="stat-item"><span class="stat-num">${s.num}</span><span class="stat-label">${s.label}</span></div>`).join('')}
-        </div>`;
-      if (a.trusted?.length) {
-        h += `<div class="panel-divider"></div>
-          <p class="panel-section-label">Trusted by</p>
-          <div class="trusted-row">
-            ${a.trusted.map(t => `<img class="trusted-logo" src="${t.src}" alt="${t.name}" style="height:${t.height}px"/>`).join('')}
-          </div>`;
-      }
-      h += `<div class="panel-divider"></div>
-        <p class="panel-section-label">Capabilities</p>
-        <ul class="cap-list">
-          ${a.capabilities.map(c => `<li class="cap-item"><span class="cap-bullet"></span><span>${c}</span></li>`).join('')}
-        </ul>
-        <div class="panel-actions">
-          <a class="btn btn-primary" href="${a.url}" target="_blank" rel="noopener">${a.urlLabel}</a>
-          <button class="btn btn-outline" onclick="closePanel()">Close</button>
-        </div>`;
-      return h;
-    }
-
-    function openPanel(key) {
-      panelContent.innerHTML = buildPanel(key);
-      panel.classList.remove('closing');
-      backdrop.classList.add('visible');
-    }
-
-    function closePanel() {
-      panel.classList.add('closing');
-      setTimeout(() => {
-        backdrop.classList.remove('visible');
-      }, 350);
-    }
-
-    closeBtn.addEventListener('click', closePanel);
-    backdrop.addEventListener('click', e => { if (e.target === backdrop) closePanel(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
-
-    document.querySelectorAll('.node-label').forEach(el => {
-      el.addEventListener('click', e => {
-        e.preventDefault();
-        openPanel(el.dataset.agent);
-      });
-      el.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openPanel(el.dataset.agent);
-        }
-      });
-    });
-  </script>
 </body>
 </html>
