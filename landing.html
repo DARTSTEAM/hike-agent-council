@@ -326,13 +326,18 @@
       50% { opacity: 0.45; transform: translate(-50%, -50%) scale(1.1); }
     }
     .hero-main {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: clamp(40px, 5vw, 80px);
       flex: 1;
       padding: calc(70px + 4rem) var(--pad-x) 2.5rem;
       position: relative;
       z-index: 3;
+    }
+    .hero-text-col {
+      display: flex;
+      flex-direction: column;
     }
     @media (max-width: 768px) {
       .hero-video { display: none; }
@@ -459,6 +464,205 @@
       margin-top: 2.5rem;
       opacity: 0;
       animation: fadeUp .6s var(--ease) 750ms forwards;
+    }
+
+    /* ── COUNCIL DIAGRAM ── */
+    .council-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .council-diagram {
+      position: relative;
+      width: min(460px, 100%);
+      aspect-ratio: 1;
+    }
+    /* atmospheric glow behind diagram */
+    .council-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 80%; height: 80%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at center, rgba(126,110,148,0.35) 0%, rgba(126,110,148,0.1) 50%, transparent 75%);
+      filter: blur(50px);
+      z-index: 0;
+      pointer-events: none;
+      animation: council-glow-pulse 8s ease-in-out infinite;
+    }
+    @keyframes council-glow-pulse {
+      0%, 100% { opacity: 0.7; transform: translate(-50%,-50%) scale(1); }
+      50%       { opacity: 0.45; transform: translate(-50%,-50%) scale(1.1); }
+    }
+    /* SVG connector lines */
+    .council-svg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .council-line {
+      stroke: rgba(126,110,148,0.28);
+      stroke-width: 1.5;
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      fill: none;
+      animation: drawLine 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .council-line:nth-child(1) { animation-delay: 0.2s; }
+    .council-line:nth-child(2) { animation-delay: 0.4s; }
+    .council-line:nth-child(3) { animation-delay: 0.6s; }
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+    /* node shared */
+    .cn {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(126,110,148,0.18);
+      box-shadow: 0 8px 30px rgba(45,27,78,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      text-decoration: none;
+      cursor: pointer;
+      transform: scale(0.4);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                  border-color 0.4s, box-shadow 0.4s;
+      animation: nodeIn 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
+    .cn:hover {
+      transform: scale(1.08) !important;
+      border-color: #7E6E94;
+      box-shadow: 0 12px 40px rgba(45,27,78,0.2);
+    }
+    .cn-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cn-label {
+      position: absolute;
+      text-align: center;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .cn-name {
+      display: block;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #2D1B4E;
+      line-height: 1.2;
+    }
+    .cn-tag {
+      display: block;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #7E6E94;
+      margin-top: 2px;
+    }
+    /* positioning each peripheral node */
+    .cn-listen {
+      top: 4%; left: 50%;
+      transform: translateX(-50%) scale(0.4);
+      animation-delay: 0.8s;
+    }
+    .cn-listen:hover { transform: translateX(-50%) scale(1.08) !important; }
+    .cn-listen .cn-label {
+      top: calc(100% + 10px);
+      left: 50%; transform: translateX(-50%);
+    }
+    .cn-advise {
+      bottom: 10%; left: 5%;
+      animation-delay: 1.0s;
+    }
+    .cn-advise .cn-label {
+      top: calc(100% + 10px);
+      left: 50%; transform: translateX(-50%);
+    }
+    .cn-create {
+      bottom: 10%; right: 5%;
+      animation-delay: 1.2s;
+    }
+    .cn-create .cn-label {
+      top: calc(100% + 10px);
+      left: 50%; transform: translateX(-50%);
+    }
+    @keyframes nodeIn {
+      to { opacity: 1; transform: scale(1); }
+    }
+    /* fix translateX nodes so hover also works */
+    .cn-listen { animation-name: nodeInListen; }
+    @keyframes nodeInListen {
+      from { opacity: 0; transform: translateX(-50%) scale(0.4); }
+      to   { opacity: 1; transform: translateX(-50%) scale(1); }
+    }
+    /* central node */
+    .cn-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 130px; height: 130px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(126,110,148,0.25);
+      box-shadow: 0 10px 40px rgba(45,27,78,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 3;
+      transform: translate(-50%,-50%) scale(0);
+      opacity: 0;
+      animation: centerIn 0.6s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
+    }
+    .cn-center-h {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      font-size: 40px;
+      font-weight: 600;
+      color: #2D1B4E;
+      line-height: 1;
+    }
+    .cn-center-label {
+      position: absolute;
+      bottom: -26px; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7E6E94;
+      white-space: nowrap;
+    }
+    @keyframes centerIn {
+      to { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    }
+    /* responsive */
+    @media (max-width: 1024px) {
+      .hero-main { grid-template-columns: 1fr; }
+      .council-col { margin-top: 3rem; }
+      .council-diagram { width: min(360px, 90vw); }
+    }
+    @media (max-width: 768px) {
+      .cn-name { font-size: 13px; }
+      .council-diagram { width: min(300px, 85vw); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .council-line { animation: none; stroke-dashoffset: 0; }
+      .cn { animation: none; opacity: 1; }
+      .cn-listen { transform: translateX(-50%) scale(1); }
+      .cn-advise, .cn-create { transform: scale(1); }
+      .cn-center { animation: none; opacity: 1; transform: translate(-50%,-50%) scale(1); }
+      .council-glow { animation: none; }
     }
 
     .btn-solid {
@@ -2204,20 +2408,93 @@
     <div class="hero-glow"></div>
   </div>
   <div class="hero-main">
-    <p class="hero-eyebrow">// hike · agent council — 03 agents</p>
-    <h1 class="hero-h1" id="hero-h1">
-      <span class="hero-line1">Three agents.</span>
-      <span class="hero-line2"><span class="grad-word">Infinite</span> impact.</span>
-    </h1>
-    <div class="hero-bottom-row">
-      <p class="hero-sub"><span class="hero-sub-name">Hike Listen</span>, <span class="hero-sub-name">Hike Create</span> y <span class="hero-sub-name">Hike Advise</span>. Tres agentes especializados que <span class="hero-sub-action">escuchan, crean y analizan</span> —— mientras tu equipo decide.</p>
-      <p class="hero-powered"><span class="hero-powered-dot"></span>Powered by Hike</p>
+    <!-- LEFT: text content -->
+    <div class="hero-text-col">
+      <p class="hero-eyebrow">// hike · agent council — 03 agents</p>
+      <h1 class="hero-h1" id="hero-h1">
+        <span class="hero-line1">Three agents.</span>
+        <span class="hero-line2"><span class="grad-word">Infinite</span> impact.</span>
+      </h1>
+      <div class="hero-bottom-row">
+        <p class="hero-sub"><span class="hero-sub-name">Hike Listen</span>, <span class="hero-sub-name">Hike Create</span> y <span class="hero-sub-name">Hike Advise</span>. Tres agentes especializados que <span class="hero-sub-action">escuchan, crean y analizan</span> —— mientras tu equipo decide.</p>
+        <p class="hero-powered"><span class="hero-powered-dot"></span>Powered by Hike</p>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn-solid" href="#listen">Explore council →</a>
+        <a class="btn-ghost" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">Book demo</a>
+      </div>
     </div>
-    <div class="hero-ctas">
-      <a class="btn-solid" href="#listen">Explore council →</a>
-      <a class="btn-ghost" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">Book demo</a>
+
+    <!-- RIGHT: Council diagram -->
+    <div class="council-col" aria-hidden="true">
+      <div class="council-diagram">
+
+        <!-- Atmospheric glow -->
+        <div class="council-glow"></div>
+
+        <!-- SVG connector lines (viewBox maps: center=200,200 | listen=200,72 | advise=83,330 | create=317,330) -->
+        <svg class="council-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <line class="council-line" x1="200" y1="200" x2="200" y2="72" stroke-dasharray="4 4"/>
+          <line class="council-line" x1="200" y1="200" x2="83"  y2="330" stroke-dasharray="4 4"/>
+          <line class="council-line" x1="200" y1="200" x2="317" y2="330" stroke-dasharray="4 4"/>
+        </svg>
+
+        <!-- Node: Hike Listen (top-center) -->
+        <a class="cn cn-listen" href="#listen" aria-label="Hike Listen">
+          <span class="cn-icon">
+            <svg width="36" height="28" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 24C18 24 4 16.5 4 9.5C4 5.36 10.27 2 18 2C25.73 2 32 5.36 32 9.5C32 16.5 18 24 18 24Z" stroke="#2D1B4E" stroke-width="1.5" fill="none"/>
+              <path d="M9 10 Q18 4 27 10" stroke="#7E6E94" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M13 13 Q18 9 23 13" stroke="#7E6E94" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <div class="cn-label">
+            <span class="cn-name">Hike Listen</span>
+            <span class="cn-tag">LISTEN · LIVE</span>
+          </div>
+        </a>
+
+        <!-- Node: Hike Advise (bottom-left) -->
+        <a class="cn cn-advise" href="#advise" aria-label="Hike Advise">
+          <span class="cn-icon">
+            <svg width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="2" width="22" height="16" rx="4" stroke="#2D1B4E" stroke-width="1.5" fill="none"/>
+              <path d="M3 14L3 18L7 14" stroke="#2D1B4E" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+              <rect x="13" y="14" width="22" height="16" rx="4" stroke="#7E6E94" stroke-width="1.5" fill="none"/>
+              <path d="M35 26L35 30L31 26" stroke="#7E6E94" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </span>
+          <div class="cn-label">
+            <span class="cn-name">Hike Advise</span>
+            <span class="cn-tag">CONVERSE · CONVERT</span>
+          </div>
+        </a>
+
+        <!-- Node: Hike Create (bottom-right) -->
+        <a class="cn cn-create" href="#create" aria-label="Hike Create">
+          <span class="cn-icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 4 C26.84 4 34 10.27 34 18 C34 25.73 26.84 32 18 32" stroke="#2D1B4E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M18 4 C9.16 4 2 10.27 2 18 C2 25.73 9.16 32 18 32" stroke="#7E6E94" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="3 3"/>
+              <polyline points="23,28 18,34 18,28" stroke="#2D1B4E" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </span>
+          <div class="cn-label">
+            <span class="cn-name">Hike Create</span>
+            <span class="cn-tag">CREATE · ADAPT</span>
+          </div>
+        </a>
+
+        <!-- Central node -->
+        <div class="cn-center">
+          <span class="cn-center-h">h</span>
+          <span class="cn-center-label">HIKE · THE COUNCIL</span>
+        </div>
+
+      </div>
     </div>
   </div>
+
   <!-- 3-col product band -->
   <div class="hero-band">
     <div class="hb-col">
