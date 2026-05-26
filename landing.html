@@ -326,19 +326,18 @@
       50% { opacity: 0.45; transform: translate(-50%, -50%) scale(1.1); }
     }
     .hero-main {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: clamp(32px, 4vw, 64px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       flex: 1;
-      padding: calc(70px + 3rem) var(--pad-x) 2rem;
+      padding: calc(70px + 4rem) var(--pad-x) 2.5rem;
       position: relative;
       z-index: 3;
-      min-height: 0;
     }
     .hero-text-col {
       display: flex;
       flex-direction: column;
+      max-width: 62%;
     }
     @media (max-width: 768px) {
       .hero-video { display: none; }
@@ -382,7 +381,7 @@
     .hero-line2 {
       display: block;
       font-family: var(--font-main);
-      font-size: clamp(80px, 12vw, 200px);
+      font-size: clamp(120px, 18vw, 280px);
       font-weight: 550;
       letter-spacing: -0.06em;
       line-height: 0.85;
@@ -467,33 +466,39 @@
       animation: fadeUp .6s var(--ease) 750ms forwards;
     }
 
-    /* ── COUNCIL DIAGRAM ── */
+    /* ── COUNCIL DIAGRAM (minimal) ── */
     .council-col {
+      position: absolute;
+      top: 50%;
+      right: var(--pad-x);
+      transform: translateY(-50%);
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
+      z-index: 4;
+      pointer-events: none;
     }
     .council-diagram {
       position: relative;
-      width: min(460px, 100%);
+      width: clamp(280px, 28vw, 420px);
       aspect-ratio: 1;
+      pointer-events: auto;
     }
-    /* atmospheric glow behind diagram */
+    /* subtle glow */
     .council-glow {
       position: absolute;
       top: 50%; left: 50%;
-      width: 80%; height: 80%;
+      width: 70%; height: 70%;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle at center, rgba(126,110,148,0.35) 0%, rgba(126,110,148,0.1) 50%, transparent 75%);
-      filter: blur(50px);
+      background: radial-gradient(circle at center, rgba(126,110,148,0.2) 0%, transparent 70%);
+      filter: blur(40px);
       z-index: 0;
       pointer-events: none;
       animation: council-glow-pulse 8s ease-in-out infinite;
     }
     @keyframes council-glow-pulse {
-      0%, 100% { opacity: 0.7; transform: translate(-50%,-50%) scale(1); }
-      50%       { opacity: 0.45; transform: translate(-50%,-50%) scale(1.1); }
+      0%, 100% { opacity: 0.8; }
+      50%       { opacity: 0.4; }
     }
     /* SVG connector lines */
     .council-svg {
@@ -504,50 +509,44 @@
       overflow: visible;
     }
     .council-line {
-      stroke: rgba(126,110,148,0.28);
-      stroke-width: 1.5;
-      stroke-dasharray: 600;
+      stroke: rgba(126,110,148,0.22);
+      stroke-width: 1;
+      stroke-dasharray: 4 5;
       stroke-dashoffset: 600;
       fill: none;
-      animation: drawLine 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+      animation: drawLine 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
     }
-    .council-line:nth-child(1) { animation-delay: 0.2s; }
-    .council-line:nth-child(2) { animation-delay: 0.4s; }
-    .council-line:nth-child(3) { animation-delay: 0.6s; }
+    .council-line:nth-child(1) { animation-delay: 0.3s; }
+    .council-line:nth-child(2) { animation-delay: 0.5s; }
+    .council-line:nth-child(3) { animation-delay: 0.7s; }
     @keyframes drawLine {
       to { stroke-dashoffset: 0; }
     }
     /* node shared */
     .cn {
       position: absolute;
-      width: 110px;
-      height: 110px;
+      width: 88px;
+      height: 88px;
       border-radius: 50%;
-      background: #FFFFFF;
-      border: 1.5px solid rgba(126,110,148,0.18);
-      box-shadow: 0 8px 30px rgba(45,27,78,0.1);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(126,110,148,0.15);
+      box-shadow: none;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 2;
       text-decoration: none;
       cursor: pointer;
-      transform: scale(0.4);
       opacity: 0;
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
-                  border-color 0.4s, box-shadow 0.4s;
-      animation: nodeIn 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+      transform: scale(0.6);
+      transition: border-color 0.35s, background 0.35s;
+      animation: nodeIn 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
     }
     .cn:hover {
-      transform: scale(1.08) !important;
-      border-color: #7E6E94;
-      box-shadow: 0 12px 40px rgba(45,27,78,0.2);
+      border-color: rgba(126,110,148,0.45);
+      background: rgba(255,255,255,0.98);
     }
-    .cn-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .cn-icon { display: none; }
     .cn-label {
       position: absolute;
       text-align: center;
@@ -556,112 +555,118 @@
     }
     .cn-name {
       display: block;
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 15px;
-      font-weight: 600;
-      color: #2D1B4E;
+      font-family: var(--font-main);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--hike-accent-dark);
       line-height: 1.2;
+      letter-spacing: -0.01em;
     }
     .cn-tag {
       display: block;
       font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: 0.15em;
+      font-size: 8px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #7E6E94;
-      margin-top: 2px;
+      color: var(--hike-accent);
+      margin-top: 3px;
     }
-    /* positioning each peripheral node */
+    /* node positions */
     .cn-listen {
-      top: 4%; left: 50%;
-      transform: translateX(-50%) scale(0.4);
+      top: 3%; left: 50%;
+      transform: translateX(-50%) scale(0.6);
       animation-delay: 0.8s;
+      animation-name: nodeInListen;
     }
-    .cn-listen:hover { transform: translateX(-50%) scale(1.08) !important; }
+    .cn-listen:hover { border-color: rgba(126,110,148,0.45); }
     .cn-listen .cn-label {
-      top: calc(100% + 10px);
+      top: calc(100% + 8px);
       left: 50%; transform: translateX(-50%);
     }
     .cn-advise {
-      bottom: 10%; left: 5%;
+      bottom: 8%; left: 4%;
       animation-delay: 1.0s;
     }
     .cn-advise .cn-label {
-      top: calc(100% + 10px);
+      top: calc(100% + 8px);
       left: 50%; transform: translateX(-50%);
     }
     .cn-create {
-      bottom: 10%; right: 5%;
+      bottom: 8%; right: 4%;
       animation-delay: 1.2s;
     }
     .cn-create .cn-label {
-      top: calc(100% + 10px);
+      top: calc(100% + 8px);
       left: 50%; transform: translateX(-50%);
     }
     @keyframes nodeIn {
       to { opacity: 1; transform: scale(1); }
     }
-    /* fix translateX nodes so hover also works */
-    .cn-listen { animation-name: nodeInListen; }
     @keyframes nodeInListen {
-      from { opacity: 0; transform: translateX(-50%) scale(0.4); }
+      from { opacity: 0; transform: translateX(-50%) scale(0.6); }
       to   { opacity: 1; transform: translateX(-50%) scale(1); }
     }
     /* central node */
     .cn-center {
       position: absolute;
       top: 50%; left: 50%;
-      width: 130px; height: 130px;
+      width: 100px; height: 100px;
       border-radius: 50%;
-      background: #FFFFFF;
-      border: 1.5px solid rgba(126,110,148,0.25);
-      box-shadow: 0 10px 40px rgba(45,27,78,0.15);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(126,110,148,0.2);
+      box-shadow: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       z-index: 3;
       transform: translate(-50%,-50%) scale(0);
       opacity: 0;
       animation: centerIn 0.6s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
     }
     .cn-center-h {
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: var(--font-main);
       font-style: italic;
-      font-size: 40px;
-      font-weight: 600;
-      color: #2D1B4E;
+      font-size: 32px;
+      font-weight: 550;
+      color: var(--hike-accent-dark);
       line-height: 1;
+      letter-spacing: -0.04em;
     }
     .cn-center-label {
       position: absolute;
-      bottom: -26px; left: 50%;
+      bottom: -22px; left: 50%;
       transform: translateX(-50%);
       font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: 0.2em;
+      font-size: 7px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #7E6E94;
+      color: var(--hike-accent);
       white-space: nowrap;
     }
     @keyframes centerIn {
       to { opacity: 1; transform: translate(-50%,-50%) scale(1); }
     }
     /* responsive */
-    @media (max-width: 1024px) {
-      .hero-main { grid-template-columns: 1fr; }
-      .council-col { margin-top: 3rem; }
-      .council-diagram { width: min(360px, 90vw); }
+    @media (max-width: 1100px) {
+      .hero-text-col { max-width: 58%; }
+      .council-col { right: clamp(16px, 3vw, 48px); }
+      .council-diagram { width: clamp(220px, 22vw, 320px); }
     }
     @media (max-width: 768px) {
-      .cn-name { font-size: 13px; }
-      .council-diagram { width: min(300px, 85vw); }
+      .council-col {
+        position: relative;
+        top: auto; right: auto;
+        transform: none;
+        margin: 2.5rem auto 0;
+        pointer-events: auto;
+      }
+      .hero-text-col { max-width: 100%; }
+      .council-diagram { width: min(280px, 80vw); }
     }
     @media (prefers-reduced-motion: reduce) {
       .council-line { animation: none; stroke-dashoffset: 0; }
-      .cn { animation: none; opacity: 1; }
+      .cn { animation: none; opacity: 1; transform: scale(1); }
       .cn-listen { transform: translateX(-50%) scale(1); }
-      .cn-advise, .cn-create { transform: scale(1); }
       .cn-center { animation: none; opacity: 1; transform: translate(-50%,-50%) scale(1); }
       .council-glow { animation: none; }
     }
@@ -2925,17 +2930,44 @@
 </footer>
 
 <script>
+/* ── PROGRESS + NAV SCROLL + HERO ZOOM-OUT ── */
 
-/* ── PROGRESS + NAV SCROLL ── */
 const prog = document.getElementById('progress');
 const navEl = document.getElementById('nav');
 const hero = document.getElementById('hero');
+const heroMain = hero ? hero.querySelector('.hero-main') : null;
+const councilDiagram = hero ? hero.querySelector('.council-diagram') : null;
+let ticking = false;
+
 window.addEventListener('scroll', () => {
   const s = window.scrollY, t = document.body.scrollHeight - window.innerHeight;
   prog.style.width = (s / t * 100) + '%';
   navEl.classList.toggle('scrolled', s > 100);
   updateSectionIndicator(s);
+
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const heroH = hero ? hero.offsetHeight : 1;
+      const p = Math.min(s / heroH, 1);           // 0 → 1 as user scrolls through hero
+      if (heroMain && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const scale   = 1 - p * 0.07;             // 1 → 0.93 zoom-out
+        const opacity = 1 - p * 1.4;              // 1 → 0 fade
+        const blur    = p * 4;                     // 0 → 4px blur
+        heroMain.style.transform       = `scale(${Math.max(scale, 0.92)})`;
+        heroMain.style.opacity         = Math.max(opacity, 0).toFixed(3);
+        heroMain.style.filter          = `blur(${blur.toFixed(1)}px)`;
+        heroMain.style.transformOrigin = 'center 60%';
+      }
+      if (councilDiagram && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // counter-movement: diagram drifts slightly up + scale stays — parallax feel
+        councilDiagram.style.transform = `translateY(${-p * 24}px) scale(${1 + p * 0.04})`;
+      }
+      ticking = false;
+    });
+    ticking = true;
+  }
 }, { passive: true });
+
 
 /* ── SECTION INDICATOR ── */
 const SI_SECTIONS = ['hero','listen','create','advise','galicia','cta-final'];
