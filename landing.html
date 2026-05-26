@@ -253,9 +253,16 @@
     #hero {
       position: relative;
       width: 100%;
+      height: 220vh;        /* extra space for scroll animation */
+      background: #000612;
+    }
+    /* Sticky viewport that holds all the visual content */
+    .hero-sticky-content {
+      position: sticky;
+      top: 0;
       height: 100vh;
       overflow: hidden;
-      background: #000612;
+      will-change: contents;
     }
 
     /* Ripple canvas */
@@ -375,6 +382,14 @@
           0 0 160px rgba(0, 80, 140, 0.25),
           0 0 260px rgba(0, 40, 80, 0.12);
       }
+    }
+
+    /* Visual orb wrapper — animated by scroll JS */
+    .hero-orb-visual {
+      position: absolute;
+      top: 0; left: 0;
+      width: 0; height: 0;
+      will-change: transform, opacity, filter;
     }
 
     /* "HIKE · THE COUNCIL" label below orb */
@@ -2443,6 +2458,7 @@
 
 <!-- HERO (Orb Council) -->
 <section id="hero" aria-label="Hike Agent Council Hero">
+<div class="hero-sticky-content">
 
   <!-- Background overlay — exact index.html gradient -->
   <div class="hero-bg-overlay" aria-hidden="true"></div>
@@ -2451,13 +2467,15 @@
   <!-- Water ripple canvas -->
   <canvas id="hero-ripple-canvas"></canvas>
 
-  <!-- Orb -->
+  <!-- Orb visual wrapper (gets shrunk/blurred on scroll) -->
   <div id="hero-orb-anchor" aria-hidden="false">
-    <div class="hero-orb-halo" aria-hidden="true"></div>
-    <div class="hero-orb-ring-outer" aria-hidden="true"></div>
-    <div class="hero-orb-ring-inner" aria-hidden="true"></div>
-    <div class="hero-orb-sphere" aria-hidden="true"></div>
-    <span class="hero-orb-label" aria-hidden="true">HIKE · THE COUNCIL</span>
+    <div class="hero-orb-visual" aria-hidden="true">
+      <div class="hero-orb-halo"></div>
+      <div class="hero-orb-ring-outer"></div>
+      <div class="hero-orb-ring-inner"></div>
+      <div class="hero-orb-sphere"></div>
+      <span class="hero-orb-label">HIKE · THE COUNCIL</span>
+    </div>
 
     <!-- NODE LABEL — Listen (top) -->
     <a class="hero-node-label" id="hero-label-listen"
@@ -2468,7 +2486,7 @@
       <span class="hnl-name">Hike Listen</span>
     </a>
 
-    <!-- NODE LABEL — Advise (bottom-right) -->
+    <!-- NODE LABEL — Advise (left) -->
     <a class="hero-node-label" id="hero-label-advise"
       href="https://chat.hikethecloud.com/"
       target="_blank" rel="noopener"
@@ -2477,7 +2495,7 @@
       <span class="hnl-name">Hike Advise</span>
     </a>
 
-    <!-- NODE LABEL — Create (bottom-left) -->
+    <!-- NODE LABEL — Create (right) -->
     <a class="hero-node-label" id="hero-label-create"
       href="https://readapt.web.app/"
       target="_blank" rel="noopener"
@@ -2499,6 +2517,7 @@
     <span class="hero-scroll-arrow"></span>
   </a>
 
+</div><!-- /.hero-sticky-content -->
 </section>
 
 
@@ -3187,9 +3206,14 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   if (!canvas || !hero) return;
   const ctx = canvas.getContext('2d');
 
+  // Use viewport dimensions (not the full 220vh hero)
   function resizeCanvas() {
-    canvas.width  = hero.offsetWidth  * window.devicePixelRatio;
-    canvas.height = hero.offsetHeight * window.devicePixelRatio;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    canvas.width  = vw * window.devicePixelRatio;
+    canvas.height = vh * window.devicePixelRatio;
+    canvas.style.width  = vw + 'px';
+    canvas.style.height = vh + 'px';
     ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
   }
   window.addEventListener('resize', resizeCanvas);
@@ -3253,8 +3277,10 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   }
   requestAnimationFrame(animate);
 
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
+  // Only fire ripples when mouse is in the visible sticky viewport
+  const stickyContent = hero.querySelector('.hero-sticky-content') || hero;
+  stickyContent.addEventListener('mousemove', (e) => {
+    const rect = stickyContent.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const dx = x - lastX, dy = y - lastY;
@@ -3264,11 +3290,88 @@ document.querySelectorAll('.acc-head').forEach(btn => {
     }
   });
 
-  hero.addEventListener('click', (e) => {
-    const rect = hero.getBoundingClientRect();
+  stickyContent.addEventListener('click', (e) => {
+    const rect = stickyContent.getBoundingClientRect();
     ripples.push(new Ripple(e.clientX - rect.left, e.clientY - rect.top, true));
   });
 })();
 </script>
+
+<script>
+/* ── HERO SCROLL EXIT ANIMATION ── */
+(function () {
+  const hero        = document.getElementById('hero');
+  if (!hero) return;
+
+  const orbVisual   = hero.querySelector('.hero-orb-visual');
+  const centerText  = hero.querySelector('.hero-center-text');
+  const scrollCta   = hero.querySelector('.hero-scroll-cta');
+  const labelListen = document.getElementById('hero-label-listen');
+  const labelAdvise = document.getElementById('hero-label-advise');
+  const labelCreate = document.getElementById('hero-label-create');
+
+  // Ease in-out cubic
+  function ease(t) {
+    return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+  }
+
+  function onScroll() {
+    // hero is 220vh; the sticky content shows the first 100vh.
+    // Scroll progress: 0 when at top, 1 when hero's bottom aligns with viewport bottom.
+    const scrollY          = window.scrollY;
+    const scrollableRange  = hero.offsetHeight - window.innerHeight;
+    const rawP = Math.min(Math.max(scrollY / scrollableRange, 0), 1);
+    const p    = ease(rawP);
+
+    /* ── ORB: scale down + blur + fade ── */
+    if (orbVisual) {
+      const sc  = 1 - p * 0.92;
+      const bl  = p * 20;
+      const opa = Math.max(0, 1 - p * 1.3);
+      orbVisual.style.transform = `scale(${sc})`;
+      orbVisual.style.filter    = `blur(${bl}px)`;
+      orbVisual.style.opacity   = opa;
+    }
+
+    /* ── CENTER TEXT: fade + slight shrink ── */
+    if (centerText) {
+      const textOpa = Math.max(0, 1 - p * 2.2);
+      const textSc  = 1 - p * 0.1;
+      centerText.style.opacity   = textOpa;
+      centerText.style.transform = `translate(-50%, -50%) scale(${textSc})`;
+    }
+
+    /* ── SCROLL CTA: fade fast ── */
+    if (scrollCta) {
+      scrollCta.style.opacity = Math.max(0, 1 - p * 4);
+    }
+
+    /* ── LABELS: spread outward + slight rotation + fade ── */
+    const labelOpa = Math.max(0, 1 - p * 1.6);
+    const spread   = p * 280;
+    const rot      = p * 28;
+
+    // Listen is ABOVE the orb → push further up
+    if (labelListen) {
+      labelListen.style.opacity   = labelOpa;
+      labelListen.style.transform = `translateY(${-spread * 0.85}px) rotate(${-rot * 0.4}deg)`;
+    }
+    // Advise is to the LEFT (right:240px in CSS) → push further left
+    if (labelAdvise) {
+      labelAdvise.style.opacity   = labelOpa;
+      labelAdvise.style.transform = `translateX(${-spread}px) translateY(${spread * 0.35}px) rotate(${-rot}deg)`;
+    }
+    // Create is to the RIGHT (left:240px in CSS) → push further right
+    if (labelCreate) {
+      labelCreate.style.opacity   = labelOpa;
+      labelCreate.style.transform = `translateX(${spread}px) translateY(${spread * 0.35}px) rotate(${rot}deg)`;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); // initialise on load
+})();
+</script>
 </body>
 </html>
+
