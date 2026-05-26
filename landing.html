@@ -253,11 +253,6 @@
     #hero {
       position: relative;
       width: 100%;
-      height: 180vh;
-    }
-    .hero-sticky {
-      position: sticky;
-      top: 0;
       height: 100vh;
       overflow: hidden;
       background: #000612;
@@ -2432,7 +2427,6 @@
 
 <!-- HERO (Orb Council) -->
 <section id="hero">
-<div class="hero-sticky">
 
   <div class="hero-bg-overlay" aria-hidden="true"></div>
   <div class="hero-grain-overlay" aria-hidden="true"></div>
@@ -2473,7 +2467,6 @@
     <span class="hero-scroll-arrow"></span>
   </a>
 
-</div>
 </section>
 
 
@@ -3247,7 +3240,7 @@ document.querySelectorAll('.acc-head').forEach(btn => {
 </script>
 
 <script>
-/* ── HERO SCROLL — SPIRAL EXPANSION ── */
+/* ── HERO SCROLL — SPIRAL EXPANSION (wheel hijack) ── */
 (function () {
   const hero = document.getElementById('hero');
   if (!hero) return;
@@ -3257,48 +3250,40 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   const scrollCta  = hero.querySelector('.hero-scroll-cta');
   const nodes      = hero.querySelectorAll('.hero-node-label');
 
-  // Config
-  const BASE_DISTANCE  = 200;   // initial orbit radius (px)
-  const MAX_DISTANCE   = 700;   // max orbit radius (px)
-  const TOTAL_ROTATIONS = 1;    // how many full turns during scroll-out
+  const BASE_DISTANCE   = 200;
+  const MAX_DISTANCE    = 700;
+  const TOTAL_ROTATIONS = 1;
+  const SCROLL_BUDGET   = 800; // virtual px of wheel delta to complete animation
 
   function lerp(a, b, t) { return a + (b - a) * t; }
   function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
-  let ticking = false;
+  let virtualScroll = 0;   // accumulated wheel delta (0 → SCROLL_BUDGET)
+  let animDone = false;    // true once animation finished and page can scroll
 
-  function onScroll() {
-    // Progress: 0 at top, 1 when hero section fully scrolled
-    const heroRect = hero.getBoundingClientRect();
-    const maxScroll = hero.offsetHeight - window.innerHeight;
-    const scrolled = -heroRect.top;
-    const progress = Math.min(Math.max(scrolled / maxScroll, 0), 1);
+  function render() {
+    const progress = Math.min(Math.max(virtualScroll / SCROLL_BUDGET, 0), 1);
     const ep = easeOutCubic(progress);
 
-    /* ── ORB: shrink + blur + fade ── */
+    /* ── ORB ── */
     if (orbVisual) {
-      const sc  = lerp(1, 0.2, ep);
-      const bl  = lerp(0, 16, ep);
-      const opa = lerp(1, 0, ep);
-      orbVisual.style.transform = `scale(${sc})`;
-      orbVisual.style.filter    = `blur(${bl}px)`;
-      orbVisual.style.opacity   = opa;
+      orbVisual.style.transform = `scale(${lerp(1, 0.2, ep)})`;
+      orbVisual.style.filter    = `blur(${lerp(0, 16, ep)}px)`;
+      orbVisual.style.opacity   = lerp(1, 0, ep);
     }
 
-    /* ── CENTER TEXT: fade fast ── */
+    /* ── TEXT ── */
     if (centerText) {
-      const textOpa = Math.max(0, 1 - progress * 3);
-      const textSc  = lerp(1, 0.9, ep);
-      centerText.style.opacity   = textOpa;
-      centerText.style.transform = `translate(-50%, -50%) scale(${textSc})`;
+      centerText.style.opacity   = Math.max(0, 1 - progress * 3);
+      centerText.style.transform = `translate(-50%, -50%) scale(${lerp(1, 0.9, ep)})`;
     }
 
-    /* ── SCROLL CTA: fade immediately ── */
+    /* ── SCROLL CTA ── */
     if (scrollCta) {
       scrollCta.style.opacity = Math.max(0, 1 - progress * 6);
     }
 
-    /* ── NODES: spiral expansion ── */
+    /* ── NODES: spiral ── */
     const currentRotation = ep * TOTAL_ROTATIONS * 360;
     const currentDistance  = lerp(BASE_DISTANCE, MAX_DISTANCE, ep);
 
@@ -3306,31 +3291,86 @@ document.querySelectorAll('.acc-head').forEach(btn => {
       const baseAngle    = parseFloat(node.dataset.baseAngle) || 0;
       const currentAngle = baseAngle + currentRotation;
       const angleRad     = (currentAngle * Math.PI) / 180;
-
       const x = Math.cos(angleRad) * currentDistance;
       const y = Math.sin(angleRad) * currentDistance;
 
-      // Fade out near the end
       const nodeOpa = progress < 0.75
         ? lerp(1, 0.4, ep)
         : lerp(0.4, 0, (progress - 0.75) / 0.25);
 
-      const nodeScale = lerp(1, 0.6, ep);
-
-      node.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(${nodeScale})`;
+      node.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(${lerp(1, 0.6, ep)})`;
       node.style.opacity   = nodeOpa;
     });
-
-    ticking = false;
   }
 
+  function onWheel(e) {
+    // Only hijack when the hero is at the top of the viewport
+    if (window.scrollY > 5) {
+      // Page has scrolled past hero — check if scrolling back up to top
+      if (e.deltaY < 0 && window.scrollY < 10) {
+        // near top scrolling up — will handle in scroll listener
+      }
+      return; // let normal scroll happen
+    }
+
+    const delta = e.deltaY;
+
+    // Scrolling DOWN while animation not done → hijack
+    if (delta > 0 && !animDone) {
+      e.preventDefault();
+      virtualScroll = Math.min(virtualScroll + delta, SCROLL_BUDGET);
+      if (virtualScroll >= SCROLL_BUDGET) {
+        animDone = true;
+      }
+      requestAnimationFrame(render);
+      return;
+    }
+
+    // Scrolling UP while at scrollY=0 → reverse animation
+    if (delta < 0 && window.scrollY === 0 && virtualScroll > 0) {
+      e.preventDefault();
+      virtualScroll = Math.max(virtualScroll + delta, 0);
+      if (virtualScroll < SCROLL_BUDGET) animDone = false;
+      requestAnimationFrame(render);
+      return;
+    }
+  }
+
+  // When user scrolls back to top of page, re-enable hijack
   window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(onScroll);
-      ticking = true;
+    if (window.scrollY === 0 && animDone) {
+      // User scrolled all the way back up — keep animation complete
+      // They'll need to scroll up more (wheel) to reverse it
     }
   }, { passive: true });
-  onScroll(); // set initial positions
+
+  window.addEventListener('wheel', onWheel, { passive: false });
+
+  // Touch support for mobile
+  let touchStartY = 0;
+  window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (window.scrollY > 5) return;
+    const delta = touchStartY - e.touches[0].clientY;
+    touchStartY = e.touches[0].clientY;
+
+    if (delta > 0 && !animDone) {
+      e.preventDefault();
+      virtualScroll = Math.min(virtualScroll + delta * 2, SCROLL_BUDGET);
+      if (virtualScroll >= SCROLL_BUDGET) animDone = true;
+      requestAnimationFrame(render);
+    } else if (delta < 0 && window.scrollY === 0 && virtualScroll > 0) {
+      e.preventDefault();
+      virtualScroll = Math.max(virtualScroll + delta * 2, 0);
+      if (virtualScroll < SCROLL_BUDGET) animDone = false;
+      requestAnimationFrame(render);
+    }
+  }, { passive: false });
+
+  render(); // initial positions
 })();
 </script>
 </body>
