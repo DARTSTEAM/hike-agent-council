@@ -94,30 +94,7 @@
       pointer-events: none;
     }
 
-    /* ── CURSOR CUSTOM ── */
-    @media (pointer: fine) {
-      body, a, button { cursor: none !important; }
-    }
-    #cursor {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      border: 1px solid var(--text);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 99999;
-      transform: translate(-50%, -50%);
-      transition: width .25s var(--ease), height .25s var(--ease), border-color .25s, mix-blend-mode .25s;
-      mix-blend-mode: normal;
-      display: none;
-    }
-    #cursor.active {
-      width: 32px;
-      height: 32px;
-      mix-blend-mode: difference;
-      border-color: var(--text);
-    }
-    @media (pointer: fine) { #cursor { display: block; } }
+
 
 
     /* ── SECTION INDICATOR ── */
@@ -263,8 +240,8 @@
       flex-direction: column;
       justify-content: space-between;
       background: var(--bg);
-      overflow-x: clip;
     }
+
     /* HERO VIDEO BACKGROUND */
     .hero-video-bg {
       position: absolute;
@@ -2146,7 +2123,6 @@
 
 <a class="skip-link" href="#hero">Skip to content</a>
 <div id="progress"></div>
-<div id="cursor"></div>
 <div id="section-indicator" aria-hidden="true">
   <span class="si-item" data-sec="hero">01 — hero</span>
   <span class="si-item" data-sec="listen">02 — listen</span>
