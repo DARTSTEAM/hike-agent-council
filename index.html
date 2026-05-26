@@ -109,7 +109,10 @@
     @keyframes spinR { to { transform: rotate(-360deg); } }
     @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
     @keyframes fadeUp  { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes labelIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes labelIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     @keyframes dashFlow { to { stroke-dashoffset: -48; } }
     @keyframes panelIn  { from { opacity:0; transform:scale(0.94) translateY(22px); } to { opacity:1; transform:scale(1) translateY(0); } }
     @keyframes panelOut { from { opacity:1; transform:scale(1) translateY(0); } to { opacity:0; transform:scale(0.94) translateY(22px); } }
@@ -185,7 +188,6 @@
         transparent           70%);
       filter: blur(40px);
       animation: haloPulse 5s ease-in-out infinite;
-      transform: translate(calc(var(--mx, 0) * 18px), calc(var(--my, 0) * 18px));
       transition: background 0.4s var(--ease);
     }
 
@@ -223,7 +225,6 @@
         0 0 35px var(--orb-shadow);
       animation: orbPulse 4.5s ease-in-out infinite;
       z-index: 2;
-      transform: translate(calc(var(--mx, 0) * 12px), calc(var(--my, 0) * 12px));
       transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
     }
 
@@ -248,9 +249,8 @@
       pointer-events: auto;
       opacity: 0;
       animation: labelIn 0.7s var(--ease) forwards;
-      transition: opacity 0.35s, transform 0.15s var(--ease);
+      transition: opacity 0.35s;
       text-align: center;
-      transform: translate(calc(var(--mx, 0) * 8px + var(--lx, 0px)), calc(var(--my, 0) * 8px + var(--ly, 0px)));
     }
     .node-label .nl-eyebrow {
       display: block;
@@ -482,6 +482,16 @@
     .btn-outline { background:transparent; color:var(--text); border-color:var(--border); }
     .btn-outline:hover { background:rgba(0, 121, 176, 0.12); border-color:var(--accent); }
 
+    /* ── RIPPLE CANVAS ── */
+    #ripple-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
       html, body { overflow: auto; }
@@ -500,6 +510,9 @@
   </style>
 </head>
 <body>
+
+  <!-- RIPPLE CANVAS -->
+  <canvas id="ripple-canvas"></canvas>
 
   <!-- TOP BAR -->
   <header id="topbar" role="banner">
@@ -565,43 +578,166 @@
     <div class="hint-pulse"></div>
   </div>
   <script>
-    // 3D Parallax effect
     const anchor = document.getElementById('orb-anchor');
     const labels = document.querySelectorAll('.node-label');
+    const canvas = document.getElementById('ripple-canvas');
+    const ctx = canvas.getContext('2d');
 
+    // Handle resizing
+    function resizeCanvas() {
+      canvas.width = window.innerWidth * window.devicePixelRatio;
+      canvas.height = window.innerHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Ripple state
+    const ripples = [];
+    let activeColor = '0, 229, 255'; // Default Cyan
+    let targetColor = '0, 229, 255';
+    let lastX = 0;
+    let lastY = 0;
+    const spawnThreshold = 12; // Minimum distance to spawn another movement ripple
+
+    class Ripple {
+      constructor(x, y, color, isClick = false) {
+        this.x = x;
+        this.y = y;
+        this.isClick = isClick;
+        this.radius = 2;
+        this.maxRadius = isClick ? 180 + Math.random() * 60 : 100 + Math.random() * 40;
+        this.alpha = isClick ? 0.35 : 0.18; // soft start opacity
+        this.speed = isClick ? 2.2 : 1.2 + Math.random() * 0.8;
+        this.color = color;
+        // click ripples are a bit thicker
+        this.thickness = isClick ? 2.5 : 1.2;
+      }
+
+      update() {
+        this.radius += this.speed;
+        const progress = this.radius / this.maxRadius;
+        this.alpha = (this.isClick ? 0.35 : 0.18) * (1 - progress);
+      }
+
+      draw() {
+        if (this.alpha <= 0) return;
+        
+        // Setup blur glow
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = `rgba(${this.color}, ${this.alpha * 0.8})`;
+
+        // Main outer ring
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${this.color}, ${this.alpha})`;
+        ctx.lineWidth = this.thickness;
+        ctx.stroke();
+
+        // Secondary offset concentric ring
+        if (this.radius > 20) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius - 15, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${this.color}, ${this.alpha * 0.4})`;
+          ctx.lineWidth = this.thickness * 0.6;
+          ctx.stroke();
+        }
+
+        // Tertiary center glow
+        if (this.radius > 45) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius - 35, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${this.color}, ${this.alpha * 0.2})`;
+          ctx.lineWidth = this.thickness * 0.4;
+          ctx.stroke();
+        }
+
+        // Reset shadow settings
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    // Color transition interpolation
+    function lerpColor(c1, c2, factor) {
+      const p1 = c1.split(',').map(Number);
+      const p2 = c2.split(',').map(Number);
+      const r = Math.round(p1[0] + (p2[0] - p1[0]) * factor);
+      const g = Math.round(p1[1] + (p2[1] - p1[1]) * factor);
+      const b = Math.round(p1[2] + (p2[2] - p1[2]) * factor);
+      return `${r}, ${g}, ${b}`;
+    }
+
+    // Main animation loop
+    function animate() {
+      // Clear canvas with a full clear
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Smoothly transition the current activeColor towards targetColor
+      if (activeColor !== targetColor) {
+        activeColor = lerpColor(activeColor, targetColor, 0.08);
+        const p1 = activeColor.split(',').map(Number);
+        const p2 = targetColor.split(',').map(Number);
+        const dist = Math.abs(p1[0] - p2[0]) + Math.abs(p1[1] - p2[1]) + Math.abs(p1[2] - p2[2]);
+        if (dist < 4) {
+          activeColor = targetColor;
+        }
+      }
+
+      // Draw all ripples
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const ripple = ripples[i];
+        ripple.update();
+        if (ripple.alpha <= 0) {
+          ripples.splice(i, 1);
+        } else {
+          ripple.draw();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+
+    // Track mousemove for spawning ripples
     window.addEventListener('mousemove', (e) => {
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      const nx = (e.clientX - cx) / cx;
-      const ny = (e.clientY - cy) / cy;
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
 
-      document.documentElement.style.setProperty('--mx', nx);
-      document.documentElement.style.setProperty('--my', ny);
+      if (dist > spawnThreshold) {
+        ripples.push(new Ripple(e.clientX, e.clientY, activeColor, false));
+        lastX = e.clientX;
+        lastY = e.clientY;
+      }
     });
 
-    // Magnetic effect on Labels & Orb reactions
+    // Spawn larger ripple on click
+    window.addEventListener('click', (e) => {
+      ripples.push(new Ripple(e.clientX, e.clientY, activeColor, true));
+    });
+
+    // Hover listeners for node labels
     labels.forEach(label => {
       label.addEventListener('mouseenter', () => {
         anchor.classList.add(`active-${label.id}`);
         labels.forEach(l => {
           if (l !== label) l.classList.add('dimmed');
         });
+
+        // Set target ripple color based on hovered label
+        if (label.id === 'label-listen') {
+          targetColor = '0, 210, 106'; // Green
+        } else if (label.id === 'label-advise') {
+          targetColor = '0, 163, 255'; // Blue
+        } else if (label.id === 'label-create') {
+          targetColor = '0, 229, 255'; // Cyan
+        }
       });
 
       label.addEventListener('mouseleave', () => {
         anchor.classList.remove(`active-${label.id}`);
         labels.forEach(l => l.classList.remove('dimmed'));
-        label.style.setProperty('--lx', '0px');
-        label.style.setProperty('--ly', '0px');
-      });
-
-      label.addEventListener('mousemove', (e) => {
-        const rect = label.getBoundingClientRect();
-        const lx = e.clientX - (rect.left + rect.width / 2);
-        const ly = e.clientY - (rect.top + rect.height / 2);
-        
-        label.style.setProperty('--lx', `${lx * 0.25}px`);
-        label.style.setProperty('--ly', `${ly * 0.25}px`);
+        targetColor = '0, 229, 255'; // Reset to Cyan
       });
     });
   </script>
