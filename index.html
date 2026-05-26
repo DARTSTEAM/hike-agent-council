@@ -1,69 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hike · Agent Council — Three Agents. One Council.</title>
-  <meta name="description" content="The Hike the Cloud agent hub: Hike Listen, Hike Create and Hike Advise. AI applied to real brands. Built for Google." />
+  <meta name="description" content="The Hike the Cloud agent hub: Hike Listen, Hike Create and Hike Advise. AI applied to real brands." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── DESIGN TOKENS — Light (default) ──────────────────── */
+    /* ── TOKENS ── */
     :root {
-      --bg:           #FCF9F7;
-      --surface:      #FFFFFF;
-      --surface-2:    #F7F4F1;
-      --dark:         #1A0A2E;
-      --accent:       #7E6E94;
-      --accent-dark:  #2D1B4E;
-      --accent-deep:  #5E5070;
-      --accent-light: rgba(126,110,148,0.08);
-      --accent-border:rgba(126,110,148,0.18);
-      --yellow:       #F4EB33;
-      --text:         #1A1420;
-      --text-2:       #6B6272;
-      --text-3:       #9E97A5;
-      --border:       rgba(26,20,32,0.07);
-      --border-md:    rgba(26,20,32,0.13);
-      --topbar-bg:    rgba(252,249,247,0.92);
-      --backdrop-bg:  rgba(252,249,247,0.68);
-      --node-fill:    #FFFFFF;
-      --logo-url:     url('https://storage.googleapis.com/abn-assets/hike_logo_violeta_1080x1080.png');
-      --transition:   cubic-bezier(0.16, 1, 0.3, 1);
+      --bg:       #060210;
+      --mid:      #0E0618;
+      --top-bg:   #1A0A2E;
+      --accent:   #7E6E94;
+      --accent-d: #2D1B4E;
+      --accent-l: #C8B8E0;
+      --text:     #F0EAF8;
+      --text-2:   #B8ADCC;
+      --text-3:   #6A607A;
+      --border:   rgba(200,184,224,0.10);
+      --yellow:   #F4EB33;
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* ─── DESIGN TOKENS — Dark ──────────────────────────────── */
-    [data-theme="dark"] {
-      --bg:           #0E0618;
-      --surface:      #1A0A2E;
-      --surface-2:    #120820;
-      --accent:       #9E8FB8;
-      --accent-dark:  #C8B8E0;
-      --accent-deep:  #B0A0CC;
-      --accent-light: rgba(200,184,224,0.08);
-      --accent-border:rgba(200,184,224,0.18);
-      --text:         #F0EAF8;
-      --text-2:       #B8ADCC;
-      --text-3:       #7A6E90;
-      --border:       rgba(200,184,224,0.07);
-      --border-md:    rgba(200,184,224,0.16);
-      --topbar-bg:    rgba(14,6,24,0.92);
-      --backdrop-bg:  rgba(14,6,24,0.72);
-      --node-fill:    #1A0A2E;
-    }
-
-    /* ─── THEME TRANSITION ─────────────────────────────────── */
-    *, *::before, *::after {
-      box-sizing: border-box; margin: 0; padding: 0;
-      transition:
-        background-color 0.45s cubic-bezier(0.16,1,0.3,1),
-        color 0.45s cubic-bezier(0.16,1,0.3,1),
-        border-color 0.45s cubic-bezier(0.16,1,0.3,1),
-        fill 0.45s cubic-bezier(0.16,1,0.3,1),
-        stroke 0.45s cubic-bezier(0.16,1,0.3,1);
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
       width: 100%; height: 100%;
@@ -71,411 +34,472 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Inter', system-ui, sans-serif;
-      font-weight: 300;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ─── KEYFRAMES ─────────────────────────────────────────── */
-    @keyframes breathe {
-      0%,100% { transform: scale(1);    opacity: 1; }
-      50%      { transform: scale(1.12); opacity: 0.85; }
+    /* ── BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 90% 80% at 50% 65%, rgba(45,27,78,0.55) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(126,110,148,0.12) 0%, transparent 55%),
+        linear-gradient(160deg, #060210 0%, #0E0618 50%, #080318 100%);
     }
-    @keyframes halo {
-      0%,100% { transform: scale(0.95); opacity: 0.5; }
-      50%      { transform: scale(1.1);  opacity: 0.9; }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
     }
-    @keyframes spinCW  { to { transform: rotate(360deg);  } }
-    @keyframes spinCCW { to { transform: rotate(-360deg); } }
+
+    /* ── KEYFRAMES ── */
+    @keyframes orbPulse {
+      0%,100% {
+        box-shadow:
+          0 0 25px  rgba(180,150,220,0.55),
+          0 0 60px  rgba(126,110,148,0.38),
+          0 0 120px rgba(100,70,150,0.22),
+          0 0 200px rgba(70,40,120,0.10);
+      }
+      50% {
+        box-shadow:
+          0 0 35px  rgba(200,170,240,0.75),
+          0 0 85px  rgba(140,110,180,0.5),
+          0 0 160px rgba(110,80,160,0.3),
+          0 0 260px rgba(80,50,130,0.14);
+      }
+    }
+    @keyframes haloPulse {
+      0%,100% { opacity:0.6; transform:translate(-50%,-50%) scale(1); }
+      50%      { opacity:1;   transform:translate(-50%,-50%) scale(1.12); }
+    }
+    @keyframes spin  { to { transform: rotate(360deg);  } }
+    @keyframes spinR { to { transform: rotate(-360deg); } }
+    @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+    @keyframes fadeUp  { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes labelIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
     @keyframes dashFlow { to { stroke-dashoffset: -48; } }
-    @keyframes blink {
-      0%,100% { opacity: 1;   }
-      50%      { opacity: 0.2; }
-    }
-    @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(-14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes nodeIn {
-      from { opacity: 0; transform: scale(0.7); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-    @keyframes panelIn {
-      from { opacity: 0; transform: scale(0.92) translateY(22px); }
-      to   { opacity: 1; transform: scale(1)    translateY(0); }
-    }
-    @keyframes panelOut {
-      from { opacity: 1; transform: scale(1)    translateY(0); }
-      to   { opacity: 0; transform: scale(0.92) translateY(22px); }
-    }
-    @keyframes countUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes panelIn  { from { opacity:0; transform:scale(0.94) translateY(22px); } to { opacity:1; transform:scale(1) translateY(0); } }
+    @keyframes panelOut { from { opacity:1; transform:scale(1) translateY(0); } to { opacity:0; transform:scale(0.94) translateY(22px); } }
+    @keyframes countUp  { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
-    /* ─── TOP BAR ───────────────────────────────────────────── */
+    /* ── TOPBAR ── */
     #topbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top:0; left:0; right:0; z-index: 100;
       height: 3.5rem;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2rem;
       border-bottom: 1px solid var(--border);
-      background: var(--topbar-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(6,2,16,0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       opacity: 0;
-      animation: fadeIn 0.4s 0.1s var(--transition) forwards;
+      animation: fadeIn 0.6s 0.2s var(--ease) forwards;
     }
-    .topbar-left { display: flex; align-items: center; gap: 0.75rem; }
-
-    /* Logo swaps automatically with JS class */
-    .topbar-logo { height: 22px; width: auto; transition: opacity 0.3s; }
-    .topbar-logo-light { display: block; }
-    .topbar-logo-dark  { display: none; }
-    [data-theme="dark"] .topbar-logo-light { display: none; }
-    [data-theme="dark"] .topbar-logo-dark  { display: block; }
-
-    .topbar-divider { width: 1px; height: 18px; background: var(--border-md); }
+    .topbar-left { display:flex; align-items:center; gap:0.75rem; }
+    .topbar-logo  { height:20px; width:auto; }
+    .topbar-divider { width:1px; height:18px; background:var(--border); }
     .topbar-title {
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--accent-dark);
+      font-size:10px; font-weight:700;
+      letter-spacing:0.28em; text-transform:uppercase;
+      color:rgba(200,184,224,0.4);
     }
-    .topbar-right { display: flex; align-items: center; gap: 0.875rem; }
-    .topbar-tag {
-      font-size: 10px; font-weight: 700;
+    .topbar-right { display:flex; align-items:center; gap:0.875rem; }
+    .topbar-tag   { font-size:10px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-3); }
+    .topbar-sep   { width:24px; height:1px; background:var(--border); }
+    .topbar-version { font-size:10px; font-weight:500; color:var(--text-3); letter-spacing:0.1em; }
+
+    /* ── SVG LINES (full-viewport overlay) ── */
+    #lines-svg {
+      position: fixed; inset:0; width:100%; height:100%;
+      pointer-events: none; z-index: 2; overflow: visible;
+      opacity: 0;
+      animation: fadeIn 0.8s 1.4s forwards;
+    }
+    .conn-solid {
+      stroke: rgba(126,110,148,0.18);
+      stroke-width: 1;
+      fill: none;
+      transition: stroke 0.4s;
+    }
+    .conn-dash {
+      stroke: rgba(200,184,224,0.22);
+      stroke-width: 1;
+      stroke-dasharray: 4 9;
+      fill: none;
+      animation: dashFlow 7s linear infinite;
+      transition: stroke 0.4s;
+    }
+
+    /* ── ORB (zero-size anchor at center) ── */
+    #orb-anchor {
+      position: fixed;
+      top: calc(50% + 1.75rem);  /* +topbar offset */
+      left: 50%;
+      width: 0; height: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Atmospheric halo */
+    .orb-halo {
+      position: absolute;
+      width: 520px; height: 520px;
+      top: -260px; left: -260px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center,
+        rgba(126,110,148,0.22) 0%,
+        rgba(45,27,78,0.1)    40%,
+        transparent           70%);
+      filter: blur(35px);
+      animation: haloPulse 5s ease-in-out infinite;
+    }
+
+    /* Outer rotating ring */
+    .orb-ring-outer {
+      position: absolute;
+      width: 260px; height: 260px;
+      top: -130px; left: -130px;
+      border-radius: 50%;
+      border: 1px dashed rgba(126,110,148,0.08);
+      animation: spinR 80s linear infinite;
+    }
+
+    /* Inner rotating ring */
+    .orb-ring-inner {
+      position: absolute;
+      width: 210px; height: 210px;
+      top: -105px; left: -105px;
+      border-radius: 50%;
+      border: 1px solid rgba(126,110,148,0.10);
+      animation: spin 50s linear infinite;
+    }
+
+    /* The orb sphere */
+    .orb-sphere {
+      position: absolute;
+      width: 158px; height: 158px;
+      top: -79px; left: -79px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 37% 30%,
+        rgba(235,220,255,0.96) 0%,
+        rgba(180,148,220,0.92) 14%,
+        rgba(118,82,168,0.94)  33%,
+        rgba(62,32,102,0.97)   56%,
+        rgba(22,8,44,1)        76%,
+        rgba(10,4,22,1)        100%
+      );
+      animation: orbPulse 4.5s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    /* Specular highlight */
+    .orb-sphere::before {
+      content: '';
+      position: absolute;
+      width: 44%; height: 40%;
+      border-radius: 50%;
+      top: 12%; left: 16%;
+      background: radial-gradient(circle at center,
+        rgba(255,255,255,0.6) 0%,
+        rgba(255,255,255,0.12) 55%,
+        transparent 100%);
+      filter: blur(5px);
+    }
+
+    /* Equator shimmer ring */
+    .orb-sphere::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(ellipse 100% 8% at 50% 58%,
+        rgba(200,170,255,0.14) 0%,
+        transparent 100%);
+    }
+
+    /* "HIKE · THE COUNCIL" label below orb */
+    .orb-label {
+      position: absolute;
+      top: 92px;
+      left: 50%; transform: translateX(-50%);
+      font-size: 7.5px; font-weight: 700;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: rgba(200,184,224,0.32);
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    /* ── NODE LABELS ── */
+    .node-label {
+      position: fixed;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      z-index: 6;
+      pointer-events: auto;
+      opacity: 0;
+      animation: labelIn 0.7s var(--ease) forwards;
+      transition: opacity 0.35s;
+    }
+    .node-label .nl-eyebrow {
+      display: block;
+      font-size: 9px; font-weight: 600;
       letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--text-3);
+      margin-bottom: 0.4rem;
+      transition: color 0.3s;
     }
-    .topbar-sep { width: 24px; height: 1px; background: var(--border-md); }
-    .topbar-version { font-size: 10px; font-weight: 500; color: var(--text-3); letter-spacing: 0.1em; }
-
-    /* ─── DARK MODE TOGGLE ──────────────────────────────────── */
-    #theme-toggle {
-      display: flex; align-items: center; justify-content: center;
-      width: 2rem; height: 2rem;
+    .node-label .nl-dot {
+      display: block;
+      width: 4px; height: 4px;
       border-radius: 50%;
-      border: 1px solid var(--border-md);
-      background: transparent;
-      cursor: pointer;
-      color: var(--text-3);
-      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s !important;
+      background: var(--accent);
+      margin: 0 auto 0.4rem;
+      transition: background 0.3s, box-shadow 0.3s;
     }
-    #theme-toggle:hover {
-      background: var(--accent-light);
-      border-color: var(--accent-border);
-      color: var(--accent-dark);
-      transform: rotate(20deg);
+    .node-label .nl-name {
+      display: block;
+      font-size: 1.0625rem; font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      white-space: nowrap;
+      transition: color 0.3s;
     }
-    #theme-toggle svg { width: 14px; height: 14px; pointer-events: none; }
-    /* Show sun in dark, moon in light */
-    #icon-moon { display: block; }
-    #icon-sun  { display: none; }
-    [data-theme="dark"] #icon-moon { display: none; }
-    [data-theme="dark"] #icon-sun  { display: block; }
+    .node-label:hover .nl-name    { color: #fff; }
+    .node-label:hover .nl-eyebrow { color: var(--accent-l); }
+    .node-label:hover .nl-dot     { background: var(--accent-l); box-shadow: 0 0 8px var(--accent-l); }
 
-    /* ─── HEADER ────────────────────────────────────────────── */
-    #header {
-      position: fixed; top: 3.5rem; left: 0; right: 0; z-index: 50;
-      display: flex; flex-direction: column; align-items: center;
-      padding-top: 1.25rem;
+    /* Positions */
+    #label-listen {
+      top: 16%; left: 50%;
+      transform: translateX(-50%);
+      animation-delay: 0.9s;
+    }
+    #label-advise {
+      top: 53%; left: 8%;
+      animation-delay: 1.1s;
+    }
+    #label-create {
+      top: 53%; right: 8%;
+      animation-delay: 1.3s;
+    }
+
+    /* Fade unselected labels */
+    .node-label.dimmed { opacity: 0.12 !important; pointer-events: none !important; }
+
+    /* ── BOTTOM HEADLINE ── */
+    #headline {
+      position: fixed;
+      bottom: 2.75rem; left: 2.75rem;
+      z-index: 6;
       pointer-events: none;
       opacity: 0;
-      animation: fadeUp 0.6s 0.25s var(--transition) forwards;
+      animation: fadeUp 0.9s 1.8s var(--ease) forwards;
     }
-    .eyebrow-row {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 0.9rem;
-    }
-    .eyebrow-line { width: 40px; height: 1px; background: var(--accent-border); }
-    .eyebrow-label {
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--text-3);
-    }
-    #header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.125rem);
+    .hl-line {
+      display: block;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
       font-weight: 300;
-      letter-spacing: -0.025em;
-      color: var(--accent-dark);
-      text-align: center;
-      line-height: 1.2;
-      margin-bottom: 0.55rem;
+      letter-spacing: -0.035em;
+      color: rgba(240,234,248,0.7);
+      line-height: 1.1;
     }
-    #header h1 span.accent {
-      font-weight: 600; font-style: italic;
-    }
-    /* Yellow accent ONLY in dark mode */
-    [data-theme="dark"] #header h1 span.accent {
-      color: var(--yellow);
-    }
-    #header .subtitle {
-      font-size: 0.8125rem; font-weight: 300;
-      color: var(--text-3); letter-spacing: 0.01em;
-    }
+    .hl-line b { font-weight: 700; color: rgba(240,234,248,0.9); }
 
-    /* ─── STAGE ─────────────────────────────────────────────── */
-    #stage-wrap {
+    /* ── HINT (bottom right) ── */
+    #hint {
       position: fixed;
-      top: 9.5rem; left: 0; right: 0; bottom: 0;
-      display: flex; align-items: center; justify-content: center;
-      pointer-events: none;
+      bottom: 2.75rem; right: 2.75rem;
+      z-index: 6; pointer-events: none;
+      text-align: right;
+      opacity: 0;
+      animation: fadeIn 0.6s 2.2s var(--ease) forwards;
     }
-    #stage {
-      width:  min(800px, 95vw, calc(100vh - 11rem));
-      height: min(800px, 95vw, calc(100vh - 11rem));
-      pointer-events: all;
-      overflow: visible;
+    .hint-text {
+      display: block;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 0.5rem;
     }
-
-    /* Node interactivity */
-    .node-group { cursor: pointer; transition: opacity 0.45s var(--transition) !important; }
-    .node-ring  { transition: stroke 0.25s, stroke-width 0.25s, filter 0.25s !important; }
-    .node-icon  {
-      transition: transform 0.25s var(--transition) !important;
-      transform-origin: 0 0; transform-box: fill-box;
-    }
-    .node-halo  { transform-origin: center center; transform-box: fill-box; }
-
-    .node-group.hovered .node-ring {
-      stroke: var(--accent-dark) !important;
-      stroke-width: 2 !important;
-      filter: drop-shadow(0 0 10px rgba(45,27,78,0.35));
-    }
-    [data-theme="dark"] .node-group.hovered .node-ring {
-      filter: drop-shadow(0 0 14px rgba(200,184,224,0.45));
-    }
-    /* hover scale removed intentionally */
-
-    .has-selection .node-group:not(.selected) { opacity: 0.12; pointer-events: none; }
-    .has-selection .conn-line,
-    .has-selection .conn-dash { opacity: 0.08; }
-
-    .conn-line { transition: opacity 0.45s var(--transition) !important; }
-    .conn-dash {
-      transition: opacity 0.45s var(--transition) !important;
-      animation: dashFlow 8s linear infinite;
+    .hint-pulse {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-left: auto;
+      animation: orbPulse 2.5s ease-in-out infinite;
     }
 
-    /* ─── BACKDROP ──────────────────────────────────────────── */
+    /* ── BACKDROP ── */
     #backdrop {
       display: none;
-      position: fixed; inset: 0; z-index: 200;
-      background: var(--backdrop-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      position: fixed; inset:0; z-index:200;
+      background: rgba(4,1,12,0.80);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
       align-items: center; justify-content: center;
       padding: 1rem;
     }
-    #backdrop.visible { display: flex; }
+    #backdrop.visible { display:flex; }
 
-    /* ─── PANEL ─────────────────────────────────────────────── */
+    /* ── PANEL ── */
     #panel {
       position: relative;
       width: min(900px, 100%);
       max-height: 88vh;
       overflow-y: auto;
-      background: var(--surface);
+      background: rgba(14,6,24,0.97);
       border-radius: 1.5rem;
-      border: 1px solid var(--border-md);
+      border: 1px solid rgba(200,184,224,0.13);
       box-shadow:
-        0 2px 4px rgba(45,27,78,0.06),
-        0 8px 24px rgba(45,27,78,0.12),
-        0 24px 64px rgba(45,27,78,0.16),
-        0 48px 100px rgba(45,27,78,0.08);
+        0 2px  4px  rgba(0,0,0,0.5),
+        0 8px  24px rgba(0,0,0,0.6),
+        0 24px 64px rgba(0,0,0,0.6),
+        0 0 0  1px  rgba(200,184,224,0.06);
       padding: 2.5rem 3rem 2rem;
-      animation: panelIn 0.6s var(--transition) forwards;
+      animation: panelIn 0.6s var(--ease) forwards;
     }
-    [data-theme="dark"] #panel {
-      box-shadow:
-        0 2px 4px rgba(0,0,0,0.3),
-        0 8px 24px rgba(0,0,0,0.4),
-        0 24px 64px rgba(0,0,0,0.5),
-        0 0 0 1px rgba(200,184,224,0.1);
-    }
-    #panel.closing { animation: panelOut 0.35s var(--transition) forwards; }
-    #panel::-webkit-scrollbar { width: 4px; }
-    #panel::-webkit-scrollbar-track { background: transparent; }
-    #panel::-webkit-scrollbar-thumb { background: var(--accent-border); border-radius: 2px; }
+    #panel.closing { animation: panelOut 0.35s var(--ease) forwards; }
+    #panel::-webkit-scrollbar { width:4px; }
+    #panel::-webkit-scrollbar-track { background:transparent; }
+    #panel::-webkit-scrollbar-thumb { background:rgba(200,184,224,0.15); border-radius:2px; }
 
-    /* Close button */
     #close-btn {
-      position: absolute; top: 1.25rem; right: 1.25rem;
-      width: 2rem; height: 2rem; border-radius: 50%;
-      border: 1px solid var(--border-md);
-      background: var(--surface);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: var(--text-3);
+      position: absolute; top:1.25rem; right:1.25rem;
+      width:2rem; height:2rem; border-radius:50%;
+      border: 1px solid rgba(200,184,224,0.15);
+      background: rgba(45,27,78,0.35);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; color:var(--text-3);
       transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s !important;
-      z-index: 10;
+      z-index:10;
     }
     #close-btn:hover {
-      background: var(--accent-light);
-      border-color: var(--accent-border);
-      color: var(--accent-dark);
+      background: rgba(126,110,148,0.2);
+      border-color: rgba(200,184,224,0.3);
+      color: var(--text);
       transform: rotate(90deg);
     }
-    #close-btn svg { width: 14px; height: 14px; pointer-events: none; }
+    #close-btn svg { width:14px; height:14px; pointer-events:none; }
 
-    /* Panel content */
     .panel-eyebrow {
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 1rem;
+      font-size:10px; font-weight:700;
+      letter-spacing:0.28em; text-transform:uppercase;
+      color:var(--accent); margin-bottom:1rem;
     }
     .panel-title {
       font-size: clamp(1.75rem, 4vw, 2.625rem);
-      font-weight: 300; letter-spacing: -0.025em;
-      color: var(--accent-dark);
-      line-height: 1.12; margin-bottom: 0.8rem;
+      font-weight:300; letter-spacing:-0.025em;
+      color:var(--text); line-height:1.12; margin-bottom:0.8rem;
     }
-    .panel-title span.accent { font-weight: 600; font-style: italic; }
-    [data-theme="dark"] .panel-title span.accent { color: var(--yellow); }
+    .panel-title span.accent { font-weight:700; font-style:italic; color:var(--yellow); }
     .panel-tagline {
-      font-size: 1rem; font-weight: 300;
-      color: var(--text-2); line-height: 1.7;
-      margin-bottom: 1.5rem; max-width: 68ch;
+      font-size:1rem; font-weight:300;
+      color:var(--text-2); line-height:1.7;
+      margin-bottom:1.5rem; max-width:68ch;
     }
-    .panel-divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+    .panel-divider { height:1px; background:var(--border); margin:1.5rem 0; }
     .panel-section-label {
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--text-3); margin-bottom: 1.25rem;
+      font-size:10px; font-weight:700;
+      letter-spacing:0.22em; text-transform:uppercase;
+      color:var(--text-3); margin-bottom:1.25rem;
     }
 
-    /* Stats */
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; }
     .stat-item {
-      padding: 1.375rem 1rem;
-      background: var(--surface-2);
-      border-radius: 0.875rem;
-      border: 1px solid var(--border);
-      text-align: center;
-      animation: countUp 0.5s var(--transition) both;
+      padding:1.375rem 1rem;
+      background:rgba(45,27,78,0.22);
+      border-radius:0.875rem;
+      border:1px solid var(--border);
+      text-align:center;
+      animation: countUp 0.5s var(--ease) both;
     }
-    .stat-item:nth-child(1) { animation-delay: 0.05s; }
-    .stat-item:nth-child(2) { animation-delay: 0.12s; }
-    .stat-item:nth-child(3) { animation-delay: 0.19s; }
+    .stat-item:nth-child(1) { animation-delay:0.05s; }
+    .stat-item:nth-child(2) { animation-delay:0.12s; }
+    .stat-item:nth-child(3) { animation-delay:0.19s; }
     .stat-num {
-      display: block;
-      font-size: 2rem; font-weight: 300;
-      letter-spacing: -0.04em; color: var(--accent-dark);
-      line-height: 1; margin-bottom: 0.4rem;
+      display:block;
+      font-size:2rem; font-weight:300;
+      letter-spacing:-0.04em; color:var(--yellow);
+      line-height:1; margin-bottom:0.4rem;
     }
-    [data-theme="dark"] .stat-num { color: var(--yellow); }
     .stat-label {
-      font-size: 9px; font-weight: 700;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--text-3);
+      font-size:9px; font-weight:700;
+      letter-spacing:0.22em; text-transform:uppercase;
+      color:var(--text-3);
     }
 
-    /* Trusted by */
-    .trusted-row {
-      display: flex; align-items: center; gap: 1.25rem;
-      flex-wrap: wrap;
-    }
+    .trusted-row { display:flex; align-items:center; gap:1.25rem; flex-wrap:wrap; }
     .trusted-logo {
-      height: 22px; width: auto;
-      opacity: 0.55;
-      filter: grayscale(1);
+      height:22px; width:auto;
+      opacity:0.45; filter:grayscale(1) brightness(2.5);
       transition: opacity 0.2s, filter 0.2s !important;
     }
-    .trusted-logo:hover { opacity: 0.85; filter: grayscale(0); }
-    [data-theme="dark"] .trusted-logo { filter: grayscale(1) brightness(2); }
+    .trusted-logo:hover { opacity:0.85; filter:grayscale(0) brightness(1.5); }
 
-    /* Capabilities */
-    .cap-list { list-style: none; }
+    .cap-list { list-style:none; }
     .cap-item {
-      display: flex; align-items: flex-start; gap: 0.75rem;
-      padding: 0.9rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.9rem; font-weight: 300;
-      color: var(--text-2); line-height: 1.65;
+      display:flex; align-items:flex-start; gap:0.75rem;
+      padding:0.9rem 0;
+      border-bottom:1px solid var(--border);
+      font-size:0.9rem; font-weight:300;
+      color:var(--text-2); line-height:1.65;
     }
-    .cap-item:last-child { border-bottom: none; }
+    .cap-item:last-child { border-bottom:none; }
     .cap-bullet {
-      flex-shrink: 0; width: 5px; height: 5px;
-      border-radius: 50%; background: var(--accent);
-      margin-top: 0.52em;
+      flex-shrink:0; width:5px; height:5px;
+      border-radius:50%; background:var(--accent);
+      margin-top:0.52em;
     }
 
-    /* Buttons */
-    .panel-actions { display: flex; gap: 0.75rem; margin-top: 1.75rem; flex-wrap: wrap; }
+    .panel-actions { display:flex; gap:0.75rem; margin-top:1.75rem; flex-wrap:wrap; }
     .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.75rem 1.5rem; border-radius: 0.625rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8125rem; font-weight: 600;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      cursor: pointer; text-decoration: none;
+      display:inline-flex; align-items:center; gap:0.5rem;
+      padding:0.75rem 1.5rem; border-radius:0.625rem;
+      font-family:'Inter',sans-serif;
+      font-size:0.8125rem; font-weight:600;
+      letter-spacing:0.06em; text-transform:uppercase;
+      cursor:pointer; text-decoration:none;
       transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s !important;
-      border: 1.5px solid transparent;
+      border:1.5px solid transparent;
     }
-    .btn:active { transform: scale(0.97); }
-    .btn-primary {
-      background: var(--accent-dark); color: #fff; border-color: var(--accent-dark);
-    }
-    [data-theme="dark"] .btn-primary {
-      background: var(--yellow); color: #1A0A2E; border-color: var(--yellow);
-    }
+    .btn:active { transform:scale(0.97); }
+    .btn-primary { background:var(--yellow); color:#1A0A2E; border-color:var(--yellow); }
     .btn-primary:hover {
-      background: var(--accent-deep); border-color: var(--accent-deep);
-      box-shadow: 0 4px 18px rgba(45,27,78,0.28);
+      background:#e8df2a; border-color:#e8df2a;
+      box-shadow:0 4px 20px rgba(244,235,51,0.28);
     }
-    [data-theme="dark"] .btn-primary:hover {
-      background: #e8df2a; border-color: #e8df2a;
-      box-shadow: 0 4px 20px rgba(244,235,51,0.3);
-    }
-    .btn-outline {
-      background: transparent; color: var(--accent-dark); border-color: var(--accent-border);
-    }
-    .btn-outline:hover { background: var(--accent-light); border-color: var(--accent); }
+    .btn-outline { background:transparent; color:var(--text); border-color:var(--border); }
+    .btn-outline:hover { background:rgba(126,110,148,0.12); border-color:var(--accent); }
 
-    /* ─── HINT ──────────────────────────────────────────────── */
-    #hint {
-      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; align-items: center; gap: 0.6rem;
-      opacity: 0;
-      animation: fadeIn 0.5s 1.5s var(--transition) forwards;
-      pointer-events: none; z-index: 50;
-    }
-    .hint-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent);
-      animation: blink 2s ease-in-out infinite;
-    }
-    .hint-text {
-      font-size: 9px; font-weight: 700;
-      letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-3);
-    }
-
-    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
-      body, html { overflow: auto; }
-      #stage-wrap { position: relative; inset: auto; top: auto; padding: 9rem 0 2rem; display: block; }
-      #stage { margin: 0 auto; display: block; }
-      #hint { display: none; }
-      #panel { padding: 1.75rem 1.25rem 1.25rem; }
-      .stats-grid { gap: 0.375rem; }
-      .stat-item { padding: 1rem 0.5rem; }
-      .stat-num { font-size: 1.5rem; }
-      .panel-actions { flex-direction: column; }
-      .btn { justify-content: center; }
+      html, body { overflow: auto; }
+      #label-listen { top:14%; }
+      #label-advise { top:auto; bottom:22%; left:4%; }
+      #label-create  { top:auto; bottom:22%; right:4%; }
+      #headline { bottom:1.5rem; left:1.5rem; }
+      #hint { display:none; }
+      #panel { padding:1.75rem 1.25rem 1.25rem; }
+      .stats-grid { gap:0.375rem; }
+      .stat-item { padding:1rem 0.5rem; }
+      .stat-num { font-size:1.5rem; }
+      .panel-actions { flex-direction:column; }
+      .btn { justify-content:center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ─── TOP BAR ─────────────────────────────────────────── -->
+  <!-- TOP BAR -->
   <header id="topbar" role="banner">
     <div class="topbar-left">
-      <!-- Light logo -->
-      <img class="topbar-logo topbar-logo-light"
-        src="https://storage.googleapis.com/abn-assets/hike_logo_violeta_1080x1080.png"
-        alt="Hike the Cloud" />
-      <!-- Dark logo -->
-      <img class="topbar-logo topbar-logo-dark"
+      <img class="topbar-logo"
         src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png"
         alt="Hike the Cloud" />
       <div class="topbar-divider"></div>
@@ -485,188 +509,71 @@
       <span class="topbar-tag">Built for Google</span>
       <div class="topbar-sep"></div>
       <span class="topbar-version">v 1.0</span>
-      <div class="topbar-sep"></div>
-      <!-- Dark mode toggle -->
-      <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-        <!-- Moon icon (shown in light mode) -->
-        <svg id="icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z"/>
-        </svg>
-        <!-- Sun icon (shown in dark mode) -->
-        <svg id="icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <circle cx="8" cy="8" r="3"/>
-          <line x1="8" y1="1" x2="8" y2="3"/>
-          <line x1="8" y1="13" x2="8" y2="15"/>
-          <line x1="1" y1="8" x2="3" y2="8"/>
-          <line x1="13" y1="8" x2="15" y2="8"/>
-          <line x1="3.05" y1="3.05" x2="4.46" y2="4.46"/>
-          <line x1="11.54" y1="11.54" x2="12.95" y2="12.95"/>
-          <line x1="12.95" y1="3.05" x2="11.54" y2="4.46"/>
-          <line x1="4.46" y1="11.54" x2="3.05" y2="12.95"/>
-        </svg>
-      </button>
     </div>
   </header>
 
-  <!-- ─── HEADER ──────────────────────────────────────────── -->
-  <section id="header" aria-labelledby="main-heading">
-    <div class="eyebrow-row">
-      <div class="eyebrow-line"></div>
-      <span class="eyebrow-label">The Council</span>
-      <div class="eyebrow-line"></div>
-    </div>
-    <h1 id="main-heading">
-      Three agents. One council.<br />
-      <span class="accent">Pick your trail.</span>
-    </h1>
-    <p class="subtitle">Tap an agent to learn more.</p>
-  </section>
+  <!-- SVG CONNECTOR LINES (full-viewport, JS-positioned) -->
+  <svg id="lines-svg" xmlns="http://www.w3.org/2000/svg">
+    <line id="ll-s" class="conn-solid"/>
+    <line id="la-s" class="conn-solid"/>
+    <line id="lc-s" class="conn-solid"/>
+    <line id="ll-d" class="conn-dash"/>
+    <line id="la-d" class="conn-dash" style="animation-delay:-2.3s"/>
+    <line id="lc-d" class="conn-dash" style="animation-delay:-4.6s"/>
+  </svg>
 
-  <!-- ─── STAGE SVG ────────────────────────────────────────── -->
-  <div id="stage-wrap">
-    <svg
-      id="stage"
-      viewBox="-400 -400 800 800"
-      role="img"
-      aria-label="Interactive council of three Hike the Cloud agents"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <!-- CONNECTION LINES -->
-      <line class="conn-line" x1="0" y1="0" x2="0" y2="-240"
-        stroke="rgba(126,110,148,0.18)" stroke-width="1"/>
-      <line class="conn-dash" x1="0" y1="0" x2="0" y2="-240"
-        stroke="rgba(45,27,78,0.32)" stroke-width="1"
-        stroke-dasharray="4 8"/>
-      <line class="conn-line" x1="0" y1="0" x2="208" y2="120"
-        stroke="rgba(126,110,148,0.18)" stroke-width="1"/>
-      <line class="conn-dash" x1="0" y1="0" x2="208" y2="120"
-        stroke="rgba(45,27,78,0.32)" stroke-width="1"
-        stroke-dasharray="4 8" style="animation-delay:-2.7s"/>
-      <line class="conn-line" x1="0" y1="0" x2="-208" y2="120"
-        stroke="rgba(126,110,148,0.18)" stroke-width="1"/>
-      <line class="conn-dash" x1="0" y1="0" x2="-208" y2="120"
-        stroke="rgba(45,27,78,0.32)" stroke-width="1"
-        stroke-dasharray="4 8" style="animation-delay:-5.3s"/>
-
-      <!-- ── COUNCIL CENTER ─────────────────────────────── -->
-      <g id="council-center">
-        <circle cx="0" cy="0" r="52"
-          fill="none" stroke="rgba(126,110,148,0.2)" stroke-width="1"
-          style="transform-origin:0 0;transform-box:fill-box;animation:spinCW 60s linear infinite"/>
-        <circle cx="0" cy="0" r="38"
-          fill="none" stroke="rgba(45,27,78,0.16)" stroke-width="1"
-          stroke-dasharray="2 6"
-          style="transform-origin:0 0;transform-box:fill-box;animation:spinCCW 90s linear infinite"/>
-        <image
-          id="center-logo"
-          href="https://storage.googleapis.com/abn-assets/hike_logo_violeta_1080x1080.png"
-          x="-22" y="-22" width="44" height="44"
-          preserveAspectRatio="xMidYMid meet"
-          style="transform-origin:0 0;transform-box:fill-box;animation:breathe 4s ease-in-out infinite"/>
-        <text x="0" y="74" text-anchor="middle"
-          font-family="Inter,sans-serif" font-size="7" font-weight="700"
-          letter-spacing="3.2" fill="#9E97A5">HIKE · THE COUNCIL</text>
-      </g>
-
-      <!-- ── NODE 1: Hike Listen (top) ─────────────────── -->
-      <g transform="translate(0,-240)">
-        <g class="node-group" id="node-hike-listen" data-agent="hike-listen"
-          role="button" tabindex="0" aria-label="Hike Listen agent"
-          style="opacity:0;animation:nodeIn 0.7s 0.7s cubic-bezier(0.16,1,0.3,1) forwards">
-          <circle class="node-halo" cx="0" cy="0" r="68"
-            fill="rgba(126,110,148,0.08)"
-            style="animation:halo 5s ease-in-out infinite"/>
-          <circle class="node-ring" cx="0" cy="0" r="56"
-            fill="white" stroke="rgba(126,110,148,0.18)" stroke-width="1.5"/>
-          <g class="node-icon">
-            <path d="M-24,8 A26,26,0,0,1,24,8"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M-15,5 A17,17,0,0,1,15,5"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M-7,2 A8,8,0,0,1,7,2"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="0" cy="0" r="2.5" fill="#2D1B4E"/>
-          </g>
-          <text x="0" y="80" text-anchor="middle"
-            font-family="Inter,sans-serif" font-size="16" font-weight="600"
-            fill="#1A1420">Hike Listen</text>
-          <text x="0" y="97" text-anchor="middle"
-            font-family="Inter,sans-serif" font-size="11" font-weight="700"
-            letter-spacing="2.6" fill="#9E97A5">LISTEN · LIVE</text>
-        </g>
-      </g>
-
-      <!-- ── NODE 2: Hike Create (bottom-right) ─────────── -->
-      <g transform="translate(208,120)">
-        <g class="node-group" id="node-hike-create" data-agent="hike-create"
-          role="button" tabindex="0" aria-label="Hike Create agent"
-          style="opacity:0;animation:nodeIn 0.7s 0.85s cubic-bezier(0.16,1,0.3,1) forwards">
-          <circle class="node-halo" cx="0" cy="0" r="68"
-            fill="rgba(126,110,148,0.08)"
-            style="animation:halo 5s 1.7s ease-in-out infinite"/>
-          <circle class="node-ring" cx="0" cy="0" r="56"
-            fill="white" stroke="rgba(126,110,148,0.18)" stroke-width="1.5"/>
-          <g class="node-icon">
-            <path d="M14,-8 A18,18,0,0,0,-14,-8"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5"
-              stroke-linecap="round" opacity="0.38"/>
-            <path d="M-14,8 A18,18,0,1,1,14,8"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
-            <polyline points="10,3 14,8 19,4"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
-          <text x="0" y="80" text-anchor="middle"
-            font-family="Inter,sans-serif" font-size="16" font-weight="600"
-            fill="#1A1420">Hike Create</text>
-          <text x="0" y="97" text-anchor="middle"
-            font-family="Inter,sans-serif" font-size="11" font-weight="700"
-            letter-spacing="2.6" fill="#9E97A5">CREATE · ADAPT</text>
-        </g>
-      </g>
-
-      <!-- ── NODE 3: Hike Advise (bottom-left) ─────────── -->
-      <g transform="translate(-208,120)">
-        <g class="node-group" id="node-hike-advise" data-agent="hike-advise"
-          role="button" tabindex="0" aria-label="Hike Advise agent"
-          style="opacity:0;animation:nodeIn 0.7s 1.0s cubic-bezier(0.16,1,0.3,1) forwards">
-          <circle class="node-halo" cx="0" cy="0" r="68"
-            fill="rgba(126,110,148,0.08)"
-            style="animation:halo 5s 3.3s ease-in-out infinite"/>
-          <circle class="node-ring" cx="0" cy="0" r="56"
-            fill="white" stroke="rgba(126,110,148,0.18)" stroke-width="1.5"/>
-          <g class="node-icon">
-            <rect x="2" y="-17" width="22" height="16" rx="4"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5"
-              stroke-linecap="round" opacity="0.42"/>
-            <polyline points="5,-1 3,5 9,1"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round" opacity="0.42"/>
-            <rect x="-23" y="-11" width="24" height="17" rx="4"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5" stroke-linecap="round"/>
-            <polyline points="-19,6 -22,13 -14,8"
-              fill="none" stroke="#2D1B4E" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
-          <text x="0" y="80" text-anchor="middle"
-            font-family="Inter,sans-serif" font-size="16" font-weight="600"
-            fill="#1A1420">Hike Advise</text>
-          <text x="0" y="97" text-anchor="middle"
-            font-family="Inter,sans-serif" font-size="11" font-weight="700"
-            letter-spacing="2.6" fill="#9E97A5">CONVERSE · CONVERT</text>
-        </g>
-      </g>
-
-    </svg>
+  <!-- ORB (zero-size anchor at viewport center) -->
+  <div id="orb-anchor" aria-hidden="true">
+    <div class="orb-halo"></div>
+    <div class="orb-ring-outer"></div>
+    <div class="orb-ring-inner"></div>
+    <div class="orb-sphere"></div>
+    <span class="orb-label">HIKE · THE COUNCIL</span>
   </div>
 
-  <!-- ─── HINT ─────────────────────────────────────────────── -->
+  <!-- NODE LABEL — Listen (top) -->
+  <a class="node-label" id="label-listen"
+    data-agent="hike-listen"
+    role="button" tabindex="0"
+    aria-label="Open Hike Listen panel">
+    <span class="nl-eyebrow">Agent · 01</span>
+    <span class="nl-dot"></span>
+    <span class="nl-name">Hike Listen</span>
+  </a>
+
+  <!-- NODE LABEL — Advise (bottom-left) -->
+  <a class="node-label" id="label-advise"
+    data-agent="hike-advise"
+    role="button" tabindex="0"
+    aria-label="Open Hike Advise panel">
+    <span class="nl-eyebrow">Agent · 02</span>
+    <span class="nl-dot"></span>
+    <span class="nl-name">Hike Advise</span>
+  </a>
+
+  <!-- NODE LABEL — Create (bottom-right) -->
+  <a class="node-label" id="label-create"
+    data-agent="hike-create"
+    role="button" tabindex="0"
+    aria-label="Open Hike Create panel">
+    <span class="nl-eyebrow">Agent · 03</span>
+    <span class="nl-dot"></span>
+    <span class="nl-name">Hike Create</span>
+  </a>
+
+  <!-- BOTTOM LEFT HEADLINE -->
+  <div id="headline" aria-hidden="true">
+    <span class="hl-line">Three agents.</span>
+    <span class="hl-line"><b>One council.</b></span>
+  </div>
+
+  <!-- HINT -->
   <div id="hint" aria-hidden="true">
-    <div class="hint-dot"></div>
-    <span class="hint-text">Tap a node to activate the council</span>
+    <span class="hint-text">Select a node to explore</span>
+    <div class="hint-pulse"></div>
   </div>
 
-  <!-- ─── BACKDROP + PANEL ──────────────────────────────────── -->
+  <!-- BACKDROP + PANEL -->
   <div id="backdrop" role="dialog" aria-modal="true" aria-labelledby="panel-title">
     <div id="panel">
       <button id="close-btn" aria-label="Close panel">
@@ -681,49 +588,42 @@
   </div>
 
   <script>
-    /* ══════════════════════════════════════════════════════════
-       AGENT DATA — edit this object to update content
-       ══════════════════════════════════════════════════════════ */
+    /* ═══════════════════════════════════
+       AGENT DATA
+    ═══════════════════════════════════ */
     const AGENTS = {
-
       'hike-listen': {
-        eyebrow:     'Agent · 01',
-        name:        'Hike Listen',
+        eyebrow: 'Agent · 01',
+        name: 'Hike Listen',
         titlePrefix: 'Listens to every conversation',
-        accent:      'that matters.',
-        tagline:     'Real-time social media monitoring powered by AI. Detects mentions, trends and sentiment shifts in any language — before they become a crisis or a missed opportunity.',
-        url:         'https://hike-social-listener.web.app/',
-        urlLabel:    'OPEN HIKE LISTEN →',
-        trusted:     null,
+        accent: 'that matters.',
+        tagline: 'Real-time social media monitoring powered by AI. Detects mentions, trends and sentiment shifts in any language — before they become a crisis or a missed opportunity.',
+        url: 'https://hike-social-listener.web.app/',
+        urlLabel: 'OPEN HIKE LISTEN →',
+        trusted: null,
         stats: [
-          { num: '24/7',  label: 'Active monitoring' },
-          { num: '+15',   label: 'Active brands' },
-          { num: '8',     label: 'Languages' }
+          { num: '24/7', label: 'Active monitoring' },
+          { num: '+15', label: 'Active brands' },
+          { num: '8',   label: 'Languages' }
         ],
         capabilities: [
           'Tracks mentions across 100+ sources: social networks, forums, news, podcasts and reviews',
           'Real-time sentiment analysis with automatic detection of crises and opportunities',
           'Custom executive reports by brand, campaign and competitor',
           'Instant configurable alerts so nothing relevant slips through the cracks',
-          'Unified dashboard: your brand\'s full conversation in a single view'
+          "Unified dashboard: your brand's full conversation in a single view"
         ]
       },
-
       'hike-create': {
-        eyebrow:     'Agent · 02',
-        name:        'Hike Create',
+        eyebrow: 'Agent · 02',
+        name: 'Hike Create',
         titlePrefix: 'Content that adapts',
-        accent:      'on its own.',
-        tagline:     'Transforms every piece of content into optimized versions for each channel, format and audience. Continuous learning based on real performance data — no manual input needed.',
-        url:         'https://readapt.web.app/',
-        urlLabel:    'OPEN HIKE CREATE →',
-        /* Client logos shown in the panel — add more objects as needed */
+        accent: 'on its own.',
+        tagline: 'Transforms every piece of content into optimized versions for each channel, format and audience. Continuous learning based on real performance data — no manual input needed.',
+        url: 'https://readapt.web.app/',
+        urlLabel: 'OPEN HIKE CREATE →',
         trusted: [
-          {
-            name: 'Galicia',
-            src:  'https://elfaroboutiquehotel.com.ar/wp-content/uploads/2025/09/logo_galicia_blanco.png',
-            height: 28
-          }
+          { name: 'Galicia', src: 'https://elfaroboutiquehotel.com.ar/wp-content/uploads/2025/09/logo_galicia_blanco.png', height: 28 }
         ],
         stats: [
           { num: '×4',   label: 'Auto variations' },
@@ -738,16 +638,15 @@
           'Full version history with the reasoning behind every agent decision'
         ]
       },
-
       'hike-advise': {
-        eyebrow:     'Agent · 03',
-        name:        'Hike Advise',
+        eyebrow: 'Agent · 03',
+        name: 'Hike Advise',
         titlePrefix: 'Conversations that',
-        accent:      'convert.',
-        tagline:     'A next-generation conversational agent that guides customers from first contact to purchase. Deep context, natural responses, zero friction.',
-        url:         'https://chat.hikethecloud.com/',
-        urlLabel:    'OPEN HIKE ADVISE →',
-        trusted:     null,
+        accent: 'convert.',
+        tagline: 'A next-generation conversational agent that guides customers from first contact to purchase. Deep context, natural responses, zero friction.',
+        url: 'https://chat.hikethecloud.com/',
+        urlLabel: 'OPEN HIKE ADVISE →',
+        trusted: null,
         stats: [
           { num: '+40%', label: 'Conversion rate' },
           { num: '<2s',  label: 'Response time' },
@@ -761,100 +660,115 @@
           'No-code setup: full agent customization with zero development required'
         ]
       }
-
     };
 
-    /* ─── THEME TOGGLE ──────────────────────────────────────── */
-    const html        = document.documentElement;
-    const themeBtn    = document.getElementById('theme-toggle');
-    const centerLogo  = document.getElementById('center-logo');
+    /* ═══════════════════════════════════
+       SVG LINES — JS positions them
+    ═══════════════════════════════════ */
+    const orbAnchor = document.getElementById('orb-anchor');
+    const ORB_R = 79; // half of 158px orb
 
-    const LOGO_LIGHT = 'https://storage.googleapis.com/abn-assets/hike_logo_violeta_1080x1080.png';
-    const LOGO_WHITE = 'https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png';
-
-    function applyTheme(dark) {
-      html.setAttribute('data-theme', dark ? 'dark' : 'light');
-      centerLogo.setAttribute('href', dark ? LOGO_WHITE : LOGO_LIGHT);
-      localStorage.setItem('hike-council-theme', dark ? 'dark' : 'light');
-      /* Also update all node fill circles to dark bg in dark mode */
-      document.querySelectorAll('.node-ring').forEach(r => {
-        r.setAttribute('fill', dark ? '#1A0A2E' : '#FFFFFF');
-      });
-      /* Update node text colors */
-      document.querySelectorAll('text[fill="#1A1420"]').forEach(t => {
-        t.setAttribute('fill', dark ? '#F0EAF8' : '#1A1420');
-      });
-      document.querySelectorAll('text[fill="#F0EAF8"]').forEach(t => {
-        if (!dark) t.setAttribute('fill', '#1A1420');
-      });
-      /* Update icon strokes */
-      document.querySelectorAll('.node-icon path, .node-icon polyline, .node-icon rect, .node-icon circle[fill="#2D1B4E"]').forEach(el => {
-        if (el.hasAttribute('stroke') && el.getAttribute('stroke') === '#2D1B4E') {
-          el.setAttribute('stroke', dark ? '#C8B8E0' : '#2D1B4E');
-        }
-        if (el.getAttribute('fill') === '#2D1B4E') {
-          el.setAttribute('fill', dark ? '#C8B8E0' : '#2D1B4E');
-        }
-      });
-      /* Connection line colors */
-      document.querySelectorAll('.conn-dash').forEach(l => {
-        l.setAttribute('stroke', dark ? 'rgba(200,184,224,0.45)' : 'rgba(45,27,78,0.32)');
-      });
-      document.querySelectorAll('.conn-line').forEach(l => {
-        l.setAttribute('stroke', dark ? 'rgba(200,184,224,0.15)' : 'rgba(126,110,148,0.18)');
-      });
-      /* Council rings */
-      const rings = document.querySelectorAll('#council-center circle');
-      rings.forEach((r, i) => {
-        if (i === 0) r.setAttribute('stroke', dark ? 'rgba(200,184,224,0.2)' : 'rgba(126,110,148,0.2)');
-        if (i === 1) r.setAttribute('stroke', dark ? 'rgba(200,184,224,0.18)' : 'rgba(45,27,78,0.16)');
+    function setLine(solidId, dashId, x1, y1, x2, y2) {
+      [solidId, dashId].forEach(id => {
+        const el = document.getElementById(id);
+        el.setAttribute('x1', x1); el.setAttribute('y1', y1);
+        el.setAttribute('x2', x2); el.setAttribute('y2', y2);
       });
     }
 
-    themeBtn.addEventListener('click', () => {
-      const isDark = html.getAttribute('data-theme') === 'dark';
-      applyTheme(!isDark);
-    });
+    function updateLines() {
+      const o = orbAnchor.getBoundingClientRect();
+      const cx = o.left, cy = o.top; // zero-size anchor: left/top ARE the center
 
-    /* Restore saved theme */
-    const saved = localStorage.getItem('hike-council-theme');
-    if (saved === 'dark') applyTheme(true);
+      ['listen','advise','create'].forEach(key => {
+        const lbl = document.getElementById(`label-${key}`);
+        if (!lbl) return;
+        const r = lbl.getBoundingClientRect();
+        const lx = r.left + r.width / 2;
+        const ly = r.top  + r.height / 2;
 
-    /* ─── DOM REFS ───────────────────────────────────────────── */
-    const stage        = document.querySelector('#stage');
-    const backdrop     = document.querySelector('#backdrop');
-    const panel        = document.querySelector('#panel');
-    const panelContent = document.querySelector('#panel-content');
-    const closeBtn     = document.querySelector('#close-btn');
-    const nodes        = document.querySelectorAll('.node-group');
+        // Start point: orb surface towards label
+        const angle = Math.atan2(ly - cy, lx - cx);
+        const sx = cx + Math.cos(angle) * ORB_R;
+        const sy = cy + Math.sin(angle) * ORB_R;
 
-    let activeNode = null;
-
-    /* ─── HOVER ─────────────────────────────────────────────── */
-    nodes.forEach(node => {
-      node.addEventListener('mouseenter', () => {
-        if (activeNode) return;
-        node.classList.add('hovered');
+        setLine(`l${key[0]}-s`, `l${key[0]}-d`, sx, sy, lx, ly);
       });
-      node.addEventListener('mouseleave', () => {
-        node.classList.remove('hovered');
-      });
-    });
+    }
 
-    /* ─── CLICK → open URL directly ────────────────────────── */
-    nodes.forEach(node => {
-      node.addEventListener('click', () => {
-        const d = AGENTS[node.dataset.agent];
-        if (d && d.url) window.open(d.url, '_blank', 'noopener');
+    window.addEventListener('load', updateLines);
+    window.addEventListener('resize', updateLines);
+    setTimeout(updateLines, 80);
+    setTimeout(updateLines, 400);
+
+    /* ═══════════════════════════════════
+       PANEL LOGIC
+    ═══════════════════════════════════ */
+    const backdrop    = document.getElementById('backdrop');
+    const panel       = document.getElementById('panel');
+    const closeBtn    = document.getElementById('close-btn');
+    const panelContent = document.getElementById('panel-content');
+
+    function buildPanel(key) {
+      const a = AGENTS[key];
+      if (!a) return '';
+      let h = `
+        <p class="panel-eyebrow">${a.eyebrow}</p>
+        <h2 class="panel-title" id="panel-title">${a.titlePrefix} <span class="accent">${a.accent}</span></h2>
+        <p class="panel-tagline">${a.tagline}</p>
+        <div class="panel-divider"></div>
+        <p class="panel-section-label">Performance</p>
+        <div class="stats-grid">
+          ${a.stats.map(s => `<div class="stat-item"><span class="stat-num">${s.num}</span><span class="stat-label">${s.label}</span></div>`).join('')}
+        </div>`;
+      if (a.trusted?.length) {
+        h += `<div class="panel-divider"></div>
+          <p class="panel-section-label">Trusted by</p>
+          <div class="trusted-row">
+            ${a.trusted.map(t => `<img class="trusted-logo" src="${t.src}" alt="${t.name}" style="height:${t.height}px"/>`).join('')}
+          </div>`;
+      }
+      h += `<div class="panel-divider"></div>
+        <p class="panel-section-label">Capabilities</p>
+        <ul class="cap-list">
+          ${a.capabilities.map(c => `<li class="cap-item"><span class="cap-bullet"></span><span>${c}</span></li>`).join('')}
+        </ul>
+        <div class="panel-actions">
+          <a class="btn btn-primary" href="${a.url}" target="_blank" rel="noopener">${a.urlLabel}</a>
+          <button class="btn btn-outline" onclick="closePanel()">Close</button>
+        </div>`;
+      return h;
+    }
+
+    function openPanel(key) {
+      panelContent.innerHTML = buildPanel(key);
+      panel.classList.remove('closing');
+      backdrop.classList.add('visible');
+    }
+
+    function closePanel() {
+      panel.classList.add('closing');
+      setTimeout(() => {
+        backdrop.classList.remove('visible');
+      }, 350);
+    }
+
+    closeBtn.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) closePanel(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+    document.querySelectorAll('.node-label').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        openPanel(el.dataset.agent);
       });
-      node.addEventListener('keydown', e => {
+      el.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
-          const d = AGENTS[node.dataset.agent];
-          if (d && d.url) window.open(d.url, '_blank', 'noopener');
+          e.preventDefault();
+          openPanel(el.dataset.agent);
         }
       });
     });
-
   </script>
 </body>
 </html>
