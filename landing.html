@@ -334,11 +334,6 @@
       position: relative;
       z-index: 3;
     }
-    .hero-text-col {
-      display: flex;
-      flex-direction: column;
-      max-width: 62%;
-    }
     @media (max-width: 768px) {
       .hero-video { display: none; }
       .hero-glow { width: 90vw; height: 90vw; left: 50%; opacity: 0.4; }
@@ -464,211 +459,6 @@
       margin-top: 2.5rem;
       opacity: 0;
       animation: fadeUp .6s var(--ease) 750ms forwards;
-    }
-
-    /* ── COUNCIL DIAGRAM (minimal) ── */
-    .council-col {
-      position: absolute;
-      top: 50%;
-      right: var(--pad-x);
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 4;
-      pointer-events: none;
-    }
-    .council-diagram {
-      position: relative;
-      width: clamp(280px, 28vw, 420px);
-      aspect-ratio: 1;
-      pointer-events: auto;
-    }
-    /* subtle glow */
-    .council-glow {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 70%; height: 70%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle at center, rgba(126,110,148,0.2) 0%, transparent 70%);
-      filter: blur(40px);
-      z-index: 0;
-      pointer-events: none;
-      animation: council-glow-pulse 8s ease-in-out infinite;
-    }
-    @keyframes council-glow-pulse {
-      0%, 100% { opacity: 0.8; }
-      50%       { opacity: 0.4; }
-    }
-    /* SVG connector lines */
-    .council-svg {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      overflow: visible;
-    }
-    .council-line {
-      stroke: rgba(126,110,148,0.22);
-      stroke-width: 1;
-      stroke-dasharray: 4 5;
-      stroke-dashoffset: 600;
-      fill: none;
-      animation: drawLine 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
-    }
-    .council-line:nth-child(1) { animation-delay: 0.3s; }
-    .council-line:nth-child(2) { animation-delay: 0.5s; }
-    .council-line:nth-child(3) { animation-delay: 0.7s; }
-    @keyframes drawLine {
-      to { stroke-dashoffset: 0; }
-    }
-    /* node shared */
-    .cn {
-      position: absolute;
-      width: 88px;
-      height: 88px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.85);
-      border: 1px solid rgba(126,110,148,0.15);
-      box-shadow: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      text-decoration: none;
-      cursor: pointer;
-      opacity: 0;
-      transform: scale(0.6);
-      transition: border-color 0.35s, background 0.35s;
-      animation: nodeIn 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
-    }
-    .cn:hover {
-      border-color: rgba(126,110,148,0.45);
-      background: rgba(255,255,255,0.98);
-    }
-    .cn-icon { display: none; }
-    .cn-label {
-      position: absolute;
-      text-align: center;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .cn-name {
-      display: block;
-      font-family: var(--font-main);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--hike-accent-dark);
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-    }
-    .cn-tag {
-      display: block;
-      font-family: var(--mono);
-      font-size: 8px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--hike-accent);
-      margin-top: 3px;
-    }
-    /* node positions */
-    .cn-listen {
-      top: 3%; left: 50%;
-      transform: translateX(-50%) scale(0.6);
-      animation-delay: 0.8s;
-      animation-name: nodeInListen;
-    }
-    .cn-listen:hover { border-color: rgba(126,110,148,0.45); }
-    .cn-listen .cn-label {
-      top: calc(100% + 8px);
-      left: 50%; transform: translateX(-50%);
-    }
-    .cn-advise {
-      bottom: 8%; left: 4%;
-      animation-delay: 1.0s;
-    }
-    .cn-advise .cn-label {
-      top: calc(100% + 8px);
-      left: 50%; transform: translateX(-50%);
-    }
-    .cn-create {
-      bottom: 8%; right: 4%;
-      animation-delay: 1.2s;
-    }
-    .cn-create .cn-label {
-      top: calc(100% + 8px);
-      left: 50%; transform: translateX(-50%);
-    }
-    @keyframes nodeIn {
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes nodeInListen {
-      from { opacity: 0; transform: translateX(-50%) scale(0.6); }
-      to   { opacity: 1; transform: translateX(-50%) scale(1); }
-    }
-    /* central node */
-    .cn-center {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 100px; height: 100px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.9);
-      border: 1px solid rgba(126,110,148,0.2);
-      box-shadow: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 3;
-      transform: translate(-50%,-50%) scale(0);
-      opacity: 0;
-      animation: centerIn 0.6s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
-    }
-    .cn-center-h {
-      font-family: var(--font-main);
-      font-style: italic;
-      font-size: 32px;
-      font-weight: 550;
-      color: var(--hike-accent-dark);
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-    .cn-center-label {
-      position: absolute;
-      bottom: -22px; left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--mono);
-      font-size: 7px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--hike-accent);
-      white-space: nowrap;
-    }
-    @keyframes centerIn {
-      to { opacity: 1; transform: translate(-50%,-50%) scale(1); }
-    }
-    /* responsive */
-    @media (max-width: 1100px) {
-      .hero-text-col { max-width: 58%; }
-      .council-col { right: clamp(16px, 3vw, 48px); }
-      .council-diagram { width: clamp(220px, 22vw, 320px); }
-    }
-    @media (max-width: 768px) {
-      .council-col {
-        position: relative;
-        top: auto; right: auto;
-        transform: none;
-        margin: 2.5rem auto 0;
-        pointer-events: auto;
-      }
-      .hero-text-col { max-width: 100%; }
-      .council-diagram { width: min(280px, 80vw); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .council-line { animation: none; stroke-dashoffset: 0; }
-      .cn { animation: none; opacity: 1; transform: scale(1); }
-      .cn-listen { transform: translateX(-50%) scale(1); }
-      .cn-center { animation: none; opacity: 1; transform: translate(-50%,-50%) scale(1); }
-      .council-glow { animation: none; }
     }
 
     .btn-solid {
@@ -2414,92 +2204,21 @@
     <div class="hero-glow"></div>
   </div>
   <div class="hero-main">
-    <!-- LEFT: text content -->
-    <div class="hero-text-col">
-      <p class="hero-eyebrow">// hike · agent council — 03 agents</p>
-      <h1 class="hero-h1" id="hero-h1">
-        <span class="hero-line1">Three agents.</span>
-        <span class="hero-line2"><span class="grad-word">Infinite</span> impact.</span>
-      </h1>
-      <div class="hero-bottom-row">
-        <p class="hero-sub"><span class="hero-sub-name">Hike Listen</span>, <span class="hero-sub-name">Hike Create</span> y <span class="hero-sub-name">Hike Advise</span>. Tres agentes especializados que <span class="hero-sub-action">escuchan, crean y analizan</span> —— mientras tu equipo decide.</p>
-        <p class="hero-powered"><span class="hero-powered-dot"></span>Powered by Hike</p>
-      </div>
-      <div class="hero-ctas">
-        <a class="btn-solid" href="#listen">Explore council →</a>
-        <a class="btn-ghost" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">Book demo</a>
-      </div>
+    <p class="hero-eyebrow">// hike · agent council — 03 agents</p>
+    <h1 class="hero-h1" id="hero-h1">
+      <span class="hero-line1">Three agents.</span>
+      <span class="hero-line2"><span class="grad-word">Infinite</span> impact.</span>
+    </h1>
+    <div class="hero-bottom-row">
+      <p class="hero-sub"><span class="hero-sub-name">Hike Listen</span>, <span class="hero-sub-name">Hike Create</span> y <span class="hero-sub-name">Hike Advise</span>. Tres agentes especializados que <span class="hero-sub-action">escuchan, crean y analizan</span> —— mientras tu equipo decide.</p>
+      <p class="hero-powered"><span class="hero-powered-dot"></span>Powered by Hike</p>
     </div>
-
-    <!-- RIGHT: Council diagram -->
-    <div class="council-col" aria-hidden="true">
-      <div class="council-diagram">
-
-        <!-- Atmospheric glow -->
-        <div class="council-glow"></div>
-
-        <!-- SVG connector lines (viewBox maps: center=200,200 | listen=200,72 | advise=83,330 | create=317,330) -->
-        <svg class="council-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-          <line class="council-line" x1="200" y1="200" x2="200" y2="72" stroke-dasharray="4 4"/>
-          <line class="council-line" x1="200" y1="200" x2="83"  y2="330" stroke-dasharray="4 4"/>
-          <line class="council-line" x1="200" y1="200" x2="317" y2="330" stroke-dasharray="4 4"/>
-        </svg>
-
-        <!-- Node: Hike Listen (top-center) -->
-        <a class="cn cn-listen" href="#listen" aria-label="Hike Listen">
-          <span class="cn-icon">
-            <svg width="36" height="28" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 24C18 24 4 16.5 4 9.5C4 5.36 10.27 2 18 2C25.73 2 32 5.36 32 9.5C32 16.5 18 24 18 24Z" stroke="#2D1B4E" stroke-width="1.5" fill="none"/>
-              <path d="M9 10 Q18 4 27 10" stroke="#7E6E94" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              <path d="M13 13 Q18 9 23 13" stroke="#7E6E94" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <div class="cn-label">
-            <span class="cn-name">Hike Listen</span>
-            <span class="cn-tag">LISTEN · LIVE</span>
-          </div>
-        </a>
-
-        <!-- Node: Hike Advise (bottom-left) -->
-        <a class="cn cn-advise" href="#advise" aria-label="Hike Advise">
-          <span class="cn-icon">
-            <svg width="38" height="34" viewBox="0 0 38 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3" y="2" width="22" height="16" rx="4" stroke="#2D1B4E" stroke-width="1.5" fill="none"/>
-              <path d="M3 14L3 18L7 14" stroke="#2D1B4E" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
-              <rect x="13" y="14" width="22" height="16" rx="4" stroke="#7E6E94" stroke-width="1.5" fill="none"/>
-              <path d="M35 26L35 30L31 26" stroke="#7E6E94" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
-            </svg>
-          </span>
-          <div class="cn-label">
-            <span class="cn-name">Hike Advise</span>
-            <span class="cn-tag">CONVERSE · CONVERT</span>
-          </div>
-        </a>
-
-        <!-- Node: Hike Create (bottom-right) -->
-        <a class="cn cn-create" href="#create" aria-label="Hike Create">
-          <span class="cn-icon">
-            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 4 C26.84 4 34 10.27 34 18 C34 25.73 26.84 32 18 32" stroke="#2D1B4E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-              <path d="M18 4 C9.16 4 2 10.27 2 18 C2 25.73 9.16 32 18 32" stroke="#7E6E94" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="3 3"/>
-              <polyline points="23,28 18,34 18,28" stroke="#2D1B4E" stroke-width="1.5" stroke-linejoin="round" fill="none"/>
-            </svg>
-          </span>
-          <div class="cn-label">
-            <span class="cn-name">Hike Create</span>
-            <span class="cn-tag">CREATE · ADAPT</span>
-          </div>
-        </a>
-
-        <!-- Central node -->
-        <div class="cn-center">
-          <span class="cn-center-h">h</span>
-          <span class="cn-center-label">HIKE · THE COUNCIL</span>
-        </div>
-
-      </div>
+    <div class="hero-ctas">
+      <a class="btn-solid" href="#listen">Explore council →</a>
+      <a class="btn-ghost" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">Book demo</a>
     </div>
   </div>
+
 
   <!-- 3-col product band -->
   <div class="hero-band">
@@ -2936,7 +2655,7 @@ const prog = document.getElementById('progress');
 const navEl = document.getElementById('nav');
 const hero = document.getElementById('hero');
 const heroMain = hero ? hero.querySelector('.hero-main') : null;
-const councilDiagram = hero ? hero.querySelector('.council-diagram') : null;
+const councilDiagram = null;
 let ticking = false;
 
 window.addEventListener('scroll', () => {
