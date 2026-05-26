@@ -253,8 +253,8 @@
     #hero {
       position: relative;
       width: 100%;
-      height: 220vh;        /* extra space for scroll animation */
-      background: #000612;
+      height: 200vh;        /* extra space for scroll animation */
+      background: transparent; /* no black gap — next section shows through */
     }
     /* Sticky viewport that holds all the visual content */
     .hero-sticky-content {
@@ -262,7 +262,7 @@
       top: 0;
       height: 100vh;
       overflow: hidden;
-      will-change: contents;
+      background: #000612;
     }
 
     /* Ripple canvas */
@@ -503,14 +503,9 @@
       text-decoration: none;
       z-index: 6;
       pointer-events: auto;
-      opacity: 0;
-      animation: heroLabelIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      transition: opacity 0.35s;
+      opacity: 1;
       text-align: center;
-    }
-    @keyframes heroLabelIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to   { opacity: 1; transform: translateY(0); }
+      will-change: transform, opacity;
     }
     .hero-node-label .hnl-eyebrow {
       display: block;
@@ -3300,9 +3295,10 @@ document.querySelectorAll('.acc-head').forEach(btn => {
 <script>
 /* ── HERO SCROLL EXIT ANIMATION ── */
 (function () {
-  const hero        = document.getElementById('hero');
+  const hero = document.getElementById('hero');
   if (!hero) return;
 
+  const stickyBg    = hero.querySelector('.hero-sticky-content');
   const orbVisual   = hero.querySelector('.hero-orb-visual');
   const centerText  = hero.querySelector('.hero-center-text');
   const scrollCta   = hero.querySelector('.hero-scroll-cta');
@@ -3310,68 +3306,82 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   const labelAdvise = document.getElementById('hero-label-advise');
   const labelCreate = document.getElementById('hero-label-create');
 
-  // Ease in-out cubic
   function ease(t) {
     return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
   }
 
+  let ticking = false;
   function onScroll() {
-    // hero is 220vh; the sticky content shows the first 100vh.
-    // Scroll progress: 0 when at top, 1 when hero's bottom aligns with viewport bottom.
-    const scrollY          = window.scrollY;
-    const scrollableRange  = hero.offsetHeight - window.innerHeight;
-    const rawP = Math.min(Math.max(scrollY / scrollableRange, 0), 1);
+    // Progress: 0 at hero top, 1 when hero bottom meets viewport bottom
+    const heroTop         = hero.offsetTop;
+    const scrollY         = window.scrollY;
+    const scrollInHero    = scrollY - heroTop;
+    const scrollableRange = hero.offsetHeight - window.innerHeight;
+    const rawP = Math.min(Math.max(scrollInHero / scrollableRange, 0), 1);
     const p    = ease(rawP);
 
-    /* ── ORB: scale down + blur + fade ── */
+    /* ── ORB: shrink + spin + blur + fade ── */
     if (orbVisual) {
-      const sc  = 1 - p * 0.92;
-      const bl  = p * 20;
-      const opa = Math.max(0, 1 - p * 1.3);
-      orbVisual.style.transform = `scale(${sc})`;
+      const sc   = 1 - p * 0.85;
+      const bl   = p * 18;
+      const opa  = Math.max(0, 1 - p * 1.4);
+      const spin = p * 120;
+      orbVisual.style.transform = `scale(${sc}) rotate(${spin}deg)`;
       orbVisual.style.filter    = `blur(${bl}px)`;
       orbVisual.style.opacity   = opa;
     }
 
     /* ── CENTER TEXT: fade + slight shrink ── */
     if (centerText) {
-      const textOpa = Math.max(0, 1 - p * 2.2);
-      const textSc  = 1 - p * 0.1;
+      const textOpa = Math.max(0, 1 - p * 2.5);
+      const textSc  = 1 - p * 0.15;
       centerText.style.opacity   = textOpa;
       centerText.style.transform = `translate(-50%, -50%) scale(${textSc})`;
     }
 
     /* ── SCROLL CTA: fade fast ── */
     if (scrollCta) {
-      scrollCta.style.opacity = Math.max(0, 1 - p * 4);
+      scrollCta.style.opacity = Math.max(0, 1 - p * 5);
     }
 
-    /* ── LABELS: spread outward + slight rotation + fade ── */
-    const labelOpa = Math.max(0, 1 - p * 1.6);
-    const spread   = p * 280;
-    const rot      = p * 28;
+    /* ── LABELS: orbit outward (spread + arc + fade) ── */
+    const labelOpa = Math.max(0, 1 - p * 1.8);
+    const spread   = p * 350;
+    const arc      = p * 45;  // rotation around the orb center
 
-    // Listen is ABOVE the orb → push further up
+    // Listen — flies upward
     if (labelListen) {
       labelListen.style.opacity   = labelOpa;
-      labelListen.style.transform = `translateY(${-spread * 0.85}px) rotate(${-rot * 0.4}deg)`;
+      labelListen.style.transform = `translateY(${-spread}px) rotate(${-arc * 0.3}deg)`;
     }
-    // Advise is to the LEFT (right:240px in CSS) → push further left
+    // Advise — flies left-down, rotating clockwise arc
     if (labelAdvise) {
       labelAdvise.style.opacity   = labelOpa;
-      labelAdvise.style.transform = `translateX(${-spread}px) translateY(${spread * 0.35}px) rotate(${-rot}deg)`;
+      labelAdvise.style.transform = `translateX(${-spread}px) translateY(${spread * 0.5}px) rotate(${-arc}deg)`;
     }
-    // Create is to the RIGHT (left:240px in CSS) → push further right
+    // Create — flies right-down, rotating counter-clockwise arc
     if (labelCreate) {
       labelCreate.style.opacity   = labelOpa;
-      labelCreate.style.transform = `translateX(${spread}px) translateY(${spread * 0.35}px) rotate(${rot}deg)`;
+      labelCreate.style.transform = `translateX(${spread}px) translateY(${spread * 0.5}px) rotate(${arc}deg)`;
     }
+
+    /* ── Sticky background fades out at the very end ── */
+    if (stickyBg) {
+      const bgOpa = Math.max(0, 1 - Math.pow(Math.max(0, rawP - 0.6) / 0.4, 2));
+      stickyBg.style.opacity = bgOpa;
+    }
+
+    ticking = false;
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // initialise on load
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  onScroll();
 })();
 </script>
 </body>
 </html>
-
