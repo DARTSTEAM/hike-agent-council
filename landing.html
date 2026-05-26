@@ -272,7 +272,7 @@
     /* ── HERO ── */
     #hero {
       position: relative;
-      min-height: 92vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -329,11 +329,12 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      gap: clamp(40px, 5vw, 80px);
+      gap: clamp(32px, 4vw, 64px);
       flex: 1;
-      padding: calc(70px + 4rem) var(--pad-x) 2.5rem;
+      padding: calc(70px + 3rem) var(--pad-x) 2rem;
       position: relative;
       z-index: 3;
+      min-height: 0;
     }
     .hero-text-col {
       display: flex;
@@ -381,7 +382,7 @@
     .hero-line2 {
       display: block;
       font-family: var(--font-main);
-      font-size: clamp(120px, 18vw, 280px);
+      font-size: clamp(80px, 12vw, 200px);
       font-weight: 550;
       letter-spacing: -0.06em;
       line-height: 0.85;
