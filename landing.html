@@ -253,6 +253,11 @@
     #hero {
       position: relative;
       width: 100%;
+      height: 180vh;
+    }
+    .hero-sticky {
+      position: sticky;
+      top: 0;
       height: 100vh;
       overflow: hidden;
       background: #000612;
@@ -2426,16 +2431,13 @@
 </nav>
 
 <!-- HERO (Orb Council) -->
-<section id="hero" aria-label="Hike Agent Council Hero">
+<section id="hero">
+<div class="hero-sticky">
 
-  <!-- Background overlay -->
   <div class="hero-bg-overlay" aria-hidden="true"></div>
   <div class="hero-grain-overlay" aria-hidden="true"></div>
-
-  <!-- Water ripple canvas -->
   <canvas id="hero-ripple-canvas"></canvas>
 
-  <!-- Orb visual wrapper (shrinks/spins on scroll) -->
   <div id="hero-orb-anchor">
     <div class="hero-orb-visual">
       <div class="hero-orb-halo"></div>
@@ -2444,8 +2446,6 @@
       <div class="hero-orb-sphere"></div>
       <span class="hero-orb-label">HIKE · THE COUNCIL</span>
     </div>
-
-    <!-- NODE LABELS (positioned by JS polar coords) -->
     <a class="hero-node-label" id="hero-label-listen" data-base-angle="270"
       href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">
       <span class="hnl-eyebrow">Monitoreo de marca</span>
@@ -2463,18 +2463,17 @@
     </a>
   </div>
 
-  <!-- Center text -->
   <div class="hero-center-text">
     <span class="hero-center-line1">Three agents.</span>
     <span class="hero-center-line2"><span class="h-grad-word">Infinite</span> impact.</span>
   </div>
 
-  <!-- Scroll CTA -->
   <a class="hero-scroll-cta" href="#listen">
     <span class="hero-scroll-label">Scroll to enter the council</span>
     <span class="hero-scroll-arrow"></span>
   </a>
 
+</div>
 </section>
 
 
@@ -3269,9 +3268,11 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   let ticking = false;
 
   function onScroll() {
-    // Progress: 0 at top, 1 after scrolling 80% of viewport height
-    const range = window.innerHeight * 0.8;
-    const progress = Math.min(Math.max(window.scrollY / range, 0), 1);
+    // Progress: 0 at top, 1 when hero section fully scrolled
+    const heroRect = hero.getBoundingClientRect();
+    const maxScroll = hero.offsetHeight - window.innerHeight;
+    const scrolled = -heroRect.top;
+    const progress = Math.min(Math.max(scrolled / maxScroll, 0), 1);
     const ep = easeOutCubic(progress);
 
     /* ── ORB: shrink + blur + fade ── */
