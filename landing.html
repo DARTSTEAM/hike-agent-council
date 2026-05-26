@@ -390,12 +390,12 @@
       z-index: 3;
     }
 
-    /* Center text */
+    /* Center text — ABOVE the orb */
     .hero-center-text {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, calc(-50% + 120px));
+      transform: translate(-50%, calc(-50% - 270px));
       text-align: center;
       z-index: 6;
       pointer-events: none;
@@ -481,15 +481,71 @@
       animation: heroOrbPulse 2.5s ease-in-out infinite;
     }
 
+    /* ── NODE LABELS (around orb) ── */
+    .hero-node-label {
+      position: absolute;
+      cursor: pointer;
+      text-decoration: none;
+      z-index: 6;
+      pointer-events: auto;
+      opacity: 0;
+      animation: heroLabelIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transition: opacity 0.35s;
+      text-align: center;
+    }
+    @keyframes heroLabelIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-node-label .hnl-eyebrow {
+      display: block;
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: 9px; font-weight: 300;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(235, 245, 255, 0.65);
+      margin-bottom: 0.3rem;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+    .hero-node-label .hnl-name {
+      display: block;
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: 1.125rem; font-weight: 200;
+      letter-spacing: 0.05em;
+      color: #EBF5FF;
+      white-space: nowrap;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+    .hero-node-label:hover .hnl-name    { color: #fff; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); }
+    .hero-node-label:hover .hnl-eyebrow { color: #00E5FF; text-shadow: 0 0 8px rgba(0, 229, 255, 0.3); }
+    .hero-node-label.dimmed { opacity: 0.12 !important; pointer-events: none !important; }
+
+    /* Positions — identical to index.html */
+    #hero-label-listen {
+      top: -140px;
+      left: -100px;
+      width: 200px;
+      animation-delay: 0.9s;
+    }
+    #hero-label-advise {
+      top: -20px;
+      right: 135px;
+      width: 200px;
+      animation-delay: 1.1s;
+    }
+    #hero-label-create {
+      top: -20px;
+      left: 135px;
+      width: 200px;
+      animation-delay: 1.3s;
+    }
+
     /* Mobile */
     @media (max-width: 700px) {
-      .hero-center-text { transform: translate(-50%, calc(-50% + 95px)); }
+      .hero-center-text { transform: translate(-50%, calc(-50% - 120px)); }
       .hero-orb-halo { width: 360px; height: 360px; top: -180px; left: -180px; }
       .hero-orb-ring-outer { width: 200px; height: 200px; top: -100px; left: -100px; }
       .hero-orb-ring-inner { width: 160px; height: 160px; top: -80px; left: -80px; }
       .hero-orb-sphere { width: 110px; height: 110px; top: -55px; left: -55px; }
-    }
-
 
 
 
@@ -2394,12 +2450,39 @@
   <canvas id="hero-ripple-canvas"></canvas>
 
   <!-- Orb -->
-  <div id="hero-orb-anchor" aria-hidden="true">
-    <div class="hero-orb-halo"></div>
-    <div class="hero-orb-ring-outer"></div>
-    <div class="hero-orb-ring-inner"></div>
-    <div class="hero-orb-sphere"></div>
-    <span class="hero-orb-label">HIKE · THE COUNCIL</span>
+  <div id="hero-orb-anchor" aria-hidden="false">
+    <div class="hero-orb-halo" aria-hidden="true"></div>
+    <div class="hero-orb-ring-outer" aria-hidden="true"></div>
+    <div class="hero-orb-ring-inner" aria-hidden="true"></div>
+    <div class="hero-orb-sphere" aria-hidden="true"></div>
+    <span class="hero-orb-label" aria-hidden="true">HIKE · THE COUNCIL</span>
+
+    <!-- NODE LABEL — Listen (top) -->
+    <a class="hero-node-label" id="hero-label-listen"
+      href="https://hike-social-listener.web.app/"
+      target="_blank" rel="noopener"
+      aria-label="Open Hike Listen">
+      <span class="hnl-eyebrow">Monitoreo de marca</span>
+      <span class="hnl-name">Hike Listen</span>
+    </a>
+
+    <!-- NODE LABEL — Advise (bottom-right) -->
+    <a class="hero-node-label" id="hero-label-advise"
+      href="https://chat.hikethecloud.com/"
+      target="_blank" rel="noopener"
+      aria-label="Open Hike Advise">
+      <span class="hnl-eyebrow">Asistente inteligente</span>
+      <span class="hnl-name">Hike Advise</span>
+    </a>
+
+    <!-- NODE LABEL — Create (bottom-left) -->
+    <a class="hero-node-label" id="hero-label-create"
+      href="https://readapt.web.app/"
+      target="_blank" rel="noopener"
+      aria-label="Open Hike Create">
+      <span class="hnl-eyebrow">Explota tu creatividad</span>
+      <span class="hnl-name">Hike Create</span>
+    </a>
   </div>
 
   <!-- Center text -->
