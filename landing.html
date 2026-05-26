@@ -3319,7 +3319,7 @@ document.querySelectorAll('.acc-head').forEach(btn => {
     if (delta > 0 && !animDone) {
       e.preventDefault();
       virtualScroll = Math.min(virtualScroll + delta, SCROLL_BUDGET);
-      if (virtualScroll >= SCROLL_BUDGET * 0.5) {
+      if (virtualScroll >= SCROLL_BUDGET * 0.2) {
         animDone = true;
       }
       requestAnimationFrame(render);
@@ -3336,11 +3336,17 @@ document.querySelectorAll('.acc-head').forEach(btn => {
     }
   }
 
-  // When user scrolls back to top of page, re-enable hijack
+  // Once released, keep driving animation with actual page scroll
   window.addEventListener('scroll', () => {
+    if (animDone && window.scrollY > 0) {
+      // Map scrollY (0 → innerHeight) to continue the remaining animation
+      const remaining = SCROLL_BUDGET - (SCROLL_BUDGET * 0.2);
+      const scrollProgress = Math.min(window.scrollY / (window.innerHeight * 0.5), 1);
+      virtualScroll = (SCROLL_BUDGET * 0.2) + scrollProgress * remaining;
+      requestAnimationFrame(render);
+    }
     if (window.scrollY === 0 && animDone) {
-      // User scrolled all the way back up — keep animation complete
-      // They'll need to scroll up more (wheel) to reverse it
+      // back at top — animation stays, wheel-up will reverse
     }
   }, { passive: true });
 
