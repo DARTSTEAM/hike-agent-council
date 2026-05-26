@@ -3319,7 +3319,7 @@ document.querySelectorAll('.acc-head').forEach(btn => {
     if (delta > 0 && !animDone) {
       e.preventDefault();
       virtualScroll = Math.min(virtualScroll + delta, SCROLL_BUDGET);
-      if (virtualScroll >= SCROLL_BUDGET) {
+      if (virtualScroll >= SCROLL_BUDGET * 0.5) {
         animDone = true;
       }
       requestAnimationFrame(render);
