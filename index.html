@@ -606,26 +606,26 @@
         this.y = y;
         this.isClick = isClick;
         this.radius = 2;
-        this.maxRadius = isClick ? 180 + Math.random() * 60 : 100 + Math.random() * 40;
-        this.alpha = isClick ? 0.35 : 0.18; // soft start opacity
-        this.speed = isClick ? 2.2 : 1.2 + Math.random() * 0.8;
+        this.maxRadius = isClick ? 130 + Math.random() * 40 : 70 + Math.random() * 20;
+        this.alpha = isClick ? 0.16 : 0.06; // soft start opacity
+        this.speed = isClick ? 1.4 : 0.7 + Math.random() * 0.4;
         this.color = color;
         // click ripples are a bit thicker
-        this.thickness = isClick ? 2.5 : 1.2;
+        this.thickness = isClick ? 1.5 : 0.8;
       }
 
       update() {
         this.radius += this.speed;
         const progress = this.radius / this.maxRadius;
-        this.alpha = (this.isClick ? 0.35 : 0.18) * (1 - progress);
+        this.alpha = (this.isClick ? 0.16 : 0.06) * (1 - progress);
       }
 
       draw() {
         if (this.alpha <= 0) return;
         
         // Setup blur glow
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = `rgba(${this.color}, ${this.alpha * 0.8})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = `rgba(${this.color}, ${this.alpha * 0.4})`;
 
         // Main outer ring
         ctx.beginPath();
@@ -635,19 +635,19 @@
         ctx.stroke();
 
         // Secondary offset concentric ring
-        if (this.radius > 20) {
+        if (this.radius > 15) {
           ctx.beginPath();
-          ctx.arc(this.x, this.y, this.radius - 15, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${this.color}, ${this.alpha * 0.4})`;
+          ctx.arc(this.x, this.y, this.radius - 10, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${this.color}, ${this.alpha * 0.3})`;
           ctx.lineWidth = this.thickness * 0.6;
           ctx.stroke();
         }
 
         // Tertiary center glow
-        if (this.radius > 45) {
+        if (this.radius > 32) {
           ctx.beginPath();
-          ctx.arc(this.x, this.y, this.radius - 35, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${this.color}, ${this.alpha * 0.2})`;
+          ctx.arc(this.x, this.y, this.radius - 22, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${this.color}, ${this.alpha * 0.15})`;
           ctx.lineWidth = this.thickness * 0.4;
           ctx.stroke();
         }
