@@ -220,18 +220,11 @@
     }
     .node-label .nl-eyebrow {
       display: block;
-      font-size: 9px; font-weight: 600;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--text-3);
-      margin-bottom: 0.4rem;
-      transition: color 0.3s;
-    }
-    .node-label .nl-dot {
-      display: block;
-      width: 4px; height: 4px;
-      border-radius: 50%;
-      background: var(--accent);
-      transition: background 0.3s, box-shadow 0.3s;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--text-2);
+      margin-bottom: 0.3rem;
+      transition: color 0.3s, text-shadow 0.3s;
     }
     .node-label .nl-name {
       display: block;
@@ -239,11 +232,10 @@
       letter-spacing: -0.015em;
       color: var(--text);
       white-space: nowrap;
-      transition: color 0.3s;
+      transition: color 0.3s, text-shadow 0.3s;
     }
-    .node-label:hover .nl-name    { color: #fff; }
-    .node-label:hover .nl-eyebrow { color: var(--accent-l); }
-    .node-label:hover .nl-dot     { background: var(--accent-l); box-shadow: 0 0 8px var(--accent-l); }
+    .node-label:hover .nl-name    { color: #fff; text-shadow: 0 0 10px rgba(0, 229, 255, 0.4); }
+    .node-label:hover .nl-eyebrow { color: var(--accent-l); text-shadow: 0 0 8px rgba(0, 229, 255, 0.3); }
 
     /* Positions & Alignments */
     #label-listen {
@@ -253,9 +245,6 @@
       text-align: center;
       animation-delay: 0.9s;
     }
-    #label-listen .nl-dot {
-      margin: 0 auto 0.4rem;
-    }
 
     #label-advise {
       top: -20px;
@@ -264,9 +253,6 @@
       text-align: right;
       animation-delay: 1.1s;
     }
-    #label-advise .nl-dot {
-      margin: 0 0 0.4rem auto;
-    }
 
     #label-create {
       top: -20px;
@@ -274,9 +260,6 @@
       width: 200px;
       text-align: left;
       animation-delay: 1.3s;
-    }
-    #label-create .nl-dot {
-      margin: 0 auto 0.4rem 0;
     }
 
     /* Fade unselected labels */
@@ -472,11 +455,8 @@
     @media (max-width: 700px) {
       html, body { overflow: auto; }
       #label-listen { top: -125px; left: -100px; width: 200px; text-align: center; }
-      #label-listen .nl-dot { margin: 0 auto 0.4rem; }
       #label-advise { top: 105px; right: 15px; left: auto; width: 130px; text-align: right; }
-      #label-advise .nl-dot { margin: 0 0 0.4rem auto; }
       #label-create { top: 105px; left: 15px; right: auto; width: 130px; text-align: left; }
-      #label-create .nl-dot { margin: 0 auto 0.4rem 0; }
       #headline { bottom: 1.5rem; left: 1.5rem; }
       #hint { display:none; }
       #panel { padding:1.75rem 1.25rem 1.25rem; }
@@ -506,16 +486,6 @@
     </div>
   </header>
 
-  <!-- SVG CONNECTOR LINES (full-viewport, JS-positioned) -->
-  <svg id="lines-svg" xmlns="http://www.w3.org/2000/svg">
-    <line id="ll-s" class="conn-solid"/>
-    <line id="la-s" class="conn-solid"/>
-    <line id="lc-s" class="conn-solid"/>
-    <line id="ll-d" class="conn-dash"/>
-    <line id="la-d" class="conn-dash" style="animation-delay:-2.3s"/>
-    <line id="lc-d" class="conn-dash" style="animation-delay:-4.6s"/>
-  </svg>
-
   <!-- ORB (zero-size anchor at viewport center) -->
   <div id="orb-anchor">
     <div class="orb-halo" aria-hidden="true"></div>
@@ -529,8 +499,7 @@
       data-agent="hike-listen"
       role="button" tabindex="0"
       aria-label="Open Hike Listen panel">
-      <span class="nl-eyebrow">Agent · 01</span>
-      <span class="nl-dot"></span>
+      <span class="nl-eyebrow">Monitoreo de marca</span>
       <span class="nl-name">Hike Listen</span>
     </a>
 
@@ -539,8 +508,7 @@
       data-agent="hike-advise"
       role="button" tabindex="0"
       aria-label="Open Hike Advise panel">
-      <span class="nl-eyebrow">Agent · 02</span>
-      <span class="nl-dot"></span>
+      <span class="nl-eyebrow">Asistente inteligente</span>
       <span class="nl-name">Hike Advise</span>
     </a>
 
@@ -549,8 +517,7 @@
       data-agent="hike-create"
       role="button" tabindex="0"
       aria-label="Open Hike Create panel">
-      <span class="nl-eyebrow">Agent · 03</span>
-      <span class="nl-dot"></span>
+      <span class="nl-eyebrow">Explota tu creatividad</span>
       <span class="nl-name">Hike Create</span>
     </a>
   </div>
@@ -657,39 +624,6 @@
     };
 
     /* ═══════════════════════════════════
-       SVG LINES — JS positions them
-    ═══════════════════════════════════ */
-    const orbAnchor = document.getElementById('orb-anchor');
-    const ORB_R = 79; // half of 158px orb
-
-    function setLine(solidId, dashId, x1, y1, x2, y2) {
-      [solidId, dashId].forEach(id => {
-        const el = document.getElementById(id);
-        el.setAttribute('x1', x1); el.setAttribute('y1', y1);
-        el.setAttribute('x2', x2); el.setAttribute('y2', y2);
-      });
-    }
-
-    function updateLines() {
-      const o = orbAnchor.getBoundingClientRect();
-      const cx = o.left, cy = o.top; // zero-size anchor: left/top ARE the center
-
-      ['listen','advise','create'].forEach(key => {
-        const lbl = document.getElementById(`label-${key}`);
-        if (!lbl) return;
-        const dot = lbl.querySelector('.nl-dot');
-        const target = dot || lbl;
-        const r = target.getBoundingClientRect();
-        const lx = r.left + r.width / 2;
-        const ly = r.top  + r.height / 2;
-
-        // Start point: orb surface towards label
-        const angle = Math.atan2(ly - cy, lx - cx);
-        const sx = cx + Math.cos(angle) * ORB_R;
-        const sy = cy + Math.sin(angle) * ORB_R;
-
-        setLine(`l${key[0]}-s`, `l${key[0]}-d`, sx, sy, lx, ly);
-      });
     }
 
     window.addEventListener('load', updateLines);
