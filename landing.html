@@ -899,6 +899,30 @@
     .asset-thumb.ratio-916 { aspect-ratio: 9/16; }
     .asset-thumb.ratio-11  { aspect-ratio: 1/1; }
     .asset-thumb.ratio-169 { aspect-ratio: 16/9; }
+    .asset-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transition: filter 0.4s, opacity 0.4s;
+    }
+    .tile-done .asset-img {
+      opacity: 1;
+      filter: none;
+    }
+    .tile-generating .asset-img {
+      opacity: 0.55;
+      filter: blur(2px) saturate(0.8);
+    }
+    .tile-queued .asset-img {
+      opacity: 0.15;
+      filter: grayscale(1) blur(4px);
+    }
+    .tile-done .tile-ghost, .tile-queued .tile-ghost {
+      display: none !important;
+    }
     .asset-label {
       position: absolute;
       top: 6px;
@@ -2378,6 +2402,7 @@
         <div class="asset-grid">
           <!-- Tile 1: Done (Stories 9:16) -->
           <div class="asset-thumb ratio-916 tile-done">
+            <img class="asset-img" src="assets/create_asset_3.png" alt="Stories content card" loading="lazy"/>
             <span class="asset-label">Stories</span>
             <div class="tile-ghost">
               <div class="tile-ghost-image">▶</div>
@@ -2390,7 +2415,8 @@
             <span class="tile-check">✓</span>
           </div>
           <!-- Tile 2: Generating (Feed 1:1) -->
-          <div class="asset-thumb ratio-11">
+          <div class="asset-thumb ratio-11 tile-generating">
+            <img class="asset-img" src="assets/create_asset_2.png" alt="Feed creative" loading="lazy"/>
             <span class="asset-label">Feed</span>
             <div class="tile-ghost">
               <div class="tile-ghost-image">◼</div>
@@ -2403,7 +2429,8 @@
             <div class="tile-spinner"></div>
           </div>
           <!-- Tile 3: Generating (YouTube 16:9) -->
-          <div class="asset-thumb ratio-169">
+          <div class="asset-thumb ratio-169 tile-generating">
+            <img class="asset-img" src="assets/create_asset_1.png" alt="YouTube video frame" loading="lazy"/>
             <span class="asset-label">YouTube</span>
             <div class="tile-ghost">
               <div class="tile-ghost-image">▶▶</div>
@@ -2417,6 +2444,7 @@
           </div>
           <!-- Tile 4: Queued (Stories 9:16) -->
           <div class="asset-thumb ratio-916 tile-queued">
+            <img class="asset-img" src="assets/create_asset_4.png" alt="Stories ad variant" loading="lazy"/>
             <span class="asset-label">Stories</span>
             <div class="tile-ghost">
               <div class="tile-ghost-image">▶</div>
@@ -2430,6 +2458,7 @@
           </div>
           <!-- Tile 5: Queued (Feed 1:1) -->
           <div class="asset-thumb ratio-11 tile-queued">
+            <img class="asset-img" src="assets/create_asset_5.png" alt="Feed mockup variant" loading="lazy"/>
             <span class="asset-label">Feed</span>
             <div class="tile-ghost">
               <div class="tile-ghost-image">◼</div>
@@ -2443,6 +2472,7 @@
           </div>
           <!-- Tile 6: Queued (YouTube 16:9) -->
           <div class="asset-thumb ratio-169 tile-queued">
+            <img class="asset-img" src="assets/create_asset_6.png" alt="YouTube ad thumbnail" loading="lazy"/>
             <span class="asset-label">YouTube</span>
             <div class="tile-ghost">
               <div class="tile-ghost-image">▶▶</div>
