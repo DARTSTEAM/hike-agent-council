@@ -12,16 +12,16 @@
   <style>
     /* ── TOKENS ── */
     :root {
-      --bg:       #000308;
-      --mid:      #000814;
-      --top-bg:   #001224;
-      --accent:   #0678AC;
-      --accent-d: #012444;
+      --bg:       #000612;
+      --mid:      #00152e;
+      --top-bg:   #00274c;
+      --accent:   #0079b0;
+      --accent-d: #00456d;
       --accent-l: #00E5FF;
-      --text:     #E6F2FF;
-      --text-2:   #94AEC6;
-      --text-3:   #49657E;
-      --border:   rgba(0,229,255,0.08);
+      --text:     #EBF5FF;
+      --text-2:   #97BDDC;
+      --text-3:   #547C9E;
+      --border:   rgba(0,229,255,0.12);
       --yellow:   #00E5FF;
       --ease:     cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -42,9 +42,9 @@
       content: '';
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse 90% 80% at 50% 65%, rgba(6,120,172,0.15) 0%, transparent 65%),
-        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(12,148,208,0.08) 0%, transparent 55%),
-        linear-gradient(160deg, #00040A 0%, #000810 50%, #000105 100%);
+        radial-gradient(circle at 50% 25%, rgba(0, 229, 255, 0.42) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(0, 121, 176, 0.35) 0%, transparent 70%),
+        linear-gradient(to top, #00050d 0%, #001228 35%, #003054 75%, #004b7a 100%);
     }
 
     /* Grain overlay */
@@ -60,17 +60,17 @@
     @keyframes orbPulse {
       0%,100% {
         box-shadow:
-          0 0 25px  rgba(12,148,208,0.4),
-          0 0 60px  rgba(6,120,172,0.25),
-          0 0 120px rgba(0,125,173,0.15),
-          0 0 200px rgba(1,36,68,0.08);
+          0 0 25px  rgba(0, 229, 255, 0.4),
+          0 0 60px  rgba(0, 121, 176, 0.25),
+          0 0 120px rgba(0, 80, 140, 0.15),
+          0 0 200px rgba(0, 40, 80, 0.08);
       }
       50% {
         box-shadow:
-          0 0 35px  rgba(12,148,208,0.6),
-          0 0 85px  rgba(6,120,172,0.4),
-          0 0 160px rgba(0,125,173,0.25),
-          0 0 260px rgba(1,36,68,0.12);
+          0 0 35px  rgba(0, 229, 255, 0.6),
+          0 0 85px  rgba(0, 121, 176, 0.4),
+          0 0 160px rgba(0, 80, 140, 0.25),
+          0 0 260px rgba(0, 40, 80, 0.12);
       }
     }
     @keyframes haloPulse {
@@ -94,7 +94,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 2rem;
       border-bottom: 1px solid var(--border);
-      background: rgba(0,4,10,0.75);
+      background: rgba(0, 10, 24, 0.75);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       opacity: 0;
@@ -106,7 +106,7 @@
     .topbar-title {
       font-size:10px; font-weight:700;
       letter-spacing:0.28em; text-transform:uppercase;
-      color:rgba(0,229,255,0.4);
+      color:rgba(0, 229, 255, 0.45);
     }
     .topbar-right { display:flex; align-items:center; gap:0.875rem; }
     .topbar-tag   { font-size:10px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--text-3); }
@@ -121,13 +121,13 @@
       animation: fadeIn 0.8s 1.4s forwards;
     }
     .conn-solid {
-      stroke: rgba(12,148,208,0.18);
+      stroke: rgba(0, 121, 176, 0.22);
       stroke-width: 1;
       fill: none;
       transition: stroke 0.4s;
     }
     .conn-dash {
-      stroke: rgba(0,229,255,0.22);
+      stroke: rgba(0, 229, 255, 0.28);
       stroke-width: 1;
       stroke-dasharray: 4 9;
       fill: none;
@@ -148,14 +148,14 @@
     /* Atmospheric halo */
     .orb-halo {
       position: absolute;
-      width: 520px; height: 520px;
-      top: -260px; left: -260px;
+      width: 580px; height: 580px;
+      top: -290px; left: -290px;
       border-radius: 50%;
       background: radial-gradient(circle at center,
-        rgba(12,148,208,0.35) 0%,
-        rgba(6,120,172,0.12)    40%,
+        rgba(0, 229, 255, 0.42) 0%,
+        rgba(0, 110, 172, 0.18) 40%,
         transparent           70%);
-      filter: blur(35px);
+      filter: blur(40px);
       animation: haloPulse 5s ease-in-out infinite;
     }
 
@@ -165,7 +165,7 @@
       width: 260px; height: 260px;
       top: -130px; left: -130px;
       border-radius: 50%;
-      border: 1px dashed rgba(12,148,208,0.08);
+      border: 1px dashed rgba(0, 229, 255, 0.08);
       animation: spinR 80s linear infinite;
     }
 
@@ -175,7 +175,7 @@
       width: 210px; height: 210px;
       top: -105px; left: -105px;
       border-radius: 50%;
-      border: 1px solid rgba(12,148,208,0.10);
+      border: 1px solid rgba(0, 121, 176, 0.12);
       animation: spin 50s linear infinite;
     }
 
@@ -185,12 +185,12 @@
       width: 158px; height: 158px;
       top: -79px; left: -79px;
       border-radius: 50%;
-      background: #000308;
-      border: 1px solid rgba(12,148,208,0.3);
+      background: radial-gradient(circle at 35% 30%, #173b5c 0%, #0a2036 45%, #030a17 80%, #01040a 100%);
+      border: 1px solid rgba(0, 229, 255, 0.35);
       box-shadow:
-        inset 0 0 20px rgba(0,0,0,0.95),
-        inset 0 0 10px rgba(12,148,208,0.2),
-        0 0 30px rgba(12,148,208,0.25);
+        inset 0 0 30px rgba(0, 229, 255, 0.45),
+        inset 0 0 10px rgba(0, 229, 255, 0.2),
+        0 0 35px rgba(0, 172, 255, 0.4);
       animation: orbPulse 4.5s ease-in-out infinite;
       z-index: 2;
     }
@@ -202,22 +202,21 @@
       left: 50%; transform: translateX(-50%);
       font-size: 7.5px; font-weight: 700;
       letter-spacing: 0.32em; text-transform: uppercase;
-      color: rgba(0,229,255,0.32);
+      color: rgba(0, 229, 255, 0.35);
       white-space: nowrap;
       z-index: 3;
     }
 
     /* ── NODE LABELS ── */
     .node-label {
-      position: fixed;
-      text-align: center;
+      position: absolute;
       cursor: pointer;
       text-decoration: none;
       z-index: 6;
       pointer-events: auto;
       opacity: 0;
       animation: labelIn 0.7s var(--ease) forwards;
-      transition: opacity 0.35s;
+      transition: opacity 0.35s, transform 0.3s;
     }
     .node-label .nl-eyebrow {
       display: block;
@@ -232,7 +231,6 @@
       width: 4px; height: 4px;
       border-radius: 50%;
       background: var(--accent);
-      margin: 0 auto 0.4rem;
       transition: background 0.3s, box-shadow 0.3s;
     }
     .node-label .nl-name {
@@ -247,19 +245,38 @@
     .node-label:hover .nl-eyebrow { color: var(--accent-l); }
     .node-label:hover .nl-dot     { background: var(--accent-l); box-shadow: 0 0 8px var(--accent-l); }
 
-    /* Positions */
+    /* Positions & Alignments */
     #label-listen {
-      top: 16%; left: 50%;
-      transform: translateX(-50%);
+      top: -150px;
+      left: -100px;
+      width: 200px;
+      text-align: center;
       animation-delay: 0.9s;
     }
+    #label-listen .nl-dot {
+      margin: 0 auto 0.4rem;
+    }
+
     #label-advise {
-      top: 53%; left: 8%;
+      top: -20px;
+      right: 135px;
+      width: 200px;
+      text-align: right;
       animation-delay: 1.1s;
     }
+    #label-advise .nl-dot {
+      margin: 0 0 0.4rem auto;
+    }
+
     #label-create {
-      top: 53%; right: 8%;
+      top: -20px;
+      left: 135px;
+      width: 200px;
+      text-align: left;
       animation-delay: 1.3s;
+    }
+    #label-create .nl-dot {
+      margin: 0 auto 0.4rem 0;
     }
 
     /* Fade unselected labels */
@@ -309,10 +326,11 @@
     }
 
     /* ── BACKDROP ── */
+    /* ── BACKDROP ── */
     #backdrop {
       display: none;
       position: fixed; inset:0; z-index:200;
-      background: rgba(0,2,6,0.85);
+      background: rgba(0, 10, 24, 0.85);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
       align-items: center; justify-content: center;
@@ -326,35 +344,35 @@
       width: min(900px, 100%);
       max-height: 88vh;
       overflow-y: auto;
-      background: rgba(0,8,20,0.97);
+      background: rgba(0, 16, 36, 0.97);
       border-radius: 1.5rem;
-      border: 1px solid rgba(0,229,255,0.15);
+      border: 1px solid rgba(0, 229, 255, 0.18);
       box-shadow:
         0 2px  4px  rgba(0,0,0,0.5),
         0 8px  24px rgba(0,0,0,0.6),
         0 24px 64px rgba(0,0,0,0.6),
-        0 0 0  1px  rgba(0,229,255,0.06);
+        0 0 0  1px  rgba(0, 229, 255, 0.06);
       padding: 2.5rem 3rem 2rem;
       animation: panelIn 0.6s var(--ease) forwards;
     }
     #panel.closing { animation: panelOut 0.35s var(--ease) forwards; }
     #panel::-webkit-scrollbar { width:4px; }
     #panel::-webkit-scrollbar-track { background:transparent; }
-    #panel::-webkit-scrollbar-thumb { background:rgba(0,229,255,0.15); border-radius:2px; }
+    #panel::-webkit-scrollbar-thumb { background:rgba(0, 229, 255, 0.15); border-radius:2px; }
 
     #close-btn {
       position: absolute; top:1.25rem; right:1.25rem;
       width:2rem; height:2rem; border-radius:50%;
-      border: 1px solid rgba(0,229,255,0.18);
-      background: rgba(1,36,68,0.35);
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      background: rgba(0, 43, 79, 0.35);
       display:flex; align-items:center; justify-content:center;
       cursor:pointer; color:var(--text-3);
       transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.3s !important;
       z-index:10;
     }
     #close-btn:hover {
-      background: rgba(6,120,172,0.2);
-      border-color: rgba(0,229,255,0.3);
+      background: rgba(0, 121, 176, 0.25);
+      border-color: rgba(0, 229, 255, 0.3);
       color: var(--text);
       transform: rotate(90deg);
     }
@@ -386,7 +404,7 @@
     .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; }
     .stat-item {
       padding:1.375rem 1rem;
-      background:rgba(1,36,68,0.22);
+      background:rgba(0, 43, 79, 0.22);
       border-radius:0.875rem;
       border:1px solid var(--border);
       text-align:center;
@@ -448,15 +466,18 @@
       box-shadow:0 4px 20px rgba(0,229,255,0.25);
     }
     .btn-outline { background:transparent; color:var(--text); border-color:var(--border); }
-    .btn-outline:hover { background:rgba(6,120,172,0.12); border-color:var(--accent); }
+    .btn-outline:hover { background:rgba(0, 121, 176, 0.12); border-color:var(--accent); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
       html, body { overflow: auto; }
-      #label-listen { top:14%; }
-      #label-advise { top:auto; bottom:22%; left:4%; }
-      #label-create  { top:auto; bottom:22%; right:4%; }
-      #headline { bottom:1.5rem; left:1.5rem; }
+      #label-listen { top: -125px; left: -100px; width: 200px; text-align: center; }
+      #label-listen .nl-dot { margin: 0 auto 0.4rem; }
+      #label-advise { top: 105px; right: 15px; left: auto; width: 130px; text-align: right; }
+      #label-advise .nl-dot { margin: 0 0 0.4rem auto; }
+      #label-create { top: 105px; left: 15px; right: auto; width: 130px; text-align: left; }
+      #label-create .nl-dot { margin: 0 auto 0.4rem 0; }
+      #headline { bottom: 1.5rem; left: 1.5rem; }
       #hint { display:none; }
       #panel { padding:1.75rem 1.25rem 1.25rem; }
       .stats-grid { gap:0.375rem; }
@@ -496,43 +517,43 @@
   </svg>
 
   <!-- ORB (zero-size anchor at viewport center) -->
-  <div id="orb-anchor" aria-hidden="true">
-    <div class="orb-halo"></div>
-    <div class="orb-ring-outer"></div>
-    <div class="orb-ring-inner"></div>
-    <div class="orb-sphere"></div>
-    <span class="orb-label">HIKE · THE COUNCIL</span>
+  <div id="orb-anchor">
+    <div class="orb-halo" aria-hidden="true"></div>
+    <div class="orb-ring-outer" aria-hidden="true"></div>
+    <div class="orb-ring-inner" aria-hidden="true"></div>
+    <div class="orb-sphere" aria-hidden="true"></div>
+    <span class="orb-label" aria-hidden="true">HIKE · THE COUNCIL</span>
+
+    <!-- NODE LABEL — Listen (top) -->
+    <a class="node-label" id="label-listen"
+      data-agent="hike-listen"
+      role="button" tabindex="0"
+      aria-label="Open Hike Listen panel">
+      <span class="nl-eyebrow">Agent · 01</span>
+      <span class="nl-dot"></span>
+      <span class="nl-name">Hike Listen</span>
+    </a>
+
+    <!-- NODE LABEL — Advise (bottom-left) -->
+    <a class="node-label" id="label-advise"
+      data-agent="hike-advise"
+      role="button" tabindex="0"
+      aria-label="Open Hike Advise panel">
+      <span class="nl-eyebrow">Agent · 02</span>
+      <span class="nl-dot"></span>
+      <span class="nl-name">Hike Advise</span>
+    </a>
+
+    <!-- NODE LABEL — Create (bottom-right) -->
+    <a class="node-label" id="label-create"
+      data-agent="hike-create"
+      role="button" tabindex="0"
+      aria-label="Open Hike Create panel">
+      <span class="nl-eyebrow">Agent · 03</span>
+      <span class="nl-dot"></span>
+      <span class="nl-name">Hike Create</span>
+    </a>
   </div>
-
-  <!-- NODE LABEL — Listen (top) -->
-  <a class="node-label" id="label-listen"
-    data-agent="hike-listen"
-    role="button" tabindex="0"
-    aria-label="Open Hike Listen panel">
-    <span class="nl-eyebrow">Agent · 01</span>
-    <span class="nl-dot"></span>
-    <span class="nl-name">Hike Listen</span>
-  </a>
-
-  <!-- NODE LABEL — Advise (bottom-left) -->
-  <a class="node-label" id="label-advise"
-    data-agent="hike-advise"
-    role="button" tabindex="0"
-    aria-label="Open Hike Advise panel">
-    <span class="nl-eyebrow">Agent · 02</span>
-    <span class="nl-dot"></span>
-    <span class="nl-name">Hike Advise</span>
-  </a>
-
-  <!-- NODE LABEL — Create (bottom-right) -->
-  <a class="node-label" id="label-create"
-    data-agent="hike-create"
-    role="button" tabindex="0"
-    aria-label="Open Hike Create panel">
-    <span class="nl-eyebrow">Agent · 03</span>
-    <span class="nl-dot"></span>
-    <span class="nl-name">Hike Create</span>
-  </a>
 
   <!-- BOTTOM LEFT HEADLINE -->
   <div id="headline" aria-hidden="true">
@@ -656,7 +677,9 @@
       ['listen','advise','create'].forEach(key => {
         const lbl = document.getElementById(`label-${key}`);
         if (!lbl) return;
-        const r = lbl.getBoundingClientRect();
+        const dot = lbl.querySelector('.nl-dot');
+        const target = dot || lbl;
+        const r = target.getBoundingClientRect();
         const lx = r.left + r.width / 2;
         const ly = r.top  + r.height / 2;
 
