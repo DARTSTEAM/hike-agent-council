@@ -310,7 +310,7 @@
       flex-direction: column;
       justify-content: flex-end;
       flex: 1;
-      padding: calc(70px + 4rem) var(--pad-x) 2.5rem;
+      padding: calc(70px + 2rem) var(--pad-x) 1.5rem;
       position: relative;
       z-index: 3;
     }
@@ -340,13 +340,13 @@
     .hero-line1 {
       display: block;
       font-family: var(--font-main);
-      font-size: clamp(40px, 5.5vw, 72px);
+      font-size: clamp(24px, 3.5vw, 44px);
       font-weight: 400;
       letter-spacing: -0.02em;
       line-height: 1;
       color: var(--text-dim);
       opacity: 0;
-      margin-bottom: -32px;
+      margin-bottom: -16px;
       position: relative;
       z-index: 1;
       animation: fadeUp .8s var(--ease) 150ms forwards;
@@ -354,9 +354,9 @@
     .hero-line2 {
       display: block;
       font-family: var(--font-main);
-      font-size: clamp(120px, 18vw, 280px);
+      font-size: clamp(64px, 9vw, 130px);
       font-weight: 550;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.03em;
       line-height: 0.95;
       color: var(--text);
       position: relative;
@@ -397,10 +397,10 @@
       align-items: flex-end;
       justify-content: space-between;
       gap: 3rem;
-      margin-top: clamp(40px, 5vh, 64px);
+      margin-top: clamp(24px, 3vh, 40px);
     }
     .hero-sub {
-      font-size: 22px;
+      font-size: clamp(16px, 1.6vw, 20px);
       font-weight: 400;
       color: var(--text-dim);
       max-width: 56ch;
@@ -445,17 +445,17 @@
     .hero-ctas {
       display: flex;
       align-items: center;
-      margin-top: 2.5rem;
+      margin-top: clamp(20px, 3.5vh, 40px);
       opacity: 0;
       animation: fadeUp .6s var(--ease) 750ms forwards;
     }
 
     .btn-solid {
       font-family: var(--mono);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 500;
       letter-spacing: .04em;
-      padding: 22px 40px;
+      padding: 16px 32px;
       border-radius: 0;
       background: var(--text);
       color: var(--bg);
