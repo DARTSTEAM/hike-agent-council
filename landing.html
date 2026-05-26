@@ -942,64 +942,229 @@
     }
 
     /* ── ADVISE DEMO ── */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      margin-bottom: .875rem;
+    .advise-chat-bubble {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px;
+      max-width: 90%;
     }
-    .kpi-card {
-      padding: .875rem 1rem;
-      background: rgba(0, 21, 46, 0.4);
-      border: 1px solid rgba(0, 229, 255, 0.08);
-      border-radius: 6px;
-      transition: border-color 0.3s;
+    .user-bubble {
+      align-self: flex-start;
+      margin-right: auto;
     }
-    .kpi-card:hover {
-      border-color: rgba(0, 229, 255, 0.2);
+    .agent-bubble {
+      align-self: flex-start;
+      margin-right: auto;
+      margin-bottom: 16px;
     }
-    .kpi-card-label {
+    .bubble-sender {
       font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .12em;
+      font-size: 9px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-mute);
-      margin-bottom: .4rem;
     }
-    .kpi-card-val {
-      font-family: var(--font-main);
-      font-size: clamp(28px, 3vw, 36px);
-      font-weight: 550;
-      letter-spacing: -.03em;
-      color: var(--text);
-      line-height: 1;
+    .user-bubble .bubble-sender {
+      color: #00E5FF;
     }
-    .kpi-card-delta {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 600;
-      margin-left: .375rem;
-    }
-    .delta-pos { color: #00D26A; }
-    .delta-neg { color: #FF3B30; }
-    .chart-wrap {
-      border: 1px solid rgba(0, 229, 255, 0.08);
+    .bubble-text {
+      font-size: 12px;
+      line-height: 1.4;
+      padding: 8px 12px;
+      border-radius: 8px;
       background: rgba(0, 21, 46, 0.4);
+      border: 1px solid rgba(0, 229, 255, 0.12);
+      color: var(--text);
+    }
+    .user-bubble .bubble-text {
+      background: rgba(0, 121, 176, 0.15);
+      border-color: rgba(0, 229, 255, 0.25);
+    }
+    
+    /* ── DASHBOARD WIDGET ── */
+    .dashboard-widget {
+      background: rgba(0, 10, 24, 0.4);
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .widget-header {
+      text-align: center;
+    }
+    .widget-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #EBF5FF;
+      letter-spacing: -0.01em;
+    }
+    .widget-subtitle {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--text-dim);
+      margin-top: 1px;
+    }
+    .widget-comparison {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: rgba(0, 21, 46, 0.3);
+      padding: 6px 12px;
       border-radius: 6px;
-      padding: .875rem;
-      margin-bottom: .875rem;
-      height: 100px;
+      border: 1px solid rgba(0, 229, 255, 0.08);
+      max-width: 280px;
+      margin: 0 auto;
+    }
+    .comp-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .comp-col.highlight {
+      border: 1px solid #0079b0;
+      background: rgba(0, 121, 176, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .comp-lbl {
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: 0.08em;
+      color: var(--text-mute);
+    }
+    .comp-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .comp-col.highlight .comp-val {
+      color: #00E5FF;
+    }
+    .comp-vs {
+      font-family: var(--mono);
+      font-size: 8px;
+      color: var(--text-mute);
+      font-style: italic;
+    }
+    
+    .dashboard-widget .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 0;
+    }
+    .dashboard-widget .kpi-card {
+      padding: 6px 8px;
+      background: rgba(0, 21, 46, 0.5);
+      border: 1px solid rgba(0, 229, 255, 0.08);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      transition: border-color 0.3s;
+    }
+    .dashboard-widget .kpi-card:hover {
+      border-color: rgba(0, 229, 255, 0.2);
+    }
+    .dashboard-widget .kpi-card-label {
+      font-family: var(--mono);
+      font-size: 7px;
+      color: var(--text-mute);
+      margin-bottom: 0;
+      letter-spacing: 0.05em;
+    }
+    .dashboard-widget .kpi-card-val {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .dashboard-widget .kpi-card-badge {
+      font-family: var(--mono);
+      font-size: 7px;
+      font-weight: 500;
+      align-self: flex-start;
+      padding: 0 3px;
+      border-radius: 2px;
+      margin-top: 2px;
+      line-height: 1.2;
+    }
+    .dashboard-widget .kpi-card-badge.positive {
+      background: rgba(0, 210, 106, 0.1);
+      color: #00D26A;
+    }
+    .dashboard-widget .kpi-card-badge.neutral {
+      background: rgba(151, 189, 220, 0.1);
+      color: #97BDDC;
+    }
+    
+    .widget-bottom-row {
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .chart-col, .insights-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .chart-title, .insights-title {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      border-bottom: 1px solid rgba(0, 229, 255, 0.08);
+      padding-bottom: 3px;
+    }
+    .dashboard-widget .chart-wrap {
+      height: 80px;
+      padding: 4px;
+      margin-bottom: 0;
+      background: rgba(0, 21, 46, 0.3);
+      border: 1px solid rgba(0, 229, 255, 0.08);
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .chart-svg { width: 100%; height: 100%; overflow: visible; }
-    .chart-line {
+    .chart-line-green, .chart-line-cyan {
       fill: none;
-      stroke: url(#chartGrad);
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
+    }
+    
+    .insights-col .insight-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .insights-col .insight-item strong {
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: 0.05em;
+      color: #00E5FF;
+    }
+    .insights-col .insight-item p {
+      font-size: 9px;
+      line-height: 1.25;
+      color: var(--text-dim);
+    }
+    
+    @media (max-width: 480px) {
+      .dashboard-widget .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .widget-bottom-row {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ── SIGNAL FULL-WIDTH SECTION ── */
@@ -2549,41 +2714,88 @@
         <span class="win-label">hike_advise — analytics engine</span>
       </div>
       <div class="demo-body">
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <p class="kpi-card-label">ROAS</p>
-            <p class="kpi-card-val">3.4×<span class="kpi-card-delta delta-pos">↑12%</span></p>
-          </div>
-          <div class="kpi-card">
-            <p class="kpi-card-label">CPA</p>
-            <p class="kpi-card-val">$24<span class="kpi-card-delta delta-neg">↓8%</span></p>
-          </div>
-          <div class="kpi-card">
-            <p class="kpi-card-label">CTR</p>
-            <p class="kpi-card-val">2.8%<span class="kpi-card-delta delta-pos">↑0.3pp</span></p>
-          </div>
-          <div class="kpi-card">
-            <p class="kpi-card-label">Spend</p>
-            <p class="kpi-card-val">$14K</p>
-          </div>
+        <!-- Chat User Prompt -->
+        <div class="advise-chat-bubble user-bubble">
+          <span class="bubble-sender">USER QUERY</span>
+          <p class="bubble-text">Tengo 10 minutos para crear el reporte mensual para el cliente...</p>
         </div>
-        <div class="chart-wrap">
-          <svg class="chart-svg" viewBox="0 0 400 72" preserveAspectRatio="none" id="advise-chart">
-            <defs>
-              <linearGradient id="chartGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#00E5FF"/>
-                <stop offset="50%" stop-color="#0079b0"/>
-                <stop offset="100%" stop-color="#00274c"/>
-              </linearGradient>
-            </defs>
-            <polyline class="chart-line" id="chart-polyline"
-              points="0,60 40,52 80,56 120,38 160,44 200,28 240,32 280,18 320,24 360,12 400,8"
-            />
-          </svg>
+
+        <!-- Chat Agent Answer -->
+        <div class="advise-chat-bubble agent-bubble">
+          <span class="bubble-sender">HIKE ADVISE</span>
+          <p class="bubble-text">Acá tenés el reporte consolidado de performance. Destaca un ROAS excepcional de 16.28x y $1.42B en revenue este mes.</p>
         </div>
-        <div class="alert-box">
-          <span style="font-size:16px;flex-shrink:0;line-height:1" aria-hidden="true">⚠</span>
-          <p class="alert-box-text"><strong>Anomalía detectada</strong> — CPA +40% en últimas 2hs. Ahorro: USD 800.</p>
+
+        <!-- Dashboard Widget -->
+        <div class="dashboard-widget">
+          <div class="widget-header">
+            <h4 class="widget-title">Reporte Mensual de Performance</h4>
+            <p class="widget-subtitle">Período: 1 - 25 May 2026 · Origen: Meta & Google Ads</p>
+          </div>
+
+          <!-- Highlight Comparison Row -->
+          <div class="widget-comparison">
+            <div class="comp-col highlight">
+              <span class="comp-lbl">REVENUE</span>
+              <span class="comp-val">$1.42B</span>
+            </div>
+            <span class="comp-vs">vs</span>
+            <div class="comp-col highlight">
+              <span class="comp-lbl">ROAS</span>
+              <span class="comp-val">16.28x</span>
+            </div>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-card-label">VIDEO VIEWS</span>
+              <span class="kpi-card-val">2.4M</span>
+              <span class="kpi-card-badge positive">↑ 18.4%</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-card-label">THRUPLAYS</span>
+              <span class="kpi-card-val">894K</span>
+              <span class="kpi-card-badge positive">↑ 12.1%</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-card-label">SPEND</span>
+              <span class="kpi-card-val">$87.2K</span>
+              <span class="kpi-card-badge neutral">↓ 4.3%</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-card-val">$0.04</span>
+              <span class="kpi-card-badge positive">↓ 8.5%</span>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Chart + Insights -->
+          <div class="widget-bottom-row">
+            <div class="chart-col">
+              <span class="chart-title">Evolución Diaria (Revenue vs ROAS)</span>
+              <div class="chart-wrap">
+                <svg class="chart-svg" viewBox="0 0 400 72" preserveAspectRatio="none" id="advise-chart">
+                  <polyline class="chart-line-green" id="chart-polyline-green" stroke="#00D26A"
+                    points="0,55 40,48 80,50 120,35 160,38 200,24 240,28 280,14 320,18 360,8 400,5"
+                  />
+                  <polyline class="chart-line-cyan" id="chart-polyline-cyan" stroke="#00E5FF"
+                    points="0,65 40,60 80,48 120,52 160,36 200,32 240,20 280,24 320,12 360,16 400,8"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="insights-col">
+              <span class="insights-title">AI Insights & Recomendaciones</span>
+              <div class="insight-item">
+                <strong>PICO DE ROAS DETECTADO</strong>
+                <p>El día 18/5 la campaña alcanzó 18.5x impulsado por creativos de video optimizados para Thruplays.</p>
+              </div>
+              <div class="insight-item">
+                <strong>OPORTUNIDAD DE ESCALA</strong>
+                <p>CPA en video views bajó a $0.03. Se recomienda reasignar 15% del presupuesto a video para acelerar escala.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2820,13 +3032,22 @@ function runFeedAnimation(sec) {
 /* ── CHART ANIMATION (ADVISE) ── */
 function runChartAnimation(sec) {
   if (sec._charted) return; sec._charted = true;
-  const pl = document.getElementById('chart-polyline');
-  if (!pl) return;
+  const lines = [
+    document.getElementById('chart-polyline-green'),
+    document.getElementById('chart-polyline-cyan')
+  ];
   const len = 620;
-  pl.style.strokeDasharray = len;
-  pl.style.strokeDashoffset = len;
-  pl.style.transition = 'stroke-dashoffset 2s cubic-bezier(.4,0,.2,1)';
-  requestAnimationFrame(() => requestAnimationFrame(() => { pl.style.strokeDashoffset = '0'; }));
+  lines.forEach(pl => {
+    if (!pl) return;
+    pl.style.strokeDasharray = len;
+    pl.style.strokeDashoffset = len;
+    pl.style.transition = 'stroke-dashoffset 2s cubic-bezier(.4,0,.2,1)';
+  });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    lines.forEach(pl => {
+      if (pl) pl.style.strokeDashoffset = '0';
+    });
+  }));
 }
 
 /* ── DEMO INTERSECTION TRIGGERS ── */
