@@ -249,14 +249,208 @@
       border-color: var(--text);
     }
 
-    /* ── HERO ── */
+    /* ── HERO (Orb Council) ── */
     #hero {
       position: relative;
-      min-height: 100vh;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    /* Ripple canvas */
+    #hero-ripple-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Orb anchor — zero-size, pinned to center */
+    #hero-orb-anchor {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Atmospheric halo */
+    .hero-orb-halo {
+      position: absolute;
+      width: 580px; height: 580px;
+      top: -290px; left: -290px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center,
+        rgba(0, 229, 255, 0.38) 0%,
+        rgba(0, 110, 172, 0.15) 40%,
+        transparent 70%);
+      filter: blur(40px);
+      animation: heroHaloPulse 5s ease-in-out infinite;
+    }
+    @keyframes heroHaloPulse {
+      0%,100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); }
+      50%      { opacity: 1;   transform: translate(-50%,-50%) scale(1.1); }
+    }
+
+    /* Outer rotating ring */
+    .hero-orb-ring-outer {
+      position: absolute;
+      width: 280px; height: 280px;
+      top: -140px; left: -140px;
+      border-radius: 50%;
+      border: 1px dashed rgba(0, 229, 255, 0.08);
+      animation: heroSpinR 80s linear infinite;
+    }
+    @keyframes heroSpinR { to { transform: rotate(-360deg); } }
+
+    /* Inner rotating ring */
+    .hero-orb-ring-inner {
+      position: absolute;
+      width: 220px; height: 220px;
+      top: -110px; left: -110px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 121, 176, 0.12);
+      animation: heroSpin 50s linear infinite;
+    }
+    @keyframes heroSpin { to { transform: rotate(360deg); } }
+
+    /* Orb sphere */
+    .hero-orb-sphere {
+      position: absolute;
+      width: 158px; height: 158px;
+      top: -79px; left: -79px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #173b5c 0%, #0a2036 45%, #030a17 80%, #01040a 100%);
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      box-shadow:
+        inset 0 0 30px rgba(0, 229, 255, 0.45),
+        inset 0 0 10px rgba(0, 229, 255, 0.2),
+        0 0 35px rgba(0, 172, 255, 0.4);
+      animation: heroOrbPulse 4.5s ease-in-out infinite;
+    }
+    @keyframes heroOrbPulse {
+      0%,100% {
+        box-shadow:
+          inset 0 0 30px rgba(0, 229, 255, 0.45),
+          inset 0 0 10px rgba(0, 229, 255, 0.2),
+          0 0 35px rgba(0, 172, 255, 0.4),
+          0 0 80px rgba(0, 121, 176, 0.18);
+      }
+      50% {
+        box-shadow:
+          inset 0 0 40px rgba(0, 229, 255, 0.65),
+          inset 0 0 15px rgba(0, 229, 255, 0.3),
+          0 0 55px rgba(0, 172, 255, 0.6),
+          0 0 130px rgba(0, 121, 176, 0.28);
+      }
+    }
+
+    /* Center text block */
+    .hero-center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, calc(-50% + 120px));
+      text-align: center;
+      z-index: 6;
+      pointer-events: none;
+    }
+    .hero-center-line1 {
+      display: block;
+      font-family: var(--font-main);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 200;
+      letter-spacing: -0.02em;
+      color: rgba(235, 245, 255, 0.55);
+      line-height: 1.1;
+      opacity: 0;
+      animation: heroTextFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+    }
+    .hero-center-line2 {
+      display: block;
+      font-family: var(--font-main);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: rgba(235, 245, 255, 0.92);
+      line-height: 1.05;
+      margin-top: 0.25rem;
+      opacity: 0;
+      animation: heroTextFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards;
+    }
+    .hero-center-line2 .grad-word {
+      display: inline-block;
+      background: linear-gradient(120deg, #00D26A 0%, #00E5FF 35%, #00A3FF 70%, #00D26A 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      clip-path: inset(0 102% 0 0);
+      animation:
+        gradReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.4s forwards,
+        gradientShift 8s linear 2.6s infinite;
+    }
+    @keyframes gradReveal { to { clip-path: inset(0 -5% 0 0); } }
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes heroTextFadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll CTA */
+    .hero-scroll-cta {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 6;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      background: var(--bg);
+      align-items: center;
+      gap: 0.5rem;
+      pointer-events: auto;
+      text-decoration: none;
+      opacity: 0;
+      animation: heroTextFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards;
+    }
+    .hero-scroll-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(151, 189, 220, 0.55);
+      transition: color 0.2s;
+    }
+    .hero-scroll-cta:hover .hero-scroll-label { color: rgba(151, 189, 220, 0.9); }
+    .hero-scroll-arrow {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, rgba(0, 229, 255, 0.4), transparent);
+      animation: heroArrowDrop 1.8s ease-in-out 2.5s infinite;
+    }
+    @keyframes heroArrowDrop {
+      0%   { transform: scaleY(0.3) translateY(-8px); opacity: 0; }
+      40%  { transform: scaleY(1)   translateY(0);    opacity: 1; }
+      100% { transform: scaleY(1)   translateY(6px);  opacity: 0; }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 700px) {
+      .hero-center-text { transform: translate(-50%, calc(-50% + 95px)); }
+      .hero-orb-halo { width: 360px; height: 360px; top: -180px; left: -180px; }
+      .hero-orb-ring-outer { width: 200px; height: 200px; top: -100px; left: -100px; }
+      .hero-orb-ring-inner { width: 160px; height: 160px; top: -80px; left: -80px; }
+      .hero-orb-sphere { width: 110px; height: 110px; top: -55px; left: -55px; }
     }
 
     /* HERO VIDEO BACKGROUND */
@@ -2427,37 +2621,31 @@
   <a class="nav-cta" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">book demo</a>
 </nav>
 
-<!-- HERO -->
-<section id="hero" aria-labelledby="hero-h1">
-  <!-- Atmospheric video background -->
-  <div class="hero-video-bg" aria-hidden="true">
-    <video
-      class="hero-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto">
-      <source src="https://cdn.coverr.co/videos/coverr-abstract-purple-fluid-1644/1080p.mp4" type="video/mp4">
-    </video>
-    <div class="hero-video-overlay"></div>
-    <div class="hero-glow"></div>
+<!-- HERO (Orb Council) -->
+<section id="hero" aria-label="Hike Agent Council Hero">
+
+  <!-- Water ripple canvas -->
+  <canvas id="hero-ripple-canvas"></canvas>
+
+  <!-- Orb -->
+  <div id="hero-orb-anchor" aria-hidden="true">
+    <div class="hero-orb-halo"></div>
+    <div class="hero-orb-ring-outer"></div>
+    <div class="hero-orb-ring-inner"></div>
+    <div class="hero-orb-sphere"></div>
   </div>
-  <div class="hero-main">
-    <p class="hero-eyebrow">// hike · agent council — 03 agents</p>
-    <h1 class="hero-h1" id="hero-h1">
-      <span class="hero-line1">Three agents.</span>
-      <span class="hero-line2"><span class="grad-word">Infinite</span> impact.</span>
-    </h1>
-    <div class="hero-bottom-row">
-      <p class="hero-sub"><span class="hero-sub-name">Hike Listen</span>, <span class="hero-sub-name">Hike Create</span> y <span class="hero-sub-name">Hike Advise</span>. Tres agentes especializados que <span class="hero-sub-action">escuchan, crean y analizan</span> —— mientras tu equipo decide.</p>
-      <p class="hero-powered"><span class="hero-powered-dot"></span>Powered by Hike</p>
-    </div>
-    <div class="hero-ctas">
-      <a class="btn-solid" href="#listen">Explore council →</a>
-      <a class="btn-ghost" href="https://wa.me/541121912720?text=Hi!%20I%27d%20like%20to%20book%20a%20demo%20of%20Hike%20Agent%20Council." target="_blank" rel="noopener">Book demo</a>
-    </div>
+
+  <!-- Center text -->
+  <div class="hero-center-text" aria-label="Three agents. Infinite impact.">
+    <span class="hero-center-line1">Three agents.</span>
+    <span class="hero-center-line2"><span class="grad-word">Infinite</span> impact.</span>
   </div>
+
+  <!-- Scroll CTA -->
+  <a class="hero-scroll-cta" href="#listen" aria-label="Scroll to enter the council">
+    <span class="hero-scroll-label">Scroll to enter the council</span>
+    <span class="hero-scroll-arrow"></span>
+  </a>
 
 </section>
 
@@ -3136,6 +3324,91 @@ document.querySelectorAll('.acc-head').forEach(btn => {
       if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
     }, { passive: true });
   }
+})();
+</script>
+
+<script>
+/* ── HERO RIPPLE CANVAS ── */
+(function () {
+  const hero   = document.getElementById('hero');
+  const canvas = document.getElementById('hero-ripple-canvas');
+  if (!canvas || !hero) return;
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    canvas.width  = hero.offsetWidth  * window.devicePixelRatio;
+    canvas.height = hero.offsetHeight * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  const ripples = [];
+  let activeColor   = '0, 229, 255';
+  let lastX = 0, lastY = 0;
+  const THRESHOLD = 12;
+
+  class Ripple {
+    constructor(x, y, isClick = false) {
+      this.x = x; this.y = y;
+      this.isClick  = isClick;
+      this.radius   = 2;
+      this.maxRadius = isClick ? 130 + Math.random() * 40 : 70 + Math.random() * 20;
+      this.alpha    = isClick ? 0.16 : 0.06;
+      this.speed    = isClick ? 1.4 : 0.7 + Math.random() * 0.4;
+      this.thickness = isClick ? 1.5 : 0.8;
+    }
+    update() {
+      this.radius += this.speed;
+      this.alpha = (this.isClick ? 0.16 : 0.06) * (1 - this.radius / this.maxRadius);
+    }
+    draw() {
+      if (this.alpha <= 0) return;
+      ctx.shadowBlur  = 8;
+      ctx.shadowColor = `rgba(${activeColor}, ${this.alpha * 0.4})`;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${activeColor}, ${this.alpha})`;
+      ctx.lineWidth   = this.thickness;
+      ctx.stroke();
+      if (this.radius > 15) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius - 10, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${activeColor}, ${this.alpha * 0.3})`;
+        ctx.lineWidth   = this.thickness * 0.6;
+        ctx.stroke();
+      }
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = ripples.length - 1; i >= 0; i--) {
+      ripples[i].update();
+      if (ripples[i].alpha <= 0) ripples.splice(i, 1);
+      else ripples[i].draw();
+    }
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+
+  // Only fire ripples when mouse is inside the hero
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const dx = x - lastX, dy = y - lastY;
+    if (Math.sqrt(dx*dx + dy*dy) > THRESHOLD) {
+      ripples.push(new Ripple(x, y, false));
+      lastX = x; lastY = y;
+    }
+  });
+
+  hero.addEventListener('click', (e) => {
+    const rect = hero.getBoundingClientRect();
+    ripples.push(new Ripple(e.clientX - rect.left, e.clientY - rect.top, true));
+  });
 })();
 </script>
 </body>
