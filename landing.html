@@ -253,13 +253,6 @@
     #hero {
       position: relative;
       width: 100%;
-      height: 200vh;        /* extra space for scroll animation */
-      background: transparent; /* no black gap — next section shows through */
-    }
-    /* Sticky viewport that holds all the visual content */
-    .hero-sticky-content {
-      position: sticky;
-      top: 0;
       height: 100vh;
       overflow: hidden;
       background: #000612;
@@ -2453,18 +2446,17 @@
 
 <!-- HERO (Orb Council) -->
 <section id="hero" aria-label="Hike Agent Council Hero">
-<div class="hero-sticky-content">
 
-  <!-- Background overlay — exact index.html gradient -->
+  <!-- Background overlay -->
   <div class="hero-bg-overlay" aria-hidden="true"></div>
   <div class="hero-grain-overlay" aria-hidden="true"></div>
 
   <!-- Water ripple canvas -->
   <canvas id="hero-ripple-canvas"></canvas>
 
-  <!-- Orb visual wrapper (gets shrunk/blurred on scroll) -->
-  <div id="hero-orb-anchor" aria-hidden="false">
-    <div class="hero-orb-visual" aria-hidden="true">
+  <!-- Orb visual wrapper (shrinks/spins on scroll) -->
+  <div id="hero-orb-anchor">
+    <div class="hero-orb-visual">
       <div class="hero-orb-halo"></div>
       <div class="hero-orb-ring-outer"></div>
       <div class="hero-orb-ring-inner"></div>
@@ -2472,29 +2464,19 @@
       <span class="hero-orb-label">HIKE · THE COUNCIL</span>
     </div>
 
-    <!-- NODE LABEL — Listen (top) -->
+    <!-- NODE LABELS -->
     <a class="hero-node-label" id="hero-label-listen"
-      href="https://hike-social-listener.web.app/"
-      target="_blank" rel="noopener"
-      aria-label="Open Hike Listen">
+      href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">
       <span class="hnl-eyebrow">Monitoreo de marca</span>
       <span class="hnl-name">Hike Listen</span>
     </a>
-
-    <!-- NODE LABEL — Advise (left) -->
     <a class="hero-node-label" id="hero-label-advise"
-      href="https://chat.hikethecloud.com/"
-      target="_blank" rel="noopener"
-      aria-label="Open Hike Advise">
+      href="https://chat.hikethecloud.com/" target="_blank" rel="noopener">
       <span class="hnl-eyebrow">Asistente inteligente</span>
       <span class="hnl-name">Hike Advise</span>
     </a>
-
-    <!-- NODE LABEL — Create (right) -->
     <a class="hero-node-label" id="hero-label-create"
-      href="https://readapt.web.app/"
-      target="_blank" rel="noopener"
-      aria-label="Open Hike Create">
+      href="https://readapt.web.app/" target="_blank" rel="noopener">
       <span class="hnl-eyebrow">Explota tu creatividad</span>
       <span class="hnl-name">Hike Create</span>
     </a>
@@ -2507,12 +2489,11 @@
   </div>
 
   <!-- Scroll CTA -->
-  <a class="hero-scroll-cta" href="#listen" aria-label="Scroll to enter the council">
+  <a class="hero-scroll-cta" href="#listen">
     <span class="hero-scroll-label">Scroll to enter the council</span>
     <span class="hero-scroll-arrow"></span>
   </a>
 
-</div><!-- /.hero-sticky-content -->
 </section>
 
 
@@ -3201,14 +3182,9 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   if (!canvas || !hero) return;
   const ctx = canvas.getContext('2d');
 
-  // Use viewport dimensions (not the full 220vh hero)
   function resizeCanvas() {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    canvas.width  = vw * window.devicePixelRatio;
-    canvas.height = vh * window.devicePixelRatio;
-    canvas.style.width  = vw + 'px';
-    canvas.style.height = vh + 'px';
+    canvas.width  = hero.offsetWidth  * window.devicePixelRatio;
+    canvas.height = hero.offsetHeight * window.devicePixelRatio;
     ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
   }
   window.addEventListener('resize', resizeCanvas);
@@ -3272,10 +3248,8 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   }
   requestAnimationFrame(animate);
 
-  // Only fire ripples when mouse is in the visible sticky viewport
-  const stickyContent = hero.querySelector('.hero-sticky-content') || hero;
-  stickyContent.addEventListener('mousemove', (e) => {
-    const rect = stickyContent.getBoundingClientRect();
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const dx = x - lastX, dy = y - lastY;
@@ -3285,8 +3259,8 @@ document.querySelectorAll('.acc-head').forEach(btn => {
     }
   });
 
-  stickyContent.addEventListener('click', (e) => {
-    const rect = stickyContent.getBoundingClientRect();
+  hero.addEventListener('click', (e) => {
+    const rect = hero.getBoundingClientRect();
     ripples.push(new Ripple(e.clientX - rect.left, e.clientY - rect.top, true));
   });
 })();
@@ -3298,7 +3272,6 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   const hero = document.getElementById('hero');
   if (!hero) return;
 
-  const stickyBg    = hero.querySelector('.hero-sticky-content');
   const orbVisual   = hero.querySelector('.hero-orb-visual');
   const centerText  = hero.querySelector('.hero-center-text');
   const scrollCta   = hero.querySelector('.hero-scroll-cta');
@@ -3312,13 +3285,10 @@ document.querySelectorAll('.acc-head').forEach(btn => {
 
   let ticking = false;
   function onScroll() {
-    // Progress: 0 at hero top, 1 when hero bottom meets viewport bottom
-    const heroTop         = hero.offsetTop;
-    const scrollY         = window.scrollY;
-    const scrollInHero    = scrollY - heroTop;
-    const scrollableRange = hero.offsetHeight - window.innerHeight;
-    const rawP = Math.min(Math.max(scrollInHero / scrollableRange, 0), 1);
-    const p    = ease(rawP);
+    // Animation runs from scrollY=0 to scrollY=60% of viewport height
+    const range = window.innerHeight * 0.6;
+    const rawP  = Math.min(Math.max(window.scrollY / range, 0), 1);
+    const p     = ease(rawP);
 
     /* ── ORB: shrink + spin + blur + fade ── */
     if (orbVisual) {
@@ -3347,28 +3317,19 @@ document.querySelectorAll('.acc-head').forEach(btn => {
     /* ── LABELS: orbit outward (spread + arc + fade) ── */
     const labelOpa = Math.max(0, 1 - p * 1.8);
     const spread   = p * 350;
-    const arc      = p * 45;  // rotation around the orb center
+    const arc      = p * 45;
 
-    // Listen — flies upward
     if (labelListen) {
       labelListen.style.opacity   = labelOpa;
       labelListen.style.transform = `translateY(${-spread}px) rotate(${-arc * 0.3}deg)`;
     }
-    // Advise — flies left-down, rotating clockwise arc
     if (labelAdvise) {
       labelAdvise.style.opacity   = labelOpa;
       labelAdvise.style.transform = `translateX(${-spread}px) translateY(${spread * 0.5}px) rotate(${-arc}deg)`;
     }
-    // Create — flies right-down, rotating counter-clockwise arc
     if (labelCreate) {
       labelCreate.style.opacity   = labelOpa;
       labelCreate.style.transform = `translateX(${spread}px) translateY(${spread * 0.5}px) rotate(${arc}deg)`;
-    }
-
-    /* ── Sticky background fades out at the very end ── */
-    if (stickyBg) {
-      const bgOpa = Math.max(0, 1 - Math.pow(Math.max(0, rawP - 0.6) / 0.4, 2));
-      stickyBg.style.opacity = bgOpa;
     }
 
     ticking = false;
@@ -3385,3 +3346,4 @@ document.querySelectorAll('.acc-head').forEach(btn => {
 </script>
 </body>
 </html>
+
