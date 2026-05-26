@@ -117,22 +117,8 @@
       mix-blend-mode: difference;
       border-color: var(--text);
     }
-    #cursor-label {
-      position: fixed;
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      color: var(--text);
-      pointer-events: none;
-      z-index: 99999;
-      opacity: 0;
-      white-space: nowrap;
-      transform: translate(0, -50%);
-      transition: opacity .2s;
-    }
-    #cursor-label.vis { opacity: 1; }
     @media (pointer: fine) { #cursor { display: block; } }
+
 
     /* ── SECTION INDICATOR ── */
     #section-indicator {
@@ -277,7 +263,7 @@
       flex-direction: column;
       justify-content: space-between;
       background: var(--bg);
-      overflow: hidden;
+      overflow-x: clip;
     }
     /* HERO VIDEO BACKGROUND */
     .hero-video-bg {
@@ -361,12 +347,10 @@
       display: block;
       font-family: var(--font-main);
       font-size: clamp(40px, 5.5vw, 72px);
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: -0.02em;
       line-height: 1;
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--hike-accent-dark);
-      text-stroke: 1.5px var(--hike-accent-dark);
+      color: var(--hike-accent-dark);
       opacity: 0;
       margin-bottom: -32px;
       position: relative;
@@ -2163,7 +2147,6 @@
 <a class="skip-link" href="#hero">Skip to content</a>
 <div id="progress"></div>
 <div id="cursor"></div>
-<div id="cursor-label">view live →</div>
 <div id="section-indicator" aria-hidden="true">
   <span class="si-item" data-sec="hero">01 — hero</span>
   <span class="si-item" data-sec="listen">02 — listen</span>
@@ -2785,38 +2768,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ── CURSOR CUSTOM ── */
-(function() {
-  if (!window.matchMedia('(pointer: fine)').matches) return;
-  const cur = document.getElementById('cursor');
-  const lbl = document.getElementById('cursor-label');
-  if (!cur) return;
-  let cx = 0, cy = 0;
-  window.addEventListener('mousemove', e => {
-    cx = e.clientX; cy = e.clientY;
-    cur.style.left = cx + 'px';
-    cur.style.top  = cy + 'px';
-    lbl.style.left = (cx + 20) + 'px';
-    lbl.style.top  = cy + 'px';
-  }, { passive: true });
-  document.querySelectorAll('a, button, .nav-cta, .btn-solid, .cta-ghost-link').forEach(el => {
-    const isDemo = el.classList.contains('agent-cta') || el.textContent.includes('demo') || el.textContent.includes('live');
-    el.addEventListener('mouseenter', () => {
-      cur.classList.add('active');
-      if (isDemo) lbl.classList.add('vis');
-    });
-    el.addEventListener('mouseleave', () => {
-      cur.classList.remove('active');
-      lbl.classList.remove('vis');
-    });
-  });
-  // Demo windows cursor label
-  document.querySelectorAll('.demo-window').forEach(el => {
-    el.style.cursor = 'none';
-    el.addEventListener('mouseenter', () => lbl.classList.add('vis'));
-    el.addEventListener('mouseleave', () => lbl.classList.remove('vis'));
-  });
-})();
+
 
 /* ── IMAGE VIEWPORT GRAYSCALE ── */
 const imgObs = new IntersectionObserver(es => es.forEach(e => {
