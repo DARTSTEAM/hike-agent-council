@@ -207,11 +207,31 @@
     .nav-left {
       display: flex;
       align-items: center;
+      gap: 16px;
     }
     .nav-logo {
       height: 36px;
       width: auto;
       transition: filter 0.4s, opacity 0.4s;
+    }
+    .nav-divider {
+      width: 1px;
+      height: 28px;
+      background: rgba(151, 189, 220, 0.2);
+      flex-shrink: 0;
+    }
+    .nav-gcp-badge {
+      display: flex;
+      align-items: center;
+      opacity: 0.85;
+      transition: opacity 0.25s;
+    }
+    .nav-gcp-badge:hover {
+      opacity: 1;
+    }
+    .nav-gcp-badge img {
+      height: 30px;
+      width: auto;
     }
     .nav-links {
       display: flex;
@@ -1765,6 +1785,10 @@
 <nav id="nav">
   <div class="nav-left">
     <img class="nav-logo" src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png" alt="Hike the Cloud — home" fetchpriority="high"/>
+    <div class="nav-divider"></div>
+    <a class="nav-gcp-badge" href="https://cloud.google.com/partners" target="_blank" rel="noopener" title="Google Cloud Partner">
+      <img src="https://www.gstatic.com/cloud/images/partners/google-cloud-partner-service-dark.svg" alt="Google Cloud Partner" onerror="this.onerror=null;this.src='https://lh3.googleusercontent.com/i9RrS7L7N8tSqEtDjuBxwkHFrD3-4r5QdJH8r1TbVEQ2v0UaKgxvD7BqMFtXpLDt'"/>
+    </a>
   </div>
   <ul class="nav-links">
     <li><a href="#listen">listen</a></li>
