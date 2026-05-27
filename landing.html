@@ -3244,7 +3244,7 @@ document.querySelectorAll('.acc-head').forEach(btn => {
 </script>
 
 <script>
-/* ── HERO SCROLL — SPIRAL EXPANSION (wheel hijack) ── */
+/* ── HERO SCROLL — SMOOTH SPIRAL (wheel hijack + lerp) ── */
 (function () {
   const hero = document.getElementById('hero');
   if (!hero) return;
@@ -3257,16 +3257,25 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   const BASE_DISTANCE   = 200;
   const MAX_DISTANCE    = 700;
   const TOTAL_ROTATIONS = 1;
-  const SCROLL_BUDGET   = 800; // virtual px of wheel delta to complete animation
+  const SCROLL_BUDGET   = 800;
+  const SMOOTHING       = 0.08;  // lerp factor per frame (lower = smoother)
+  const RELEASE_AT      = 0.2;   // release scroll at 20%
 
   function lerp(a, b, t) { return a + (b - a) * t; }
   function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
-  let virtualScroll = 0;   // accumulated wheel delta (0 → SCROLL_BUDGET)
-  let animDone = false;    // true once animation finished and page can scroll
+  let targetScroll  = 0;   // where wheel events push us (instant)
+  let currentScroll = 0;   // smoothly follows targetScroll
+  let animDone      = false;
+  let rafId         = null;
 
   function render() {
-    const progress = Math.min(Math.max(virtualScroll / SCROLL_BUDGET, 0), 1);
+    // Smooth interpolation toward target
+    currentScroll = lerp(currentScroll, targetScroll, SMOOTHING);
+    // Snap if close enough
+    if (Math.abs(currentScroll - targetScroll) < 0.5) currentScroll = targetScroll;
+
+    const progress = Math.min(Math.max(currentScroll / SCROLL_BUDGET, 0), 1);
     const ep = easeOutCubic(progress);
 
     /* ── ORB ── */
@@ -3305,37 +3314,41 @@ document.querySelectorAll('.acc-head').forEach(btn => {
       node.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(${lerp(1, 0.6, ep)})`;
       node.style.opacity   = nodeOpa;
     });
+
+    // Keep looping if still interpolating
+    if (Math.abs(currentScroll - targetScroll) > 0.5) {
+      rafId = requestAnimationFrame(render);
+    } else {
+      rafId = null;
+    }
+  }
+
+  function scheduleRender() {
+    if (!rafId) rafId = requestAnimationFrame(render);
   }
 
   function onWheel(e) {
-    // Only hijack when the hero is at the top of the viewport
-    if (window.scrollY > 5) {
-      // Page has scrolled past hero — check if scrolling back up to top
-      if (e.deltaY < 0 && window.scrollY < 10) {
-        // near top scrolling up — will handle in scroll listener
-      }
-      return; // let normal scroll happen
-    }
+    if (window.scrollY > 5) return; // page already scrolled, let it be
 
     const delta = e.deltaY;
 
     // Scrolling DOWN while animation not done → hijack
     if (delta > 0 && !animDone) {
       e.preventDefault();
-      virtualScroll = Math.min(virtualScroll + delta, SCROLL_BUDGET);
-      if (virtualScroll >= SCROLL_BUDGET * 0.2) {
+      targetScroll = Math.min(targetScroll + delta, SCROLL_BUDGET);
+      if (targetScroll >= SCROLL_BUDGET * RELEASE_AT) {
         animDone = true;
       }
-      requestAnimationFrame(render);
+      scheduleRender();
       return;
     }
 
-    // Scrolling UP while at scrollY=0 → reverse animation
-    if (delta < 0 && window.scrollY === 0 && virtualScroll > 0) {
+    // Scrolling UP at top → reverse animation
+    if (delta < 0 && window.scrollY === 0 && targetScroll > 0) {
       e.preventDefault();
-      virtualScroll = Math.max(virtualScroll + delta, 0);
-      if (virtualScroll < SCROLL_BUDGET) animDone = false;
-      requestAnimationFrame(render);
+      targetScroll = Math.max(targetScroll + delta, 0);
+      if (targetScroll < SCROLL_BUDGET * RELEASE_AT) animDone = false;
+      scheduleRender();
       return;
     }
   }
@@ -3343,20 +3356,16 @@ document.querySelectorAll('.acc-head').forEach(btn => {
   // Once released, keep driving animation with actual page scroll
   window.addEventListener('scroll', () => {
     if (animDone && window.scrollY > 0) {
-      // Map scrollY (0 → innerHeight) to continue the remaining animation
-      const remaining = SCROLL_BUDGET - (SCROLL_BUDGET * 0.2);
+      const remaining = SCROLL_BUDGET * (1 - RELEASE_AT);
       const scrollProgress = Math.min(window.scrollY / (window.innerHeight * 0.5), 1);
-      virtualScroll = (SCROLL_BUDGET * 0.2) + scrollProgress * remaining;
-      requestAnimationFrame(render);
-    }
-    if (window.scrollY === 0 && animDone) {
-      // back at top — animation stays, wheel-up will reverse
+      targetScroll = (SCROLL_BUDGET * RELEASE_AT) + scrollProgress * remaining;
+      scheduleRender();
     }
   }, { passive: true });
 
   window.addEventListener('wheel', onWheel, { passive: false });
 
-  // Touch support for mobile
+  // Touch support
   let touchStartY = 0;
   window.addEventListener('touchstart', (e) => {
     touchStartY = e.touches[0].clientY;
@@ -3369,14 +3378,14 @@ document.querySelectorAll('.acc-head').forEach(btn => {
 
     if (delta > 0 && !animDone) {
       e.preventDefault();
-      virtualScroll = Math.min(virtualScroll + delta * 2, SCROLL_BUDGET);
-      if (virtualScroll >= SCROLL_BUDGET) animDone = true;
-      requestAnimationFrame(render);
-    } else if (delta < 0 && window.scrollY === 0 && virtualScroll > 0) {
+      targetScroll = Math.min(targetScroll + delta * 2, SCROLL_BUDGET);
+      if (targetScroll >= SCROLL_BUDGET * RELEASE_AT) animDone = true;
+      scheduleRender();
+    } else if (delta < 0 && window.scrollY === 0 && targetScroll > 0) {
       e.preventDefault();
-      virtualScroll = Math.max(virtualScroll + delta * 2, 0);
-      if (virtualScroll < SCROLL_BUDGET) animDone = false;
-      requestAnimationFrame(render);
+      targetScroll = Math.max(targetScroll + delta * 2, 0);
+      if (targetScroll < SCROLL_BUDGET * RELEASE_AT) animDone = false;
+      scheduleRender();
     }
   }, { passive: false });
 
