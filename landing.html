@@ -468,7 +468,11 @@
       pointer-events: auto;
       text-decoration: none;
       opacity: 0;
-      animation: heroTextFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards;
+      animation: heroCtaFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards;
+    }
+    @keyframes heroCtaFadeUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(18px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
     .hero-scroll-label {
       font-family: 'Outfit', system-ui, sans-serif;
