@@ -30,7 +30,8 @@ Mostaza, una de las principales cadenas de fast food en Argentina, acumulaba mil
 Implementamos **Hike Council**, la plataforma propietaria de Martech de ABN Digital. Mediante esta solución:
 1.  Unificamos en **Google Cloud BigQuery** el flujo de eventos digitales de **Google Analytics 4** con los datos transaccionales de compras offline (kioscos y cajas de sucursales).
 2.  Desarrollamos modelos predictivos en **BigQuery ML / Vertex AI** para segmentar audiencias según su propensión de compra a corto plazo y valor de ciclo de vida (LTV).
-3.  Automatizamos la sincronización horaria de estas audiencias hacia **Google Ads** y **DV360** utilizando sus respectivas APIs, habilitando estrategias de **Pujas Basadas en Valor (Value-Based Bidding)** para optimizar los algoritmos de Google hacia la conversión de usuarios con mayor rentabilidad real.
+3.  Utilizamos **Hike Listen** para monitorear el sentimiento del público en tiempo real, gatillando automáticamente a **Hike Create** para generar variantes optimizadas de banners (ej: cambiar fondos a blanco, usar rojo de marca `#F31D24`, reescribir copies y redimensionar a formatos 1:1, 16:9 y 9:16) evitando la fatiga creativa.
+4.  Automatizamos la sincronización horaria de estas audiencias hacia **Google Ads** y **DV360** utilizando sus respectivas APIs, habilitando estrategias de **Pujas Basadas en Valor (Value-Based Bidding)** para optimizar los algoritmos de Google hacia la conversión de usuarios con mayor rentabilidad real.
 
 #### Los Resultados
 *   **+24%** de incremento en el **ROAS Omnicanal** de campañas de Google Ads.
@@ -127,6 +128,13 @@ La integración crucial entre GCP y GMP se logró mediante un pipeline automatiz
 2.  **Predicción:** El modelo en Vertex AI evalúa la probabilidad de compra en los siguientes 7 días.
 3.  **Activación:** Si el usuario califica como "High-LTV", Hike Council actualiza la lista de audiencias en Google Ads mediante la API.
 4.  **Bidding Optimizado:** Las campañas de Search y Performance Max utilizan **Value-Based Bidding (VBB)**, asignando un valor monetario dinámico mayor a los usuarios de alto LTV. Esto entrena al algoritmo de Google Ads para pujar de forma agresiva por usuarios similares, descartando aquellos con menor propensión o menor valor potencial de compra.
+
+### Adaptación Creativa Automatizada (Hike Listen + Hike Create)
+Para maximizar el rendimiento de las creatividades en Google Ads y evitar la fatiga publicitaria, el flujo de Hike Council integró las capacidades de monitoreo de **Hike Listen** con el motor de generación **Hike Create**:
+1.  **Escucha y Sentimiento:** Hike Listen analizó en tiempo real la recepción del público ante las piezas de la campaña de la ruleta de cupones ("Comprá y girá la ruleta. Ganá descuentos y chances para ir al Mundial").
+2.  **Optimización bajo Demanda:** Al detectar bajas en el engagement o saturación de frecuencia, Hike Listen disparó una orden automática de adaptación.
+3.  **Generación de Variantes:** El motor Hike Create procesó la pieza original y generó variaciones visuales y de copy (ej: alternar a fondo blanco, cambiar fondo a rojo institucional `#F31D24` o reescribir copys de gancho usando IA: *"decí lo mismo de otra manera"*).
+4.  **Redimensión Automática:** Hike Create redimensionó y exportó de forma automática las variantes a múltiples relaciones de aspecto (1:1 para Feed, 16:9 para YouTube y 9:16 para Stories), sincronizándolas directamente en las campañas activas de Google Ads.
 
 ---
 
