@@ -883,7 +883,7 @@
       letter-spacing: -0.01em;
     }
     .widget-subtitle {
-      font-family: var(--mono);
+      font-family: var(--font-main);
       font-size: 9px;
       color: var(--text-dim);
       margin-top: 1px;
@@ -912,9 +912,9 @@
       border-radius: 4px;
     }
     .comp-lbl {
-      font-family: var(--mono);
-      font-size: 7px;
-      letter-spacing: 0.08em;
+      font-family: var(--font-main);
+      font-size: 8px;
+      letter-spacing: 0.05em;
       color: var(--text-mute);
     }
     .comp-val {
@@ -926,7 +926,7 @@
       color: #00E5FF;
     }
     .comp-vs {
-      font-family: var(--mono);
+      font-family: var(--font-main);
       font-size: 8px;
       color: var(--text-mute);
       font-style: italic;
@@ -952,11 +952,11 @@
       border-color: rgba(0, 229, 255, 0.2);
     }
     .dashboard-widget .kpi-card-label {
-      font-family: var(--mono);
-      font-size: 7px;
+      font-family: var(--font-main);
+      font-size: 8px;
       color: var(--text-mute);
       margin-bottom: 0;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.02em;
     }
     .dashboard-widget .kpi-card-val {
       font-size: 12px;
@@ -965,8 +965,8 @@
       line-height: 1.1;
     }
     .dashboard-widget .kpi-card-badge {
-      font-family: var(--mono);
-      font-size: 7px;
+      font-family: var(--font-main);
+      font-size: 8px;
       font-weight: 500;
       align-self: flex-start;
       padding: 0 3px;
@@ -995,9 +995,9 @@
       gap: 4px;
     }
     .chart-title, .insights-title {
-      font-family: var(--mono);
-      font-size: 8px;
-      letter-spacing: 0.08em;
+      font-family: var(--font-main);
+      font-size: 9px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--text-mute);
       border-bottom: 1px solid rgba(0, 229, 255, 0.08);
@@ -1028,9 +1028,9 @@
       gap: 0;
     }
     .insights-col .insight-item strong {
-      font-family: var(--mono);
-      font-size: 7px;
-      letter-spacing: 0.05em;
+      font-family: var(--font-main);
+      font-size: 8px;
+      letter-spacing: 0.02em;
       color: #00E5FF;
     }
     .insights-col .insight-item p {
@@ -1116,8 +1116,9 @@
       position: absolute;
       top: 6px;
       right: 6px;
-      font-family: var(--mono);
+      font-family: var(--font-main);
       font-size: 11px;
+      font-weight: 600;
       color: #00E5FF;
       background: rgba(0, 229, 255, 0.15);
       border: 1px solid rgba(0, 229, 255, 0.3);
@@ -1144,10 +1145,10 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-family: var(--mono);
+      font-family: var(--font-main);
       font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.15em;
+      font-weight: 500;
+      letter-spacing: 0.1em;
       color: var(--text-mute);
       text-transform: uppercase;
       background: rgba(0, 6, 18, 0.8);
@@ -1176,8 +1177,9 @@
     .progress-meta {
       display: flex;
       justify-content: space-between;
-      font-family: var(--mono);
+      font-family: var(--font-main);
       font-size: 11px;
+      font-weight: 500;
       color: var(--text-dim);
     }
     .progress-meta .stat-highlight {
@@ -1849,24 +1851,24 @@
         <!-- Status bar -->
         <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;background:rgba(139,92,246,0.12);border-radius:6px;border:1px solid rgba(139,92,246,0.2);">
           <span style="width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;"></span>
-          <span style="font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:rgba(255,255,255,0.7);text-transform:uppercase;">Owned — Lumina Fashion Portfolio</span>
+          <span style="font-family:var(--font-main);font-size:9px;letter-spacing:0.12em;color:rgba(255,255,255,0.7);text-transform:uppercase;font-weight:500;">Owned — Lumina Fashion Portfolio</span>
         </div>
         <!-- Metric cards -->
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
           <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;">
-            <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Comentarios</div>
+            <div style="font-family:var(--font-main);font-size:8px;letter-spacing:0.1em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Comentarios</div>
             <div style="font-size:22px;font-weight:600;color:#fff;letter-spacing:-0.03em;">847</div>
           </div>
           <div style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:8px;padding:12px 14px;">
-            <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Positivos</div>
+            <div style="font-family:var(--font-main);font-size:8px;letter-spacing:0.1em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Positivos</div>
             <div style="font-size:22px;font-weight:600;color:#a78bfa;letter-spacing:-0.03em;">62%</div>
           </div>
           <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px 14px;">
-            <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Negativos</div>
+            <div style="font-family:var(--font-main);font-size:8px;letter-spacing:0.1em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Negativos</div>
             <div style="font-size:22px;font-weight:600;color:#f87171;letter-spacing:-0.03em;">18%</div>
           </div>
           <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;">
-            <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Marcas</div>
+            <div style="font-family:var(--font-main);font-size:8px;letter-spacing:0.1em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Marcas</div>
             <div style="font-size:22px;font-weight:600;color:#fff;letter-spacing:-0.03em;">7</div>
           </div>
         </div>
@@ -1874,20 +1876,20 @@
         <div style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:12px 14px;">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
             <span style="font-size:12px;">✦</span>
-            <span style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.6);text-transform:uppercase;">Recomendaciones Estratégicas · AI-Generated</span>
+            <span style="font-family:var(--font-main);font-size:8px;letter-spacing:0.1em;color:rgba(255,255,255,0.6);text-transform:uppercase;font-weight:500;">Recomendaciones Estratégicas · AI-Generated</span>
           </div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
             <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
-              <span style="font-family:var(--mono);font-size:8px;color:rgba(139,92,246,0.7);font-weight:600;">1</span>
-              <p style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin:4px 0 0;">Implementar estrategia de gestión de comunidad para filtrar spam.</p>
+              <span style="font-family:var(--font-main);font-size:8px;color:rgba(139,92,246,0.7);font-weight:600;">1</span>
+              <p style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin:4px 0 0;">Filtrar spam y comentarios repetidos automáticamente.</p>
             </div>
             <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
-              <span style="font-family:var(--mono);font-size:8px;color:rgba(139,92,246,0.7);font-weight:600;">2</span>
-              <p style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin:4px 0 0;">Atender consultas sobre stock y disponibilidad regional.</p>
+              <span style="font-family:var(--font-main);font-size:8px;color:rgba(139,92,246,0.7);font-weight:600;">2</span>
+              <p style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin:4px 0 0;">Responder a preguntas de clientes sobre stock de productos.</p>
             </div>
             <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
-              <span style="font-family:var(--mono);font-size:8px;color:rgba(139,92,246,0.7);font-weight:600;">3</span>
-              <p style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin:4px 0 0;">Monitorear menciones de boicot para respuesta institucional.</p>
+              <span style="font-family:var(--font-main);font-size:8px;color:rgba(139,92,246,0.7);font-weight:600;">3</span>
+              <p style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin:4px 0 0;">Alertar sobre quejas o reclamos antes de que sea tarde.</p>
             </div>
           </div>
         </div>
@@ -1895,17 +1897,17 @@
         <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px 16px;flex:1;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
             <div>
-              <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.12em;color:rgba(255,255,255,0.7);text-transform:uppercase;font-weight:600;">Índice de Sentimiento — Evolución</div>
-              <div style="font-family:var(--mono);font-size:7px;color:rgba(255,255,255,0.3);margin-top:2px;">SCORE = (POSITIVOS − NEGATIVOS) / TOTAL · RANGO −1 → +1</div>
+              <div style="font-family:var(--font-main);font-size:9px;letter-spacing:0.05em;color:rgba(255,255,255,0.7);text-transform:uppercase;font-weight:600;">Evolución del Sentimiento</div>
+              <div style="font-family:var(--font-main);font-size:8px;color:rgba(255,255,255,0.4);margin-top:2px;">Indicador general de satisfacción · Rango -1 a +1</div>
             </div>
             <div style="display:flex;gap:16px;text-align:right;">
               <div>
                 <div style="font-size:18px;font-weight:700;color:#22c55e;letter-spacing:-0.03em;">+0.48</div>
-                <div style="font-family:var(--mono);font-size:7px;color:rgba(255,255,255,0.4);text-transform:uppercase;">Portfolio</div>
+                <div style="font-family:var(--font-main);font-size:8px;color:rgba(255,255,255,0.4);text-transform:uppercase;font-weight:500;">Portfolio</div>
               </div>
               <div>
                 <div style="font-size:18px;font-weight:700;color:#8b5cf6;letter-spacing:-0.03em;">+0.38</div>
-                <div style="font-family:var(--mono);font-size:7px;color:rgba(255,255,255,0.4);text-transform:uppercase;">Competencia</div>
+                <div style="font-family:var(--font-main);font-size:8px;color:rgba(255,255,255,0.4);text-transform:uppercase;font-weight:500;">Competencia</div>
               </div>
             </div>
           </div>
@@ -2065,7 +2067,7 @@
         </div>
         <div class="create-progress">
           <div class="progress-bar"><div class="progress-fill"></div></div>
-          <div class="progress-meta" style="font-family: var(--mono); font-size: 12px;">
+          <div class="progress-meta" style="font-family: var(--font-main); font-size: 12px;">
             <span>20/50 generados · 1h 23min restante · USD 4.000 ahorrados</span>
           </div>
         </div>
