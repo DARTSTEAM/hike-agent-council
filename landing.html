@@ -756,51 +756,7 @@
     }
     .demo-body { padding: 1.25rem; }
 
-    /* ── LISTEN DEMO ── */
-    .feed-list {
-      display: flex;
-      flex-direction: column;
-      gap: .625rem;
-      margin-bottom: 1rem;
-    }
-    .feed-item {
-      display: flex;
-      flex-direction: column;
-      gap: .3rem;
-      padding: .75rem .875rem;
-      background: rgba(0, 21, 46, 0.4);
-      border: 1px solid rgba(0, 229, 255, 0.08);
-      border-radius: 6px;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity .4s, transform .4s, border-color 0.3s;
-    }
-    .feed-item.show { opacity: 1; transform: translateY(0); }
-    .feed-item:hover { border-color: rgba(0, 229, 255, 0.25); }
-    .feed-meta { display: flex; align-items: center; gap: .625rem; }
-    .sentiment-tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      padding: .1rem .4rem;
-      border-radius: 2px;
-    }
-    .st-pos { background: rgba(0, 229, 255, 0.1); color: #00E5FF; }
-    .st-neg { background: rgba(255, 59, 48, 0.1); color: #FF3B30; }
-    .st-neu { background: rgba(151, 189, 220, 0.15); color: #97BDDC; }
-    .feed-time { font-family: var(--mono); font-size: 10px; color: var(--text-mute); }
-    .feed-text { font-size: 13px; line-height: 1.5; color: var(--text-dim); }
-    .alert-box {
-      border-left: 3px solid #00E5FF;
-      padding: .875rem 1rem;
-      background: rgba(0, 229, 255, 0.05);
-      border-radius: 0 8px 8px 0;
-      display: flex;
-      gap: .625rem;
-      align-items: flex-start;
-    }
-    .alert-box-text { font-size: 13px; line-height: 1.6; color: var(--text); }
+
 
     /* ── CREATE DEMO ── */
     .asset-grid {
@@ -1879,7 +1835,7 @@
       <a class="agent-cta" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">ver demo <span class="agent-cta-arrow">→</span></a>
     </div>
     
-    <!-- Col 2: Live Demo -->
+    <!-- Col 2: Dashboard Mockup -->
     <div class="demo-window reveal d2">
       <div class="win-bar">
         <div class="win-dots">
@@ -1887,13 +1843,81 @@
           <span class="win-dot wd-y"></span>
           <span class="win-dot wd-g"></span>
         </div>
-        <span class="win-label">hike_listen — brand monitor</span>
+        <span class="win-label">hike_listen — dashboard</span>
       </div>
-      <div class="demo-body">
-        <div class="feed-list" id="feed-list"></div>
-        <div class="alert-box">
-          <span aria-hidden="true" style="font-size:16px;flex-shrink:0;line-height:1">⚠</span>
-          <p class="alert-box-text"><strong>Crisis detected</strong> — 60% de menciones reportan fallas en login.</p>
+      <div class="demo-body" style="padding:16px; display:flex; flex-direction:column; gap:12px; background:#0d0a1a;">
+        <!-- Status bar -->
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;background:rgba(139,92,246,0.12);border-radius:6px;border:1px solid rgba(139,92,246,0.2);">
+          <span style="width:6px;height:6px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px #22c55e;"></span>
+          <span style="font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:rgba(255,255,255,0.7);text-transform:uppercase;">Owned — Lumina Fashion Portfolio</span>
+        </div>
+        <!-- Metric cards -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;">
+            <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Comentarios</div>
+            <div style="font-size:22px;font-weight:600;color:#fff;letter-spacing:-0.03em;">847</div>
+          </div>
+          <div style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:8px;padding:12px 14px;">
+            <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Positivos</div>
+            <div style="font-size:22px;font-weight:600;color:#a78bfa;letter-spacing:-0.03em;">62%</div>
+          </div>
+          <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px 14px;">
+            <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Negativos</div>
+            <div style="font-size:22px;font-weight:600;color:#f87171;letter-spacing:-0.03em;">18%</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;">
+            <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:6px;">Marcas</div>
+            <div style="font-size:22px;font-weight:600;color:#fff;letter-spacing:-0.03em;">7</div>
+          </div>
+        </div>
+        <!-- AI Recommendations -->
+        <div style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:8px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+            <span style="font-size:12px;">✦</span>
+            <span style="font-family:var(--mono);font-size:8px;letter-spacing:0.15em;color:rgba(255,255,255,0.6);text-transform:uppercase;">Recomendaciones Estratégicas · AI-Generated</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
+              <span style="font-family:var(--mono);font-size:8px;color:rgba(139,92,246,0.7);font-weight:600;">1</span>
+              <p style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin:4px 0 0;">Implementar estrategia de gestión de comunidad para filtrar spam.</p>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
+              <span style="font-family:var(--mono);font-size:8px;color:rgba(139,92,246,0.7);font-weight:600;">2</span>
+              <p style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin:4px 0 0;">Atender consultas sobre stock y disponibilidad regional.</p>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
+              <span style="font-family:var(--mono);font-size:8px;color:rgba(139,92,246,0.7);font-weight:600;">3</span>
+              <p style="font-size:9px;color:rgba(255,255,255,0.55);line-height:1.4;margin:4px 0 0;">Monitorear menciones de boicot para respuesta institucional.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Sentiment Chart -->
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:14px 16px;flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+            <div>
+              <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.12em;color:rgba(255,255,255,0.7);text-transform:uppercase;font-weight:600;">Índice de Sentimiento — Evolución</div>
+              <div style="font-family:var(--mono);font-size:7px;color:rgba(255,255,255,0.3);margin-top:2px;">SCORE = (POSITIVOS − NEGATIVOS) / TOTAL · RANGO −1 → +1</div>
+            </div>
+            <div style="display:flex;gap:16px;text-align:right;">
+              <div>
+                <div style="font-size:18px;font-weight:700;color:#22c55e;letter-spacing:-0.03em;">+0.48</div>
+                <div style="font-family:var(--mono);font-size:7px;color:rgba(255,255,255,0.4);text-transform:uppercase;">Portfolio</div>
+              </div>
+              <div>
+                <div style="font-size:18px;font-weight:700;color:#8b5cf6;letter-spacing:-0.03em;">+0.38</div>
+                <div style="font-family:var(--mono);font-size:7px;color:rgba(255,255,255,0.4);text-transform:uppercase;">Competencia</div>
+              </div>
+            </div>
+          </div>
+          <svg viewBox="0 0 400 80" style="width:100%;height:60px;" preserveAspectRatio="none">
+            <line x1="0" y1="40" x2="400" y2="40" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+            <polyline fill="none" stroke="#22c55e" stroke-width="1.5" opacity="0.8"
+              points="0,55 30,52 60,48 90,50 120,42 150,38 180,35 210,30 240,28 270,25 300,22 330,20 360,18 400,15"
+              id="listen-chart-green"/>
+            <polyline fill="none" stroke="#8b5cf6" stroke-width="1.5" opacity="0.6" stroke-dasharray="4,3"
+              points="0,52 30,50 60,50 90,48 120,45 150,44 180,42 210,40 240,38 270,37 300,36 330,35 360,34 400,33"
+              id="listen-chart-purple"/>
+          </svg>
         </div>
       </div>
     </div>
@@ -2356,32 +2380,6 @@ document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
 
 
-/* ── FEED ANIMATION (LISTEN) ── */
-const FEED_ITEMS = [
-  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'No puedo hacer login desde ayer, ya intenté todo.', time: '2m' },
-  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'Tercer día con el mismo problema de login.', time: '5m' },
-  { sentiment: 'NEGATIVE', cls: 'st-neg', text: 'Error de servidor 500 al presionar botón de inicio de sesión.', time: '8m' }
-];
-function runFeedAnimation(sec) {
-  if (sec._fed) return; sec._fed = true;
-  const list = document.getElementById('feed-list');
-  if (!list) return;
-  list.innerHTML = '';
-  let i = 0;
-  const tick = () => {
-    if (i >= FEED_ITEMS.length) return;
-    const d = FEED_ITEMS[i];
-    const el = document.createElement('div');
-    el.className = 'feed-item';
-    el.innerHTML = `<div class="feed-meta"><span class="sentiment-tag ${d.cls}">${d.sentiment}</span><span class="feed-time">${d.time}</span></div><p class="feed-text">${d.text}</p>`;
-    list.appendChild(el);
-    requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('show')));
-    i++;
-    if (i < FEED_ITEMS.length) setTimeout(tick, 850);
-  };
-  tick();
-}
-
 /* ── CHART ANIMATION (ADVISE) ── */
 function runChartAnimation(sec) {
   if (sec._charted) return; sec._charted = true;
@@ -2406,11 +2404,11 @@ function runChartAnimation(sec) {
 /* ── DEMO INTERSECTION TRIGGERS ── */
 const demoObs = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
-  if (e.target.id === 'listen') runFeedAnimation(e.target);
   if (e.target.id === 'advise') runChartAnimation(e.target);
   demoObs.unobserve(e.target);
 }), { threshold: 0.3 });
-['listen','advise'].forEach(id => { const el = document.getElementById(id); if (el) demoObs.observe(el); });
+const adviseEl = document.getElementById('advise');
+if (adviseEl) demoObs.observe(adviseEl);
 
 
 
