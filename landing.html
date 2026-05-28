@@ -687,6 +687,59 @@
     .agent-cta:hover .agent-cta-arrow {
       transform: translateX(4px);
     }
+
+    /* ── POWERED BY BADGE ── */
+    .powered-by {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      padding: 6px 10px 6px 8px;
+      border: 1px solid rgba(0, 229, 255, 0.12);
+      border-radius: 6px;
+      background: rgba(0, 121, 176, 0.06);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--text-mute);
+      transition: border-color 0.25s, background 0.25s, color 0.25s;
+      align-self: flex-start;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .powered-by:hover {
+      border-color: rgba(0, 229, 255, 0.3);
+      background: rgba(0, 121, 176, 0.12);
+      color: var(--text-dim);
+    }
+    .powered-by-label {
+      color: var(--text-mute);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+    }
+    .powered-by-sep {
+      width: 1px;
+      height: 10px;
+      background: rgba(0, 229, 255, 0.15);
+      flex-shrink: 0;
+    }
+    .powered-by-product {
+      background: var(--gemini-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+      font-size: 10px;
+    }
+    .powered-by-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      object-fit: contain;
+      filter: brightness(1.2);
+    }
     .agent-cases {
       display: flex;
       flex-direction: column;
@@ -1787,7 +1840,7 @@
     <img class="nav-logo" src="https://storage.googleapis.com/abn-assets/hike_logo_blanco_1080x1080.png" alt="Hike the Cloud — home" fetchpriority="high"/>
     <div class="nav-divider"></div>
     <a class="nav-gcp-badge" href="https://cloud.google.com/partners" target="_blank" rel="noopener" title="Google Cloud Partner">
-      <img src="https://www.gstatic.com/cloud/images/partners/google-cloud-partner-service-dark.svg" alt="Google Cloud Partner" onerror="this.onerror=null;this.src='https://lh3.googleusercontent.com/i9RrS7L7N8tSqEtDjuBxwkHFrD3-4r5QdJH8r1TbVEQ2v0UaKgxvD7BqMFtXpLDt'"/>
+      <img src="https://www.qintesi.com/wp-content/uploads/2022/03/google-cloud-partner-summit-digital-firebase-functions-website-integration.png" alt="Google Cloud Partner"/>
     </a>
   </div>
   <ul class="nav-links">
@@ -1859,6 +1912,12 @@
         <span class="agent-metric-lbl">CRISIS DETECTION LEAD TIME</span>
       </div>
       <a class="agent-cta" href="https://hike-social-listener.web.app/" target="_blank" rel="noopener">ver demo <span class="agent-cta-arrow">→</span></a>
+      <span class="powered-by" title="Powered by YouTube Data API × Gemini">
+        <img class="powered-by-icon" src="https://www.gstatic.com/youtube/img/branding/youtubelogo/svg/youtubelogo.svg" alt="YouTube" onerror="this.style.display='none'"/>
+        <span class="powered-by-label">powered by</span>
+        <span class="powered-by-sep"></span>
+        <span class="powered-by-product">YouTube API × Gemini</span>
+      </span>
     </div>
     
     <!-- Col 2: Dashboard Mockup -->
@@ -1990,6 +2049,12 @@
         <span class="agent-metric-lbl">CONTENT VELOCITY</span>
       </div>
       <a class="agent-cta" href="https://readapt.web.app/" target="_blank" rel="noopener">ver demo <span class="agent-cta-arrow">→</span></a>
+      <span class="powered-by" title="Powered by Imagen 3 · Veo 2">
+        <img class="powered-by-icon" src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="Google AI" onerror="this.style.display='none'"/>
+        <span class="powered-by-label">powered by</span>
+        <span class="powered-by-sep"></span>
+        <span class="powered-by-product">Imagen 3 · Veo 2</span>
+      </span>
     </div>
 
     <!-- Col 2: Live Demo -->
@@ -2140,6 +2205,12 @@
         <span class="agent-metric-lbl">TIME-TO-INSIGHT</span>
       </div>
       <a class="agent-cta" href="https://dashboards.hikethecloud.com/calm_dashboard_054a6823-6a14-4c65-8764-4c69b9ccc24f.html" target="_blank" rel="noopener">ver demo <span class="agent-cta-arrow">→</span></a>
+      <span class="powered-by" title="Powered by Gemini">
+        <img class="powered-by-icon" src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="Gemini" onerror="this.style.display='none'"/>
+        <span class="powered-by-label">powered by</span>
+        <span class="powered-by-sep"></span>
+        <span class="powered-by-product">Gemini</span>
+      </span>
     </div>
 
     <!-- Col 2: Live Demo -->
