@@ -1387,27 +1387,44 @@
     }
     .cta-logo-trusted {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 400;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--text-mute);
+      flex-shrink: 0;
+    }
+    .cta-logo-clients {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      flex: 1;
     }
     .cta-logo-name {
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text);
+      padding: 0 20px;
+      position: relative;
+      white-space: nowrap;
+      transition: color 0.2s;
     }
-    .cta-logo-more {
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-mute);
+    .cta-logo-name:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 12px;
+      background: rgba(0, 229, 255, 0.15);
+    }
+    .cta-logo-name:hover {
+      color: #00E5FF;
     }
 
     /* ── FOOTER ── */
@@ -1830,7 +1847,7 @@
   <span class="si-item" data-sec="listen">02 — listen</span>
   <span class="si-item" data-sec="create">03 — create</span>
   <span class="si-item" data-sec="advise">04 — advise</span>
-  <span class="si-item" data-sec="galicia">05 — galicia</span>
+
   <span class="si-item" data-sec="cta-final">06 — cta</span>
 </div>
 
@@ -2332,73 +2349,7 @@
   </div>
 </section>
 
-<!-- CASE STUDY — DARK CINEMATIC -->
-<section class="galicia-cinematic" id="galicia" aria-labelledby="galicia-headline">
 
-  <div class="galicia-bg-layer" aria-hidden="true">
-    <div class="galicia-bg-image"></div>
-    <div class="galicia-bg-overlay"></div>
-  </div>
-
-  <div class="galicia-floating-cards" aria-hidden="true">
-    <div class="floating-card card-1"></div>
-    <div class="floating-card card-2"></div>
-    <div class="floating-card card-3"></div>
-  </div>
-
-  <div class="galicia-content">
-
-    <div class="galicia-eyebrow">// PROOF · CASE STUDY</div>
-
-    <div class="galicia-header">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Galicia_logo.svg/320px-Galicia_logo.svg.png" alt="Banco Galicia" class="galicia-logo" loading="lazy">
-      <span class="galicia-label">Historias de clientes</span>
-    </div>
-
-    <h2 class="galicia-headline reveal-headline" id="galicia-headline" data-index="0">
-      Campaña relámpago.
-    </h2>
-
-    <h2 class="galicia-headline reveal-headline" data-index="1">
-      50 piezas de video personalizadas
-      <span class="arrow-btn">→</span>
-    </h2>
-
-    <h2 class="galicia-headline reveal-headline gradient-fill" data-index="2">
-      en menos de 2 horas.
-    </h2>
-
-    <p class="galicia-context">
-      Hot Sale 2025. Banco Galicia necesitaba personalizar 50 videos en formato Stories y Feed antes del lanzamiento. El proceso tradicional tomaba 2 semanas. Hike Create lo entregó en menos de 2 horas.
-    </p>
-
-    <div class="galicia-metrics">
-      <div class="galicia-metric">
-        <span class="galicia-metric-value">&lt; 2hs</span>
-        <span class="galicia-metric-label">ENTREGA TOTAL · 50 ASSETS</span>
-      </div>
-      <div class="galicia-metric">
-        <span class="galicia-metric-value">USD 4K</span>
-        <span class="galicia-metric-label">AHORRO EN EDICIÓN EXTERNA</span>
-      </div>
-      <div class="galicia-metric">
-        <span class="galicia-metric-value">+20%</span>
-        <span class="galicia-metric-label">ENGAGEMENT VS. PRODUCCIÓN TRADICIONAL</span>
-      </div>
-      <div class="galicia-metric">
-        <span class="galicia-metric-value">USD 0</span>
-        <span class="galicia-metric-label">COSTO EXTRA DE STAFF</span>
-      </div>
-    </div>
-
-    <blockquote class="galicia-quote">
-      <span class="galicia-quote-mark">“</span><span class="galicia-quote-text">Lo que antes le llevaba dos semanas a nuestro equipo ahora pasa en minutos — consistente, en todos los canales, sin una sola revisión manual de identidad.</span><span class="galicia-quote-mark">”</span>
-      <footer class="galicia-attribution">— HEAD OF CONTENT STRATEGY · BANCO GALICIA</footer>
-    </blockquote>
-
-  </div>
-
-</section>
 
 <!-- CTA FINAL — EDITORIAL CLOSE -->
 <section id="cta-final" aria-label="Call to action">
@@ -2424,8 +2375,17 @@
   <!-- Trusted by strip -->
   <div class="cta-logos">
     <span class="cta-logo-trusted">TRUSTED BY</span>
-    <span class="cta-logo-name">BANCO GALICIA</span>
-    <span class="cta-logo-more">+ MORE BRANDS COMING SOON</span>
+    <div class="cta-logo-clients">
+      <span class="cta-logo-name">Galicia</span>
+      <span class="cta-logo-name">Despegar</span>
+      <span class="cta-logo-name">Mostaza</span>
+      <span class="cta-logo-name">Pax Assistance</span>
+      <span class="cta-logo-name">Calm</span>
+      <span class="cta-logo-name">Intercorp</span>
+      <span class="cta-logo-name">Siglo 21</span>
+      <span class="cta-logo-name">Cocos</span>
+      <span class="cta-logo-name">Astropay</span>
+    </div>
   </div>
 </section>
 
@@ -2458,7 +2418,7 @@ window.addEventListener('scroll', () => {
 
 
 /* ── SECTION INDICATOR ── */
-const SI_SECTIONS = ['hero','listen','create','advise','galicia','cta-final'];
+const SI_SECTIONS = ['hero','listen','create','advise','cta-final'];
 const siItems = document.querySelectorAll('.si-item');
 function updateSectionIndicator(scrollY) {
   let active = SI_SECTIONS[0];
