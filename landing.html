@@ -1427,6 +1427,409 @@
       color: #00E5FF;
     }
 
+    /* ── RE-ADAPT PIPELINE (Hike Create demo) ── */
+    .readapt-pipeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 12px 14px 0;
+      background: #08080f;
+      min-height: 100%;
+    }
+
+    /* Source row */
+    .rp-source-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 10px;
+    }
+    .rp-source-node {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 8px;
+      padding: 8px 10px;
+      flex-shrink: 0;
+    }
+    .rp-source-thumb {
+      width: 36px;
+      height: 48px;
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid rgba(124,58,237,0.4);
+    }
+    .rp-source-label {
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      color: rgba(167,139,250,0.6);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .rp-source-name {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: rgba(235,245,255,0.8);
+      margin-bottom: 4px;
+    }
+    .rp-source-change {
+      font-family: var(--mono);
+      font-size: 8px;
+      color: rgba(124,58,237,0.8);
+      cursor: pointer;
+    }
+
+    /* Connector */
+    .rp-connector-h {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      position: relative;
+      height: 48px;
+      margin: 0 4px;
+    }
+    .rp-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(124,58,237,0.7);
+      flex-shrink: 0;
+    }
+    .rp-line-h {
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, rgba(124,58,237,0.5), rgba(124,58,237,0.2));
+      border-top: 1px dashed rgba(124,58,237,0.35);
+    }
+    .rp-fork {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 48px;
+      width: 8px;
+      position: relative;
+    }
+    .rp-fork-top, .rp-fork-mid, .rp-fork-bot {
+      width: 6px; height: 5px;
+      border-radius: 50%;
+      background: rgba(124,58,237,0.5);
+    }
+
+    /* Generation rows */
+    .rp-gen-row {
+      display: grid;
+      grid-template-columns: 1fr 14px 1fr 14px 1fr;
+      gap: 4px;
+      align-items: center;
+      padding: 6px 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      animation: rpRowIn 0.4s var(--ease) both;
+    }
+    @keyframes rpRowIn {
+      from { opacity: 0; transform: translateX(-8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Gen node */
+    .rp-gen-node {
+      background: rgba(20,15,40,0.8);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 7px;
+      padding: 8px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .rp-gen-node.generating {
+      border-color: rgba(124,58,237,0.55);
+      box-shadow: 0 0 10px rgba(124,58,237,0.12);
+    }
+    .rp-gen-node.queued {
+      opacity: 0.55;
+    }
+    .rp-node-header {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .rp-node-icon {
+      font-size: 9px;
+      color: rgba(124,58,237,0.8);
+    }
+    .rp-node-type {
+      font-family: var(--mono);
+      font-size: 8.5px;
+      color: rgba(235,245,255,0.55);
+      flex: 1;
+      letter-spacing: 0.02em;
+    }
+    .rp-status-badge {
+      font-family: var(--mono);
+      font-size: 7.5px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    .rp-status-badge.done {
+      background: rgba(34,197,94,0.15);
+      color: #22c55e;
+    }
+    .rp-status-badge.queued {
+      background: rgba(255,255,255,0.06);
+      color: rgba(235,245,255,0.4);
+    }
+    .rp-gen-pulse {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #a78bfa;
+      animation: genPulse 1.2s ease-in-out infinite;
+    }
+    @keyframes genPulse {
+      0%,100% { opacity: 0.4; transform: scale(0.8); }
+      50%      { opacity: 1;   transform: scale(1.2); box-shadow: 0 0 6px rgba(167,139,250,0.6); }
+    }
+    .rp-prompt {
+      font-family: var(--mono);
+      font-size: 8.5px;
+      color: rgba(235,245,255,0.8);
+      font-style: italic;
+      line-height: 1.4;
+      padding: 3px 0;
+    }
+    .rp-node-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .rp-check {
+      font-family: var(--mono);
+      font-size: 7.5px;
+      color: rgba(235,245,255,0.4);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      cursor: default;
+    }
+    .rp-check input { width: 8px; height: 8px; accent-color: #7c3aed; }
+    .rp-run-btn {
+      font-family: var(--mono);
+      font-size: 7.5px;
+      padding: 3px 7px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background: #7c3aed;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+    .rp-run-btn.done { background: rgba(34,197,94,0.2); color: #22c55e; }
+    .rp-run-btn.generating {
+      background: rgba(124,58,237,0.25);
+      color: #a78bfa;
+      animation: genPulse 1.5s ease-in-out infinite;
+    }
+    .rp-run-btn:disabled { cursor: default; }
+
+    /* Arrow */
+    .rp-arrow {
+      text-align: center;
+      font-size: 10px;
+      color: rgba(124,58,237,0.6);
+    }
+    .rp-arrow.dim { color: rgba(255,255,255,0.12); }
+
+    /* Result node */
+    .rp-result-node {
+      background: rgba(15,10,30,0.9);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 7px;
+      padding: 7px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .rp-result-node.done { border-color: rgba(34,197,94,0.25); }
+    .rp-result-node.generating { border-color: rgba(124,58,237,0.4); }
+    .rp-result-node.queued { opacity: 0.45; }
+    .rp-result-label {
+      font-family: var(--mono);
+      font-size: 7.5px;
+      color: rgba(235,245,255,0.4);
+    }
+    .rp-result-preview {
+      width: 100%;
+      aspect-ratio: 5/4;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .rp-result-preview svg { display: block; }
+
+    /* Shimmer for generating */
+    .gen-shimmer {
+      background: linear-gradient(90deg, #120d28 25%, #1e1540 50%, #120d28 75%);
+      background-size: 200% 100%;
+      animation: shimmerAnim 1.6s linear infinite;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes shimmerAnim {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .shimmer-inner {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        transparent 0%, rgba(124,58,237,0.08) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: shimmerAnim 1.6s linear infinite;
+    }
+
+    /* Queued preview */
+    .queued-preview {
+      background: rgba(255,255,255,0.03);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rp-queued-icon {
+      font-size: 18px;
+      color: rgba(255,255,255,0.12);
+    }
+
+    /* Result actions */
+    .rp-result-actions {
+      display: flex;
+      gap: 4px;
+    }
+    .rp-act-btn {
+      flex: 1;
+      font-family: var(--mono);
+      font-size: 7px;
+      padding: 3px 4px;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: rgba(235,245,255,0.55);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .rp-act-btn.accent {
+      border-color: rgba(124,58,237,0.4);
+      color: #a78bfa;
+    }
+    .rp-act-btn.dim { opacity: 0.3; cursor: not-allowed; }
+    .rp-act-btn:not(.dim):hover { background: rgba(124,58,237,0.15); color: #fff; }
+
+    /* Formats node */
+    .rp-formats-node {
+      background: rgba(10,8,22,0.95);
+      border: 1px solid rgba(124,58,237,0.15);
+      border-radius: 7px;
+      padding: 7px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .rp-formats-node.dim { opacity: 0.45; }
+    .rp-formats-label {
+      font-family: var(--mono);
+      font-size: 7.5px;
+      color: rgba(235,245,255,0.35);
+      letter-spacing: 0.04em;
+    }
+    .rp-format-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+    .rp-chip {
+      font-family: var(--mono);
+      font-size: 7px;
+      padding: 1.5px 5px;
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(235,245,255,0.35);
+      cursor: default;
+    }
+    .rp-chip.active {
+      border-color: rgba(124,58,237,0.6);
+      background: rgba(124,58,237,0.15);
+      color: #a78bfa;
+    }
+    .rp-thumbs-mini {
+      display: flex;
+      gap: 3px;
+      align-items: flex-end;
+    }
+    .rp-mini {
+      border-radius: 2px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.04);
+      flex-shrink: 0;
+    }
+    .rp-mini.ratio-11  { width: 18px; height: 18px; }
+    .rp-mini.ratio-916 { width: 12px; height: 20px; }
+    .rp-mini.ratio-169 { width: 22px; height: 13px; }
+    .rp-mini.done {
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.25);
+    }
+    .rp-mini.shimming {
+      animation: shimmerAnim 1.8s linear infinite;
+      background: linear-gradient(90deg, rgba(124,58,237,0.1) 25%, rgba(124,58,237,0.22) 50%, rgba(124,58,237,0.1) 75%);
+      background-size: 200% 100%;
+    }
+
+    /* Pipeline footer */
+    .rp-footer {
+      padding: 10px 0 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .rp-progress-bar {
+      height: 2px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .rp-progress-fill {
+      height: 100%;
+      width: 40%;
+      background: linear-gradient(90deg, #7c3aed, #a78bfa);
+      border-radius: 1px;
+      animation: rpFillAnim 3s ease-in-out infinite alternate;
+    }
+    @keyframes rpFillAnim {
+      from { width: 38%; }
+      to   { width: 45%; }
+    }
+    .rp-footer-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .rp-footer-stat {
+      font-family: var(--mono);
+      font-size: 8px;
+      color: rgba(235,245,255,0.4);
+    }
+    .rp-footer-stat.save { color: rgba(167,139,250,0.7); }
+    .rp-footer-sep { color: rgba(255,255,255,0.15); font-size: 10px; }
+    .rp-s-num { color: #a78bfa; font-weight: 600; }
+
     /* ── FOOTER ── */
     footer {
       background: var(--bg);
@@ -2084,101 +2487,218 @@
         </div>
         <span class="win-label">hike_create — content engine</span>
       </div>
-      <div class="demo-body">
-        <div class="asset-grid">
-          <!-- Tile 1: Done (Stories 9:16) -->
-          <div class="asset-thumb ratio-916 tile-done">
-            <img class="asset-img" src="assets/create_asset_3.png" alt="Stories content card" loading="lazy"/>
-            <span class="asset-label">Stories</span>
-            <div class="tile-ghost">
-              <div class="tile-ghost-image">▶</div>
-              <div class="tile-ghost-text">
-                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
-                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
-                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+      <div class="demo-body" style="padding:0;background:#0a0a14;overflow:hidden;">
+
+        <!-- Pipeline wrapper -->
+        <div class="readapt-pipeline">
+
+          <!-- Source node -->
+          <div class="rp-source-row">
+            <div class="rp-source-node">
+              <div class="rp-source-thumb">
+                <!-- Roulette/brand visual (SVG placeholder matching the screenshot) -->
+                <svg viewBox="0 0 54 72" style="width:100%;height:100%;">
+                  <defs>
+                    <radialGradient id="wh" cx="50%" cy="40%" r="60%">
+                      <stop offset="0%" stop-color="#1a0a3a"/>
+                      <stop offset="100%" stop-color="#0a0520"/>
+                    </radialGradient>
+                    <radialGradient id="wr" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#7c3aed"/>
+                      <stop offset="100%" stop-color="#4c1d95"/>
+                    </radialGradient>
+                  </defs>
+                  <rect width="54" height="72" fill="url(#wh)"/>
+                  <!-- Wheel -->
+                  <circle cx="27" cy="46" r="18" fill="none" stroke="#5b21b6" stroke-width="1.5"/>
+                  <circle cx="27" cy="46" r="13" fill="url(#wr)" opacity=".8"/>
+                  <line x1="27" y1="28" x2="27" y2="64" stroke="#7c3aed" stroke-width=".8" opacity=".6"/>
+                  <line x1="9" y1="46" x2="45" y2="46" stroke="#7c3aed" stroke-width=".8" opacity=".6"/>
+                  <line x1="14" y1="33" x2="40" y2="59" stroke="#7c3aed" stroke-width=".8" opacity=".4"/>
+                  <line x1="40" y1="33" x2="14" y2="59" stroke="#7c3aed" stroke-width=".8" opacity=".4"/>
+                  <circle cx="27" cy="46" r="3" fill="#a78bfa"/>
+                  <!-- Top text area -->
+                  <rect x="4" y="6" width="46" height="5" rx="1" fill="rgba(167,139,250,.15)"/>
+                  <rect x="8" y="13" width="38" height="3" rx="1" fill="rgba(167,139,250,.1)"/>
+                  <rect x="11" y="18" width="32" height="3" rx="1" fill="rgba(167,139,250,.08)"/>
+                  <rect x="10" y="23" width="34" height="4" rx="2" fill="rgba(124,58,237,.4)"/>
+                </svg>
+              </div>
+              <div class="rp-source-info">
+                <div class="rp-source-label">SOURCE</div>
+                <div class="rp-source-name">despegar_mundial_base.png</div>
+                <div class="rp-source-change">⟳ Change image</div>
               </div>
             </div>
-            <span class="tile-check">✓</span>
-          </div>
-          <!-- Tile 2: Generating (Feed 1:1) -->
-          <div class="asset-thumb ratio-11 tile-generating">
-            <img class="asset-img" src="assets/create_asset_2.png" alt="Feed creative" loading="lazy"/>
-            <span class="asset-label">Feed</span>
-            <div class="tile-ghost">
-              <div class="tile-ghost-image">◼</div>
-              <div class="tile-ghost-text">
-                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
-                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
-                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+            <div class="rp-connector-h">
+              <div class="rp-dot"></div>
+              <div class="rp-line-h"></div>
+              <div class="rp-fork">
+                <div class="rp-fork-top"></div>
+                <div class="rp-fork-mid"></div>
+                <div class="rp-fork-bot"></div>
               </div>
             </div>
-            <div class="tile-spinner"></div>
           </div>
-          <!-- Tile 3: Generating (YouTube 16:9) -->
-          <div class="asset-thumb ratio-169 tile-generating">
-            <img class="asset-img" src="assets/create_asset_1.png" alt="YouTube video frame" loading="lazy"/>
-            <span class="asset-label">YouTube</span>
-            <div class="tile-ghost">
-              <div class="tile-ghost-image">▶▶</div>
-              <div class="tile-ghost-text">
-                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
-                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
-                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+
+          <!-- Three generation rows -->
+
+          <!-- Row 1 — Done -->
+          <div class="rp-gen-row rp-done" style="animation-delay:0s">
+            <div class="rp-gen-node">
+              <div class="rp-node-header">
+                <span class="rp-node-icon">⊞</span>
+                <span class="rp-node-type">Generate Image</span>
+                <span class="rp-status-badge done">✓</span>
+              </div>
+              <div class="rp-prompt">"Cambia el color del fondo"</div>
+              <div class="rp-node-footer">
+                <label class="rp-check"><input type="checkbox" checked readonly/> Upscale ×2</label>
+                <button class="rp-run-btn done" disabled>Done ✓</button>
               </div>
             </div>
-            <div class="tile-spinner"></div>
-          </div>
-          <!-- Tile 4: Queued (Stories 9:16) -->
-          <div class="asset-thumb ratio-916 tile-queued">
-            <img class="asset-img" src="assets/create_asset_4.png" alt="Stories ad variant" loading="lazy"/>
-            <span class="asset-label">Stories</span>
-            <div class="tile-ghost">
-              <div class="tile-ghost-image">▶</div>
-              <div class="tile-ghost-text">
-                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
-                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
-                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+            <div class="rp-arrow">→</div>
+            <div class="rp-result-node done">
+              <div class="rp-result-label">result-1.png</div>
+              <div class="rp-result-preview">
+                <svg viewBox="0 0 70 56" style="width:100%;height:100%;">
+                  <defs><radialGradient id="r1" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#1e1040"/><stop offset="100%" stop-color="#0d0824"/></radialGradient></defs>
+                  <rect width="70" height="56" fill="url(#r1)"/>
+                  <circle cx="35" cy="34" r="14" fill="none" stroke="#6d28d9" stroke-width="1.2"/>
+                  <circle cx="35" cy="34" r="9" fill="#4c1d95" opacity=".9"/>
+                  <circle cx="35" cy="34" r="3" fill="#7c3aed"/>
+                  <rect x="5" y="6" width="60" height="4" rx="1" fill="rgba(167,139,250,.2)"/>
+                  <rect x="12" y="12" width="46" height="3" rx="1" fill="rgba(167,139,250,.12)"/>
+                  <rect x="18" y="17" width="34" height="3" rx="2" fill="rgba(109,40,217,.5)"/>
+                  <circle cx="63" cy="6" r="3" fill="#22c55e"/>
+                </svg>
+              </div>
+              <div class="rp-result-actions">
+                <button class="rp-act-btn">⊙ Preview</button>
+                <button class="rp-act-btn accent">⬇ Download</button>
               </div>
             </div>
-            <span class="tile-queued-label">Queued</span>
-          </div>
-          <!-- Tile 5: Queued (Feed 1:1) -->
-          <div class="asset-thumb ratio-11 tile-queued">
-            <img class="asset-img" src="assets/create_asset_5.png" alt="Feed mockup variant" loading="lazy"/>
-            <span class="asset-label">Feed</span>
-            <div class="tile-ghost">
-              <div class="tile-ghost-image">◼</div>
-              <div class="tile-ghost-text">
-                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
-                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
-                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+            <div class="rp-arrow">→</div>
+            <div class="rp-formats-node">
+              <div class="rp-formats-label">Output formats</div>
+              <div class="rp-format-chips">
+                <span class="rp-chip active">1:1</span>
+                <span class="rp-chip">16:9</span>
+                <span class="rp-chip active">9:16</span>
+                <span class="rp-chip">4:3</span>
+                <span class="rp-chip">3:4</span>
+              </div>
+              <div class="rp-thumbs-mini">
+                <div class="rp-mini ratio-11 done"></div>
+                <div class="rp-mini ratio-916 done"></div>
+                <div class="rp-mini ratio-169"></div>
               </div>
             </div>
-            <span class="tile-queued-label">Queued</span>
           </div>
-          <!-- Tile 6: Queued (YouTube 16:9) -->
-          <div class="asset-thumb ratio-169 tile-queued">
-            <img class="asset-img" src="assets/create_asset_6.png" alt="YouTube ad thumbnail" loading="lazy"/>
-            <span class="asset-label">YouTube</span>
-            <div class="tile-ghost">
-              <div class="tile-ghost-image">▶▶</div>
-              <div class="tile-ghost-text">
-                <div class="tile-ghost-line" style="width:80%;opacity:.25"></div>
-                <div class="tile-ghost-line" style="width:95%;opacity:.18"></div>
-                <div class="tile-ghost-line" style="width:60%;opacity:.12"></div>
+
+          <!-- Row 2 — Generating -->
+          <div class="rp-gen-row rp-generating" style="animation-delay:.15s">
+            <div class="rp-gen-node generating">
+              <div class="rp-node-header">
+                <span class="rp-node-icon">⊞</span>
+                <span class="rp-node-type">Generate Image</span>
+                <div class="rp-gen-pulse"></div>
+              </div>
+              <div class="rp-prompt">"Mejora el texto del copy"</div>
+              <div class="rp-node-footer">
+                <label class="rp-check"><input type="checkbox" checked readonly/> Upscale ×2</label>
+                <button class="rp-run-btn generating">Running…</button>
               </div>
             </div>
-            <span class="tile-queued-label">Queued</span>
+            <div class="rp-arrow dim">→</div>
+            <div class="rp-result-node generating">
+              <div class="rp-result-label">result-2.png</div>
+              <div class="rp-result-preview gen-shimmer">
+                <div class="shimmer-inner"></div>
+              </div>
+              <div class="rp-result-actions">
+                <button class="rp-act-btn dim" disabled>⊙ Preview</button>
+                <button class="rp-act-btn dim" disabled>⬇ Download</button>
+              </div>
+            </div>
+            <div class="rp-arrow dim">→</div>
+            <div class="rp-formats-node dim">
+              <div class="rp-formats-label">Output formats</div>
+              <div class="rp-format-chips">
+                <span class="rp-chip active">1:1</span>
+                <span class="rp-chip active">16:9</span>
+                <span class="rp-chip">9:16</span>
+                <span class="rp-chip">4:3</span>
+                <span class="rp-chip">3:4</span>
+              </div>
+              <div class="rp-thumbs-mini">
+                <div class="rp-mini ratio-11 done"></div>
+                <div class="rp-mini ratio-169 shimming"></div>
+                <div class="rp-mini ratio-11"></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="create-progress">
-          <div class="progress-bar"><div class="progress-fill"></div></div>
-          <div class="progress-meta" style="font-family: var(--font-main); font-size: 12px;">
-            <span>20/50 generados · 1h 23min restante · USD 4.000 ahorrados</span>
+
+          <!-- Row 3 — Queued -->
+          <div class="rp-gen-row rp-queued" style="animation-delay:.3s">
+            <div class="rp-gen-node queued">
+              <div class="rp-node-header">
+                <span class="rp-node-icon">⊞</span>
+                <span class="rp-node-type">Generate Image</span>
+                <span class="rp-status-badge queued">Queued</span>
+              </div>
+              <div class="rp-prompt">"Fondo blanco versión limpia"</div>
+              <div class="rp-node-footer">
+                <label class="rp-check"><input type="checkbox" readonly/> Upscale ×2</label>
+                <button class="rp-run-btn" disabled>Run ▶</button>
+              </div>
+            </div>
+            <div class="rp-arrow dim">→</div>
+            <div class="rp-result-node queued">
+              <div class="rp-result-label">result-3.png</div>
+              <div class="rp-result-preview queued-preview">
+                <div class="rp-queued-icon">◷</div>
+              </div>
+              <div class="rp-result-actions">
+                <button class="rp-act-btn dim" disabled>⊙ Preview</button>
+                <button class="rp-act-btn dim" disabled>⬇ Download</button>
+              </div>
+            </div>
+            <div class="rp-arrow dim">→</div>
+            <div class="rp-formats-node dim queued">
+              <div class="rp-formats-label">Output formats</div>
+              <div class="rp-format-chips">
+                <span class="rp-chip">1:1</span>
+                <span class="rp-chip">16:9</span>
+                <span class="rp-chip active">9:16</span>
+                <span class="rp-chip">4:3</span>
+                <span class="rp-chip">3:4</span>
+              </div>
+              <div class="rp-thumbs-mini">
+                <div class="rp-mini ratio-916"></div>
+                <div class="rp-mini ratio-916"></div>
+                <div class="rp-mini ratio-169"></div>
+              </div>
+            </div>
           </div>
-        </div>
+
+          <!-- Progress footer -->
+          <div class="rp-footer">
+            <div class="rp-progress-bar"><div class="rp-progress-fill"></div></div>
+            <div class="rp-footer-meta">
+              <span class="rp-footer-stat"><span class="rp-s-num">20</span>/50 generados</span>
+              <span class="rp-footer-sep">·</span>
+              <span class="rp-footer-stat">1h 23min restante</span>
+              <span class="rp-footer-sep">·</span>
+              <span class="rp-footer-stat save"><span class="rp-s-num">USD 4K</span> ahorrados</span>
+            </div>
+          </div>
+
+        </div><!-- /readapt-pipeline -->
+
       </div>
     </div>
+
 
     <!-- Col 3: Use Cases -->
     <div class="agent-cases reveal">
